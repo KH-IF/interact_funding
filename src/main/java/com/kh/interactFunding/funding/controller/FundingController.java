@@ -14,7 +14,7 @@ public class FundingController {
 	
 	//김윤수
 	
-	//김경태 졸리다......
+	//김경태 졸리다
 	
 	//김주연
 	
