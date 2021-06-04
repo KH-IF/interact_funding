@@ -12,7 +12,7 @@ public class FundingController {
 	@Autowired
 	private FundingService fundingService;
 	
-	//김윤수
+	//김윤수(test)
 	
 	//김경태
 	
