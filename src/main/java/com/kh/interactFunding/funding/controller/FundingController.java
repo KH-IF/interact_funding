@@ -20,7 +20,7 @@ public class FundingController {
 	
 	//박요한
 	
-	//배기원
+	//배기원(test 해보겠습니다)
 	
 	//이승우
 	
