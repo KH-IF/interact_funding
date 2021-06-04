@@ -19,11 +19,6 @@ section {
 	position:relative;
 	border:1px solid red;
 }
-
-h1{
-	color:gray;
-}
-
 a:link {
 	color: black;
 	text-decoration: none;
