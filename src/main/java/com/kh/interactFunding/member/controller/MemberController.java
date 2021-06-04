@@ -17,7 +17,7 @@ public class MemberController {
 	private MemberService memberService;
 	//김윤수
 	
-	@GetMapping("memberList")
+	@GetMapping("/memberList")
 	public String memberList() {
 		log.info("index 페이지 요청");
 		return "forward:/index.jsp";
@@ -33,13 +33,4 @@ public class MemberController {
 	//이승우
 	
 	//천호현
-	
-	@GetMapping("memberList")
-	public String hocheon() {
-		log.info("테스트 깃");
-		log.info("테스트 충돌테스트");
-		log.debug("김윤수님");
-		return "forward:/index.jsp";
-	}
-	
 }
