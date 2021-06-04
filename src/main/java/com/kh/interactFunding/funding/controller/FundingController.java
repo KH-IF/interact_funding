@@ -16,7 +16,7 @@ public class FundingController {
 	
 	//김경태
 	
-	//김주연
+	//김주연 commit확인
 	
 	//박요한 push
 	
