@@ -187,11 +187,11 @@ input[type=search]{
 /* 목록 제목 */
 
 .FundingProjectCardItem{
-    border: 1px solid black;
+    background-color: #dadada;
+    border: 1px solid;
 }
 
 .FundingProjectCardItemImage{
-    border: 1px solid black;
     width: 100%;
     height: 200px;
     background-image: url("./../image/tech1.jpg");
@@ -199,6 +199,7 @@ input[type=search]{
     background-repeat: no-repeat;
 }
 .FundingProjectCardListInfo{
+	background-color: white;
     overflow: hidden;
 }
 .FundingProjectCardItemTitleBox{
@@ -252,7 +253,8 @@ input[type=search]{
     float: right;
 }
 .MoreFunding{
-    margin-top: 10px;
+    margin-top: 45px;
+    margin-bottom: 45px;
     text-align: center;
 
 }

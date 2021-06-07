@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.interactFunding.funding.model.service.FundingService;
 import com.kh.interactFunding.funding.model.vo.Funding;
@@ -51,9 +52,16 @@ public class FundingController {
 	//이승우
 	//흠흠
 	@GetMapping("/fundingList")
-	public void fundingList() {
+	public ModelAndView fundingList(ModelAndView mav) {
+		// 업무로직
 		List<Funding> list = fundingService.fundingList();
 		System.out.println("list"+list);
+		
+		//jsp에 위임
+		mav.addObject("list", list);
+		
+		
+		return mav;
 	}
 	
 	@GetMapping("/earlyList")
