@@ -22,7 +22,11 @@ public class MemberController {
 		
 	}
 	@GetMapping("/memberEnroll")
-	public void memberenroll() {
+	public void memberEnroll() {
+		
+	}
+	@GetMapping("memberEnroll_if")
+	public void memberEnroll_if(){
 		
 	}
 	//김경태
