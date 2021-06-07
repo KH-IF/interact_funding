@@ -11,7 +11,7 @@
 	<div>
 		<section>
 			<ol>
-				<li><a href="${pageContext.request.contextPath }//">스토리</a>
+				<li><a href="${pageContext.request.contextPath }/">스토리</a>
 				</li>
 				<li><a href="${pageContext.request.contextPath }/funding/news.do">새소식</a>
 				</li>
@@ -22,42 +22,33 @@
 			</ol>
 			<div class="yh-container">
 				<div class="yh-containerView">
-					<div class="yh-view">
-						<h2>새소식</h2>
+					<div class="yh-s-view">
+						<h2>현재 이 프로젝트에 <br /> 298명의 참여가 이루어졌습니다.</h2>
 					</div>
 					<div class="yh-containertable">
-						<table class="yh-table">
+						<table class="yh-s-table">
 							<tr>
 								<td>
-									<a href="${pageContext.request.contextPath }/funding/newsView.do">
-										<div>
-											<p>이벤트</p>
-											<p>제목</p>
-											<p>날짜 | 댓글</p>
-										</div>
-									</a>
+									<p>id님이 펀딩으로 참여 하셨습니다.</p>
+									<p>7시간전</p>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<a href="">
-										<div>
-											<p>이벤트</p>
-											<p>제목</p>
-											<p>날짜 | 댓글</p>
-										</div>
-									</a>
+									<p>id님이 펀딩으로 참여 하셨습니다.</p>
+									<p>7시간전</p>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<a href="">
-										<div>
-											<p>이벤트</p>
-											<p>제목</p>
-											<p>날짜 | 댓글</p>
-										</div>
-									</a>
+									<p>id님이 펀딩으로 참여 하셨습니다.</p>
+									<p>7시간전</p>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p>id님이 펀딩으로 참여 하셨습니다.</p>
+									<p>7시간전</p>
 								</td>
 							</tr>
 						</table>
