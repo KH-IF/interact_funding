@@ -33,6 +33,16 @@ public class FundingController {
 		
 	}
 	
+	@GetMapping("/supporter.do")
+	public void supporter() {
+		
+	}
+	
+	@GetMapping("newsView.do")
+	public void newsView() {
+		
+	}
+	
 	//배기원(test 해보겠습니다)
 	
 	//이승우
