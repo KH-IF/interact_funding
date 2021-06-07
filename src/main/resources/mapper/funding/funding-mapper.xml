@@ -9,5 +9,13 @@
 	<!-- 박요한 -->
 	<!-- 배기원 -->
 	<!-- 이승우 -->
+	<select id="selectFundingList" resultType="funding">
+		select
+			*
+		from
+			funding f
+		order by
+			funding_no desc
+	</select>
 	<!-- 천호현 -->
 </mapper>

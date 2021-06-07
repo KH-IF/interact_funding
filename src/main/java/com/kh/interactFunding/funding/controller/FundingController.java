@@ -1,11 +1,14 @@
 package com.kh.interactFunding.funding.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.interactFunding.funding.model.service.FundingService;
+import com.kh.interactFunding.funding.model.vo.Funding;
 
 @Controller
 @RequestMapping("funding")
@@ -27,6 +30,12 @@ public class FundingController {
 	//흠흠
 	@GetMapping("/fundingList")
 	public void fundingList() {
+		List<Funding> list = fundingService.fundingList();
+		System.out.println("list"+list);
+	}
+	
+	@GetMapping("/earlyList")
+	public void earlyList() {
 		
 	}
 	//천호현

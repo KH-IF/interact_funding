@@ -5,122 +5,42 @@
     border: 1px solid;
 }
 
-/* 슬라이드 이미지 */
-.FundingViewSlider{
-    position: relative;
-    background: lightgray;
-    overflow: hidden;
-    /* max-width: 100%;
-    height: 400px;
-    margin:0 auto;
-    overflow: hidden; */
-    border: 1px solid black;
-}
-.FundingViewSlideList{
+/*슬라이드 이미지*/
+.carousel-item active a img{
+    width: 100%;
     height: 100%;
 }
-.FundingViewSlideTrack{
-    width:4000px;
-    opacity: 1;
-    transform: translate(-800px, 0px, 0px);
+
+/*오픈예정 리스트*/
+.EarlyProjectListHeadTitle{
+	font-size:24px;
+	font-weight:700;
+	margin-top: 60px;
+	margin-bottom: 20px
 }
-.FundingViewSlideClone{
-    width: 1300px;
+.EarlyProjectCardItemTitleLinkArea{
+	text-decoration:none;
+}
+.EarlyProjectCardItemTitleLink,
+.EarlyProjectCardDay,
+.RewordProjectCardMakerName{
+	margin:0;
+}
+.EarlyProjectCardItemTitleLink{
+	font-size:20px;
+}
+.EarlyProjectCardDay{
+	font-weight:700;
+	font-size:20px;
+	color: #00b2b2;
+}
+.RewordProjectCardMakerName{
+	font-weight:700;
+	font-size:13px;
 }
 
-.FundingViewSlideClone a{
-    max-width: 100%;
-    height: 500px;
-    display: block;
-    background-image: url("./../image/food1.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-.FundingViewSlideWrap{
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%);
-    width: 100%;
-    max-width: 1440px;
-    box-sizing: border-box;
-}
-.FundingViewSlideText{
-    padding: 44px 44px 45px;
-}
-.FundingViewSlideTitle{
-    width: 460px;
-    line-height: 40px;
-    font-size: 32px;
-    font-weight: 700;
-    color: white;
-}
-.FundingViewSlideContent{
-    line-height: 18px;
-    font-size: 13px;
-    font-weight: 400;
-    display: inline-block;
-    margin-right: 4px;
-    color: white;
-    font-weight: 600;
-}
-
-/* 슬라이드 이미지 슬라이드바 */
-.FundingViewSlideBar{
-    position: relative;
-    margin: 0 auto;
-    box-sizing: border-box;
-    max-width: 1440px;
-    height: 0;
-}
-.FundingViewSlideArrows{
-    display: block;
-    position: absolute;
-    bottom: 0;
-    z-index: 10;
-    padding: 30px 0;
-    right: 128px;
-}
-.FundingViewSlideArrowsPrev,
-.FundingViewSlideArrowsNext{
-    outline: none;
-    margin: 0;
-    background: rgba(0, 0, 0, .1);
-    width: 40px;
-    height: 40px;
-    transition: color .2s;
-    border: 0;
-    cursor: pointer;
-    line-height: 0;
-    color: hsla(0, 0%, 100%, .5);
-    font-size: 0;
-}
-.FundingViewSlideArrowsPrev{
-    background-position: center;
-    background-size: 40%;
-    background-image: url("./../image/left.png");
-    background-repeat: no-repeat;
-}
-.FundingViewSlideArrowsNext{
-    background-position: center;
-    background-size: 40%;
-    background-image: url("./../image/right.png");
-    background-repeat: no-repeat;
-}
-
-.FundingViewSlideBarActive{
-    bottom: 20px;
-    left: 44px;
-    position: absolute;
-    z-index: 9;
-    background: hsla(0, 0%, 100%, 3);
-    width: 375px;
-    height: 2px;
-}
-
-/*카테고리*/
+/*펀딩리스트*/
+/*펀딩카테고리*/
 
 .FundingCategoryContainer{
     text-align: center;
@@ -276,6 +196,7 @@ input[type=search]{
     height: 200px;
     background-image: url("./../image/tech1.jpg");
     background-size: 100%;
+    background-repeat: no-repeat;
 }
 .FundingProjectCardListInfo{
     overflow: hidden;
@@ -338,13 +259,15 @@ input[type=search]{
 .MoreFunding button{
     width: 300px;
     font-size: 15px;
-    border: 1px solid skyblue;
     background-color: white;
     color: skyblue;
     padding: 15px 0px;
     border-radius: 10px;
     font-weight: 700;
     cursor: pointer;
+    border:0;
+    border: 1px solid skyblue;
+    outline:0;
 }
 .MoreFunding button:hover{
     background-color: skyblue;
