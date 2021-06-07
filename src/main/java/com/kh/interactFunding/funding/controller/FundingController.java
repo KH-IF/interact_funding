@@ -37,7 +37,10 @@ public class FundingController {
 	
 	//이승우
 	//흠흠
-	
+	@GetMapping("/fundingList")
+	public void fundingList() {
+		
+	}
 	//천호현
 	@GetMapping("/funding_detail")
 	public void fundingDetail() {
