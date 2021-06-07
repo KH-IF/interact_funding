@@ -23,6 +23,7 @@ import com.kh.interactFunding.funding.model.service.FundingService;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@RequestMapping("funding")
 @Slf4j
 public class FundingController {
 	@Autowired
