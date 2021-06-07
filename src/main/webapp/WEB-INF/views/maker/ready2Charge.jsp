@@ -181,7 +181,7 @@ function saveCharge(){
 
     const charge = $("section").find("[name=choiceCharge]:checked").val();
     //console.log(charge);
-    location.href=`${pageContext.request.contextPath}/maker/saveCharge/\${charge}`;
+    location.href=`${pageContext.request.contextPath}/makerFunding/saveCharge/\${charge}`;
 
 }
 
