@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.interactFunding.funding.model.service.FundingService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
-@RequestMapping("funding")
+@RequestMapping("/funding")
+@Slf4j
 public class FundingController {
 	@Autowired
 	private FundingService fundingService;
@@ -20,6 +23,15 @@ public class FundingController {
 	//김주연 commit확인
 	
 	//박요한 push
+	@GetMapping("/news.do")
+	public void news() {
+		
+	}
+	
+	@GetMapping("/community.do")
+	public void community() {
+		
+	}
 	
 	//배기원(test 해보겠습니다)
 	
@@ -30,5 +42,19 @@ public class FundingController {
 		
 	}
 	//천호현
-	//충돌테스트
+	@GetMapping("/funding_detail")
+	public void fundingDetail() {
+		log.debug("funding_detail페이지접속");
+	}
+	
+	@GetMapping("/funding_reward")
+	public void fundingReward() {
+		log.debug("funding_reward페이지접속");
+	}
+	
+	
+	
+	
+	
+	
 }
