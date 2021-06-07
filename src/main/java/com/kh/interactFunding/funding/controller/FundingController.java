@@ -23,12 +23,24 @@ public class FundingController {
 	//김주연 commit확인
 	
 	//박요한 push
+	@GetMapping("/news.do")
+	public void news() {
+		
+	}
+	
+	@GetMapping("/community.do")
+	public void community() {
+		
+	}
 	
 	//배기원(test 해보겠습니다)
 	
 	//이승우
 	//흠흠
-	
+	@GetMapping("/fundingList")
+	public void fundingList() {
+		
+	}
 	//천호현
 	@GetMapping("/funding_detail")
 	public void fundingDetail() {

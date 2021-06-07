@@ -25,6 +25,7 @@
 			<input type="submit" class="btn btn-info" value="로그인" />
 		</form>
 		<hr />
+		<img src="${pageContext.request.contextPath}/resources/images/socialTemp.png"/>
 		<div id="loginDesc">아직 이프 계정이 없나요??   <a href="${pageContext.request.contextPath}/member/memberEnroll"><strong>회원가입</strong></a></div>
 	</div>
 	<style>
