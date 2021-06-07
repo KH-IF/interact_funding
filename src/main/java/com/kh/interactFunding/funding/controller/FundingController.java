@@ -2,12 +2,16 @@ package com.kh.interactFunding.funding.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.interactFunding.funding.model.service.FundingService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
-@RequestMapping("funding")
+@RequestMapping("/funding")
+@Slf4j
 public class FundingController {
 	@Autowired
 	private FundingService fundingService;
@@ -26,5 +30,19 @@ public class FundingController {
 	//흠흠
 	
 	//천호현
-	//충돌테스트
+	@GetMapping("/funding_detail")
+	public void fundingDetail() {
+		log.debug("funding_detail페이지접속");
+	}
+	
+	@GetMapping("/funding_reward")
+	public void fundingReward() {
+		log.debug("funding_reward페이지접속");
+	}
+	
+	
+	
+	
+	
+	
 }
