@@ -17,10 +17,17 @@ public class MemberController {
 	private MemberService memberService;
 	//김윤수
 	
-	@GetMapping("/memberList")
-	public String memberList() {
-		log.info("index 페이지 요청");
-		return "forward:/index.jsp";
+	@GetMapping("/login")
+	public void login() {
+		
+	}
+	@GetMapping("/memberEnroll")
+	public void memberEnroll() {
+		
+	}
+	@GetMapping("memberEnroll_if")
+	public void memberEnroll_if(){
+		
 	}
 	//김경태
 	

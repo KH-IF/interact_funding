@@ -1,0 +1,154 @@
+@charset "UTF-8";
+
+ol {
+	height: 50px;
+	padding: 0;
+	margin: 0;
+	border: 2px solid black;
+}
+
+li {
+	display: inline-block;
+	width: 98px;
+}
+
+.yh-container {
+	position: relative;
+}
+
+.yh-containerView {
+	width: 950px;
+	display: inline-block;
+	padding-left: 100px;
+}
+
+/* news */
+.yh-view {
+	position: absolute;
+	top: 0;
+	border-bottom: 2px solid black;
+	width: 800px;
+}
+
+.yh-containertable{
+	position: absolute;
+	top: 80px;
+}
+
+.yh-table td{
+	border-bottom: 1px solid lightgray;
+	width: 800px;
+}
+
+/* 새소식 펀딩 */
+.yh-funding {
+	width: 200px;
+	display: inline-block;
+}
+
+.yh-fundingStyle{
+	border: 2px solid black;
+}
+
+/* 커뮤니티 */
+.yh-c-view {
+	/* position: absolute;
+	top: 0; */
+	width: 800px;
+}
+
+/* .yh-FAQ{
+	position: absolute;
+	top: 90px;
+} */
+
+/* .yh-c-containertable{
+	position: absolute;
+	top: 200px;
+} */
+
+yh-c-table{
+	position: relative;
+}
+
+.yh-c-table p{
+	border-bottom: 1px solid lightgray;
+	width: 800px;
+	height: 35px;
+	margin: 0;
+	margin-top: 10px;
+}
+
+.FAQB{
+	position: absolute;
+	left: 400px;
+	margin-top: 30px;
+}
+
+.inquire{
+	margin-top:100px;
+}
+
+.maker{
+	position: relative;
+	padding-bottom: 60px;
+	border-bottom: 1px solid lightgray;
+	width: 800px;
+}
+
+.maker div{
+	display: inline-block;
+}
+
+.maker-logo{
+	height: 50px;
+	width: 50px;
+	border: 1px solid black;
+	display: inline-block;
+}
+
+.logoimg{
+	height: 50px;
+	width: 50px;
+}
+
+.inquire-btn{
+	position: absolute;
+	top: 30px;
+}
+
+.review-top{
+	border-bottom: 1px solid black;
+	padding-bottom: 15px;
+	width: 800px;
+}
+
+.yh-comment{
+	width: 800px;
+	margin-top: 20px;
+}
+
+.yh-maker-comment{
+	width: 800px;
+	margin-top: 10px;
+	background-color: lightblue;
+}
+
+/* 커뮤니티 펀딩 */
+.yh-c-funding {
+	width: 200px;
+	display: inline-block;
+	position: absolute;
+}
+
+/* 서포터 */
+.yh-s-view{
+	position: absolute;
+	top: 0;
+	width: 800px;
+}
+.yh-s-table td{
+	border-bottom: 1px solid lightgray;
+	width: 800px;
+	padding-top: 20px
+}

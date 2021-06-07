@@ -7,13 +7,13 @@
 	</section>
 	<footer>
 	<h3>footer</h3>
-	<h2><a href="${pageContext.request.contextPath }/member/memberList">김윤수</a></h2>
+	<h2><a href="${pageContext.request.contextPath }/member/login">김윤수</a></h2>
 	<h2><a href="${pageContext.request.contextPath }/">김경태</a></h2>
-	<h2><a href="${pageContext.request.contextPath }/">김주연</a></h2>
-	<h2><a href="${pageContext.request.contextPath }/">박요한</a></h2>
+	<h2><a href="${pageContext.request.contextPath }/maker/fundingStart1">김주연</a></h2>
+	<h2><a href="${pageContext.request.contextPath }/funding/news.do">박요한</a></h2>
 	<h2><a href="${pageContext.request.contextPath }/">배기원</a></h2>
-	<h2><a href="${pageContext.request.contextPath }/">이승우</a></h2>
-	<h2><a href="${pageContext.request.contextPath }/">천호현</a></h2>
+	<h2><a href="${pageContext.request.contextPath }/funding/fundingList">이승우</a></h2>
+	<h2><a href="${pageContext.request.contextPath }/funding/funding_detail">천호현</a></h2>
 	</footer>
 </body>
 </html>

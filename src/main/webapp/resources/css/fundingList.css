@@ -1,0 +1,275 @@
+/* 펀딩리스트 */
+.FundingMainWrapper{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid;
+}
+
+/*슬라이드 이미지*/
+.carousel-item active a img{
+    width: 100%;
+    height: 100%;
+}
+
+/*오픈예정 리스트*/
+.EarlyProjectListHeadTitle{
+	font-size:24px;
+	font-weight:700;
+	margin-top: 60px;
+	margin-bottom: 20px
+}
+.EarlyProjectCardItemTitleLinkArea{
+	text-decoration:none;
+}
+.EarlyProjectCardItemTitleLink,
+.EarlyProjectCardDay,
+.RewordProjectCardMakerName{
+	margin:0;
+}
+.EarlyProjectCardItemTitleLink{
+	font-size:20px;
+}
+.EarlyProjectCardDay{
+	font-weight:700;
+	font-size:20px;
+	color: #00b2b2;
+}
+.RewordProjectCardMakerName{
+	font-weight:700;
+	font-size:13px;
+}
+
+/*펀딩리스트*/
+/*펀딩카테고리*/
+
+.FundingCategoryContainer{
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.FundingCategoryList{
+    padding-left: 48px;
+    text-indent: -48px;
+    line-height: 0;
+    font-size: 0;
+    margin: auto;
+
+}
+
+.FundingCategoryListWrap{
+    display: inline-block;
+}
+
+.FundingCategoryListCricle{
+    display: inline-block;
+    margin: 0;
+    width: 80px;
+    height: 118px;
+    text-align: center;
+    text-indent: 0;
+    font-size: 13px;
+    box-sizing: border-box;
+    
+}
+
+.FundingCategoryListCricleImage0,
+.FundingCategoryListCricleImage1,
+.FundingCategoryListCricleImage2,
+.FundingCategoryListCricleImage3,
+.FundingCategoryListCricleImage4,
+.FundingCategoryListCricleImage5,
+.FundingCategoryListCricleImage6,
+.FundingCategoryListCricleImage7,
+.FundingCategoryListCricleImage8{
+    margin:auto;
+    display: block;
+    background-size: 175%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border-width: 2px;
+    border: 2px white solid;
+}
+.FundingCategoryListCricleImage0:hover,
+.FundingCategoryListCricleImage1:hover,
+.FundingCategoryListCricleImage2:hover,
+.FundingCategoryListCricleImage3:hover,
+.FundingCategoryListCricleImage4:hover,
+.FundingCategoryListCricleImage5:hover,
+.FundingCategoryListCricleImage6:hover,
+.FundingCategoryListCricleImage7:hover,
+.FundingCategoryListCricleImage8:hover{
+    border: 2px skyblue solid;
+}
+
+
+.FundingCategoryListCricleImage0{
+    background-image: url("./../image/category.jpg");
+}
+.FundingCategoryListCricleImage1{
+    background-image: url("./../image/tech1.jpg");
+}
+.FundingCategoryListCricleImage2{
+    background-image: url("./../image/food3.jpg");
+}
+.FundingCategoryListCricleImage3{
+    background-image: url("./../image/trip.jpg");
+}
+.FundingCategoryListCricleImage4{
+    background-image: url("./../image/sports.jpg");
+}
+.FundingCategoryListCricleImage5{
+    background-image: url("./../image/game.jpg");
+}
+.FundingCategoryListCricleImage6{
+    background-image: url("./../image/meeting2.jpg");
+}
+.FundingCategoryListCricleImage7{
+    background-image: url("./../image/pet.jpg");
+    background-size: 150%;
+}
+.FundingCategoryListCricleImage8{
+    background-image: url("../image/donate.jpg");
+    background-size: 120%;
+}
+.FundingCategoryListCricleName{
+    margin-top: 8px;
+    line-height: 18px;
+    white-space: nowrap;
+    font-size: 14px;
+    color: black;
+    font-weight: 600;
+}
+
+/* 카테고리 제목 */
+.FundingProjectListHead{
+    position: relative;
+    margin: 0 auto;
+    text-align: right;
+}
+.FundingProjectListHeadTitle{
+    font-weight: 700;
+    display: block;
+    position: absolute;
+    bottom: -27px;
+    line-height: 32px;
+    font-size: 24px;
+    left: 0;
+}
+
+input[type=search]{
+    opacity: 1;
+    outline: none;
+}
+.FundingProjectListSearch{
+    display: inline-block;
+}
+.SearchButtonIcon{
+    display: inline-block;
+}
+.FundingProjectListSearchOption1{
+    display: inline-block;
+}
+.FundingProjectListSearchOption2{
+    display: inline-block;
+}
+
+/* 목록 */
+.FundingProjectCardListIn{
+    display: grid;
+    grid-template-columns: repeat(3, calc(33.33% - 30px));
+    gap: 45px;
+    margin-top: 30px;
+}
+
+/* 목록 제목 */
+
+.FundingProjectCardItem{
+    border: 1px solid black;
+}
+
+.FundingProjectCardItemImage{
+    border: 1px solid black;
+    width: 100%;
+    height: 200px;
+    background-image: url("./../image/tech1.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.FundingProjectCardListInfo{
+    overflow: hidden;
+}
+.FundingProjectCardItemTitleBox{
+    height: 80px;
+}
+.FundingProjectCardItemTitleLink{
+    text-decoration: none;
+}
+
+.FundingProjectCardItemTitleLink p{
+    display: block;
+    margin:0;
+    font-size: 20px;
+    color: black;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.RewordProjectCardCategory{
+    font-size: 14px;
+    font-weight: 700;
+    opacity: .5;
+}
+
+.RewordProjectCardMakerName{
+    font-size: 14px;
+    font-weight: 700;
+    opacity: .5;
+}
+
+.RewordProjectCardBar span{
+    display: block;
+    background-color: skyblue;
+    width: 20%;
+    height: 2px;
+    height: 3px;
+    margin-top: 10px;
+}
+.RewordProjectCardPercent{
+    color: skyblue;
+    font-size: 15px;
+    font-weight: 600;
+}
+.RewordProjectCardAmount{
+    color: #90949c;
+    font-weight: 600;
+}
+.RewordProjectCardDay{
+    color: #90949c;
+    font-weight: 600;
+    float: right;
+}
+.MoreFunding{
+    margin-top: 10px;
+    text-align: center;
+
+}
+.MoreFunding button{
+    width: 300px;
+    font-size: 15px;
+    background-color: white;
+    color: skyblue;
+    padding: 15px 0px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    border:0;
+    border: 1px solid skyblue;
+    outline:0;
+}
+.MoreFunding button:hover{
+    background-color: skyblue;
+    color: white;
+}
