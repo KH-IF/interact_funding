@@ -19,10 +19,15 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <!-- SweetAlert Ver1 , 2아님 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<c:if test="${not empty msg}">
+<script>
+	alert("${msg}");
+</script>
+</c:if>
 </head>
 <body>
 	<header>
 	<h1>헤더</h1>
+	${loginMember}
 	</header>
 	<section>

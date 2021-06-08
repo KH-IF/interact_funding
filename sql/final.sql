@@ -59,12 +59,13 @@ create table member(
     platform varchar2(100),
     access_token varchar2(300),
     point number,
-    member_role char(1),
     reg_date date default sysdate,
-    phone char(11) not null,
-    constraint pk_member_no primary key(member_no),
-    constraint ck_member_role check(member_role in ('A','U'))
+    phone char(11),
+    constraint pk_member_no primary key(member_no)
 );
+commit;
+rollback;
+
 --회원테이블 seq
 create sequence seq_member_no;
 
@@ -345,7 +346,10 @@ create sequence seq_admin_board_no;
 
 
 --김윤수 테스트영역
-select * from member;
+select * from member; 
+select count(*) from member  where email = 'kimdia200@naver.com';
+desc member;
+insert into member(member_no, email, password, name, platform, reg_date) values(seq_member_no.nextval, 'email', 'password', 'name', 'platform', default);
 --김경태 테스트영역
 
 --김주연 테스트영역
