@@ -350,6 +350,18 @@ select * from member;
 select count(*) from member  where email = 'kimdia200@naver.com';
 desc member;
 insert into member(member_no, email, password, name, platform, reg_date) values(seq_member_no.nextval, 'email', 'password', 'name', 'platform', default);
+
+select rownum, f.*
+from (
+        select *
+        from funding  
+        where start_date < sysdate and d_day > sysdate
+        order by reg_date  desc
+        ) f
+where rownum between 1 and 6;
+update funding
+set d_day = '21/06/20';
+commit;
 --김경태 테스트영역
 
 --김주연 테스트영역

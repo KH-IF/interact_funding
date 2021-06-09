@@ -109,6 +109,21 @@ public class MemberController {
 		return "redirect:"+ (next != null ? next : "/");
 	}
 	
+	@GetMapping("/logout")
+	public String logout(
+			@RequestHeader (name = "Referer", required = false) String referer,
+			HttpServletRequest request,
+			Model model
+			) {
+		request.getSession().removeAttribute("loginMember");
+		model.addAttribute("loginMember",null);
+		if(referer != null) {
+			return "redirect:"+referer;
+		}else {
+			return "redirect:/";
+		}
+	}
+	
 	@GetMapping("/memberEnroll")
 	public void memberEnroll() {
 		
