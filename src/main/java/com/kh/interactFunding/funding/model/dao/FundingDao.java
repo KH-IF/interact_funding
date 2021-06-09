@@ -19,4 +19,5 @@ public interface FundingDao {
 	//이승우
 	public List<Funding> fundingList();
 	//천호현
+	public Funding selectOneFunding(int funding_no);
 }

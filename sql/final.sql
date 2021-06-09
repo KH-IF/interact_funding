@@ -61,7 +61,7 @@ create table member(
     point number,
     member_role char(1),
     reg_date date default sysdate,
-    phone char(11) not null,
+    phone char(11),
     constraint pk_member_no primary key(member_no),
     constraint ck_member_role check(member_role in ('A','U'))
 );
@@ -357,6 +357,13 @@ select * from member;
 --이승우 테스트영역
 
 --천호현 테스트영역
+select * from funding;
+        select
+			*
+		from
+			funding
+		where
+			funding_no =9;
 
 -----------------------
 select * from tab;

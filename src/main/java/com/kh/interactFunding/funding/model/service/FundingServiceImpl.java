@@ -30,5 +30,12 @@ public class FundingServiceImpl implements FundingService{
 		return fundingDao.fundingList();
 	}
 	//천호현
+
+	@Override
+	public Funding selectOneFunding(int funding_no) {
+		return fundingDao.selectOneFunding(funding_no);
+	}
+	
+	
 	
 }

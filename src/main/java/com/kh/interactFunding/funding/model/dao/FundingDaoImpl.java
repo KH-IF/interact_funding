@@ -30,5 +30,12 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectList("funding.selectFundingList");
 	}
 	//천호현
+
+	@Override
+	public Funding selectOneFunding(int funding_no) {
+		return session.selectOne("funding.selectOneFunding", funding_no);
+	}
+	
+	
 	
 }
