@@ -14,11 +14,24 @@
 			*
 		from
 			funding f
-		order by
-			funding_no desc
+		<where>
+			title like '%' || '${searchKeyword}' || '%'
+			<if test="searchSelect1 == 'processing'">
+			and d_day <![CDATA[>]]> sysdate
+			</if>
+			<if test="searchSelect1 == 'quit'">
+			and d_day <![CDATA[<]]> sysdate
+			</if>
+		</where>
+		<if test="searchSelect2 == 'recent'">
+		order by reg_date desc
+		</if>
+		<if test="searchSelect2 == 'recommand'">
+		order by like_count desc
+		</if>
 	</select>
 	<!-- 천호현 -->
-		<select id="selectOneFunding" resultType="funding">
+	<select id="selectOneFunding" resultType="funding">
 		select
 			*
 		from

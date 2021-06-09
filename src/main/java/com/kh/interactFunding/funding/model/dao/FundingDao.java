@@ -1,6 +1,7 @@
 package com.kh.interactFunding.funding.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.interactFunding.funding.model.vo.Funding;
 
@@ -17,7 +18,12 @@ public interface FundingDao {
 	//배기원
 	
 	//이승우
-	public List<Funding> fundingList();
+	public List<Funding> fundingList(Map<String, Object> map);
+	
+	public List<Funding> fundingSearchList();
+	
 	//천호현
+
 	public Funding selectOneFunding(int funding_no);
+
 }
