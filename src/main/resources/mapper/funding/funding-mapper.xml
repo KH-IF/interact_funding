@@ -31,5 +31,12 @@
 		</if>
 	</select>
 	<!-- 천호현 -->
+	<select id="selectOneFunding" resultType="funding">
+		select
+			*
+		from
+			funding
+		where
+			funding_no = #{funding_no}
+	</select>
 </mapper>
-

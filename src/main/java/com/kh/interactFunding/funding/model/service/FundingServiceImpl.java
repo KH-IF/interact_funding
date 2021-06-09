@@ -31,11 +31,13 @@ public class FundingServiceImpl implements FundingService{
 		return fundingDao.fundingList(map);
 	}
 
+	//천호현
+
 	@Override
-	public List<Funding> fundingSearchList(String fundingSearchList) {
-		return fundingDao.fundingSearchList();
+	public Funding selectOneFunding(int funding_no) {
+		return fundingDao.selectOneFunding(funding_no);
 	}
 	
-	//천호현
+	
 	
 }

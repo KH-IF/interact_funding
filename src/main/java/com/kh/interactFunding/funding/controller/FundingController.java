@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -116,14 +117,28 @@ public class FundingController {
 	}
 	
 	//천호현
-	@GetMapping("/funding_detail")
-	public void fundingDetail() {
-		log.debug("funding_detail페이지접속");
+	@GetMapping("/fundingDetail")
+	public void fundingDetail(@RequestParam int funding_no, Model model) {
+		//1. 업무로직
+		Funding funding = fundingService.selectOneFunding(funding_no);
+		log.debug("funding = {}" , funding);
+		//2. 위임
+		model.addAttribute("funding", funding);
+		
 	}
 	
-	@GetMapping("/funding_reward")
+	
+	@GetMapping("/fundingReward")
 	public void fundingReward() {
-		log.debug("funding_reward페이지접속");
+	}
+	@GetMapping("/fundingChatMaker")
+	public void fundingChatMaker() {
+	}
+	@GetMapping("/fundingPayment")
+	public void fundingPayment() {
+	}
+	@GetMapping("/fundingFindAddress")
+	public void fundingFindAddress() {
 	}
 	
 	
