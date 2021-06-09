@@ -1,17 +1,25 @@
 package com.kh.interactFunding.funding.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.interactFunding.funding.model.service.FundingService;
 import com.kh.interactFunding.funding.model.vo.Funding;
 
 import lombok.extern.slf4j.Slf4j;
+
 
 @Controller
 @RequestMapping("/funding")
@@ -24,7 +32,29 @@ public class FundingController {
 	
 	//김경태 졸리다
 	
-	//김주연 commit확인
+	//김주연
+	@GetMapping("/maker/fundingStart1")
+	public void fundingStart1() {
+		log.debug("1");
+	}
+	
+	@PostMapping("/maker/insertMakerInfo")
+	public String insertMakerInfo(@RequestBody Object makerInfo, RedirectAttributes d ) {
+		try {
+			log.debug("makerInfo={}",makerInfo);
+			
+			//int result = fundingService.insertmakerInfo(makerInfo);
+			Map<String,Object> map  = new HashMap<String, Object>();
+			map.put("msg", "메뉴등록 성공");
+			return "/maker/fundingStart2";
+		} catch (Exception e) {
+			log.error("makerInfo 등록 오류",e);
+			throw e;
+		}
+	}
+	
+	@GetMapping("/maker/fundingStart2")
+	public void fundingStart2() {}
 	
 	//박요한 push
 	@GetMapping("/news.do")
@@ -52,22 +82,39 @@ public class FundingController {
 	//이승우
 	//흠흠
 	@GetMapping("/fundingList")
-	public ModelAndView fundingList(ModelAndView mav) {
+	public ModelAndView fundingList(
+			ModelAndView mav,
+			@RequestParam(required = false, defaultValue = "") String searchKeyword,
+			@RequestParam(required = false, defaultValue = "") String searchSelect1,
+			@RequestParam(required = false, defaultValue = "") String searchSelect2
+		) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchKeyword", searchKeyword);
+		map.put("searchSelect1", searchSelect1);
+		map.put("searchSelect2", searchSelect2);
+		log.debug("searchTitle = {}", searchKeyword);
+		
 		// 업무로직
-		List<Funding> list = fundingService.fundingList();
-		System.out.println("list"+list);
-		
-		//jsp에 위임
-		mav.addObject("list", list);
-		
-		
-		return mav;
+		try {
+			List<Funding> list = fundingService.fundingList(map);
+			System.out.println("list"+list);
+			log.debug("list = {}", list);
+			//jsp에 위임
+			mav.addObject("list", list);
+			
+			return mav;
+		}
+		catch(Exception e){
+			log.error("fundingList 조회 오류");
+			throw e;
+		}
 	}
 	
 	@GetMapping("/earlyList")
 	public void earlyList() {
 		
 	}
+	
 	//천호현
 	@GetMapping("/funding_detail")
 	public void fundingDetail() {

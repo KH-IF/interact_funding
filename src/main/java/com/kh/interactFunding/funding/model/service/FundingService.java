@@ -1,6 +1,7 @@
 package com.kh.interactFunding.funding.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.interactFunding.funding.model.vo.Funding;
 
@@ -17,7 +18,9 @@ public interface FundingService {
 	//배기원
 	
 	//이승우
-	public List<Funding> fundingList();
+	public List<Funding> fundingList(Map<String, Object> map);
+
+	public List<Funding> fundingSearchList(String fundingSearchList);
 	
 	//천호현
 	
