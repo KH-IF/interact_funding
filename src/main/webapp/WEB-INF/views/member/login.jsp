@@ -6,18 +6,30 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="이프" name="title" 	/>
 </jsp:include>
+<% 
+	String saveEmail = null;
+	Cookie[] cookies = request.getCookies();
+	if (cookies != null) {
+		for (Cookie c : cookies) {
+			String name = c.getName();
+			String value = c.getValue();
+			if ("saveEmail".equals(name))
+				saveEmail = value;
+		}
+	}
+%>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/login.css" />
 
 	<div id="loginContainer">
 		<h1>Login</h1>
-		<form action="${pageContext.request.contextPath}/member/login" method="post">
-			<input type="email" name="email" onchange=color(this) placeholder="이메일을 입력해주세요"/>
+		<form action="${pageContext.request.contextPath}/member/login_if" method="post">
+			<input type="email" name="email" onchange=color(this) placeholder="이메일을 입력해주세요" value='<%=saveEmail != null ? saveEmail : ""%>'/>
 			<br />
 			<input type="password" name="password" onchange=color(this) placeholder="비밀번호를 입력해주세요"/>
 			<br />
 			<div id=loginContainer2>
 				<div>
-					<input type="checkbox" name="remember" id="remember"/>
+					<input type="checkbox" name="remember" id="remember" <%= saveEmail != null ? "checked" : "" %>/>
 					<label for="remember">이메일 저장</label>
 				</div>
 				<a href="${pageContext.request.contextPath}/member/findid">아이디·비밀번호 찾기</a>
