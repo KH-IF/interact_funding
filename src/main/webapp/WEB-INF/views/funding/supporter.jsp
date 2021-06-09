@@ -11,7 +11,7 @@
 	<div>
 		<section>
 			<ol>
-				<li><a href="${pageContext.request.contextPath }/">스토리</a>
+				<li><a href="${pageContext.request.contextPath }/funding/fundingDetail">스토리</a>
 				</li>
 				<li><a href="${pageContext.request.contextPath }/funding/news.do">새소식</a>
 				</li>

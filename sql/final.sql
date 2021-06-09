@@ -373,6 +373,13 @@ commit;
 --이승우 테스트영역
 
 --천호현 테스트영역
+select * from funding;
+        select
+			*
+		from
+			funding
+		where
+			funding_no =9;
 
 -----------------------
 select * from tab;
