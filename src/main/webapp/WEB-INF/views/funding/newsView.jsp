@@ -4,222 +4,166 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param value="이프" name="title" />
+	<jsp:param value="funding_detail" name="title" />
 </jsp:include>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/news.css" />
-<body>
-	<div>
-		<section>
-			<ol>
-				<li><a href="${pageContext.request.contextPath }/">스토리</a>
-				</li>
-				<li><a href="${pageContext.request.contextPath }/funding/news.do">새소식</a>
-				</li>
-				<li><a href="${pageContext.request.contextPath }/funding/community.do">커뮤니티</a>
-				</li>
-				<li><a href="${pageContext.request.contextPath }/funding/supporter.do">서포터</a>
-				</li>
-			</ol>
-			<div>
-				<div class="yh-container">
-					<div class="yh-containerView">
-						<div class="yh-c-view">
-							<p>서포터님!</p>
-							<p>처음 메이커의 열정과 가치에 공감해주셨듯, 마지막까지 메이커를 응원해주세요.</p>
-						</div>
-						<div class="yh-FAQ">
-							<p>이프에서 펀딩하는 방법이 궁금하다면?</p>
-							<p>FAQ</p>
-						</div>
-						<div class="yh-c-containertable">
-							<table class="yh-c-table">
-								<tr>
-									<td>
-										<a href="">
-											<div>
-												<p>펀딩 했어요. 결제는 언제, 어떻게 진행되나요?</p>
-											</div>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<a href="">
-											<div>
-												<p>결제 실패 알림을 받았어요. 어떻게 해야하나요?</p>
-											</div>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<a href="">
-											<div>
-												<p>카드 결제가 진행된 후, 다른 카드로 변경할 수 있나요?</p>
-											</div>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<a href="">
-											<div>
-												<p>배송지나 옵션을 변경하고 싶어요.</p>
-											</div>
-										</a>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<div>
-											<input class="FAQB" type="button" value="더보기" />
-										</div>
-									</td>
-								</tr>
-							</table>
-							
-							<!-- 문의 -->
-							<div class="inquire">
-								<p>리워드, 배송 등 펀딩에 대해 궁금한 사항이 있다면?</p>
-								<p>메이커에게 문의하기</p>
-							</div>
-							<div class="maker">
-								<div class="maker-logo">
-									<a href=""><img class="logoimg" src=""></a>
-								</div>
-								<div>
-									<p>굿럭</p>
-									<p>평균 응답 시간 5시간 이내</p>
-								</div>
-								<div>
-									<input class="inquire-btn" type="button" value="문의하기" />
-								</div>
-							</div>
-							
-							<!-- 리뷰 -->
-							<div class="review-top">
-								<div>
-									<p>응원 · 의견 · 체험리뷰</p>
-									<p>펀딩 종료전에 남긴 글입니다.</p>
-								</div>
-								<div>
-									<input type="button" value="글 남기기" />
-								</div>
-								<div>
-									<input type="checkbox" name="" id="" />
-									<label for="">체험리뷰</label>
-								</div>
-							</div>
-							
-							<!-- 댓글 -->
-							<div class="yh-comment">
-								<div>
-									<strong>id</strong>
-									<span>펀딩 참여자</span>
-									<span>응원 · 17시간전</span>
-								</div>
-								<div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat laudantium aperiam totam aut magni voluptas perspiciatis sed ad quam ut molestiae ea eum doloremque blanditiis architecto rem laborum autem quae.</p>
-								</div>
-								<div>
-									<input type="button" value="답글" />
-								</div>
-								<div class="yh-maker-comment">
-									<div>
-										<strong>id</strong>
-										<span>메이커</span>
-										<span>17시간전</span>
-									</div>
-									<div>
-										<p>감사링!</p>
-									</div>
-								</div>
-							</div>
-							<div class="yh-comment">
-								<div>
-									<strong>id</strong>
-									<span>펀딩 참여자</span>
-									<span>응원 · 17시간전</span>
-								</div>
-								<div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat laudantium aperiam totam aut magni voluptas perspiciatis sed ad quam ut molestiae ea eum doloremque blanditiis architecto rem laborum autem quae.</p>
-								</div>
-								<div>
-									<input type="button" value="답글" />
-								</div>
-								<div class="yh-maker-comment">
-									<div>
-										<strong>id</strong>
-										<span>메이커</span>
-										<span>17시간전</span>
-									</div>
-									<div>
-										<p>감사링!</p>
-									</div>
-								</div>
-							</div>
-							<div class="yh-comment">
-								<div>
-									<strong>id</strong>
-									<span>펀딩 참여자</span>
-									<span>응원 · 17시간전</span>
-								</div>
-								<div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat laudantium aperiam totam aut magni voluptas perspiciatis sed ad quam ut molestiae ea eum doloremque blanditiis architecto rem laborum autem quae.</p>
-								</div>
-								<div>
-									<input type="button" value="답글" />
-								</div>
-								<div class="yh-maker-comment">
-									<div>
-										<strong>id</strong>
-										<span>메이커</span>
-										<span>17시간전</span>
-									</div>
-									<div>
-										<p>감사링!</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<!-- 펀딩 -->
-					<div class="yh-c-funding">
-						<div>
-							<h2>10일 남음</h2>
-							<h4>20% 달성</h4>
-							<h4>100000000</h4>
-							<h4>50</h4>
-						</div>
-						<div>
-							<input type="button" value="펀딩하기" />
-						</div>
-						<div>
-							<input type="button" value="좋아요" /> <input type="button"
-								value="1:1 채팅" /> <input type="button" value="공유하기" />
-						</div>
-						<div class="yh-c-fundingStyle">
-							<h4>10000원 펀딩</h4>
-							<p>if 얼리버드 세트</p>
-							<br /> <br /> <br /> <br /> <br />
-							<p>제한수량 5개</p>
-							<p>총 1개</p>
-						</div>
-						<div class="yh-fundingStyle">
-							<h4>인기프로젝트</h4>
-							<p>1.</p>
-							<p>2.</p>
-							<p>3.</p>
-							<p>4.</p>
-							<p>5.</p>
-						</div>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript"
+	src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60be12d9983015a6"></script>
+
+
+
+
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/news.css" />
+
+<div id="funding_tap">
+	<ol>
+		<li><a
+			href="${pageContext.request.contextPath }/funding/funding_detail">스토리</a>
+		</li>
+		<li><a href="${pageContext.request.contextPath }/funding/news.do">새소식</a>
+		</li>
+		<li><a
+			href="${pageContext.request.contextPath }/funding/community.do">커뮤니티</a>
+		</li>
+		<li><a
+			href="${pageContext.request.contextPath }/funding/supporter.do">서포터</a>
+		</li>
+	</ol>
+</div>
+
+<div id="funding_main">
+	<div id="funding_main_image_and_content">
+		<div id="nv-div">
+			<div class="yh-nv-view">
+				<input type="button" value="< 목록으로 이동" id="nv-view-btn" />
+				<p>이벤트 | 오픈예정</p>
+				<h2>[72시간 오픈 이벤트] 400분께 선물 드려요</h2>
+				<p>2021.06.04 18:16</p>
+			</div>
+			<div class="yh-nv-text">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+					Doloremque quae id earum a fuga corporis asperiores non deleniti
+					provident tempora saepe ducimus dicta vero. Delectus mollitia illo
+					asperiores deleniti cupiditate.Lorem ipsum dolor sit amet,
+					consectetur adipisicing elit. Quos voluptates quasi sit labore et
+					itaque quia non veniam laborum magni repudiandae odit doloremque
+					adipisci aut voluptatibus illum asperiores harum totam?</p>
+				<div id="nv-share-btn-div">
+					<input type="button" value="공유" id="nv-share-btn" />
+					<div class="popup" id="pop1">
+						<div class="popup-a" id="popup-a"></div>
+						<!-- Go to www.addthis.com/dashboard to customize your tools -->
+						<div class="addthis_inline_share_toolbox_a8gi"></div>
 					</div>
 				</div>
 			</div>
-		</section>
+
+			<!-- 댓글 -->
+			<div class="yh-comment">
+				<div class="nv-comment-red">
+					<small><strong>최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의
+							댓글로 인해 당사자간 법적분쟁이 발생한 사례가 증가하고 있습니다. 해당 프로젝트와 무관한 댓글 혹은 악의적 댓글
+							작성자는 명예훼손, 모욕 등으로 법적 책임을 부담하게 될 수 있으니, 유의하여 주시기 바랍니다. 개인정보(실명,
+							휴대폰번호, 주소 등)가 노출되지 않도록 유의하세요. 메이커에게 개인정보를 전달해야하는 경우, [메이커에게
+							문의하기]를 이용해주세요.</strong></small>
+				</div>
+				<textarea class="nv-comment"></textarea>
+				<input type="button" value="등록" id="nv-comment-btn" />
+				<div>
+					<strong>id</strong> <span>펀딩 참여자</span> <span>응원 · 17시간전</span>
+				</div>
+				<div>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+						Fugiat laudantium aperiam totam aut magni voluptas perspiciatis
+						sed ad quam ut molestiae ea eum doloremque blanditiis architecto
+						rem laborum autem quae.</p>
+				</div>
+				<div>
+					<input type="button" value="답글" id="c-comment-btn" />
+				</div>
+				<div class="yh-c-comment" id="yh-c-comment">
+					<textarea class="nv-c-comment" id="nv-c-comment"></textarea>
+					<input type="button" value="등록" id="nv-c-comment-btn" />
+				</div>
+				<div class="yh-maker-comment">
+					<div>
+						<strong>id</strong> <span>메이커</span> <span>17시간전</span>
+					</div>
+					<div>
+						<p>감사링!</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</body>
-</html>
+	<div id="funing_main_right_div">
+		<div id="funing_main_right_div_1">
+			<h2>10일 남음</h2>
+			<h4>20% 달성</h4>
+			<h4>100000000</h4>
+			<h4>50</h4>
+			<input id="funding_button" type="button" value="펀딩하기"
+				onclick="location.href='${pageContext.request.contextPath}/funding/funding_reward';" />
+			<input type="button" value="좋아요" /> <input type="button"
+				value="1:1 채팅" /> <input type="button" value="공유하기" />
+		</div>
+
+		<div id="funing_main_right_div_2"></div>
+
+		<div id="funing_main_right_div_3"></div>
+
+		<div id="funing_main_right_div_4"></div>
+
+	</div>
+</div>
+
+<script>
+$("#nv-view-btn").click(() => {
+	location.href = "${pageContext.request.contextPath}/funding/news.do"
+});
+
+$("#nv-share-btn").click(function(){
+	//만일 Pop라는 녀석이 닫혀있다면??
+
+    if(document.getElementById("pop1").style.display=="none"){
+
+       //열어주어라
+
+       document.getElementById("pop1").style.display='block'
+
+    //그렇지 않은 모든 경우라면??
+
+    }else{
+
+       //닫아주어라
+
+       document.getElementById("pop1").style.display='none'
+
+    }
+}); 
+
+$("#c-comment-btn").click(function(){
+		//만일 Pop라는 녀석이 닫혀있다면??
+
+        if(document.getElementById("yh-c-comment").style.display=="none"){
+
+           //열어주어라
+
+           document.getElementById("yh-c-comment").style.display='block'
+
+        //그렇지 않은 모든 경우라면??
+
+        }else{
+
+           //닫아주어라
+
+           document.getElementById("yh-c-comment").style.display='none'
+
+        }
+});
+
+</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

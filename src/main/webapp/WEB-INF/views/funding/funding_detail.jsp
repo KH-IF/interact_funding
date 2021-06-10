@@ -18,13 +18,13 @@
                     <a href="${pageContext.request.contextPath }/funding/funding_detail">스토리</a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath }/funding/funding_newboard">새소식</a>
+                    <a href="${pageContext.request.contextPath }/funding/news.do">새소식</a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath }/funding/funding_community">커뮤니티</a>
+                    <a href="${pageContext.request.contextPath }/funding/community.do">커뮤니티</a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath }/funding/funding_suporter">서포터</a>
+                    <a href="${pageContext.request.contextPath }/funding/supporter.do">서포터</a>
                 </li>
             </ol>
         </div>
