@@ -103,7 +103,7 @@
 	</style>
 	
 	<script>
-		var certification_code = '';
+		var Authentication_code = '';
 		var timer;
 		
 		//인증 코드 발송 메서드
@@ -135,28 +135,33 @@
 
 			//일단은 success메서드는 if절로 대신함
 			//ajax에서는 이미 가입한 회원인지 확인절차도 거쳐야함
-			if(true){
-				//인증코드 저장
-				certification_code = '인증코드';
-				
-				//sweetAlert 표시
-				swal("인증코드 발송 완료", "이메일을 확인해주세요", "success");
-				//안내메시지 변경
-				$("#msg").text("메일에 포함된 인증번호 6자리를 입력하세요");
-				//카운트 다운 작동
-				var time = 180;
-				timer = setInterval(() => {
-					var min = parseInt(time/60) != 0 ? (parseInt(time/60) + "분 ") : "";
-					var sec = time%60 + "초";
-					$("#timer").text(min+sec);
-			        if (time == 0) {
-			        	//clearInterval로 멈출수있음
-			            clearInterval(timer);
-			            $("#timer").text("입력시간 초과");
-			        }
-			        time=time-1;
-			    }, 1000);
-			}
+			var email = $("input[name=email]").val();
+			$.ajax({
+				url:"${pageContext.request.contextPath}/member/enrollAuthenticationCode",
+				data:{email:email},
+				success: function(data){
+					//인증코드 저장
+					Authentication_code=data;
+					//sweetAlert 표시
+					swal("인증코드 발송 완료", "이메일을 확인해주세요", "success");
+					//안내메시지 변경
+					$("#msg").text("메일에 포함된 인증번호 6자리를 입력하세요");
+					//카운트 다운 작동
+					var time = 180;
+					timer = setInterval(() => {
+						var min = parseInt(time/60) != 0 ? (parseInt(time/60) + "분 ") : "";
+						var sec = time%60 + "초";
+						$("#timer").text(min+sec);
+				        if (time == 0) {
+				        	//clearInterval로 멈출수있음
+				            clearInterval(timer);
+				            $("#timer").text("입력시간 초과");
+				        }
+				        time=time-1;
+				    }, 1000);
+				},
+				error:console.log
+			});
 		}
 
 		//인증코드 확인 메서드
@@ -170,7 +175,7 @@
 
 			//인증코드 확인
 			var code = $("#emailCertification2 input[type=text]").val();
-			if(code!=certification_code){
+			if(code!=Authentication_code){
 				swal("인증코드가 불일치","인증코드를 다시 확인해주세요","error");
 				return;
 			}

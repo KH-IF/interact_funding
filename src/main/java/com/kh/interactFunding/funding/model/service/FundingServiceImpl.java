@@ -1,6 +1,7 @@
 package com.kh.interactFunding.funding.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,17 @@ public class FundingServiceImpl implements FundingService{
 	
 	//이승우
 	@Override
-	public List<Funding> fundingList() {
-		return fundingDao.fundingList();
+	public List<Funding> fundingList(Map<String, Object> map) {
+		return fundingDao.fundingList(map);
 	}
+
 	//천호현
+
+	@Override
+	public Funding selectOneFunding(int funding_no) {
+		return fundingDao.selectOneFunding(funding_no);
+	}
+	
+	
 	
 }
