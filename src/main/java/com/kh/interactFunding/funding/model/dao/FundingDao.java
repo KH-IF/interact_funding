@@ -15,8 +15,9 @@ public interface FundingDao {
 	//박요한
 	
 	//배기원
-	
+	public List<Funding> indexfundingList();
 	//이승우
 	public List<Funding> fundingList();
 	//천호현
+
 }

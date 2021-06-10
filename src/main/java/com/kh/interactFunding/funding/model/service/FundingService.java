@@ -15,6 +15,7 @@ public interface FundingService {
 	//박요한
 	
 	//배기원
+	public List<Funding> indexfundingList();
 	
 	//이승우
 	public List<Funding> fundingList();
