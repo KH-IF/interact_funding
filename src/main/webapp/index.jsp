@@ -22,10 +22,24 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- Ionicons Js 예제  -->
 <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+
+<link rel='stylesheet'
+	href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+
+
+<script>
+function showForI(){
+		if($('input:radio[id=invest]').is(':checked')){
+			$("#fundingZone").hide();
+			$("#investZone").show();
+		}else{
+			$("#investZone").hide();
+			$("#fundingZone").show();
+		}
+	}
+</script>
 </head>
-<!--
- 2021/ 06 / 07 일  메인 페이지 초안본 
- -->
+
 
 <body>
 	<div class="kiwon_cardbanner">
@@ -94,33 +108,143 @@
 			</a>
 		</div>
 	</div>
+
+	<div class="bd-sidebar-body">
+		<h1>실시간 랭킹</h1>
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary active"> <input type="radio"
+				name="options" id="funding" checked onchange="showForI()"> 펀딩하기
+			</label>
+
+		</div>
+		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+			<label class="btn btn-secondary active"> <input type="radio"
+				name="options" id="invest"  checked onchange="showForI()"> 투자하기
+			</label>
+
+		</div>
+		<ul class="nav">
+			<li style="font-weight: 700;" id="fundingZone" >
+			<a> <span
+					class="orderText-span">1. <c:forEach items="${list}"
+							varStatus="vs" var="funding">
+							<c:if test="${vs.count==2}">
+								<p class="Ranking_class-p1">${funding.content}</p>
+							</c:if>
+						</c:forEach>
+				</span>
+					<p class="kiwonRanking_percnt">25,373%</p>
+					<div class="kiwonRanking_image">
+						<!-- 94x63 픽셀 지정 --->
+						<img
+							src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+							style="width: 75px; height: 63px" />
+					</div>
+			</a>
+			</li>
+			<li style="font-weight: 700;" id="investZone"><a> <span
+					class="orderText-span">2. <c:forEach items="${list}"
+							varStatus="vs" var="funding">
+							<c:if test="${vs.count==2}">
+								<p class="Ranking_class-p1">${funding.content}</p>
+							</c:if>
+						</c:forEach>
+				</span>
+					<p class="kiwonRanking_percnt">25,373%</p>
+					<div class="kiwonRanking_image">
+						<!-- 94x63 픽셀 지정 --->
+						<img
+							src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+							style="width: 75px; height: 63px" />
+					</div>
+			</a></li>
+
+			<li style="font-weight: 700;"><a> <span
+					class="orderText-span">3. <c:forEach items="${list}"
+							varStatus="vs" var="funding">
+							<c:if test="${vs.count==2}">
+								<p class="Ranking_class-p1">${funding.content}</p>
+							</c:if>
+						</c:forEach>
+				</span>
+					<p class="kiwonRanking_percnt">25,373%</p>
+					<div class="kiwonRanking_image">
+						<!-- 94x63 픽셀 지정 --->
+						<img
+							src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+							style="width: 75px; height: 63px" />
+					</div>
+			</a></li>
+			<li style="font-weight: 700;"><a> <span
+					class="orderText-span">4. <c:forEach items="${list}"
+							varStatus="vs" var="funding">
+							<c:if test="${vs.count==2}">
+								<p class="Ranking_class-p1">${funding.content}</p>
+							</c:if>
+						</c:forEach>
+				</span>
+					<p class="kiwonRanking_percnt">25,373%</p>
+					<div class="kiwonRanking_image">
+						<!-- 94x63 픽셀 지정 --->
+						<img
+							src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+							style="width: 75px; height: 63px" />
+					</div>
+			</a></li>
+			<li style="font-weight: 700;"><a> <span
+					class="orderText-span">5. <c:forEach items="${list}"
+							varStatus="vs" var="funding">
+							<c:if test="${vs.count==2}">
+								<p class="Ranking_class-p1">${funding.content}</p>
+							</c:if>
+						</c:forEach>
+				</span>
+					<p class="kiwonRanking_percnt">25,373%</p>
+					<div class="kiwonRanking_image">
+						<!-- 94x63 픽셀 지정 --->
+						<img
+							src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+							style="width: 75px; height: 63px" />
+					</div>
+			</a></li>
+
+		</ul>
+		<br>
+	</div>
+
 	<div class="kiwonfunding">
 		<!-- loginMember 로그인시 기억해두기 -->
 		<h1>이 프로젝트 어때요?</h1>
 		<!-- 펀딩하기 -->
-		<form action="">
 		<div class="kiwonfunding-div">
 			<!-- 펀딩하기 첫번째 img-->
+
 			<div class="kiwonfunding-div-img1">
 				<a href="${pageContext.request.contextPath }/" class="funding_class">
+
 					<!--240 x 134 px--> <img
 					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_04.png"
 					alt="">
 				</a>
-				<p class="funding_class-p">
-					[모슈] 장시간보온보냉!넘어져도 새지<br> 않는 실리콘 스트로우 텀블러
-				</p>
+				<c:forEach items="${list}" varStatus="vs" var="funding">
+					<c:if test="${vs.count==1}">
+						<p class="funding_class-p">${funding.content}</p>
+					</c:if>
+				</c:forEach>
 				<p class="kiwonfunding-percnt">260%</p>
 			</div>
+
 			<div class="kiwonfunding-div-img2">
 				<!-- 펀딩하기 두번째 img-->
 				<a href="${pageContext.request.contextPath }/" class="funding_class">
 					<!--240 x 134 px--> <img
 					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_05.png">
 				</a>
-				<p class="funding_class-p">
-					[고기 안구워도 돼요] 캠핑 바베큐를 <br> 즐기는 새로운 방법 '몽바'
-				</p>
+				<c:forEach items="${list}" varStatus="vs" var="funding">
+					<c:if test="${vs.count==2}">
+						<p class="funding_class-p">${funding.content}</p>
+					</c:if>
+				</c:forEach>
 				<p class="kiwonfunding-percnt">280%</p>
 			</div>
 			<div class="kiwonfunding-div-img3">
@@ -128,198 +252,60 @@
 					<!--240 x 134 px--> <img
 					src="${pageContext.request.contextPath}/resources/images/kiwon_images//sample_images_06.png">
 				</a>
-				<p class="funding_class-p">
-					[밀키트 산업 투자] 마켓컬리 <br> 일절| 신용보증기금 매칭투자 2호
-				</p>
+				<c:forEach items="${list}" varStatus="vs" var="funding">
+					<c:if test="${vs.count==3}">
+						<p class="funding_class-p">${funding.content}</p>
+					</c:if>
+				</c:forEach>
 				<p class="kiwonfunding-percnt">270%</p>
 			</div>
 			<!-- 기획전  240 x 134 px -->
-			<div class="kiwonfunding-div-img4">
-				<!--  오른쪽 아래 -->
-				<a href="${pageContext.request.contextPath }/"
-					class="funding_class4"> <img
-					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_07.png">
-				</a>
-				<p class="funding_class-p1">
-					[밀키트 산업 투자] 마켓컬리 <br> 일절| 신용보증기금 매칭투자 2호
-				</p>
-				<p class="kiwonfunding-percnt1">270%</p>
-			</div>
-
-			<!-- 이미지 사이즈 240 x 134px -->
-			<div class="kiwonfunding-div-img5">
-				<a href="${pageContext.request.contextPath }/" class="funding_class">
-					<img
-					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_08.png"
-					width="240px" height="134px">
-				</a>
-				<!-- 진행중 고정-->
-				<span class="funding_class_Planning">진행중</span> <span
-					class="funding_class_Title">[향수펀딩]놓치면 아쉬운 종료 <br /> 임박 향수
-					펀딩 ' 향수'
-				</span>
-				<p class="kiwonfunding-percnt2">532%</p>
-			</div>
-			<!-- 이미지 사이즈 240 x 134px -->
-			<div class="kiwonfunding-div-img6">
-				<a href="${pageContext.request.contextPath }/" class="funding_class">
-					<img
-					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_10.png"
-					width="240px" height="134px">
-				</a>
-				<p style="line-height: 23px; margin-top: 0.7vw;">
-					[코인펀딩] 놓치면 아쉬움종료 임박<br /> 코인펀딩 '코인펀딩'
-				</p>
-				<p class="kiwonfunding-percnt2">70%</p>
-			</div>
-		</div>
-		<div class="funding_class_btn">
-			<button class="funding_class_btn_Plan" type="button">
-				<!-- 링크투명화 -->
-				<a href="${pageContext.request.contextPath }/"
-					style="text-decoration: none;"> <!-- 링크 투명화  --> <span
-					style="color: #000000;"> <img
-						src="${pageContext.request.contextPath}/resources/images/kiwon_images/refresh-outline.svg"
-						width="20px" height="20px" alt="">추천더보기 <span
-						class="funding_class_btn_Number">1</span> <!--3번  api 새로고침 예제  -->
-				</span>
-				</a>
-			</button>
 		</div>
 	</div>
-</form>
-	<!--실시간 랭킹 TOP 5 순위보이기-->
-	<div class="kiwon_Ranking">
-		<h1>실시간 랭킹</h1>
-		<!--펀딩하기 btn-->
-		<div class="kiwon_Ranking-funding">
-			<!-- 펀딩하기 DB -->
-			<a href="${pageContext.request.contextPath }/ "
-				style="color: #000000;">
-				<button class="kiwon_Rankingbtn-funding" type="button">펀딩하기</button>
+	<div class="kiwonfunding-1">
+		<div class="kiwonfunding-div-img4">
+			<!--  오른쪽 아래 -->
+			<a href="${pageContext.request.contextPath }/" class="funding_class4">
+				<img
+				src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_07.png">
 			</a>
-		</div>
-		<!--투자하기 btn-->
-		<div class="kiwon_Ranking-invest">
-			<!-- 투자하기 DB -->
-			<!-- 링크 투명화 -->
-			<a href="${pageContext.request.contextPath }/ "
-				style="color: #000000;">
-				<button class="kiwon_Rankingbtn-invest" type="button">투자하기</button>
-			</a> <span class="kiwon_Ranking_badge">진행중</span>
+			<c:forEach items="${list}" varStatus="vs" var="funding">
+				<c:if test="${vs.count==4}">
+					<p class="funding_class-p1">${funding.content}</p>
+				</c:if>
+			</c:forEach>
+			<p class="kiwonfunding-percnt1">270%</p>
 		</div>
 
-		<div class="TabList" style="position: relative;">
-			<div class="TabList_item">
-				<div>
-					<!-- 실시간 랭킹 pageBar 이용예정(첫번째 게시글) Start  -->
-					<a class="TabList_projectCard"
-						href="${pageContext.request.contextPath}/">
-						<article>
-							<!--CardType article-->
-							<div class="commons_CardType">
-								<!-- 실시간 순위 체크 공간 DB공간체크 -->
-								<div class="orderText" style="font-weight: 700;">
-									<span class="orderText-span">1.</span> [앵콜펀딩] 9031%달성,<br />소주달게하는
-									NEW호락이 돌아왔다
-									<p class="kiwonRanking_percnt">25,373%</p>
-									<div class="kiwonRanking_image">
-										<!-- 94x63 픽셀 지정 --->
+		<!-- 이미지 사이즈 240 x 134px -->
+		<div class="kiwonfunding-div-img5">
+			<a href="${pageContext.request.contextPath }/" class="funding_class">
+				<img
+				src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_08.png"
+				width="240px" height="134px">
+			</a>
 
-										<img
-											src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
-											style="width: 75px; height: 63px" />
 
-									</div>
-								</div>
-							</div>
-						</article>
-					</a> <a class="TabList_projectCard"
-						href="${pageContext.request.contextPath}/">
-						<article>
-							<!--CardType article-->
-							<div class="commons_CardType">
-								<!-- 실시간 순위 체크 공간 DB공간체크 -->
-								<div class="orderText" style="font-weight: 700;">
-									<span class="orderText-span">2.</span> [앵콜펀딩] 9031%달성,<br />소주달게하는
-									NEW호락이 돌아왔다
-									<p class="kiwonRanking_percnt">25,373%</p>
-									<div class="kiwonRanking_image">
-										<!-- 94x63 픽셀 지정 --->
-
-										<img
-											src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
-											style="width: 75px; height: 63px" />
-
-									</div>
-								</div>
-							</div>
-						</article>
-					</a> <a class="TabList_projectCard"
-						href="${pageContext.request.contextPath}/">
-						<article>
-							<!--CardType article-->
-							<div class="commons_CardType">
-								<!-- 실시간 순위 체크 공간 DB공간체크 -->
-								<div class="orderText" style="font-weight: 700;">
-									<span class="orderText-span">3.</span> [앵콜펀딩] 9031%달성,<br />소주달게하는
-									NEW호락이 돌아왔다
-									<p class="kiwonRanking_percnt">25,373%</p>
-									<div class="kiwonRanking_image">
-										<!-- 94x63 픽셀 지정 --->
-
-										<img
-											src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
-											style="width: 75px; height: 63px" />
-									</div>
-								</div>
-							</div>
-						</article>
-					</a> <a class="TabList_projectCard"
-						href="${pageContext.request.contextPath}/">
-						<article>
-							<!--CardType article-->
-							<div class="commons_CardType">
-								<!-- 실시간 순위 체크 공간 DB공간체크 -->
-								<div class="orderText" style="font-weight: 700;">
-									<span class="orderText-span">4.</span> [앵콜펀딩] 9031%달성,<br />소주달게하는
-									NEW호락이 돌아왔다
-									<p class="kiwonRanking_percnt">25,373%</p>
-									<div class="kiwonRanking_image">
-										<!-- 94x63 픽셀 지정 --->
-
-										<img
-											src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
-											style="width: 75px; height: 63px" />
-									</div>
-								</div>
-							</div>
-						</article>
-					</a> <a class="TabList_projectCard"
-						href="${pageContext.request.contextPath}/">
-						<article>
-							<!--CardType article-->
-							<div class="commons_CardType">
-								<!-- 실시간 순위 체크 공간 DB공간체크 -->
-								<div class="orderText" style="font-weight: 700;">
-									<span class="orderText-span">5.</span> [앵콜펀딩] 9031%달성,<br />소주달게하는
-									NEW호락이 돌아왔다
-									<p class="kiwonRanking_percnt">25,373%</p>
-									<div class="kiwonRanking_image">
-										<!-- 94x63 픽셀 지정 --->
-
-										<img
-											src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
-											style="width: 75px; height: 63px" />
-
-									</div>
-								</div>
-							</div>
-						</article>
-					</a>
-					<!--  실시간랭킹 PageBar (첫번째 게시글)  end   -->
-				</div>
-			</div>
+			<c:forEach items="${list}" varStatus="vs" var="funding">
+				<c:if test="${vs.count==4}">
+					<p class="funding_class-p1">${funding.content}</p>
+				</c:if>
+			</c:forEach>
+			<p class="kiwonfunding-percnt2">532%</p>
+		</div>
+		<!-- 이미지 사이즈 240 x 134px -->
+		<div class="kiwonfunding-div-img6">
+			<a href="${pageContext.request.contextPath }/" class="funding_class">
+				<img
+				src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_10.png"
+				width="240px" height="134px">
+			</a>
+			<c:forEach items="${list}" varStatus="vs" var="funding">
+				<c:if test="${vs.count==4}">
+					<p class="funding_class-p1">${funding.content}</p>
+				</c:if>
+			</c:forEach>
+			<p class="kiwonfunding-percnt2">70%</p>
 		</div>
 	</div>
 	<!-- 얼리버드 Container  Start-->
@@ -438,7 +424,7 @@
 							<p class="EarlybirdCard_Type-p">펀딩</p>
 						</div>
 						<div>
-							<h1 class="EalrybirdCard_Type_h1">배기원의 하루 10분 영어. 두달이면 외국인과
+							<h1 class="EalrybirdCard_Type_h1">김주연의 하루 10분 영어. 두달이면 외국인과
 								프리토킹!</h1>
 							<p class="EalrybirdCard_percent">
 								<!--DB 사용예제! -->
@@ -478,7 +464,7 @@
 							<p class="EarlybirdCard_Type-p">펀딩</p>
 						</div>
 						<div>
-							<h1 class="EalrybirdCard_Type_h1">배기원의 하루 10분 영어. 두달이면 외국인과
+							<h1 class="EalrybirdCard_Type_h1">김주연의 하루 10분 영어. 두달이면 외국인과
 								프리토킹!</h1>
 							<p class="EalrybirdCard_percent">
 								<!--DB 사용예제! -->
@@ -504,7 +490,9 @@
 			</ul>
 		</div>
 		<div></div>
+
 	</div>
+
 	<!-- 얼리버드 Container  end-->
 </body>
 

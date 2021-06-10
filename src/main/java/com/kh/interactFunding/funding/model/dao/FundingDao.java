@@ -16,14 +16,13 @@ public interface FundingDao {
 	//박요한
 	
 	//배기원
-	
+	public List<Funding> indexfundingList();
 	//이승우
 	public List<Funding> fundingList(Map<String, Object> map);
 	
 	public List<Funding> fundingSearchList();
 	
 	//천호현
-
 	public Funding selectOneFunding(int funding_no);
 
 }

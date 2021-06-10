@@ -8,6 +8,16 @@
 	<!-- 김주연 -->
 	<!-- 박요한 -->
 	<!-- 배기원 -->
+		<select id="indexfundingList" resultType="funding">
+				select rownum, f.*
+		from (
+		        select *
+		        from funding  
+		        where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
+		        order by reg_date  desc
+		        ) f
+		where rownum between 1 and 6
+	    </select>
 	<!-- 이승우 -->
 	<select id="selectFundingList" resultType="funding">
 		select

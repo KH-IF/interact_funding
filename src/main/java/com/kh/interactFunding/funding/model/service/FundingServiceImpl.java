@@ -24,6 +24,12 @@ public class FundingServiceImpl implements FundingService{
 	//박요한
 	
 	//배기원
+	@Override
+	public List<Funding> indexfundingList() {
+		// TODO Auto-generated method stub
+		return fundingDao.indexfundingList();
+	}
+	
 	
 	//이승우
 	@Override
