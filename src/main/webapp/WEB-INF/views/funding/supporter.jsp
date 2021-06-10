@@ -6,10 +6,6 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="funding_detail" name="title" />
 </jsp:include>
-
-
-
-
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/news.css" />
 
