@@ -2,6 +2,7 @@ package com.kh.interactFunding;
 
 import java.util.List;
 
+
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -18,8 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.interactFunding.funding.model.service.FundingService;
 import com.kh.interactFunding.funding.model.vo.Funding;
-import com.kh.interactFunding.funding_reward.model.service.Funding_rewardService;
-import com.kh.interactFunding.funding_reward.model.vo.funding_reward;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 public class HomeController {
 	@Autowired
 	private FundingService fundingService;
-	private Funding_rewardService funding_rewardService;
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -48,6 +47,5 @@ public class HomeController {
 		}
 		//404 에러 forward 해준다.
 		return "forward:/index.jsp";
-		
 	}
 }

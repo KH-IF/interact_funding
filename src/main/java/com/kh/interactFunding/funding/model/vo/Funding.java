@@ -17,26 +17,26 @@ public class Funding {
 	
 	
 	//이승우
-	private int funding_no;
-	private String category_code;
-	private String rate_plan_code;
-	private int writer_no;
+	private int fundingNo;
+	private String categoryCode;
+	private String ratePlanCode;
+	private int writerNo;
 	private String title;
-	private int now_amount;
-	private int goal_amount;
+	private int nowAmount;
+	private int goalAmount;
 	private int readCount;
 	private String content;
-	private String early_content;
+	private String earlyContent;
 	
 	//김주연 start_day date로 변환
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date start_date;
+	private Date startDate;
 	
 	//김주연 d_day date로 변환
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date d_day;
+	private Date dDay;
 	
-	private Date reg_date;
+	private Date regDate;
 	private String phone;
 	
 	
