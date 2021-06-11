@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,21 +81,22 @@ public class FundingController {
 	}
 	
 	//배기원(test 해보겠습니다)
-	// 배기원
-	/*
-	 * //ajax
-	 * 
-	 * @RequestMapping(value = "/", method = RequestMethod.GET) public String
-	 * indexfunding_rewardList(Model model, HttpSession session) { try {
-	 * List<funding_reward> list = funding_rewardService.indexfunding_rewardList();
-	 * model.addAttribute("list", list);
-	 * 
-	 * log.info("list={}", list);
-	 * 
-	 * } catch (Exception e) { log.error("메인페이지 펀딩리스트 조회가 안됩니다", e); }
-	 * 
-	 * return "forward:/index.jsp"; } }
-	 */
+	@ResponseBody
+	@GetMapping("fundinglike")
+	public List<Funding> indexfundinglike(Model model ,HttpSession session){
+		log.debug("1111");
+		List<Funding> likeList=null;
+		try {
+		likeList =fundingService.indexfundinglike();
+		log.info("likeList={}",likeList);
+		}catch (Exception e) {
+			log.error("메인페이지 좋아요가 안됩니다",e);
+			throw e;
+		}
+		return likeList;
+	}
+	 
+	 
 	
 	//이승우
 	//흠흠

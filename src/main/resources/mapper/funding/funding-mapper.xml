@@ -8,6 +8,16 @@
 	<!-- 김주연 -->
 	<!-- 박요한 -->
 	<!-- 배기원 -->
+<!--  <resultMap type="fundingExt" id="fundingMap">
+		<id column="no" property="no"></id>
+		<result column="title" property="title"/>
+		<result column="category_code" property="category_code"/>
+		<result column="now_amount" property="now_amount"/>
+		<result column="goal_amount" property="goal_amount"/>
+		<result column="rate_plan_code" property="rate_plan_code"/>
+		<result column="writer_no" property="writer_no"/>
+		<result column="readcount" property=""/>
+	</resultMap> -->
 		<select id="indexfundingList" resultType="funding">
 				select rownum, f.*
 		from (
@@ -17,6 +27,17 @@
 		        order by reg_date  desc
 		        ) f
 		where rownum between 1 and 6
+	    </select>
+	    
+	    <select id="indexfundinglike" resultType="funding">
+			    	select rownum, f.*
+		from (
+		        select *
+		        from funding   
+		      where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
+		        order by like_count desc
+		        ) f
+		where rownum between 1 and 5
 	    </select>
 	<!-- 이승우 -->
 	<select id="selectFundingList" resultType="funding">

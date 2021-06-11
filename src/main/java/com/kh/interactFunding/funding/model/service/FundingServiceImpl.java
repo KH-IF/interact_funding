@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.interactFunding.funding.model.dao.FundingDao;
 import com.kh.interactFunding.funding.model.vo.Funding;
+import com.kh.interactFunding.funding.model.vo.Funding_reward;
 
 @Service
 public class FundingServiceImpl implements FundingService{
@@ -26,11 +27,24 @@ public class FundingServiceImpl implements FundingService{
 	//배기원
 	@Override
 	public List<Funding> indexfundingList() {
-		// TODO Auto-generated method stub
 		return fundingDao.indexfundingList();
 	}
 	
 	
+	@Override
+	public List<Funding> indexfundinglike() {
+		// TODO Auto-generated method stub
+		return fundingDao.indexfundinglike();
+	}
+
+
+	@Override
+	public List<Funding_reward> indexfuding_rewardList() {
+		return fundingDao.indexfuding_rewardList();
+	}
+
+
+
 	//이승우
 	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {

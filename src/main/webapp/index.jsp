@@ -28,15 +28,27 @@
 
 
 <script>
+/* 실시간랭킹  hide show  예제*/
 function showForI(){
 		if($('input:radio[id=invest]').is(':checked')){
 			$("#fundingZone").hide();
-			$("#investZone").show();
+			
+			$.ajax({
+				url:"${pageContext.request.contextPath}/funding/fundinglike",
+				success:(data) =>{
+					console.log(data);
+					
+				},
+				error: (xhr, statusText, err) => {
+					console.log(xhr, statusText, err);
+				}
+			});
 		}else{
-			$("#investZone").hide();
-			$("#fundingZone").show();
+			
 		}
 	}
+	
+	
 </script>
 </head>
 
@@ -109,46 +121,59 @@ function showForI(){
 		</div>
 	</div>
 
+	<div>
+	${likeList}
+	</div>
 	<div class="bd-sidebar-body">
 		<h1>실시간 랭킹</h1>
-		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+		<div class="btn-group btn-group-toggle" data-toggle="buttons" >
 			<label class="btn btn-secondary active"> <input type="radio"
 				name="options" id="funding" checked onchange="showForI()"> 펀딩하기
 			</label>
 
 		</div>
-		<div class="btn-group btn-group-toggle" data-toggle="buttons">
+		<div class="btn-group btn-group-toggle" data-toggle="buttons" >
 			<label class="btn btn-secondary active"> <input type="radio"
-				name="options" id="invest"  checked onchange="showForI()"> 투자하기
+				name="options" id="invest"  checked onchange="showForI()"> 좋아요
 			</label>
-
 		</div>
+	
+				
 		<ul class="nav">
 			<li style="font-weight: 700;" id="fundingZone" >
 			<a> <span
 					class="orderText-span">1. <c:forEach items="${list}"
 							varStatus="vs" var="funding">
-							<c:if test="${vs.count==2}">
+							<c:if test="${vs.count==1}">
 								<p class="Ranking_class-p1">${funding.content}</p>
+								<p class="Ranking_class-p1">
+								<!--<fmt:formatNumber  value="${funding.now_amount}" pattern="##.###"/>-->
+								<!--<fmt:formatNumber value="${funding.goal_amount}" pattern="##.###"/>-->
+								
+										<!--<c:out value="${funding.now_amount}" />
+										<c:out value="${funding.goal_amount}" /> -->
+								<!--<fmt:formatNumber  value="${funding.now_amount/funding.goal_amount}" pattern="##.###"/> -->
+							
+								</p>
 							</c:if>
 						</c:forEach>
-				</span>
-					<p class="kiwonRanking_percnt">25,373%</p>
-					<div class="kiwonRanking_image">
-						<!-- 94x63 픽셀 지정 --->
 						<img
 							src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
 							style="width: 75px; height: 63px" />
-					</div>
+				</span>
+				
 			</a>
 			</li>
-			<li style="font-weight: 700;" id="investZone"><a> <span
+			
+			
+					
+			<li style="font-weight: 700;" id="fundingZone"><a> <span
 					class="orderText-span">2. <c:forEach items="${list}"
 							varStatus="vs" var="funding">
 							<c:if test="${vs.count==2}">
 								<p class="Ranking_class-p1">${funding.content}</p>
 							</c:if>
-						</c:forEach>
+						</c:forEach> 
 				</span>
 					<p class="kiwonRanking_percnt">25,373%</p>
 					<div class="kiwonRanking_image">
@@ -159,10 +184,10 @@ function showForI(){
 					</div>
 			</a></li>
 
-			<li style="font-weight: 700;"><a> <span
+			<li style="font-weight: 700;" id="fundingZone"><a> <span
 					class="orderText-span">3. <c:forEach items="${list}"
 							varStatus="vs" var="funding">
-							<c:if test="${vs.count==2}">
+							<c:if test="${vs.count==3}">
 								<p class="Ranking_class-p1">${funding.content}</p>
 							</c:if>
 						</c:forEach>
@@ -175,10 +200,10 @@ function showForI(){
 							style="width: 75px; height: 63px" />
 					</div>
 			</a></li>
-			<li style="font-weight: 700;"><a> <span
+			<li style="font-weight: 700;" id="fundingZone"><a> <span
 					class="orderText-span">4. <c:forEach items="${list}"
 							varStatus="vs" var="funding">
-							<c:if test="${vs.count==2}">
+							<c:if test="${vs.count==4}">
 								<p class="Ranking_class-p1">${funding.content}</p>
 							</c:if>
 						</c:forEach>
@@ -191,13 +216,16 @@ function showForI(){
 							style="width: 75px; height: 63px" />
 					</div>
 			</a></li>
-			<li style="font-weight: 700;"><a> <span
+			<li style="font-weight: 700;" id="fundingZone"><a> <span
 					class="orderText-span">5. <c:forEach items="${list}"
 							varStatus="vs" var="funding">
-							<c:if test="${vs.count==2}">
+							<c:if test="${vs.count==5}">
 								<p class="Ranking_class-p1">${funding.content}</p>
 							</c:if>
 						</c:forEach>
+						<img
+							src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+							style="width: 75px; height: 63px" />
 				</span>
 					<p class="kiwonRanking_percnt">25,373%</p>
 					<div class="kiwonRanking_image">
@@ -209,8 +237,8 @@ function showForI(){
 			</a></li>
 
 		</ul>
+		</div>
 		<br>
-	</div>
 
 	<div class="kiwonfunding">
 		<!-- loginMember 로그인시 기억해두기 -->
@@ -229,9 +257,12 @@ function showForI(){
 				<c:forEach items="${list}" varStatus="vs" var="funding">
 					<c:if test="${vs.count==1}">
 						<p class="funding_class-p">${funding.content}</p>
+						<fmt:formatNumber  value="${funding.now_amount}" pattern="##.###"/>
 					</c:if>
 				</c:forEach>
-				<p class="kiwonfunding-percnt">260%</p>
+				<p class="kiwonfunding-percnt">
+				
+				<c:out value="${funding.goal_amount}"/></p>
 			</div>
 
 			<div class="kiwonfunding-div-img2">
