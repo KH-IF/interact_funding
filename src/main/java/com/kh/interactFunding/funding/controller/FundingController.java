@@ -230,6 +230,21 @@ public class FundingController {
 	}
 	
 	//배기원(test 해보겠습니다)
+	// 배기원
+	/*
+	 * //ajax
+	 * 
+	 * @RequestMapping(value = "/", method = RequestMethod.GET) public String
+	 * indexfunding_rewardList(Model model, HttpSession session) { try {
+	 * List<funding_reward> list = funding_rewardService.indexfunding_rewardList();
+	 * model.addAttribute("list", list);
+	 * 
+	 * log.info("list={}", list);
+	 * 
+	 * } catch (Exception e) { log.error("메인페이지 펀딩리스트 조회가 안됩니다", e); }
+	 * 
+	 * return "forward:/index.jsp"; } }
+	 */
 	
 	//이승우
 	//흠흠
@@ -256,3 +271,5 @@ public class FundingController {
 	
 	
 }
+
+	

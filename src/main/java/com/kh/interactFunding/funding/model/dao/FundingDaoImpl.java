@@ -52,6 +52,12 @@ public class FundingDaoImpl implements FundingDao{
 	//박요한
 	
 	//배기원
+	@Override
+	public List<Funding> indexfundingList() {
+		// TODO Auto-generated method stub
+		return session.selectList("funding.indexfundingList");
+	}
+	
 	
 	//이승우
 	@Override
