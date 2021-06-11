@@ -30,6 +30,8 @@ public interface FundingDao {
 	public List<Funding> fundingSearchList();
 	//천호현
 	public Funding selectOneFunding(int funding_no);
+	
+	public List<Funding> selectFunding(int funding_no);
 
 
 }

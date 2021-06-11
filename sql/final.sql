@@ -174,8 +174,8 @@ create table funding(
     goal_amount number,--목표금액
     rate_plan_code varchar2(10),--요금제,
     writer_no number,
-    readCount number,
-    like_count number,
+    readCount number default 0,
+    like_count number default 0,
     content clob,
     early_content clob,--얼리버드용
     start_date date,
@@ -281,7 +281,8 @@ create or replace trigger trig_like
     for each row
 begin
     update funding
-    set like_count = like_count+1;
+    set like_count = like_count+1
+    where funding_no = :new.funding_no;
 end;
 /
 
@@ -379,18 +380,51 @@ select * from funding;
 
 --천호현 테스트영역
 select * from funding;
+select * from funding_reward;
         select
 			*
 		from
 			funding
 		where
 			funding_no =9;
+            
+select * from member;
+insert into funding_reward
+values(2, 99, 2000, '옵션1', '옵션1의 content부분', 2000, 10, '2021/07/01');
+
+
+
+    
+insert into funding
+values (99, '테스트', 'C1', 20000, 100000,'P1' ,21, 0,0,'내용이 엄청길ㅇ', null, '2021/06/10', '2021/06/30', default, '01091342261');
+
+insert into attachment
+values (1,99,'테스트오리지날1','테스트리네임','Y');
+
+insert into like_record
+values (3,99,21,'N');
+
+select * from like_record;
+
+select * from funding;
+
+select *
+from funding F 
+    join funding_reward R 
+    on F.funding_no = R.funding_no
+    join attachment A
+    on f.funding_no = A.funding_no
+    join like_record L
+    on L.funding_no = F.funding_no
+where f.funding_no =99;
+
+
+
+--alter table funding
+--modify readcount number default 0;
 
 -----------------------
 select * from tab;
 
 
 commit;
-
-
-
