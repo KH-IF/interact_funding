@@ -9,7 +9,7 @@
 	<h3>footer</h3>
 	<h2><a href="${pageContext.request.contextPath }/member/logout">김윤수</a></h2>
 	<h2><a href="${pageContext.request.contextPath }/">김경태</a></h2>
-	<h2><a href="${pageContext.request.contextPath }/maker/fundingStart1">김주연</a></h2>
+	<h2><a href="${pageContext.request.contextPath }/funding/fundingStart1">김주연</a></h2>
 	<h2><a href="${pageContext.request.contextPath }/funding/news.do">박요한</a></h2>
 	<h2><a href="${pageContext.request.contextPath }/">배기원</a></h2>
 	<h2><a href="${pageContext.request.contextPath }/funding/fundingList">이승우</a></h2>

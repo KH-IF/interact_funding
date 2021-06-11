@@ -363,6 +363,11 @@ where rownum between 1 and 6;
 update funding
 set d_day = '21/06/20';
 commit;
+
+alter table funding
+modify readCount number default 0;
+
+select * from funding;
 --김경태 테스트영역
 
 --김주연 테스트영역
