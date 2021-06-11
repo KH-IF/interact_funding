@@ -182,7 +182,7 @@ public class FundingController {
 	@PostMapping("/saveStory")
 	public String saveStory(Funding funding){
 		
-		if(funding.getContent().equals("") && funding.getEarly_content().equals("")) {
+		if(funding.getContent().equals("") && funding.getEarlyContent().equals("")) {
 			log.debug("스토리 등록 오류 스토리 내용 누락");
 		}
 		

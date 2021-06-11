@@ -1,15 +1,14 @@
 package com.kh.interactFunding.funding.model.service;
 
 import java.util.List;
+
 import java.util.Map;
 
 import com.kh.interactFunding.funding.model.vo.Attachment;
 import com.kh.interactFunding.funding.model.vo.Funding;
-<<<<<<< HEAD
 import com.kh.interactFunding.funding.model.vo.Funding_reward;
-=======
 import com.kh.interactFunding.funding.model.vo.FundingExt;
->>>>>>> branch 'master' of https://github.com/KH-IF/interact_funding.git
+
 
 public interface FundingService {
 	

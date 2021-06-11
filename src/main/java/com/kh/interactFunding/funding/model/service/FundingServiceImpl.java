@@ -1,6 +1,7 @@
 package com.kh.interactFunding.funding.model.service;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,11 @@ import org.springframework.stereotype.Service;
 import com.kh.interactFunding.funding.model.dao.FundingDao;
 import com.kh.interactFunding.funding.model.vo.Attachment;
 import com.kh.interactFunding.funding.model.vo.Funding;
-<<<<<<< HEAD
+
 import com.kh.interactFunding.funding.model.vo.Funding_reward;
-=======
+
 import com.kh.interactFunding.funding.model.vo.FundingExt;
->>>>>>> branch 'master' of https://github.com/KH-IF/interact_funding.git
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,7 +48,7 @@ public class FundingServiceImpl implements FundingService{
 		//attachment 등록
 		if(funding.getAttachList().size() > 0) {
 			for(Attachment attach: funding.getAttachList()) {
-				attach.setFunding_no(funding.getFunding_no()); //이번에 발급받은 funindg pk|  attach no fk세팅
+				attach.setFunding_no(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
 				result = insertAttachment(attach);
 			}
 		}	
