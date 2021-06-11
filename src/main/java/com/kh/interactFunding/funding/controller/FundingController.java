@@ -91,14 +91,26 @@ public class FundingController {
 		
 	}
 	//천호현
+	/*
+	* @GetMapping("/fundingDetail") public void fundingDetail(@RequestParam int
+	* funding_no, Model model) { //1. 업무로직 Funding funding =
+	* fundingService.selectOneFunding(funding_no); log.debug("funding = {}" ,
+	* funding); //2. 위임 model.addAttribute("funding", funding);
+	*
+	* }
+	*/
+
 	@GetMapping("/fundingDetail")
-	public void fundingDetail(@RequestParam int funding_no, Model model) {
+	public Map<String, Object> fundingDetail(@RequestParam int funding_no) {
 		//1. 업무로직
-		Funding funding = fundingService.selectOneFunding(funding_no);
-		log.debug("funding = {}" , funding);
+		List<Funding> list = fundingService.selectFunding(funding_no);
+
+		log.debug("list = {}" , list);
 		//2. 위임
-		model.addAttribute("funding", funding);
-		
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		return map;
+
 	}
 	
 	

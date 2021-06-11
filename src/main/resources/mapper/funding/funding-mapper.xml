@@ -18,12 +18,20 @@
 			funding_no desc
 	</select>
 	<!-- 천호현 -->
-		<select id="selectOneFunding" resultType="funding">
-		select
-			*
-		from
-			funding
-		where
-			funding_no = #{funding_no}
+	
+	<select id="selectFunding" resultMap="fundingVoMap">
+		select *
+		from funding F
+		    join funding_reward R
+		    on F.funding_no = R.funding_no
+		    join attachment A
+		    on f.funding_no = A.funding_no
+		    join like_record L
+		    on L.funding_no = F.funding_no
+		where f.funding_no =#{funding_no}
 	</select>
+	
+	<resultMap type="fundingExt" id="fundingVoMap">
+	
+	</resultMap>
 </mapper>
