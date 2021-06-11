@@ -147,13 +147,7 @@ function showForI(){
 							<c:if test="${vs.count==1}">
 								<p class="Ranking_class-p1">${funding.content}</p>
 								<p class="Ranking_class-p1">
-								<!--<fmt:formatNumber  value="${funding.now_amount}" pattern="##.###"/>-->
-								<!--<fmt:formatNumber value="${funding.goal_amount}" pattern="##.###"/>-->
 								
-										<!--<c:out value="${funding.now_amount}" />
-										<c:out value="${funding.goal_amount}" /> -->
-								<!--<fmt:formatNumber  value="${funding.now_amount/funding.goal_amount}" pattern="##.###"/> -->
-							
 								</p>
 							</c:if>
 						</c:forEach>
@@ -257,12 +251,12 @@ function showForI(){
 				<c:forEach items="${list}" varStatus="vs" var="funding">
 					<c:if test="${vs.count==1}">
 						<p class="funding_class-p">${funding.content}</p>
-						<fmt:formatNumber  value="${funding.now_amount}" pattern="##.###"/>
+						<fmt:formatNumber  value="${funding.nowAmount}" pattern="##.###"/>
 					</c:if>
 				</c:forEach>
 				<p class="kiwonfunding-percnt">
 				
-				<c:out value="${funding.goal_amount}"/></p>
+				<c:out value="${funding.goalAmount}"/></p>
 			</div>
 
 			<div class="kiwonfunding-div-img2">
