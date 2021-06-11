@@ -1,35 +1,27 @@
 package com.kh.interactFunding.funding.controller;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.interactFunding.common.util.HelloSpringUtils;
@@ -249,27 +241,64 @@ public class FundingController {
 	//이승우
 	//흠흠
 	@GetMapping("/fundingList")
-	public void fundingList() {
-		List<Funding> list = fundingService.fundingList();
-		System.out.println("list"+list);
+	public ModelAndView fundingList(
+			ModelAndView mav,
+			@RequestParam(required = false, defaultValue = "") String searchKeyword,
+			@RequestParam(required = false, defaultValue = "") String searchSelect1,
+			@RequestParam(required = false, defaultValue = "") String searchSelect2
+		) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchKeyword", searchKeyword);
+		map.put("searchSelect1", searchSelect1);
+		map.put("searchSelect2", searchSelect2);
+		log.debug("searchTitle = {}", searchKeyword);
+		
+		// 업무로직
+		try {
+			List<Funding> list = fundingService.fundingList(map);
+			System.out.println("list"+list);
+			log.debug("list = {}", list);
+			//jsp에 위임
+			mav.addObject("list", list);
+			
+			return mav;
+		}
+		catch(Exception e){
+			log.error("fundingList 조회 오류");
+			throw e;
+		}
 	}
 	
 	@GetMapping("/earlyList")
 	public void earlyList() {
 		
 	}
+	
 	//천호현
-	@GetMapping("/funding_detail")
-	public void fundingDetail() {
-		log.debug("funding_detail페이지접속");
+	@GetMapping("/fundingDetail")
+	public void fundingDetail(@RequestParam int funding_no, Model model) {
+		//1. 업무로직
+		Funding funding = fundingService.selectOneFunding(funding_no);
+		log.debug("funding = {}" , funding);
+		//2. 위임
+		model.addAttribute("funding", funding);
+		
 	}
 	
-	@GetMapping("/funding_reward")
+	
+	@GetMapping("/fundingReward")
 	public void fundingReward() {
-		log.debug("funding_reward페이지접속");
+	}
+	@GetMapping("/fundingChatMaker")
+	public void fundingChatMaker() {
+	}
+	@GetMapping("/fundingPayment")
+	public void fundingPayment() {
+	}
+	@GetMapping("/fundingFindAddress")
+	public void fundingFindAddress() {
 	}
 	
 	
 }
-
 	

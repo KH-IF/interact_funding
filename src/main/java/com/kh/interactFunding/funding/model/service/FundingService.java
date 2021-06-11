@@ -26,11 +26,11 @@ public interface FundingService {
 	public List<Funding> indexfundingList();
 	
 	//이승우
-	public List<Funding> fundingList();
+	public List<Funding> fundingList(Map<String, Object> map);
 
 
 
 	
 	//천호현
-	
+	public Funding selectOneFunding(int funding_no);
 }
