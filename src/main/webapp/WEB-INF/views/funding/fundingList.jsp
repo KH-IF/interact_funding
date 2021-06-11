@@ -10,44 +10,22 @@
 <script>
 
     $(function(){
-        //이미지 불러오기
         $("img[alt=image1]").attr("src","${pageContext.request.contextPath }/resources/image/food3.jpg");
         $("img[alt=image2]").attr("src","${pageContext.request.contextPath }/resources/image/food2.jpg");
         $("img[alt=image3]").attr("src","${pageContext.request.contextPath }/resources/image/food1.jpg");
         $("img[alt=image4]").attr("src","${pageContext.request.contextPath }/resources/image/trip.jpg");
         $("img[alt=image5]").attr("src","${pageContext.request.contextPath }/resources/image/game.jpg");
-
-		//페이드인 효과
-        $('.FundingProjectCardItemImage').animate({'opacity':'1'},500);
     });
-    //더보기
     $(function(){
-        $(".FundingProjectCardItem").slice(0,9).show();
+        $(".FundingProjectCardItem").slice(0,3).show();
         $("#moreBtn").click(function(e){
 			e.preventDefault();
-			$(".FundingProjectCardItem:hidden").slice(0,9).show();
+			$(".FundingProjectCardItem:hidden").slice(0,3).show();
 			if($(".FundingProjectCardItem:hidden").length == 0){
-				console.log("더이상 항목이 없습니다.");
+				
 			}
         })
     });
-
-    
-    
-    
-    //검색선택
-    /* $("#searchSelect1").change(function(){
-        var title = $(this).data("title")
-    }); */
-	//자동페이징
-	/* var page = 2;
-
-	$(window).scroll(function(){
-		if($(window).scrollTop() == $(document).height() - $(window).height()){
-			console.log(++page);
-			$(".FundingProjectCardItem").append();
-		}
-	}); */
 </script>
 <style>
 .slide-title{
@@ -69,12 +47,7 @@
    	overflow: hidden;
    	text-overflow: ellipsis;
 }
-.FundingProjectCardItem{
-	display:none;
-}
-.FundingProjectCardItemImage{
-	opacity: 0;
-}
+
 </style>
 <div class="FundingMainWrapper">
        <div id="demo" class="carousel slide" data-ride="carousel">
@@ -131,58 +104,58 @@
     <div class="FundingCategoryContainer">
         <div class="FundingCategoryList">
             <div class="FundingCategoryListWrap">
-                <a class="FundingCategoryList" id="C0" href="#">
+                <a class="FundingCategoryList" href="#">
                      <span class="FundingCategoryListCricle">
                          <span class="FundingCategoryListCricleImage0"></span>
                          <span class="FundingCategoryListCricleName">전체보기</span>
                      </span>
                 </a>
-                <a class="FundingCategoryList" id="C1" href="#1">
+                <a class="FundingCategoryList" href="#1">
                     <span class="FundingCategoryListCricle">
                         <span class="FundingCategoryListCricleImage1"></span>
                         <span class="FundingCategoryListCricleName">테크·가전</span>
                     </span>
                 </a>
-                <a class="FundingCategoryList" id="C2" href="#">
+                <a class="FundingCategoryList" href="#">
                     <span class="FundingCategoryListCricle">
                         <span class="FundingCategoryListCricleImage2"></span>
                         <span class="FundingCategoryListCricleName">푸드</span>
                     </span>
                 </a>
-                <a class="FundingCategoryList" id="C3" href="#">
+                <a class="FundingCategoryList" href="#">
                     <span class="FundingCategoryListCricle">
                         <span class="FundingCategoryListCricleImage3"></span>
                         <span class="FundingCategoryListCricleName">여행</span>
                     </span>
                 </a>
-                <a class="FundingCategoryList" id="C4" href="#">
+                <a class="FundingCategoryList" href="#">
                     <span class="FundingCategoryListCricle">
                         <span class="FundingCategoryListCricleImage4"></span>
                         <span class="FundingCategoryListCricleName">스포츠</span>
                     </span>
                 </a>
-                <a class="FundingCategoryList" id="C5" href="#">
+                <a class="FundingCategoryList" href="#">
                     <span class="FundingCategoryListCricle">
                         <span class="FundingCategoryListCricleImage5"></span>
                         <span class="FundingCategoryListCricleName">게임·취미</span>
                     </span>
                 </a>
-                <a class="FundingCategoryList" id="C6" href="#">
+                <a class="FundingCategoryList" href="#">
                     <span class="FundingCategoryListCricle">
                         <span class="FundingCategoryListCricleImage6"></span>
                         <span class="FundingCategoryListCricleName">모임</span>
                     </span>
                 </a>
-                <a class="FundingCategoryList" id="C7" href="#">
+                <a class="FundingCategoryList" href="#">
                     <span class="FundingCategoryListCricle">
                         <span class="FundingCategoryListCricleImage7"></span>
                         <span class="FundingCategoryListCricleName">반려동물</span>
                     </span>
                 </a>
-                <a class="FundingCategoryList" id="C8" href="#">
+                <a class="FundingCategoryList" href="#">
                     <span class="FundingCategoryListCricle">
                         <span class="FundingCategoryListCricleImage8"></span>
-                        <span class="FundingCategoryListCricleName">기부·후원</span>
+                        <span class="FundingCategoryListCricleName">기부후원</span>
                     </span>
                 </a>
             </div>
@@ -191,56 +164,25 @@
     <div class="FundingProjectList">
         <div class="FundingProjectListHead">
             <h3 class="FundingProjectListHeadTitle">전체보기</h3>
-            <form action="" class="FundingProjectListSearchFrm">
-                <input type="search" id="searchKeyword" placeholder="검색" onkeyup="fundingEnterkey()">
-                <input type="button" id="SearchButton" value="">
+            <form class="FundingProjectListSearch">
+                <label for="">
+                    <input type="search" placeholder="검색">
+                    <div class="SearchButtonIcon">
+                        <input type="submit" class="SearchButton" value="검색">
+                    </div>
+                </label>
             </form>
-            
-            <select name="status" id="searchSelect1">
-            	<option value="All">전체</option>
-            	<option value="processing">진행중</option>
-            	<option value="quit">종료</option>
-            </select>
-            <select name="status" id="searchSelect2">
-            	<option value="recent">최신순</option>
-            	<option value="recommand">추천순</option>
-            </select>
-            
+            <div class="FundingProjectListSearchOption1">
+                전체
+            </div>
+            <div class="FundingProjectListSearchOption2">
+                추천순
+            </div>
         </div>
         <!-- 목록 -->
         <div class="FundingProjectCardList">
             <div class="FundingProjectCardListIn">
                 <!-- 목록 제목 -->
-                <c:forEach items="${list}" var="funding">
-	                <div class="FundingProjectCardItem">
-	                    <a href="#" class="FundingProjectCardItemImageArea">
-	                        <div class="FundingProjectCardItemImage"></div>
-	                    </a>
-	                    <div class="FundingProjectCardListInfo">
-	                        <div class="FundingProjectCardItemTitle">
-	                            <div class="FundingProjectCardItemTitleBox">
-	                                <a class="FundingProjectCardItemTitleLink" href="#">
-	                                    <p><strong>${funding.title}</strong></p>
-	                                </a>
-	                                <div>
-	                                    <span class="RewordProjectCardCategory">${funding.category_code}</span>
-	                                    <span class="line"></span>
-	                                    <span class="RewordProjectCardMakerName">
-	                                        주연테크(?)
-	                                    </span>
-	                                </div>
-	                            </div>
-	                            <div class="RewordProjectCardBar">
-	                                <span style="width: 20%;"></span>
-	                            </div>
-	                            <span class="RewordProjectCardPercent">20%</span>
-	                            <span class="RewordProjectCardAmount">10,000,000원</span>
-	                            <span class="RewordProjectCardDay">24일 남음</span>
-	                        </div>
-	                    </div>
-	                </div>
-                </c:forEach>
-                
                 <div class="FundingProjectCardItem">
                     <a href="#" class="FundingProjectCardItemImageArea">
                         <div class="FundingProjectCardItemImage"></div>
@@ -250,85 +192,6 @@
                             <div class="FundingProjectCardItemTitleBox">
                                 <a class="FundingProjectCardItemTitleLink" href="#">
                                     <p><strong>가전제품의 놀라움!!!!</strong></p>
-                                </a>
-                                <div>
-                                    <span class="RewordProjectCardCategory">테크·가전</span>
-                                    <span class="line"></span>
-                                    <span class="RewordProjectCardMakerName">
-                                        TG삼보
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="RewordProjectCardBar">
-                                <span style="width: 20%;"></span>
-                            </div>
-                            <span class="RewordProjectCardPercent">20%</span>
-                            <span class="RewordProjectCardAmount">10,000,000원</span>
-                            <span class="RewordProjectCardDay">24일 남음</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="FundingProjectCardItem">
-                    <a href="#" class="FundingProjectCardItemImageArea">
-                        <div class="FundingProjectCardItemImage"></div>
-                    </a>
-                    <div class="FundingProjectCardListInfo">
-                        <div class="FundingProjectCardItemTitle">
-                            <div class="FundingProjectCardItemTitleBox">
-                                <a class="FundingProjectCardItemTitleLink" href="#">
-                                    <p><strong>가전제품의 놀라움!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</strong></p>
-                                </a>
-                                <div>
-                                    <span class="RewordProjectCardCategory">테크·가전</span>
-                                    <span class="RewordProjectCardMakerName">
-                                        한성컴퓨터
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="RewordProjectCardBar">
-                                <span style="width: 20%;"></span>
-                            </div>
-                            <span class="RewordProjectCardPercent">20%</span>
-                            <span class="RewordProjectCardAmount">10,000,000원</span>
-                            <span class="RewordProjectCardDay">24일 남음</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="FundingProjectCardItem">
-                    <a href="#" class="FundingProjectCardItemImageArea">
-                        <div class="FundingProjectCardItemImage"></div>
-                    </a>
-                    <div class="FundingProjectCardListInfo">
-                        <div class="FundingProjectCardItemTitle">
-                            <div class="FundingProjectCardItemTitleBox">
-                                <a class="FundingProjectCardItemTitleLink" href="#">
-                                    <p><strong>가전제품의 놀라움!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</strong></p>
-                                </a>
-                                <div>
-                                    <span class="RewordProjectCardCategory">테크·가전</span>
-                                    <span class="RewordProjectCardMakerName">
-                                        ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="RewordProjectCardBar">
-                                <span style="width: 20%;"></span>
-                            </div>
-                            <span class="RewordProjectCardPercent">20%</span>
-                            <span class="RewordProjectCardAmount">10,000,000원</span>
-                            <span class="RewordProjectCardDay">24일 남음</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="FundingProjectCardItem">
-                    <a href="#" class="FundingProjectCardItemImageArea">
-                        <div class="FundingProjectCardItemImage"></div>
-                    </a>
-                    <div class="FundingProjectCardListInfo">
-                        <div class="FundingProjectCardItemTitle">
-                            <div class="FundingProjectCardItemTitleBox">
-                                <a class="FundingProjectCardItemTitleLink" href="#">
-                                    <p><strong>가전제품의 놀라움!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</strong></p>
                                 </a>
                                 <div>
                                     <span class="RewordProjectCardCategory">테크·가전</span>
@@ -354,7 +217,33 @@
                         <div class="FundingProjectCardItemTitle">
                             <div class="FundingProjectCardItemTitleBox">
                                 <a class="FundingProjectCardItemTitleLink" href="#">
-                                    <p><strong>가전제품의 놀라움!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</strong></p>
+                                    <p><strong>가전제품의 놀라움!!!!</strong></p>
+                                </a>
+                                <div>
+                                    <span class="RewordProjectCardCategory">테크·가전</span>
+                                    <span class="RewordProjectCardMakerName">
+                                        주연테크(?)
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="RewordProjectCardBar">
+                                <span style="width: 20%;"></span>
+                            </div>
+                            <span class="RewordProjectCardPercent">20%</span>
+                            <span class="RewordProjectCardAmount">10,000,000원</span>
+                            <span class="RewordProjectCardDay">24일 남음</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="FundingProjectCardItem">
+                    <a href="#" class="FundingProjectCardItemImageArea">
+                        <div class="FundingProjectCardItemImage"></div>
+                    </a>
+                    <div class="FundingProjectCardListInfo">
+                        <div class="FundingProjectCardItemTitle">
+                            <div class="FundingProjectCardItemTitleBox">
+                                <a class="FundingProjectCardItemTitleLink" href="#">
+                                    <p><strong>가전제품의 놀라움!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</strong></p>
                                 </a>
                                 <div>
                                     <span class="RewordProjectCardCategory">테크·가전</span>
@@ -407,34 +296,5 @@
         </div>
     </div>
 </div>
-
-<script>
-    //검색
-    $("#SearchButton").click(function(){
-        var keyword = $("#searchKeyword").val();
-        console.log(keyword);
-		var url = "${pageContext.request.contextPath}/funding/fundingList";
-		url = url + "?searchSelect1=" + $('#searchSelect1').val();
-		url = url + "&searchSelect2=" + $('#searchSelect2').val();
-		url = url + "&searchKeyword="+$('#searchKeyword').val();
-		location.href = url;
-		console.log(url);
-    });
-    function fundingEnterkey(){
-		if(window.event.keyCode == 13){
-			search2();
-		}
-    }
-    function search2(){
-    	var keyword = $("#searchKeyword").val();
-    	console.log(keyword);
-		var url = "${pageContext.request.contextPath}/funding/fundingList"
-		url = url + "?searchSelect1=" + $('#searchSelect1').val();
-		url = url + "&searchSelect2=" + $('#searchSelect2').val();
-		url = url + "&searchKeyword="+$('#searchKeyword').val();
-		location.href = url;
-		console.log(url);
-    }
-</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

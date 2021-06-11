@@ -111,17 +111,12 @@ public class MemberController {
 	
 	@GetMapping("/logout")
 	public String logout(
-			@RequestHeader (name = "Referer", required = false) String referer,
 			HttpServletRequest request,
 			Model model
 			) {
 		request.getSession().removeAttribute("loginMember");
 		model.addAttribute("loginMember",null);
-		if(referer != null) {
-			return "redirect:"+referer;
-		}else {
-			return "redirect:/";
-		}
+		return "redirect:/";
 	}
 	
 	@GetMapping("/memberEnroll")
@@ -145,6 +140,11 @@ public class MemberController {
 		int result = memberService.insertMemberIf(member);
 		redirectAttr.addFlashAttribute("msg","회원가입완료");
 		return "redirect:/";
+	}
+	
+	@GetMapping("/memberDetails")
+	public void memberDetails() {
+		
 	}
 	
 	

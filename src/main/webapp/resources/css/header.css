@@ -81,7 +81,9 @@ a:active {
 	background:none;
 	border:none;
 	text-align:center;
+	font-size:16px !important;
 }
+
 #btn_login{
 	position:absolute;
 	width:80px;
@@ -91,6 +93,7 @@ a:active {
 	border:1px solid blue;
 	font-weight:bold;
 	text-align:center !important;
+	font-size:16px !important;
 }
 #btn_login:hover{
 	color:white;
@@ -104,6 +107,7 @@ a:active {
 	border:1px solid blue;
 	font-weight:bold;
 	text-align:center !important;
+	font-size:16px !important;
 }
 #btn_enroll:hover{
 	color:white;
@@ -117,6 +121,7 @@ a:active {
 	border:1px solid rgb(40,167,69);
 	font-weight: bold;
 	text-align:center !important;
+	font-size:16px !important;
 }
 #project_open:hover{
 	color:white;
@@ -145,6 +150,7 @@ a:active {
 	position:absolute;
 	right:10px;
 	top:12px;
+	font-size:16px;
 }
 #login_relative span a{
 	font-weight:bold;

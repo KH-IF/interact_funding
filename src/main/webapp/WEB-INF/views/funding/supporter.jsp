@@ -78,7 +78,6 @@
 		<div id="funing_main_right_div_3"></div>
 
 		<div id="funing_main_right_div_4"></div>
-
 	</div>
 </div>
 
