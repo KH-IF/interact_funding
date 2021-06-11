@@ -8,17 +8,39 @@
 	<!-- 김주연 -->
 	<!-- 박요한 -->
 	<!-- 배기원 -->
+		<select id="indexfundingList" resultType="funding">
+				select rownum, f.*
+		from (
+		        select *
+		        from funding  
+		        where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
+		        order by reg_date  desc
+		        ) f
+		where rownum between 1 and 6
+	    </select>
 	<!-- 이승우 -->
 	<select id="selectFundingList" resultType="funding">
 		select
 			*
 		from
 			funding f
-		order by
-			funding_no desc
+		<where>
+			title like '%' || '${searchKeyword}' || '%'
+			<if test="searchSelect1 == 'processing'">
+			and d_day <![CDATA[>]]> sysdate
+			</if>
+			<if test="searchSelect1 == 'quit'">
+			and d_day <![CDATA[<]]> sysdate
+			</if>
+		</where>
+		<if test="searchSelect2 == 'recent'">
+		order by reg_date desc
+		</if>
+		<if test="searchSelect2 == 'recommand'">
+		order by like_count desc
+		</if>
 	</select>
 	<!-- 천호현 -->
-	
 	<select id="selectFunding" resultMap="fundingVoMap">
 		select *
 		from funding F
@@ -29,6 +51,14 @@
 		    join like_record L
 		    on L.funding_no = F.funding_no
 		where f.funding_no =#{funding_no}
+	</select>
+	<select id="selectOneFunding" resultType="funding">
+		select
+			*
+		from
+			funding
+		where
+			funding_no = #{funding_no}
 	</select>
 	
 	<resultMap type="fundingExt" id="fundingVoMap">

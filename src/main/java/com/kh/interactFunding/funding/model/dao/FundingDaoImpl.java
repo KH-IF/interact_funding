@@ -1,6 +1,7 @@
 package com.kh.interactFunding.funding.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.interactFunding.funding.model.vo.Funding;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class FundingDaoImpl implements FundingDao{
 	
@@ -23,12 +27,25 @@ public class FundingDaoImpl implements FundingDao{
 	//박요한
 	
 	//배기원
+	@Override
+	public List<Funding> indexfundingList() {
+		// TODO Auto-generated method stub
+		return session.selectList("funding.indexfundingList");
+	}
+	
 	
 	//이승우
 	@Override
-	public List<Funding> fundingList() {
-		return session.selectList("funding.selectFundingList");
+	public List<Funding> fundingList(Map<String, Object> map) {
+		log.debug("map@dap = {}",map);
+		return session.selectList("funding.selectFundingList", map);
 	}
+
+	@Override
+	public List<Funding> fundingSearchList() {
+		return session.selectList("funding.searchFundingList");
+	}
+	
 	//천호현
 
 	@Override

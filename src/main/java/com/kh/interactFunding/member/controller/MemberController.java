@@ -132,6 +132,7 @@ public class MemberController {
 	public void memberEnroll_if(){
 		
 	}
+
 	@PostMapping("/memberEnroll_if")
 	public String memberEnroll_if(Member member, Model model, RedirectAttributes redirectAttr) {
 		//이메일, 비밀번호, 이름 받아옴
@@ -228,6 +229,7 @@ public class MemberController {
 	//박요한
 	
 	//배기원
+	
 	
 	//이승우
 	

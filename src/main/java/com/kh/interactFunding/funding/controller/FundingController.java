@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.interactFunding.funding.model.service.FundingService;
@@ -77,19 +79,58 @@ public class FundingController {
 	}
 	
 	//배기원(test 해보겠습니다)
+	// 배기원
+	/*
+	 * //ajax
+	 * 
+	 * @RequestMapping(value = "/", method = RequestMethod.GET) public String
+	 * indexfunding_rewardList(Model model, HttpSession session) { try {
+	 * List<funding_reward> list = funding_rewardService.indexfunding_rewardList();
+	 * model.addAttribute("list", list);
+	 * 
+	 * log.info("list={}", list);
+	 * 
+	 * } catch (Exception e) { log.error("메인페이지 펀딩리스트 조회가 안됩니다", e); }
+	 * 
+	 * return "forward:/index.jsp"; } }
+	 */
 	
 	//이승우
 	//흠흠
 	@GetMapping("/fundingList")
-	public void fundingList() {
-		List<Funding> list = fundingService.fundingList();
-		System.out.println("list"+list);
+	public ModelAndView fundingList(
+			ModelAndView mav,
+			@RequestParam(required = false, defaultValue = "") String searchKeyword,
+			@RequestParam(required = false, defaultValue = "") String searchSelect1,
+			@RequestParam(required = false, defaultValue = "") String searchSelect2
+		) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchKeyword", searchKeyword);
+		map.put("searchSelect1", searchSelect1);
+		map.put("searchSelect2", searchSelect2);
+		log.debug("searchTitle = {}", searchKeyword);
+		
+		// 업무로직
+		try {
+			List<Funding> list = fundingService.fundingList(map);
+			System.out.println("list"+list);
+			log.debug("list = {}", list);
+			//jsp에 위임
+			mav.addObject("list", list);
+			
+			return mav;
+		}
+		catch(Exception e){
+			log.error("fundingList 조회 오류");
+			throw e;
+		}
 	}
 	
 	@GetMapping("/earlyList")
 	public void earlyList() {
 		
 	}
+	
 	//천호현
 	/*
 	* @GetMapping("/fundingDetail") public void fundingDetail(@RequestParam int
@@ -129,3 +170,5 @@ public class FundingController {
 	
 	
 }
+
+	
