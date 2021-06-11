@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-ol {
+/* ol {
 	height: 50px;
 	padding: 0;
 	margin: 0;
@@ -20,80 +20,101 @@ li {
 	width: 950px;
 	display: inline-block;
 	padding-left: 100px;
-}
+} */
 
 /* news */
 .yh-view {
-	position: absolute;
-	top: 0;
+	/* position: absolute;
+	top: 0px; */
 	border-bottom: 2px solid black;
-	width: 800px;
+	width: 700px;
+	display: inline-block;
 }
 
 .yh-containertable{
-	position: absolute;
-	top: 80px;
+	/* position: absolute;
+	top: 80px; */
 }
 
 .yh-table td{
 	border-bottom: 1px solid lightgray;
-	width: 800px;
+	width: 700px;
 }
 
 /* 새소식 펀딩 */
-.yh-funding {
+/* .yh-funding {
 	width: 200px;
 	display: inline-block;
 }
 
 .yh-fundingStyle{
 	border: 2px solid black;
-}
+} */
 
 /* 커뮤니티 */
 .yh-c-view {
 	/* position: absolute;
 	top: 0; */
-	width: 800px;
+	width: 700px;
 }
 
-/* .yh-FAQ{
-	position: absolute;
-	top: 90px;
-} */
+.yh-FAQ{
+	margin-top: 40px;
+	margin-bottom: 10px;
+}
 
 /* .yh-c-containertable{
 	position: absolute;
 	top: 200px;
 } */
 
+.FAQ-btn{
+	cursor: pointer; 
+	border: 0; 
+	background-color: white;
+	padding: 0;
+	width: 700px;
+	text-align: left;
+	border-bottom: 1px solid lightgray;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
 yh-c-table{
 	position: relative;
 }
 
 .yh-c-table p{
-	border-bottom: 1px solid lightgray;
-	width: 800px;
-	height: 35px;
+	/* width: 690px; */
+	/* height: 35px; */
 	margin: 0;
 	margin-top: 10px;
 }
 
 .FAQB{
-	position: absolute;
-	left: 400px;
 	margin-top: 30px;
+	width: 700px;
+	background-color: white;
+	border: 0;
+	cursor: pointer; 
 }
 
 .inquire{
-	margin-top:100px;
+	margin-top:50px;
 }
 
 .maker{
 	position: relative;
 	padding-bottom: 60px;
 	border-bottom: 1px solid lightgray;
-	width: 800px;
+	width: 700px;
+	margin-bottom: 20px;
+}
+
+.maker p{
+	position: absolute;
+	top: 0;
+	left: 70px;
 }
 
 .maker div{
@@ -114,24 +135,52 @@ yh-c-table{
 
 .inquire-btn{
 	position: absolute;
-	top: 30px;
+	top: 5px;
+	left: 250px;
+	width: 120px;
+	height: 35px;
+	border-radius: 50px;
 }
 
 .review-top{
 	border-bottom: 1px solid black;
 	padding-bottom: 15px;
-	width: 800px;
+	width: 700px;
 }
 
 .yh-comment{
-	width: 800px;
+	width: 700px;
 	margin-top: 20px;
+	position: relative;
+	margin-bottom: 50px;
 }
 
 .yh-maker-comment{
-	width: 800px;
+	width: 700px;
 	margin-top: 10px;
 	background-color: lightblue;
+}
+
+#c-write-btn{
+	margin-bottom: 20px;
+	width: 400px;
+	height: 50px;
+}
+
+.FAQ-answer{
+	width: 700px;
+	background-color: lightblue;
+	padding: 10px;
+	margin-top: 10px;
+	display: none;
+}
+
+.FAQ-answer p{
+	margin: 0;
+}
+
+#FAQ-more {
+	display: none;
 }
 
 /* 커뮤니티 펀딩 */
@@ -143,12 +192,258 @@ yh-c-table{
 
 /* 서포터 */
 .yh-s-view{
-	position: absolute;
-	top: 0;
-	width: 800px;
+	/* position: absolute;
+	top: 0; */
+	width: 700px;
 }
 .yh-s-table td{
 	border-bottom: 1px solid lightgray;
-	width: 800px;
+	width: 700px;
 	padding-top: 20px
+}
+
+/* 새소식 뷰 */
+.yh-nv-view{
+	border-bottom: 1px solid lightgray;
+	width: 700px;
+	display: inline-block;
+}
+
+.yh-nv-text{
+	width: 700px;
+	border-bottom: 1px solid lightgray;
+}
+
+#nv-share-btn-div{
+	position: relative;
+}
+
+#nv-share-btn{
+	margin-bottom: 50px;
+	margin-top: 30px;
+}
+
+.nv-comment{
+	width: 600px;
+	height: 100px;
+	border: 1px solid lightgray;
+	margin-bottom: 20px;
+}
+
+#nv-comment-btn{
+	width: 80px;
+	height: 100px;
+	position: absolute;
+	right: 0;
+}
+
+.nv-comment-red{
+	width: 700px;
+	background-color: hsla(0,100%,70%,.1);
+	padding: 16px;
+	margin-bottom: 30px;
+}
+
+.nv-comment-red small{
+	color: red;
+}
+
+/* 팝업 */
+.popup {
+	width: 200px;
+	height: 50px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	display: none;
+	margin-bottom: 10px;
+	position: absolute;
+	top: 70px;
+	background-color: white;
+}
+
+/* .popup:target{
+	display: block;
+} */
+
+.popup-a {
+	text-align: right;
+}
+
+.addthis_inline_share_toolbox_a8gi {
+	text-align: center;
+	padding-top: 3px; 
+}
+
+.nv-c-comment{
+	width: 600px;
+	height: 100px;
+	border: 1px solid lightgray;
+	margin-bottom: 10px;
+}
+
+#nv-c-comment-btn{
+	width: 80px;
+	height: 100px;
+	position: absolute;
+	right: 0;
+}
+
+.yh-c-comment{
+	margin-top: 10px;
+	display: none;
+	position: relative;
+}
+
+/* 글 남기기 */
+.c-write-view{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: -1;
+	transform: translate(-50%, -50%);
+	width: 800px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	background: #fff;
+	border-radius: 5px;
+	padding:20px;
+	box-sizing: border-box;
+	opacity: 0;
+	transition: all 0.5;
+}
+
+.c-write-view a{
+	color: gray;
+	text-decoration: none;
+}
+
+.c-write-view:target{
+	opacity: 1;
+	z-index: 3;
+}
+
+.c-write-view:target + .dim{
+	opacity: 1;
+	z-index: 2;
+}
+
+.dim{
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.6);
+	opacity: 0;
+	transition: all 0.5s;
+}
+
+.c-write-view-a{
+	text-align: right;
+}
+
+.yh-checkbox1{
+	border: 1px solid black;
+	border-radius: 30px;
+	width: 350px;
+	background-color: white;
+	display: inline-block;
+	margin: 5px;
+}
+.yh-checkbox1 input{
+	margin-left: 15px;
+	cursor: pointer;
+}
+
+.yh-checkbox1 div {
+	margin-top: 6px;
+}
+
+.yh-checkbox1 label {
+	cursor: pointer;
+	width: 350px;
+	margin: 0;
+	height: 35px;
+}
+
+.c-write-comment{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.c-write-comment-textb{
+	width: 760px;
+	height: 300px;
+}
+
+.comment-red{
+	width: 760px;
+	background-color: hsla(0,100%,70%,.1);
+	padding: 16px;
+	margin-bottom: 50px;
+}
+
+.comment-red small{
+	color: red;
+}
+
+.yh-c-write-view-btn input{
+	width: 760px;
+	height: 50px;
+	margin-top: 30px;
+}
+
+/* 호현 */
+#funding_tap {
+	
+}
+
+#funding_tap>ol {
+	height: 50px;
+	border: 2px solid black;
+	text-align: center;
+}
+
+#funding_tap>ol>li {
+	display: inline-block;
+	width: 98px;
+	padding: 3px 10px;
+	border-left: 1px solid #999;
+}
+
+/* 펀딩 메인 전체 div */
+#funding_main {
+	width: 1000px;
+	display: flex;
+	margin: auto;
+}
+
+#funding_main_image_and_content {
+	width: 800px;
+	overflow: hidden;
+}
+
+/* 펀딩 메인 이미지 */
+#funding_main_image {
+	height: 500px;
+	height: 500px;
+}
+
+/* 펀딩 메인 내용 */
+#funding_main_content {
+	width: 100%;
+	height: 2000px;
+	border: 2px solid black;
+}
+
+/* 펀딩 메인 오른쪽 펀딩하기 div*/
+#funing_main_right_div {
+	display: inline-block;
+}
+
+#funing_main_right_div>div {
+	border: 2px solid black;
+	width: 200px;
+	height: 400px;
+	margin-top: 30px;
 }
