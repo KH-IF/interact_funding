@@ -487,6 +487,11 @@
             search2();
     })
     
+    //카테고리 선택시 이벤트
+    $document.ready(function(){
+		var category = ""
+    });
+    
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
