@@ -62,7 +62,7 @@
 		</if>
 	</select>
 	<!-- 천호현 -->
-	<select id="selectFunding" resultMap="fundingVoMap">
+<!-- 	<select id="selectFunding" resultMap="fundingDetailVoMap">
 		select *
 		from funding F
 		    join funding_reward R
@@ -71,18 +71,64 @@
 		    on f.funding_no = A.funding_no
 		    join like_record L
 		    on L.funding_no = F.funding_no
-		where f.funding_no =#{funding_no}
-	</select>
-	<select id="selectOneFunding" resultType="funding">
-		select
-			*
-		from
-			funding
-		where
-			funding_no = #{funding_no}
+		where f.funding_no = #{funding_no}
+	</select> -->
+	
+	
+	<!-- 	<resultMap type="FundingDetailVo" id="fundingDetailVoMap">
+		<id column="funding_no" property="fundingNo"></id>
+		<result column="title" property="title"/>
+		<result column="category_code" property="categoryCode"/>
+		<result column="now_amount" property="nowAmount"/>
+		<result column="goal_amount" property="goalAmount"/>
+		<result column="rate_plan_code" property="ratePlanCode"/>
+		<result column="writer_no" property="writerNo"/>
+		<result column="readcount" property="readCount"/>
+		<result column="like_count" property="likeCount"/>
+		<result column="content" property="content"/>
+		<result column="early_content" property="earlyContent"/>
+		<result column="start_date" property="startDate"/>
+		<result column="d_day" property="dDay"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="phone" property="phone"/>
+	
+		<result column="reward_no" property="rewardNo"/>
+		<result column="price" property="price"/>
+		<result column="title_1" property="rewardTitle"/>
+		<result column="content_1" property="rewardContent"/>
+		<result column="shipping_price" property="shippingPrice"/>
+		<result column="limit_amount" property="limitAmount"/>
+		<result column="shipping_date" property="shippingDate"/>
+		<result column="originalfilename" property="originalFileName"/>
+		<result column="renamedfilename" property="renamedFileName"/>
+		<result column="status" property="status"/>
+	</resultMap> -->
+	
+	<!-- <resultMap type="map" id="fundingDetailVoMap"></resultMap> -->
+	
+	
+	<!-- <select id="selectOneFunding" resultType="FundingDetailVo">
+		select *
+		from funding F
+		    join funding_reward R
+		    on F.funding_no = R.funding_no
+		    join attachment A
+		    on f.funding_no = A.funding_no
+		where f.funding_no = #{funding_no}
+	</select> -->
+	<select id="selectOneFunding" resultMap="FundingDetailVoMap">
+		select *
+		from funding F 
+		    join funding_reward R 
+		    on F.funding_no = R.funding_no
+		    join attachment A
+		    on F.funding_no = A.funding_no
+		    join member M
+		    on F.writer_no = M.member_no
+		where F.funding_no = #{funding_no}
 	</select>
 	
-	<resultMap type="fundingExt" id="fundingVoMap">
-	
+	<resultMap type="FundingDetailVo" id="FundingDetailVoMap">
+		<result column="d_day" property="dDay"/>
 	</resultMap>
 </mapper>

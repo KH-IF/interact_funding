@@ -37,6 +37,5 @@ public interface FundingDao {
 	//천호현
 	public Funding selectOneFunding(int funding_no);
 	
-	public List<Funding> selectFunding(int funding_no);
 
 }

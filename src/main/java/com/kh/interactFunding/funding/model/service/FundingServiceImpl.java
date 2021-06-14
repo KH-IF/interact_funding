@@ -98,10 +98,5 @@ public class FundingServiceImpl implements FundingService{
 		return fundingDao.selectOneFunding(funding_no);
 	}
 
-	@Override
-	public List<Funding> selectFunding(int funding_no) {
-		return fundingDao.selectFunding(funding_no);
-	}
-	
 	
 }

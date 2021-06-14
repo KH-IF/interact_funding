@@ -91,9 +91,5 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectOne("funding.selectOneFunding", funding_no);
 	}
 
-	@Override
-	public List<Funding> selectFunding(int funding_no) {
-		return session.selectList("funding.selectFunding", funding_no);
-	}
 	
 }
