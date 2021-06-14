@@ -20,6 +20,11 @@
 	window.open('fundingChatMaker', '', 'status=no, height=600, width=500, left='+ popupX + ', top='+ popupY);
 		}
 </script>
+	<div id="funding_top_title">
+		${funding.title}
+		${funding.categoryCode}
+	
+	</div>
 	
 	<div id="funding_tap">
             <ol>
@@ -42,25 +47,32 @@
             <div id="funding_main_image_and_content">
                 <div id="funding_main_image">
                     <img src="${pageContext.request.contextPath }/resources/images/city1.PNG" alt="" style="width: 100%; height: 100%;">
+   					${funding.originalFileName}
+					${funding.renamedFileName}
                 </div>
 
                 <div id="funding_main_content">
-					${funding.content}
-                    내용들어갈부분
-
+                 	<br />	<br />	<br />	<br />	<br />
+              		
+              		${funding.content}
+           		    ${funding.earlyContent}
+              
+              
                 </div>
             </div>
 
 
             <div id="funing_main_right_div">
                 <div id="funing_main_right_div_1">
-                    <div id="funding_detail_dday_div">10일 남음</div>
-                    <div id="funding_detail_dday_div">aaaaa 목표bar 들어갈곳</div>
+                    <div id="funding_detail_dday_div">10일 남음<%-- ${funding.dDay} --%>${funding.startDate}${funding.regDate}</div>
+                    <div id="funding_detail_dday_div">aaaaa 목표bar 들어갈곳 					
+                    ${funding.nowAmount}-현재금액
+					${funding.goalAmount}-목표금액</div>
                     <div id="funding_detail_goal_percent_div">8500% 달성</div>
                     <div id="funding_detail_now_amount_div">444444 원 펀딩</div>
                     <div id="funding_detail_supporter_div">3333명의 서포터</div> <!-- funding_participation -->
-                    <input id="funding_button" type="button" value="펀딩하기" onclick="location.href='${pageContext.request.contextPath}/funding/fundingReward';" />
-                    <input type="button" value="좋아요" id="funding_detail_like_button"/>
+                    <input id="funding_button" type="button" value="펀딩하기" onclick="location.href='${pageContext.request.contextPath}/funding/fundingReward?funding_no=	${funding.fundingNo}';" />
+                    <input type="button" value="${funding.likeCount}좋아요" id="funding_detail_like_button"/>
                     <input type="button" value="1:1 채팅" id="funding_detail_chat_button"/>
                     <input type="button" value="공유하기" id="funding_detail_share_button"/>
                 </div>
@@ -71,9 +83,9 @@
                 메이커 정보
                 	<div id="funding_detail_maker_logo_name_div">
                 		<div id="funding_detail_maker_logo">로고</div>
-                		<div id="funding_detail_maker_name">ㅁㅁㅁ컴퍼니</div>
+                		<div id="funding_detail_maker_name">${funding.name}ㅁㅁㅁ컴퍼니</div>
                 	</div>
-                		<div id="funding_detail_maker_phone">메이커 연락처:0000</div>
+                		<div id="funding_detail_maker_phone">메이커 연락처:${funding.phone}</div>
                     <input type="button" value="메이커에게 문의하기" id="funding_detail_maker_chat_button" 
                     onclick="maker_chat_function()"/>
 
@@ -98,6 +110,13 @@
 
 
       <style>
+      
+      
+    #funding_top_title{
+    height: 106px;
+    text-align: center;  
+      
+    }
     #funding_tap {
 
     }    
