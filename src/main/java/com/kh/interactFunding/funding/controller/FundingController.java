@@ -244,19 +244,20 @@ public class FundingController {
 	@GetMapping("/fundingList")
 	public ModelAndView fundingList(
 			ModelAndView mav,
-			@RequestParam(required = false, defaultValue = "") String searchKeyword,
-			@RequestParam(required = false, defaultValue = "") String searchSelect1,
-			@RequestParam(required = false, defaultValue = "") String searchSelect2
+			@RequestParam(defaultValue="") String searchKeyword,
+			@RequestParam(defaultValue="") String searchSelect1,
+			@RequestParam(defaultValue="") String searchSelect2
 		) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("searchKeyword", searchKeyword);
 		map.put("searchSelect1", searchSelect1);
 		map.put("searchSelect2", searchSelect2);
-		log.debug("searchTitle = {}", searchKeyword);
 		
-		// 업무로직
+		
 		try {
+			// 업무로직
 			List<Funding> list = fundingService.fundingList(map);
+			log.debug("searchTitle = {}", searchKeyword);
 			System.out.println("list"+list);
 			log.debug("list = {}", list);
 			//jsp에 위임
