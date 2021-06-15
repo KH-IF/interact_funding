@@ -280,29 +280,37 @@ public class FundingController {
 	
 	@GetMapping("/fundingDetail") 
 	public void fundingDetail(@RequestParam int	funding_no, Model model) { //1. 업무로직 
-	Funding funding = fundingService.selectOneFunding(funding_no);
-	log.debug("funding = {}" , funding); 
-	//2. 위임 
-	model.addAttribute("funding", funding);
+		Funding funding = fundingService.selectOneFunding(funding_no);
+		int funding2 = fundingService.selectOneFunding2(funding_no);//funding_participation
+		log.debug("funding = {}" , funding); 
+		log.debug("funding2 = {}" , funding2); 
+		//2. 위임 
+		model.addAttribute("funding", funding);
+		model.addAttribute("funding2", funding2);
 	}
 
 	
 	@GetMapping("/fundingReward")
 	public void fundingReward(@RequestParam int	funding_no, Model model) {
-	Funding funding = fundingService.selectOneFunding(funding_no);
-	log.debug("funding = {}" , funding); 
-	//2. 위임 
-	model.addAttribute("funding", funding);
+		Funding funding = fundingService.selectOneFunding(funding_no);
+		log.debug("funding = {}" , funding); 
+		//2. 위임 
+		model.addAttribute("funding", funding);
 		
 	}
 	@GetMapping("/fundingChatMaker")
-	public void fundingChatMaker() {
+		public void fundingChatMaker() {
 	}
 	@GetMapping("/fundingPayment")
-	public void fundingPayment() {
+		public void fundingPayment() {
 	}
 	@GetMapping("/fundingFindAddress")
 	public void fundingFindAddress() {
+	}
+	
+	@GetMapping("/loginMembberClickLike")
+	public void loginMembberClickLike() {
+		//Member memeber = fundingService.selectLoginMember();
 	}
 	
 	

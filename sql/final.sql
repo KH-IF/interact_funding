@@ -404,9 +404,12 @@ values (1,99,'테스트오리지날1','테스트리네임','Y');
 insert into like_record
 values (3,99,21,'N');
 
-select * from like_record;
+insert into funding_participation
+values (3,99,21, '2021/06/10', 'Y', 2, 3000, '안양', '김윤수', '0102222261','빨리주세요');
 
-select * from funding;
+select * from funding_reward;
+
+select * from funding_participation;
 
 select *
 from funding F 
@@ -433,7 +436,37 @@ where f.funding_no =99;
 --alter table funding
 --modify readcount number default 0;
 
+select * from funding;
+ALTER TABLE funding ADD status char(1);
 
+ALTER TABLE funding ADD CONSTRAINT ck_funding_status  CHECK (status in ('Y','N'));
+
+desc  funding;
+desc message;
+
+select count(*)
+from funding_participation;
+
+
+select F.FUNDING_NO,
+        F.TITLE,
+        F.CATEGORY_CODE,
+                            (select count(*)
+                            from funding_participation
+                            where F.funding_no = 99) cioo
+    from funding F 
+    join funding_reward R 
+    on F.funding_no = R.funding_no
+    join attachment A
+    on F.funding_no = A.funding_no
+    join member M
+    on F.writer_no = M.member_no
+where f.funding_no =99;
+
+
+select count(*) count
+from funding_participation
+where funding_no = 99;
 -----------------------
 select * from tab;
 
