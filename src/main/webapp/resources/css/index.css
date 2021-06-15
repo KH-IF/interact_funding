@@ -1,11 +1,6 @@
 @charset "UTF-8";
 /*  카드배너 이미지 옆으로 넗이 조정 */
 /*card banner start*/
-/* 가로 1300 px  */
-.kiwon_cardbanner {
-	width: 1300px;
-}
-
 /* 캐러셀(이미지변경) 이미지 크기 변경 */
 .carousel-inner {
 	width: auto;
@@ -19,7 +14,7 @@
 
 /* 글자 보이는 예제*/
 .carousel-caption {
-	position: sticky;
+	position: sticky !important;
 }
 
 .carousel-caption-span {
@@ -123,15 +118,12 @@
 	width: 250px;
 }
 
-.kiwonfunding-percnt1 {
-	color: #00a2a2;
-	font-weight: 700;
-}
 /*펀딩 참여1 레이아웃  end*/
 
 /*percent API */
-.kiwonfunding-percnt {
+.kiwonfunding-percent {
 	color: #00a2a2;
+	font-size: 14px;
 	font-weight: 700;
 }
 
@@ -139,8 +131,7 @@
 	padding-left: 9px;
 }
 
-.kiwonfunding-percnt:after {
-	content: "투자";
+.kiwonfunding-percent-after {
 	line-height: 18px;
 	font-size: 13px;
 	font-weight: 400;
@@ -232,11 +223,10 @@
 /* 실시간 랭킹  start*/
 .bd-sidebar-body {
 	height: 100%;
-	overflow-y: auto;
 	display: block;
 	float: right;
-	padding-top: 1vw;
-	width: 300px;
+	padding-top: 3.5vw;
+	width: 380px;
 }
 
 .bd-sidebar-body h1 {
@@ -257,7 +247,7 @@
 }
 
 .btn-group, .btn-group-vertical {
-	padding-top: 10px;
+	padding-top: 20px;
 	padding-left: 9px;
 	position: relative;
 	display: -ms-inline-flexbox;
@@ -369,21 +359,13 @@
 	content: "";
 }
 
-.kiwonRanking_percnt {
+.kiwonRanking_percent {
 	color: #00a2a2;
 	font-weight: 700;
 	font-size: 14px;
 	position: absolute;
-	margin-top: -1vw;
-	padding-left: 1vw;
-	position: relative;
-}
-
-.kiwonRanking_percnt:after {
-	content: "뷰티";
-	line-height: 3.5;
-	/*테스트 컬러 제목이름만  컬러지정 */
-	color: #90949c;
+	margin-top: 2.5vw;
+	padding-left: 2vw;
 }
 
 .orderText {
@@ -407,8 +389,15 @@
 /* 실시간 랭킹  end */
 
 /* 얼리버드  start*/
+.Ealrybird_Paging {
+	float: right;
+	margin-top: -3vw;
+	margin-right: 32px;
+}
+
 .Earlybird_Container {
 	position: relative;
+	padding-top: 1.2vw;
 }
 
 .Earlybird_Container-h1 {
@@ -424,6 +413,7 @@
 	font-weight: 700;
 	margin-left: 42px;
 	line-height: 10px;
+	font-size: 13px !important;
 }
 
 .Ealrytbird_btn {
@@ -435,14 +425,6 @@
 	margin-right: -35px;
 }
 
-.Ealrytbird_previous {
-	position: relative;
-	float: right;
-	display: flex;
-	margin-top: -22px;
-	margin-right: 2vw;
-}
-
 .Ealrybird_page_btn {
 	cursor: pointer;
 	/*테두리 없애기*/
@@ -451,17 +433,6 @@
 	font-size: 16px;
 	color: rgba(0, 0, 0, .54);
 }
-/* 1번~4번 페이지  */
-.Ealrybird_page_btn:hover {
-	color: #00b2b2;
-}
-
-.Ealrybird_btn_outline {
-	cursor: pointer;
-	font-size: 24px;
-	color: rgba(0, 0, 0, .15);
-}
-
 /* EarlybirdCard start*/
 .EarlybirdCard_Type {
 	border: 1px solid #e6eaed;
@@ -488,7 +459,6 @@
 }
 
 .EalrybirdCard_percent-span:after {
-	content: "클래스";
 	white-space: nowrap;
 	width: 100%;
 	color: #90949c;
@@ -513,7 +483,41 @@
 	color: rgba(0, 0, 0, .54);
 	line-height: 36px;
 }
-
-/**/
-
 /*얼리버드 end */
+
+/* 최근살펴본 펀딩 start*/
+.likeProject{
+	    display: inline-flex;
+    margin-left: 2vw;
+}
+.p-likeProject{
+	margin-left: 2vw;
+    font-weight: 700;
+    line-height: 4px;
+    color: #1D2129;
+    font-size: 22px;
+    padding-bottom: 10px;
+    padding-top: 20px;
+}
+.card-text-p{
+	 font-size: 15px;
+   font-weight: 400;
+   margin: 0 auto;
+}
+.card-text-p1{
+	 color: #00a2a2;
+   font-weight: 700;
+   font-size: 14px;
+   position: absolute;
+}
+.card-text-span{
+	 line-height: 18px;
+   font-size: 13px;
+   font-weight: 400;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 100%;
+   color: #90949c;
+}
+/* 최근살펴본 펀딩 end*/
