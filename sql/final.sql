@@ -371,6 +371,69 @@ select * from funding;
 --김경태 테스트영역
 
 --김주연 테스트영역
+select * from category;
+select * from funding; 
+update
+			funding
+		set
+			category_code = 'C1',
+			title = '안녕하세요',
+			goal_amount = 502000,
+			reg_date = default,
+			d_day = 'Tue Jun 22 00:00:00 KST 2021' 			
+		where
+			funding_no = '21';	
+
+update
+    funding
+    set 
+    status = 'Y'
+    where 
+        writer_no = 21;
+        and funding_no= 99;
+commit;
+
+	select
+			f.*, (select name 
+            from member where member_no = f.writer_no)name
+		from
+			funding f
+        
+		where
+			f.writer_no = 21
+			and f.status = 'Y';
+
+select  
+rownum, f.*
+from (
+        select funding.* ,
+        REPLACE(category_code, 'C1', '테크.가전'),
+        REPLACE(category_code, 'C5', '게임.취미')적용결과
+        from funding  
+        where start_date < sysdate and d_day > sysdate
+        order by reg_date  desc
+        ) f
+where rownum between 1 and 6;
+select  
+rownum,  f.*
+from (
+        select funding.* ,
+        CASE category_code
+                 WHEN 'C1' THEN '테크.가전'
+                 WHEN 'C2' THEN '푸드'
+                 WHEN  'C3' THEN '여행'
+                 WHEN  'C4' THEN '스포츠'
+                 WHEN 'C5' THEN '게임.취미'
+                 WHEN 'C6' THEN '모임'
+                 WHEN  'C7' THEN  '반려동물'
+                 WHEN  'C8' THEN '기부.후원'
+                 END
+        from funding  
+        where start_date < sysdate and d_day > sysdate
+        order by reg_date  desc
+        ) f
+where rownum between 1 and 6;
+
 
 --박요한 테스트영역
 

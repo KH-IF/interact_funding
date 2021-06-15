@@ -6,6 +6,120 @@
 	<!-- 김윤수 -->
 	<!-- 김경태 -->
 	<!-- 김주연 -->
+	<select id="statusYList" resultMap="fundingMap">
+		select
+			f.*, 
+			(select name 
+            		from member 
+            where member_no = f.writer_no)name
+		from
+			funding f
+        
+		where
+			f.writer_no = 21
+			and f.status = 'Y'
+	</select>
+	<select id="statusNList" resultMap="fundingMap">
+		select
+			f.*, 
+			(select name 
+            		from member 
+            where member_no = f.writer_no)name
+		from
+			funding f
+        
+		where
+			f.writer_no = 21
+			and f.status = 'N'
+	</select>
+	<resultMap type="FundingExt" id="fundingMap">
+		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
+	</resultMap>
+	<insert id="ready1FundingInsertNo">
+		insert into
+			funding(
+				funding_no,
+				writer_no
+			)
+			values(
+				seq_funding_no.nextval,
+				${writerNo}
+				
+			)
+		<!--발급받은 funding pk no값을 파라미터 funding객체의 property no에 저장한다.  -->	
+		<!--order After 실행된 다음에 가져온다  -->
+		<selectKey keyProperty="fundingNo" resultType="_int" order="AFTER">
+			select
+				seq_funding_no.currval
+			from 
+				dual
+		
+		</selectKey>
+	</insert>
+	<update id="saveCharge">
+		update
+			funding
+		set
+			rate_plan_code = '${charge}'
+		where
+			funding_no = ${no}	
+	</update>
+	<update id="saveBasicInfo">
+		update
+			funding
+		set
+			category_code = '${categoryCode}',
+			title = '${title}',
+			goal_amount = ${goalAmount},
+			reg_date = default,
+			d_day = ${dDay}
+		where
+			funding_no = ${fundingNo}	
+	</update>
+	<insert id="insertAttachment">
+	insert into
+		attachment(
+			no,
+			funding_no,
+			original_filename,
+			renamed_filename
+		)
+		values(
+			seq_attachment_no.nextval,
+			${fundingNo},
+			${originalFilename},
+			${renamedFilename}
+		
+		)
+	</insert>
+	
+	<update id="saveStory">
+		update
+			funding
+		<set>
+		
+			content = ${content},
+		
+			early_content = ${earlyContent},
+			
+		
+			start_date = ${startDate}
+				
+		</set>	
+		where
+			funding_no = ${fundingNo}	
+	</update>
+	
+	<update id="finalSubmit">
+		update
+			funding
+		set
+			status = 'Y'
+		where
+			funding_no = ${fundingNo}
+	</update>
+	
+	
 	<!-- 박요한 -->
 	<!-- 배기원 -->
 <!--  <resultMap type="fundingExt" id="fundingMap">
