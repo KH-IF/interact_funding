@@ -121,7 +121,7 @@
 	
 	
 	<!-- 박요한 -->
-	<select id="news" resultType="funding">
+	<select id="news" resultMap="fundingMap">
 		select
 			*
 		from
@@ -129,7 +129,7 @@
 		where
 			no = #{no}
 	</select>
-	<select id="community" resultType="funding">
+	<select id="community" resultMap="fundingMap">
 		select
 			*
 		from
@@ -137,7 +137,7 @@
 		where
 			comment_no = #{comment_no}
 	</select>
-	<select id="supporter" resultType="funding">
+	<select id="supporter" resultMap="fundingMap">
 		select
 			*
 		from
@@ -146,7 +146,7 @@
 			no = #{no}
 	</select>
 	<!-- 배기원 -->
-		<select id="indexfundingList" resultType="funding">
+		<select id="indexfundingList" resultMap="fundingMap">
 				select rownum, f.*
 		from (
 			        select funding.* ,
@@ -167,7 +167,7 @@
 		where rownum between 1 and 6
 	    </select>
 	    
-	    <select id="indexfundinglike" resultType="funding">
+	    <select id="indexfundinglike" resultMap="fundingMap">
 			    	select rownum, f.*
 		from (
 		        select *
@@ -186,13 +186,13 @@
 		where 
 	       start_date<![CDATA[> ]]>sysdate 
 	    </select>
-	    <select id="indexEarlyList" resultType="funding">
+	    <select id="indexEarlyList" resultMap="fundingMap">
 		    select*from funding 
 	    where 
 	       start_date<![CDATA[> ]]>sysdate 
 	    </select>
 	<!-- 이승우 -->
-	<select id="selectFundingList" resultType="funding">
+	<select id="selectFundingList" resultMap="fundingMap">
 		select
 			*
 		from
@@ -216,7 +216,7 @@
 		order by like_count desc
 		</if>
 	</select>
-	<select id="selectCategoryList" resultType="funding">
+	<select id="selectCategoryList" resultMap="fundingMap">
 		select
 			*
 		from
