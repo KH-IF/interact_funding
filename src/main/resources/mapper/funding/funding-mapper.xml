@@ -47,6 +47,9 @@
 			funding f
 		<where>
 			title like '%' || '${searchKeyword}' || '%'
+			<if test="FundingCategory != 'C0'">
+			and category_code like '%' || '${category}' || '%'
+			</if>
 			<if test="searchSelect1 == 'processing'">
 			and d_day <![CDATA[>]]> sysdate
 			</if>
@@ -60,6 +63,12 @@
 		<if test="searchSelect2 == 'recommand'">
 		order by like_count desc
 		</if>
+	</select>
+	<select id="selectCategoryList" resultType="funding">
+		select
+			*
+		from
+			category c
 	</select>
 	<!-- 천호현 -->
 <!-- 	<select id="selectFunding" resultMap="fundingDetailVoMap">

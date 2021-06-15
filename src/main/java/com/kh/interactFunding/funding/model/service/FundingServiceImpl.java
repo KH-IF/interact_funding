@@ -89,8 +89,14 @@ public class FundingServiceImpl implements FundingService{
 
 
 	//이승우
+	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {
 		return fundingDao.fundingList(map);
+	}
+	
+	@Override
+	public List<Map<String, String>> selectCategoryList() {
+		return fundingDao.selectCategoryList();
 	}
 	//천호현
 	@Override

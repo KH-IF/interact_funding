@@ -84,6 +84,11 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectList("funding.selectFundingList", map);
 	}
 
+	@Override
+	public List<Map<String, String>> selectCategoryList() {
+		return session.selectList("funding.selectCategoryList");
+	}	
+
 	//천호현
 
 	@Override

@@ -31,7 +31,7 @@ public interface FundingService {
 	public List<Funding> indexfundinglike();
 	//이승우
 	public List<Funding> fundingList(Map<String, Object> map);
-
+	public List<Map<String, String>> selectCategoryList();
 
 
 	

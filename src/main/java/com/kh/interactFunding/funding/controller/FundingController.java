@@ -247,22 +247,28 @@ public class FundingController {
 			ModelAndView mav,
 			@RequestParam(defaultValue="") String searchKeyword,
 			@RequestParam(defaultValue="") String searchSelect1,
-			@RequestParam(defaultValue="") String searchSelect2
+			@RequestParam(defaultValue="") String searchSelect2,
+			@RequestParam(defaultValue="") String category
 		) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("searchKeyword", searchKeyword);
 		map.put("searchSelect1", searchSelect1);
 		map.put("searchSelect2", searchSelect2);
-		
+		map.put("category", category);
 		
 		try {
-			// 업무로직
+			// 카테고리 업무로직
+			List<Map<String, String>> categoryList = fundingService.selectCategoryList();
+			
+			// 검색 업무로직
 			List<Funding> list = fundingService.fundingList(map);
 			log.debug("searchTitle = {}", searchKeyword);
 			System.out.println("list"+list);
 			log.debug("list = {}", list);
+			
 			//jsp에 위임
 			mav.addObject("list", list);
+			mav.addObject("categoryList", categoryList);
 			
 			return mav;
 		}
@@ -273,8 +279,14 @@ public class FundingController {
 	}
 	
 	@GetMapping("/earlyList")
-	public void earlyList() {
+	public ModelAndView earlyList(
+			ModelAndView mav,
+			@RequestParam(defaultValue="") String early
+			) {
+		Map<String, Object> map = new HashMap<>();
 		
+		List<Funding> list = fundingService.fundingList(map);
+		return mav;
 	}
 	
 	//천호현
