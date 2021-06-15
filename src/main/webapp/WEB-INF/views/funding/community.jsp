@@ -45,7 +45,7 @@
 					<input type="button" class="FAQ-btn" id="FAQ-btn1"
 						value="펀딩 했어요. 결제는 언제, 어떻게 진행되나요?" />
 				</div>
-				<div class="FAQ-answer" id="FAQ-answer1">
+				<div class="FAQ-answer" id="FAQ_answer1">
 					<p>
 						<small>펀딩기간 중에는 결제 예약 상태이며, 프로젝트 종료 후 다음 1영업일 5시에 결제가
 							진행됩니다. 이때, 결제 실패된 건에 한하여 종료일+4영업일동안 매일 5시에 결제가 진행됩니다. (펀딩
@@ -56,7 +56,7 @@
 					<input type="button" class="FAQ-btn" id="FAQ-btn2"
 						value="결제 실패 알림을 받았어요. 어떻게 해야하나요?" />
 				</div>
-				<div class="FAQ-answer" id="FAQ-answer2">
+				<div class="FAQ-answer" id="FAQ_answer2">
 					<p>
 						<small>카드 잔고 부족이나 한도 초과, 거래 정지된 카드인 경우 결제가 진행되지 않습니다. 최종
 							결제일 16시 30분 전까지 다른 카드로 결제 정보를 변경해주세요. 최종 결제일까지 매 영업일 5시마다 결제가
@@ -70,7 +70,7 @@
 					<input type="button" class="FAQ-btn" id="FAQ-btn3"
 						value="카드 결제가 진행된 후, 다른 카드로 변경할 수 있나요?" />
 				</div>
-				<div class="FAQ-answer" id="FAQ-answer3">
+				<div class="FAQ-answer" id="FAQ_answer3">
 					<p>
 						<small>결제 예약으로 진행되는 크라우드 펀딩 특성상 이미 종료된 프로젝트는 취소 후 재펀딩이
 							불가능하니, 결제 전 등록한 카드정보가 맞는지 확인해주세요.</small>
@@ -80,7 +80,7 @@
 					<input type="button" class="FAQ-btn" id="FAQ-btn4"
 						value="배송지나 옵션을 변경하고 싶어요." />
 				</div>
-				<div class="FAQ-answer" id="FAQ-answer4">
+				<div class="FAQ-answer" id="FAQ_answer4">
 					<p>
 						<small>프로젝트 진행 중에는 [나의 리워드] - [펀딩내역]에서 직접 변경이 가능합니다. <br />
 							펀딩이 종료된 이후에는 직접 변경이 불가능하니, 아래 [메이커에게 문의하기]를 통해 문의해주세요.
@@ -88,12 +88,12 @@
 					</p>
 				</div>
 
-				<div id="FAQ-more">
+				<div id="FAQ_more">
 					<div>
 						<input type="button" class="FAQ-btn" id="FAQ-btn5"
 							value="리워드 배송은 언제되나요? 해외 배송도 가능한가요?" />
 					</div>
-					<div class="FAQ-answer" id="FAQ-answer5">
+					<div class="FAQ-answer" id="FAQ_answer5">
 						<p>
 							<small>크라우드 펀딩은 프로젝트 종료 후 기재된 배송 예정일에 배송되며, 배송 예정일은 프로젝트
 								상세페이지에서 확인할 수 있습니다. 펀딩 참여 후에는 [나의 리워드] - [펀딩내역]에서 확인할 수 있습니다. <br />
@@ -105,7 +105,7 @@
 						<input type="button" class="FAQ-btn" id="FAQ-btn6"
 							value="교환/환불/AS는 어디로 문의해야하나요?" />
 					</div>
-					<div class="FAQ-answer" id="FAQ-answer6">
+					<div class="FAQ-answer" id="FAQ_answer6">
 						<p>
 							<small>해당 프로젝트의 교환/환불/AS 기준은 프로젝트 상단 [펀딩안내]탭을 확인해주세요. </small>
 						</p>
@@ -114,7 +114,7 @@
 						<input type="button" class="FAQ-btn" id="FAQ-btn7"
 							value="펀딩 취소는 어떻게 하나요? 부분 취소도 가능한가요?" />
 					</div>
-					<div class="FAQ-answer" id="FAQ-answer7">
+					<div class="FAQ-answer" id="FAQ_answer7">
 						<p>
 							<small>프로젝트 종료 후에는 메이커가 서포터를 위해 리워드 제작을 시작한 상태입니다. 따라서
 								프로젝트 종료 이후에는 펀딩 취소가 불가하니, 종료 이전에 취소해주세요. <br /> 프로젝트가 종료되기 이전에는
@@ -177,23 +177,23 @@
 								답변을 받을 수 있습니다.
 							</p>
 						</div>
-						<div class="yh-checkbox1" id="yh-checkbox1">
+						<div class="yh-checkbox1" id="yh_checkbox1">
 							<div>
-								<label for="chk-1"><input type="checkbox" name="chk"
+								<label for="chk-1"><input type="checkbox" name="chk" value="1" class="chk"
 									id="chk-1" onclick='checkOnlyOne(this)' />&nbsp;응원&nbsp; <small>메이커를
 										응원하고싶어요.</small></label>
 							</div>
 						</div>
-						<div class="yh-checkbox1" id="yh-checkbox1">
+						<div class="yh-checkbox1" id="yh_checkbox1">
 							<div>
-								<label for="chk-2"><input type="checkbox" name="chk"
+								<label for="chk-2"><input type="checkbox" name="chk" value="2" class="chk"
 									id="chk-2" onclick='checkOnlyOne(this)' />&nbsp;의견&nbsp; <small>프로젝트에
 										대한 의견을 남기고 싶어요.</small></label>
 							</div>
 						</div>
-						<div class="yh-checkbox1" id="yh-checkbox1">
+						<div class="yh-checkbox1" id="yh_checkbox1">
 							<div>
-								<label for="chk-3"><input type="checkbox" name="chk"
+								<label for="chk-3"><input type="checkbox" name="chk" value="3" class="chk"
 									id="chk-3" onclick='checkOnlyOne(this)' />&nbsp;체험 리뷰&nbsp; <small>오프라인
 										체험 리뷰를 남기고 싶어요.</small></label>
 							</div>
@@ -248,7 +248,7 @@
 				<div>
 					<input type="button" value="답글" id="c-comment-btn" />
 				</div>
-				<div class="yh-c-comment" id="yh-c-comment">
+				<div class="yh-c-comment" id="yh_c_comment">
 					<textarea class="nv-c-comment" id="nv-c-comment"></textarea>
 					<input type="button" value="등록" id="nv-c-comment-btn" />
 				</div>
@@ -287,12 +287,14 @@
 <script>
 $("#FAQ-btn1").click(function(){
 	//만일 Pop라는 녀석이 닫혀있다면??
-
-    if(document.getElementById("FAQ-answer1").style.display=="none"){
+	console.log(111);
+	console.log(FAQ_answer1.style.display);
+	console.log($(FAQ_answer1).css('display'));
+    if($(FAQ_answer1).css('display') == 'none'){
 
        //열어주어라
 
-       document.getElementById("FAQ-answer1").style.display='block'
+       document.getElementById("FAQ_answer1").style.display='block'
 
     //그렇지 않은 모든 경우라면??
 
@@ -300,7 +302,7 @@ $("#FAQ-btn1").click(function(){
 
        //닫아주어라
 
-       document.getElementById("FAQ-answer1").style.display='none'
+       document.getElementById("FAQ_answer1").style.display='none'
 
     }
 });
@@ -308,11 +310,11 @@ $("#FAQ-btn1").click(function(){
 $("#FAQ-btn2").click(function(){
 	//만일 Pop라는 녀석이 닫혀있다면??
 
-    if(document.getElementById("FAQ-answer2").style.display=="none"){
+    if($(FAQ_answer2).css('display') == 'none'){
 
        //열어주어라
 
-       document.getElementById("FAQ-answer2").style.display='block'
+       document.getElementById("FAQ_answer2").style.display='block'
 
     //그렇지 않은 모든 경우라면??
 
@@ -320,7 +322,7 @@ $("#FAQ-btn2").click(function(){
 
        //닫아주어라
 
-       document.getElementById("FAQ-answer2").style.display='none'
+       document.getElementById("FAQ_answer2").style.display='none'
 
     }
 });
@@ -328,11 +330,11 @@ $("#FAQ-btn2").click(function(){
 $("#FAQ-btn3").click(function(){
 	//만일 Pop라는 녀석이 닫혀있다면??
 
-    if(document.getElementById("FAQ-answer3").style.display=="none"){
+    if($(FAQ_answer3).css('display') == 'none'){
 
        //열어주어라
 
-       document.getElementById("FAQ-answer3").style.display='block'
+       document.getElementById("FAQ_answer3").style.display='block'
 
     //그렇지 않은 모든 경우라면??
 
@@ -340,7 +342,7 @@ $("#FAQ-btn3").click(function(){
 
        //닫아주어라
 
-       document.getElementById("FAQ-answer3").style.display='none'
+       document.getElementById("FAQ_answer3").style.display='none'
 
     }
 });
@@ -348,11 +350,11 @@ $("#FAQ-btn3").click(function(){
 $("#FAQ-btn4").click(function(){
 	//만일 Pop라는 녀석이 닫혀있다면??
 
-    if(document.getElementById("FAQ-answer4").style.display=="none"){
+    if($(FAQ_answer4).css('display') == 'none'){
 
        //열어주어라
 
-       document.getElementById("FAQ-answer4").style.display='block'
+       document.getElementById("FAQ_answer4").style.display='block'
 
     //그렇지 않은 모든 경우라면??
 
@@ -360,7 +362,7 @@ $("#FAQ-btn4").click(function(){
 
        //닫아주어라
 
-       document.getElementById("FAQ-answer4").style.display='none'
+       document.getElementById("FAQ_answer4").style.display='none'
 
     }
 });
@@ -368,11 +370,11 @@ $("#FAQ-btn4").click(function(){
 $("#FAQ-btn5").click(function(){
 	//만일 Pop라는 녀석이 닫혀있다면??
 
-    if(document.getElementById("FAQ-answer5").style.display=="none"){
+    if($(FAQ_answer5).css('display') == 'none'){
 
        //열어주어라
 
-       document.getElementById("FAQ-answer5").style.display='block'
+       document.getElementById("FAQ_answer5").style.display='block'
 
     //그렇지 않은 모든 경우라면??
 
@@ -380,7 +382,7 @@ $("#FAQ-btn5").click(function(){
 
        //닫아주어라
 
-       document.getElementById("FAQ-answer5").style.display='none'
+       document.getElementById("FAQ_answer5").style.display='none'
 
     }
 });
@@ -388,11 +390,11 @@ $("#FAQ-btn5").click(function(){
 $("#FAQ-btn6").click(function(){
 	//만일 Pop라는 녀석이 닫혀있다면??
 
-    if(document.getElementById("FAQ-answer6").style.display=="none"){
+    if($(FAQ_answer6).css('display') == 'none'){
 
        //열어주어라
 
-       document.getElementById("FAQ-answer6").style.display='block'
+       document.getElementById("FAQ_answer6").style.display='block'
 
     //그렇지 않은 모든 경우라면??
 
@@ -400,7 +402,7 @@ $("#FAQ-btn6").click(function(){
 
        //닫아주어라
 
-       document.getElementById("FAQ-answer6").style.display='none'
+       document.getElementById("FAQ_answer6").style.display='none'
 
     }
 });
@@ -408,11 +410,11 @@ $("#FAQ-btn6").click(function(){
 $("#FAQ-btn7").click(function(){
 	//만일 Pop라는 녀석이 닫혀있다면??
 
-    if(document.getElementById("FAQ-answer7").style.display=="none"){
+    if($(FAQ_answer7).css('display') == 'none'){
 
        //열어주어라
 
-       document.getElementById("FAQ-answer7").style.display='block'
+       document.getElementById("FAQ_answer7").style.display='block'
 
     //그렇지 않은 모든 경우라면??
 
@@ -420,7 +422,7 @@ $("#FAQ-btn7").click(function(){
 
        //닫아주어라
 
-       document.getElementById("FAQ-answer7").style.display='none'
+       document.getElementById("FAQ_answer7").style.display='none'
 
     }
 });
@@ -428,11 +430,11 @@ $("#FAQ-btn7").click(function(){
 $("#FAQB").click(function(){
 	//만일 Pop라는 녀석이 닫혀있다면??
 
-    if(document.getElementById("FAQ-more").style.display=="none"){
+    if($(FAQ_more).css('display') == 'none'){
 
        //열어주어라
 
-       document.getElementById("FAQ-more").style.display='block';
+       document.getElementById("FAQ_more").style.display='block';
    	   $(this).val('접기');
 
     //그렇지 않은 모든 경우라면??
@@ -441,7 +443,7 @@ $("#FAQB").click(function(){
 
        //닫아주어라
 
-       document.getElementById("FAQ-more").style.display='none';
+       document.getElementById("FAQ_more").style.display='none';
        $(this).val('더보기');
     }
 });
@@ -449,11 +451,11 @@ $("#FAQB").click(function(){
 $("#c-comment-btn").click(function(){
 	//만일 Pop라는 녀석이 닫혀있다면??
 
-    if(document.getElementById("yh-c-comment").style.display=="none"){
+    if($(yh_c_comment).css('display') == 'none'){
 
        //열어주어라
 
-       document.getElementById("yh-c-comment").style.display='block'
+       document.getElementById("yh_c_comment").style.display='block'
 
     //그렇지 않은 모든 경우라면??
 
@@ -461,7 +463,7 @@ $("#c-comment-btn").click(function(){
 
        //닫아주어라
 
-       document.getElementById("yh-c-comment").style.display='none'
+       document.getElementById("yh_c_comment").style.display='none'
 
     }
 });
@@ -470,19 +472,56 @@ $("#c-write-btn").click(function(){
 	location.href="#c-write-view";
 });
 
+/* $(".chk").click(function(){
+	const checkboxes = document.getElementsByName("chk");
+	for(var i=0; i<checkboxes.length; i++){
+		if(checkboxes[i] != chk){
+            checkboxes[i].checked = false;
+        }
+	}
+}); */
 function checkOnlyOne(element) {
 	  
 	  const checkboxes 
 	      = document.getElementsByName("chk");
-	  
+	  const color = element.parentElement.parentElement.parentElement;
+
 	  checkboxes.forEach((cb) => {
 	    cb.checked = false;
+			    
 	  })
 	  
 	  element.checked = true;
+	  console.log(element.parentElement.parentElement.parentElement);
+
 	}
 
+var div2 = document.getElementsByClassName("chk");
 
+function handleClick(event) {
+    // console.log(this);
+    // 콘솔창을 보면 둘다 동일한 값이 나온다
+
+    console.log(event.target.classList);
+
+    if (event.target === "clicked") {
+      event.target.parentElement.parentElement.parentElement.classList.remove("clicked");
+    } else {
+      for (var i = 0; i < div2.length; i++) {
+        div2[i].parentElement.parentElement.parentElement.classList.remove("clicked");
+      }
+
+      event.target.parentElement.parentElement.parentElement.classList.add("clicked");
+    }
+  }
+
+  function init() {
+    for (var i = 0; i < div2.length; i++) {
+      div2[i].addEventListener("click", handleClick);
+    }
+  }
+
+  init();
 
 </script>
 

@@ -14,7 +14,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -29,7 +28,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.FlashMap;
@@ -37,12 +35,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
+import org.json.simple.JSONObject;
 
 import com.kh.interactFunding.common.util.HelloSpringUtils;
 import com.kh.interactFunding.funding.model.service.FundingService;
 import com.kh.interactFunding.funding.model.vo.Attachment;
 import com.kh.interactFunding.funding.model.vo.Funding;
-import com.kh.interactFunding.funding.model.vo.FundingDetailVo;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.member.model.vo.Member;
 
@@ -359,23 +357,76 @@ public class FundingController {
 	
 	//박요한 push
 	@GetMapping("/news.do")
-	public void news() {
-		
-	}
-	
-	@GetMapping("/community.do")
-	public void community() {
-		
-	}
-	
-	@GetMapping("/supporter.do")
-	public void supporter() {
+	public void news(@RequestParam(value="no", defaultValue="1") int no, Model model) {
+		try {
+			log.debug("no = {}", no);
+			Map<String, Object> param = new HashMap<>();
+			param.put("no", no);
+			//1.업무로직
+			List<Funding> list = fundingService.news(param);
+			
+			//2.jsp위임
+			model.addAttribute("list", list);
+			
+		} catch (Exception e) {
+			log.error("새소식 조회 오류!", e);
+			throw e;
+		}
 		
 	}
 	
 	@GetMapping("newsView.do")
-	public void newsView() {
-		
+	public void newsView(@RequestParam(value="no", defaultValue="1") int no, Model model) {
+		try {
+			log.debug("no = {}", no);
+			Map<String, Object> param = new HashMap<>();
+			param.put("no", no);
+			//1.업무로직
+			List<Funding> list = fundingService.news(param);
+			
+			//2.jsp위임
+			model.addAttribute("list", list);
+			
+		} catch (Exception e) {
+			log.error("새소식 조회 오류!", e);
+			throw e;
+		}
+	}
+	
+	@GetMapping("/community.do")
+	public void community(@RequestParam(value="no", defaultValue="1") int comment_no, Model model) {
+		try {
+			log.debug("comment_no = {}", comment_no);
+			Map<String, Object> param = new HashMap<>();
+			param.put("comment_no", comment_no);
+			//1.업무로직
+			List<Funding> list = fundingService.community(param);
+			
+			//2.jsp위임
+			model.addAttribute("list", list);
+			
+		} catch (Exception e) {
+			log.error("새소식 조회 오류!", e);
+			throw e;
+		}
+	}
+	
+	@GetMapping("/supporter.do")
+	public void supporter(@RequestParam(value="no", defaultValue="1") int no, Model model) {
+		try {
+			log.debug("no = {}", no);
+			Map<String, Object> param = new HashMap<>();
+			param.put("no", no);
+			//1.업무로직
+			List<Funding> list = fundingService.supporter(param);
+			
+			//2.jsp위임
+			model.addAttribute("list", list);
+			
+		} catch (Exception e) {
+			log.error("새소식 조회 오류!", e);
+			throw e;
+		}
 	}
 	
 	/**
