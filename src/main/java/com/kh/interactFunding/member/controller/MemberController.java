@@ -165,7 +165,7 @@ public class MemberController {
 		//String memberEmailId = request.getParameter("memberEamilId");
 		
 		//이메일 중복검사
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("email", email);
 		int result = memberService.selectEmailCheck(map);
 		log.debug("result = {}",result);

@@ -9,17 +9,18 @@ import org.springframework.stereotype.Repository;
 import com.kh.interactFunding.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
-@Slf4j
+
 @Repository
+@Slf4j
 public class MemberDaoImpl implements MemberDao {
-	
+
 	@Autowired
 	private SqlSessionTemplate session;
 
-	//김윤수
+	// 김윤수
 	@Override
 	public int selectEmailCheck(Map<String, Object> map) {
-		log.debug("map@dao = {}",map);
+		log.debug("map@dao = {}", map);
 		return session.selectOne("member.selectEmailCheck", map);
 	}
 
@@ -30,19 +31,18 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public Member selectOneMember(Member member) {
-		return session.selectOne("member.selectOneMember",member);
+		return session.selectOne("member.selectOneMember", member);
 	}
-	
-	
-	//김경태
-	
-	//김주연
-	
-	//박요한
-	
-	//배기원
-	
-	//이승우
-	
-	//천호현
+
+	// 김경태
+
+	// 김주연
+
+	// 박요한
+
+	// 배기원
+
+	// 이승우
+
+	// 천호현
 }

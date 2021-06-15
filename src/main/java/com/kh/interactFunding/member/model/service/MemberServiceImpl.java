@@ -9,11 +9,12 @@ import com.kh.interactFunding.member.model.dao.MemberDao;
 import com.kh.interactFunding.member.model.vo.Member;
 
 @Service
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private MemberDao memberDao;
-	//김윤수
+
+	// 김윤수
 
 	@Override
 	public int selectEmailCheck(Map<String, Object> map) {
@@ -29,17 +30,17 @@ public class MemberServiceImpl implements MemberService{
 	public Member selectOneMember(Member member) {
 		return memberDao.selectOneMember(member);
 	}
-	
-	//김경태
-	
-	//김주연
-	
-	//박요한
-	
-	//배기원
-	
-	//이승우
-	
-	//천호현
-	
+
+	// 김경태
+
+	// 김주연
+
+	// 박요한
+
+	// 배기원
+
+	// 이승우
+
+	// 천호현
+
 }

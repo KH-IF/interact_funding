@@ -8,7 +8,7 @@
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<!-- <param name="ConversionPattern" value="%-5p: %c - %m%n" /> -->
-			<param name="ConversionPattern" value="[%d{yy-MM-dd HH:mm:ss}]%-5p: %m - %l%n" />
+			<param name="ConversionPattern" value="%-5p:%-100l | %m%n"/>
 		</layout>
 	</appender>
 	
@@ -67,7 +67,7 @@
 	
 	<!-- loggin message 수집용 -->
 	<!-- Application Loggers -->
-	<logger name="com.kh">
+	<logger name="com.kh.interactFunding">
 		<level value="debug" />
 	</logger>
 	

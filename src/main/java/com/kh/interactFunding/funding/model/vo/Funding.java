@@ -2,10 +2,6 @@ package com.kh.interactFunding.funding.model.vo;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,15 +24,12 @@ public class Funding {
 	private String content;
 	private String earlyContent;
 	
-	//배기원 categoryName 추가하였습니다.
-	private String categoryName;
-	
 	//김주연 start_day date로 변환
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date startDate;
 	
 	//김주연 d_day date로 변환
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dDay;
 	
 	private Date regDate;
