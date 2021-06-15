@@ -2,6 +2,7 @@ package com.kh.interactFunding.funding.model.dao;
 
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -10,11 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.interactFunding.funding.model.vo.Attachment;
 import com.kh.interactFunding.funding.model.vo.Funding;
-
-import com.kh.interactFunding.funding.model.vo.Funding_reward;
-
 import com.kh.interactFunding.funding.model.vo.FundingExt;
-
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -68,15 +65,18 @@ public class FundingDaoImpl implements FundingDao{
 	public List<Funding> indexfundinglike() {
 		return session.selectList("funding.indexfundinglike");
 	}
-
 	@Override
-	public List<Funding_reward> indexfuding_rewardList() {
-		// TODO Auto-generated method stub
-		return session.selectList(null);
+	public int indexTotalContents() {
+		return session.selectOne("funding.indexTotalContents");
 	}
-
-
-
+	
+	
+	
+	@Override
+	public List<Funding> indexEarlyList() {
+		// TODO Auto-generated method stub
+		return session.selectList("funding.indexEarlyList");
+	}
 	//이승우
 	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {

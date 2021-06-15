@@ -14,8 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Funding {
-	
-	
 	//이승우
 	private int fundingNo;
 	private String categoryCode;
@@ -25,8 +23,12 @@ public class Funding {
 	private int nowAmount;
 	private int goalAmount;
 	private int readCount;
+	private int likeCount;
 	private String content;
 	private String earlyContent;
+	
+	//배기원 categoryName 추가하였습니다.
+	private String categoryName;
 	
 	//김주연 start_day date로 변환
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

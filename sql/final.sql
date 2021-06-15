@@ -375,6 +375,83 @@ select * from funding;
 --박요한 테스트영역
 
 --배기원 테스트영역
+select  
+rownum, f.*
+from (
+        select funding.* ,
+         CASE category_code
+         WHEN 'C1' THEN '테크.가전'
+         WHEN 'C2' THEN '푸드'
+         WHEN  'C3' THEN '여행'
+         WHEN  'C4' THEN '스포츠'
+         WHEN 'C5' THEN '게임.취미'
+         WHEN 'C6' THEN '모임'
+         WHEN  'C7' THEN  '반려동물'
+         WHEN  'C8' THEN '기부.후원'
+         END
+        from funding  
+        where start_date < sysdate and d_day > sysdate
+        order by reg_date  desc
+        ) f
+where rownum between 1 and 6;
+
+select rownum, f.*
+from (
+        select *
+        from funding  
+        where start_date <  d_day 
+        order by reg_date  desc
+        ) f
+where rownum between 1 and 5;
+
+select*from funding;
+select*from category;
+SELECT  category_code, 
+       CASE category_code
+         WHEN 'C1' THEN '테크.가전'
+         WHEN 'C2' THEN '푸드'
+         WHEN  'C3' THEN '여행'
+         WHEN  'C4' THEN '스포츠'
+         WHEN 'C5' THEN '게임.취미'
+         WHEN 'C6' THEN '모임'
+         WHEN  'C7' THEN  '반려동물'
+         WHEN  'C8' THEN '기부.후원'
+         END
+  FROM funding;
+  
+  select*from category;
+   
+  select*from funding_reward;
+  
+  select *  from funding;
+  
+select
+    *
+from 
+    funding 
+    where 
+        start_date > sysdate ;
+        
+    select*from funding;
+    
+       update funding  set    goal_amount = 350000  
+    where funding_no  =18;
+    
+  select*from funding where start_date ='2021/06/30';
+  
+insert into funding
+values (25, '펀딩', 'C1', 30000, 500000,'P1' ,21, 0,0,'[향수]냄새는 좋고 너무 행복합니다. ', null, '2021/06/30', '2021/06/11', '2021/06/12', '01012341234');  
+insert into funding
+values (26, '펀딩', 'C1', 30000, 500000,'P1' ,21, 0,0,'[피부]  피부가맑아지는나를 보십쇼 ', null, '2021/06/30', '2021/06/11', '2021/06/12', '01012341234');  
+insert into funding
+values (27, '펀딩', 'C1', 30000, 500000,'P1' ,21, 0,0,'[피부]  피부가맑아지는나를 보십쇼 ', '[피부]  피부가맑아지는나를 보십쇼', '2021/06/30', '2021/06/11', '2021/06/12', '01012341234');
+
+insert into funding
+values (28, '펀딩', 'C1', 30000, 500000,'P1' ,21, 0,0,'[피부]  피부가맑아지는나를 보십쇼 ', ' [피부]  피부가맑아지는나를 보십쇼', '2021/06/30', '2021/06/11', '2021/06/12', '01012341234');
+
+  commit;
+
+
 
 --이승우 테스트영역
 

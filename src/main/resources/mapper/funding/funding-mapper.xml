@@ -8,20 +8,20 @@
 	<!-- 김주연 -->
 	<!-- 박요한 -->
 	<!-- 배기원 -->
-<!--  <resultMap type="fundingExt" id="fundingMap">
-		<id column="no" property="no"></id>
-		<result column="title" property="title"/>
-		<result column="category_code" property="category_code"/>
-		<result column="now_amount" property="now_amount"/>
-		<result column="goal_amount" property="goal_amount"/>
-		<result column="rate_plan_code" property="rate_plan_code"/>
-		<result column="writer_no" property="writer_no"/>
-		<result column="readcount" property=""/>
-	</resultMap> -->
 		<select id="indexfundingList" resultType="funding">
 				select rownum, f.*
 		from (
-		        select *
+			        select funding.* ,
+		       CASE category_code
+			         WHEN 'C1' THEN '테크·가전'
+			         WHEN 'C2' THEN '푸드'
+			         WHEN  'C3' THEN '여행'
+			         WHEN  'C4' THEN '스포츠'
+			         WHEN 'C5' THEN '게임·취미'
+			         WHEN 'C6' THEN '모임'
+			         WHEN  'C7' THEN  '반려동물'
+			         WHEN  'C8' THEN '기부.후원'
+			         END as categoryName  
 		        from funding  
 		        where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
 		        order by reg_date  desc
@@ -38,6 +38,20 @@
 		        order by like_count desc
 		        ) f
 		where rownum between 1 and 5
+	    </select>
+	    
+	    <select id="indexTotalContents" resultType="_int">
+	    	select
+				count(*)
+		from
+			funding
+		where 
+	       start_date<![CDATA[> ]]>sysdate 
+	    </select>
+	    <select id="indexEarlyList" resultType="funding">
+		    select*from funding 
+	    where 
+	       start_date<![CDATA[> ]]>sysdate 
 	    </select>
 	<!-- 이승우 -->
 	<select id="selectFundingList" resultType="funding">

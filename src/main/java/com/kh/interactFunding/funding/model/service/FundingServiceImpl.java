@@ -2,20 +2,14 @@ package com.kh.interactFunding.funding.model.service;
 
 import java.util.List;
 
-import java.util.Map;
 
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.kh.interactFunding.funding.model.dao.FundingDao;
 import com.kh.interactFunding.funding.model.vo.Attachment;
 import com.kh.interactFunding.funding.model.vo.Funding;
-
-import com.kh.interactFunding.funding.model.vo.Funding_reward;
-
 import com.kh.interactFunding.funding.model.vo.FundingExt;
-
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -72,22 +66,22 @@ public class FundingServiceImpl implements FundingService{
 	public List<Funding> indexfundingList() {
 		return fundingDao.indexfundingList();
 	}
-	
-	
 	@Override
 	public List<Funding> indexfundinglike() {
 		// TODO Auto-generated method stub
 		return fundingDao.indexfundinglike();
 	}
-
-
 	@Override
-	public List<Funding_reward> indexfuding_rewardList() {
-		return fundingDao.indexfuding_rewardList();
+	public int indexTotalContents() {
+		// TODO Auto-generated method stub
+		return fundingDao.indexTotalContents();
 	}
-
-
-
+	
+	@Override
+	public List<Funding> indexEarlyList() {
+		// TODO Auto-generated method stub
+		return fundingDao.indexEarlyList();
+	}
 	//이승우
 	public List<Funding> fundingList(Map<String, Object> map) {
 		return fundingDao.fundingList(map);
