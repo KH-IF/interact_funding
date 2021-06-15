@@ -194,11 +194,18 @@
 	<!-- 이승우 -->
 	<select id="selectFundingList" resultMap="fundingMap">
 		select
-			*
+			f.*
 		from
+			(select
+			f.*,
+			c.category_name categoryName
+			from
 			funding f
+				left join category c
+					on f.category_code = c.category_code
+		) f
 		<where>
-			title like '%' || '${searchKeyword}' || '%'
+			content like '%' || '${searchKeyword}' || '%'
 			<if test="FundingCategory != 'C0'">
 			and category_code like '%' || '${category}' || '%'
 			</if>

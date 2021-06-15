@@ -128,7 +128,7 @@
             <div class="FundingCategoryListWrap">
             	<ul>
                 	<li id="FundingCategoryC0" class="C0">
-                		<a class="FundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C0&search=">
+                		<a class="FundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?search=">
 		                     <span class="FundingCategoryListCricle">
 		                         <span class="FundingCategoryListCricleImageC0"></span>
 		                         <span class="FundingCategoryListCricleName">전체보기</span>
@@ -180,10 +180,10 @@
                         <div class="FundingProjectCardItemTitle">
                             <div class="FundingProjectCardItemTitleBox">
                                 <a class="FundingProjectCardItemTitleLink" href="#">
-                                    <p><strong>${funding.title}</strong></p>
+                                    <p><strong>${funding.content}</strong></p>
                                 </a>
                                 <div>
-                                    <span class="RewordProjectCardCategory">${funding.categoryCode}</span>
+                                    <span class="RewordProjectCardCategory">${funding.categoryName}</span>
                                     <span class="line"></span>
                                     <span class="RewordProjectCardMakerName">
                                         ${funding.writerNo}
@@ -200,17 +200,21 @@
 								<fmt:formatNumber value="${funding.goalAmount}" pattern="#,###원"/>
 							</span>
                            	<span class="RewordProjectCardDay">
-                           		<fmt:formatDate var="startDate" value="${funding.startDate}" pattern="yyyy년MM월dd일"/>
-                           		<fmt:formatDate var="DDay" value="${funding.DDay}" pattern="yyyy년MM월dd일"/>
+                           		<%-- <fmt:parseDate value="${funding.startDate}" var="startDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+                           		<fmt:formatDate value="${funding.startDate}" pattern="yyyy년MM월dd일"/> --%>
+                           		<%-- <fmt:parseDate value="${funding.startDate}" var="startDate" pattern="yyyy년MM월dd일"/> Unparseable date: "Wed Jun 30 00:00:00 KST 2021" --%>
+                           		<%-- ${funding.startDate} <!-- Wed Jun 30 00:00:00 KST 2021 --> --%>
+                           		<%-- <fmt:formatDate var="startDate" value="${funding.startDate}" pattern="yyyy년MM월dd일"/>
+                           		<fmt:formatDate var="DDay" value="${funding.DDay}" pattern="yyyy년MM월dd일"/> 날짜가 나오지 않음--%>
 								<%-- <fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"/>
-								<fmt:parseNumber value="${DDay.time / (1000*60*60*24)}" integerOnly="true" var="endDate"/> --%>
+								<fmt:parseNumber value="${DDay.time / (1000*60*60*24)}" integerOnly="true" var="endDate"/> 형변환 불가능--%>
                            	</span>
                         </div>
                     </div>
                 </div>
                 </c:forEach>
                 
-                <div class="FundingProjectCardItem">
+                <!-- <div class="FundingProjectCardItem">
                     <a href="#" class="FundingProjectCardItemImageArea">
                         <div class="FundingProjectCardItemImage"></div>
                     </a>
@@ -366,7 +370,7 @@
                             <span class="RewordProjectCardDay">24일 남음</span>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <div>
@@ -398,10 +402,10 @@
 		}
     } */
 
-	$(".FundingCategoryListCricle").click(function (){
+	/* $(".FundingCategoryListCricle").click(function (){
 		var category = $("#FundingCategory").attr("class");
 		console.log(category);
-	});
+	}); */
     
   	//펀딩검색
     $("#SearchButton").click(function (){
@@ -410,11 +414,11 @@
 
     function search2(){
     	var keyword = $("#searchKeyword2").val();
-        var category = $("#FundingCategory").attr("class");
+        /* var category = $("#FundingCategory").attr("class"); */
     	var searchSelect1 = $("#searchSelect1").val();
         var searchSelect2 = $("#searchSelect2").val();
     	console.log(keyword);
-    	console.log(category);
+    	/* console.log(category); */
     	console.log(searchSelect1);
     	console.log(searchSelect2);
 		
@@ -424,8 +428,8 @@
 		}
 		else{
 			var url = "${pageContext.request.contextPath}/funding/fundingList";
-			url = url + "?category=" + $(".FundingCategory").attr("id");
-			url = url + "&searchSelect1=" + $('#searchSelect1').val();
+			/* url = url + "?category=" + $(".FundingCategory").attr("id"); */
+			url = url + "?searchSelect1=" + $('#searchSelect1').val();
 			url = url + "&searchSelect2=" + $('#searchSelect2').val();
 			url = url + "&searchKeyword="+$('#searchKeyword2').val();
 			location.href = url;
