@@ -25,4 +25,5 @@ public class FundingDetailVo extends Funding{
 	private char status;
 	private String name;
 	
+	
 }

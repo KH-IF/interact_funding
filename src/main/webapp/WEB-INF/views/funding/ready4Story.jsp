@@ -13,7 +13,7 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 <form name="storyFrm"
 	action="${pageContext.request.contextPath}/funding/saveStory"
 	method="post">
-
+	<input type="hidden" name="fundingNo" value="${funding.fundingNo}" />
 	<div class="container p-5">
 
 		<h1 class="font-weight-bold">스토리 작성</h1>
@@ -42,7 +42,7 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 			<p class="text-muted">프로젝트가 시작될 날짜를 입력해주세요.</p>
 			<div class="form-group row">
 				<input class="form-control ml-3" type="date"
-					value="<%=sf.format(nowTime)%>" name="start_date">
+					value="<%=sf.format(nowTime)%>" name="startDate">
 			</div>
 		</div>
 
@@ -60,7 +60,7 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		<br>
 		<div id="showScheduledOpen">
 			<h6>오픈예정 스토리</h6>
-			<input type="hidden" name="early_content" value="" />
+			<input type="hidden" name="earlyContent" value="" />
 			<p class="text-muted">진정성 있고 매력적인 스토리로 서포터분들의 마음을 움직여 볼까요? 스토리 필수
 				항목을 누락할 경우 오픈이 지연될 수 있으며, 제3자의 지식 재산권을 침해할 경우 프로젝트가 중단/취소될 수 있으니 유의해
 				주세요.</p>
@@ -125,9 +125,9 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
     function storyFrmSubmit(){
     	console.log("실행");
 		const content =$("#projectstory").summernote('code');
-		const early_content = $("#scheduledOpen").summernote('code');
+		const earlyContent = $("#scheduledOpen").summernote('code');
 		$("[name=content]").val(content);
-		$("[name=early_content]").val(early_content);
+		$("[name=earlyContent]").val(earlyContent);
 		$("storyFrm").submit();
 
     }

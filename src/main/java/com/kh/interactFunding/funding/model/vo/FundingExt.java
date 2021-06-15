@@ -25,4 +25,7 @@ public class FundingExt extends Funding{
 	
 	private List<Attachment> attachList;
 	
+	//작성자 이름
+	private String name;
+	
 }
