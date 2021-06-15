@@ -30,8 +30,8 @@
 		<nav>
 			<ol>
 				<li><a href="${pageContext.request.contextPath}/">이프</a></li>
-				<li><a href="#">펀딩하기</a></li>
-				<li><a href="#">오픈예정</a></li>
+				<li><a href="${pageContext.request.contextPath}/funding/fundingList">펀딩하기</a></li>
+				<li><a href="${pageContext.request.contextPath}/funding/earlyList">오픈예정</a></li>
 				<li><a href="#">공지사항</a></li>
 			</ol>
 		</nav>
@@ -78,10 +78,16 @@
 			//엔터키가 입력받을때만 실행
 			if (window.event.keyCode == 13) {
 				const searchKeyword=$(input).val();
+				console.log(searchKeyword);
 				//입력받은 글자가 공백이면 안내문 작성후 실행되지 않음
 				if(searchKeyword.length ==0){
 					swal("검색키워드","한글자 이상 입력해주세요","info");
 					return;
+				}
+				else{
+					var url = "${pageContext.request.contextPath}/funding/fundingList";
+					url = url + "?searchKeyword="+$('#searchKeyword').val();
+					location.href = url;
 				}
 
 				//입력받은 글자가 이상이없을때 검색기능 실행

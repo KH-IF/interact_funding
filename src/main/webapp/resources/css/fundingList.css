@@ -22,7 +22,7 @@
 }
 .EarlyProjectCardItemTitleLink,
 .EarlyProjectCardDay,
-.RewordProjectCardMakerName{
+p .RewordProjectCardMakerName{
 	margin:0;
 }
 .EarlyProjectCardItemTitleLink{
@@ -33,7 +33,7 @@
 	font-size:20px;
 	color: #00b2b2;
 }
-.RewordProjectCardMakerName{
+p .RewordProjectCardMakerName{
 	font-weight:700;
 	font-size:13px;
 }
@@ -45,6 +45,26 @@
     text-align: center;
     padding-top: 50px;
     padding-bottom: 50px;
+}
+
+#FundingCategory{
+	display:inline-block;
+	padding-left: 48px;
+    text-indent: -48px;
+}
+
+#FundingCategoryC0,
+#FundingCategoryC1,
+#FundingCategoryC2,
+#FundingCategoryC3,
+#FundingCategoryC4,
+#FundingCategoryC5,
+#FundingCategoryC6,
+#FundingCategoryC7,
+#FundingCategoryC8{
+	display:inline-block;
+	padding-left: 48px;
+    text-indent: -48px;
 }
 .FundingCategoryList{
     padding-left: 48px;
@@ -59,6 +79,10 @@
     display: inline-block;
 }
 
+.FundingCategoryListWrap ul{
+    padding: 0;
+}
+
 .FundingCategoryListCricle{
     display: inline-block;
     margin: 0;
@@ -71,15 +95,15 @@
     
 }
 
-.FundingCategoryListCricleImage0,
-.FundingCategoryListCricleImage1,
-.FundingCategoryListCricleImage2,
-.FundingCategoryListCricleImage3,
-.FundingCategoryListCricleImage4,
-.FundingCategoryListCricleImage5,
-.FundingCategoryListCricleImage6,
-.FundingCategoryListCricleImage7,
-.FundingCategoryListCricleImage8{
+.FundingCategoryListCricleImageC0,
+.FundingCategoryListCricleImageC1,
+.FundingCategoryListCricleImageC2,
+.FundingCategoryListCricleImageC3,
+.FundingCategoryListCricleImageC4,
+.FundingCategoryListCricleImageC5,
+.FundingCategoryListCricleImageC6,
+.FundingCategoryListCricleImageC7,
+.FundingCategoryListCricleImageC8{
     margin:auto;
     display: block;
     background-size: 175%;
@@ -91,45 +115,45 @@
     border-width: 2px;
     border: 2px white solid;
 }
-.FundingCategoryListCricleImage0:hover,
-.FundingCategoryListCricleImage1:hover,
-.FundingCategoryListCricleImage2:hover,
-.FundingCategoryListCricleImage3:hover,
-.FundingCategoryListCricleImage4:hover,
-.FundingCategoryListCricleImage5:hover,
-.FundingCategoryListCricleImage6:hover,
-.FundingCategoryListCricleImage7:hover,
-.FundingCategoryListCricleImage8:hover{
+.FundingCategoryListCricleImageC0:hover,
+.FundingCategoryListCricleImageC1:hover,
+.FundingCategoryListCricleImageC2:hover,
+.FundingCategoryListCricleImageC3:hover,
+.FundingCategoryListCricleImageC4:hover,
+.FundingCategoryListCricleImageC5:hover,
+.FundingCategoryListCricleImageC6:hover,
+.FundingCategoryListCricleImageC7:hover,
+.FundingCategoryListCricleImageC8:hover{
     border: 2px skyblue solid;
 }
 
 
-.FundingCategoryListCricleImage0{
+.FundingCategoryListCricleImageC0{
     background-image: url("./../image/category.jpg");
 }
-.FundingCategoryListCricleImage1{
+.FundingCategoryListCricleImageC1{
     background-image: url("./../image/tech1.jpg");
 }
-.FundingCategoryListCricleImage2{
+.FundingCategoryListCricleImageC2{
     background-image: url("./../image/food3.jpg");
 }
-.FundingCategoryListCricleImage3{
+.FundingCategoryListCricleImageC3{
     background-image: url("./../image/trip.jpg");
 }
-.FundingCategoryListCricleImage4{
+.FundingCategoryListCricleImageC4{
     background-image: url("./../image/sports.jpg");
 }
-.FundingCategoryListCricleImage5{
+.FundingCategoryListCricleImageC5{
     background-image: url("./../image/game.jpg");
 }
-.FundingCategoryListCricleImage6{
+.FundingCategoryListCricleImageC6{
     background-image: url("./../image/meeting2.jpg");
 }
-.FundingCategoryListCricleImage7{
+.FundingCategoryListCricleImageC7{
     background-image: url("./../image/pet.jpg");
     background-size: 150%;
 }
-.FundingCategoryListCricleImage8{
+.FundingCategoryListCricleImageC8{
     background-image: url("./../image/donate.jpg");
     background-size: 120%;
 }
@@ -170,7 +194,7 @@ input[type=search]{
     display: inline-block;
 }
 
-#searchKeyword{
+#searchKeyword2{
 	/* height: 30px;
 	outline: none;
 	border: none;
@@ -195,7 +219,7 @@ input[type=search]{
 	border-bottom: 1px solid #BBB;
 	z-index: 1;
 }
-/* #searchKeyword:focus{
+/* #searchKeyword2:focus{
 	width: 200px;
 	z-index: 1;
 	border-bottom: 1px solid #BBB;
@@ -296,7 +320,6 @@ input[type=search]{
 .RewordProjectCardBar span{
     display: block;
     background-color: skyblue;
-    width: 20%;
     height: 2px;
     height: 3px;
     margin-top: 10px;
