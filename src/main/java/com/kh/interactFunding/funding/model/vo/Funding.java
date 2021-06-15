@@ -18,13 +18,14 @@ public class Funding {
 	
 	//이승우
 	private int fundingNo;
-	private String categoryCode;
-	private String ratePlanCode;
-	private int writerNo;
 	private String title;
+	private String categoryCode;
 	private int nowAmount;
 	private int goalAmount;
+	private String ratePlanCode;
+	private int writerNo;
 	private int readCount;
+	private int likeCount;
 	private String content;
 	private String earlyContent;
 	

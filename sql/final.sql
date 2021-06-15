@@ -481,10 +481,21 @@ from funding F
     on L.funding_no = F.funding_no
 where f.funding_no =99;
 
+select *
+from funding F 
+    join funding_reward R 
+    on F.funding_no = R.funding_no
+    join attachment A
+    on F.funding_no = A.funding_no
+    join member M
+    on F.writer_no = M.member_no
+where f.funding_no =99;
+
 
 
 --alter table funding
 --modify readcount number default 0;
+
 
 -----------------------
 select * from tab;

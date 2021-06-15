@@ -42,6 +42,7 @@ import com.kh.interactFunding.common.util.HelloSpringUtils;
 import com.kh.interactFunding.funding.model.service.FundingService;
 import com.kh.interactFunding.funding.model.vo.Attachment;
 import com.kh.interactFunding.funding.model.vo.Funding;
+import com.kh.interactFunding.funding.model.vo.FundingDetailVo;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.member.model.vo.Member;
 
@@ -449,31 +450,23 @@ public class FundingController {
 	}
 	
 	//천호현
-	/*
-	* @GetMapping("/fundingDetail") public void fundingDetail(@RequestParam int
-	* funding_no, Model model) { //1. 업무로직 Funding funding =
-	* fundingService.selectOneFunding(funding_no); log.debug("funding = {}" ,
-	* funding); //2. 위임 model.addAttribute("funding", funding);
-	*
-	* }
-	*/
-
-	@GetMapping("/fundingDetail")
-	public Map<String, Object> fundingDetail(@RequestParam int funding_no) {
-		//1. 업무로직
-		List<Funding> list = fundingService.selectFunding(funding_no);
-
-		log.debug("list = {}" , list);
-		//2. 위임
-		Map<String, Object> map = new HashMap<>();
-		map.put("list", list);
-		return map;
-
-	}
 	
+	@GetMapping("/fundingDetail") 
+	public void fundingDetail(@RequestParam int	funding_no, Model model) { //1. 업무로직 
+	Funding funding = fundingService.selectOneFunding(funding_no);
+	log.debug("funding = {}" , funding); 
+	//2. 위임 
+	model.addAttribute("funding", funding);
+	}
+
 	
 	@GetMapping("/fundingReward")
-	public void fundingReward() {
+	public void fundingReward(@RequestParam int	funding_no, Model model) {
+	Funding funding = fundingService.selectOneFunding(funding_no);
+	log.debug("funding = {}" , funding); 
+	//2. 위임 
+	model.addAttribute("funding", funding);
+		
 	}
 	@GetMapping("/fundingChatMaker")
 	public void fundingChatMaker() {
