@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,14 +30,15 @@ public class HomeController {
 	@Autowired
 	private FundingService fundingService;
 
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	// 펀딩하기
 	@RequestMapping(value = "/",method = RequestMethod.GET )
-	public String  indexfundingList(Model model ,
-									HttpSession session,
-									@RequestParam(required = true, defaultValue = "1") int cpage,
-									HttpServletRequest request
-									) 
+	public String  indexfundingList(
+			Model model ,
+			HttpSession session,
+			@RequestParam(required = true, defaultValue = "1") int cpage,
+			HttpServletRequest request) 
 	{
 		try {
 			log.debug("cpage={}",cpage);
