@@ -1,0 +1,358 @@
+/* 펀딩리스트 */
+.FundingMainWrapper{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/*슬라이드 이미지*/
+.carousel-item active a img{
+    width: 100%;
+    height: 100%;
+}
+
+/*오픈예정 리스트*/
+.EarlyProjectListHeadTitle{
+	font-size:24px;
+	font-weight:700;
+	margin-top: 60px;
+	margin-bottom: 20px
+}
+.EarlyProjectCardItemTitleLinkArea{
+	text-decoration:none;
+}
+.EarlyProjectCardItemTitleLink,
+.EarlyProjectCardDay,
+p .RewordProjectCardMakerName{
+	margin:0;
+}
+.EarlyProjectCardItemTitleLink{
+	font-size:20px;
+}
+.EarlyProjectCardDay{
+	font-weight:700;
+	font-size:20px;
+	color: #00b2b2;
+}
+p .RewordProjectCardMakerName{
+	font-weight:700;
+	font-size:13px;
+}
+
+/*펀딩리스트*/
+/*펀딩카테고리*/
+
+.FundingCategoryContainer{
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+#FundingCategory{
+	display:inline-block;
+	padding-left: 48px;
+    text-indent: -48px;
+}
+
+#FundingCategoryC0,
+#FundingCategoryC1,
+#FundingCategoryC2,
+#FundingCategoryC3,
+#FundingCategoryC4,
+#FundingCategoryC5,
+#FundingCategoryC6,
+#FundingCategoryC7,
+#FundingCategoryC8{
+	display:inline-block;
+	padding-left: 48px;
+    text-indent: -48px;
+}
+.FundingCategoryList{
+    padding-left: 48px;
+    text-indent: -48px;
+    line-height: 0;
+    font-size: 0;
+    margin: auto;
+
+}
+
+.FundingCategoryListWrap{
+    display: inline-block;
+}
+
+.FundingCategoryListWrap ul{
+    padding: 0;
+}
+
+.FundingCategoryListCricle{
+    display: inline-block;
+    margin: 0;
+    width: 80px;
+    height: 118px;
+    text-align: center;
+    text-indent: 0;
+    font-size: 13px;
+    box-sizing: border-box;
+    
+}
+
+.FundingCategoryListCricleImageC0,
+.FundingCategoryListCricleImageC1,
+.FundingCategoryListCricleImageC2,
+.FundingCategoryListCricleImageC3,
+.FundingCategoryListCricleImageC4,
+.FundingCategoryListCricleImageC5,
+.FundingCategoryListCricleImageC6,
+.FundingCategoryListCricleImageC7,
+.FundingCategoryListCricleImageC8{
+    margin:auto;
+    display: block;
+    background-size: 175%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border-width: 2px;
+    border: 2px white solid;
+}
+.FundingCategoryListCricleImageC0:hover,
+.FundingCategoryListCricleImageC1:hover,
+.FundingCategoryListCricleImageC2:hover,
+.FundingCategoryListCricleImageC3:hover,
+.FundingCategoryListCricleImageC4:hover,
+.FundingCategoryListCricleImageC5:hover,
+.FundingCategoryListCricleImageC6:hover,
+.FundingCategoryListCricleImageC7:hover,
+.FundingCategoryListCricleImageC8:hover{
+    border: 2px skyblue solid;
+}
+
+
+.FundingCategoryListCricleImageC0{
+    background-image: url("./../image/category.jpg");
+}
+.FundingCategoryListCricleImageC1{
+    background-image: url("./../image/tech1.jpg");
+}
+.FundingCategoryListCricleImageC2{
+    background-image: url("./../image/food3.jpg");
+}
+.FundingCategoryListCricleImageC3{
+    background-image: url("./../image/trip.jpg");
+}
+.FundingCategoryListCricleImageC4{
+    background-image: url("./../image/sports.jpg");
+}
+.FundingCategoryListCricleImageC5{
+    background-image: url("./../image/game.jpg");
+}
+.FundingCategoryListCricleImageC6{
+    background-image: url("./../image/meeting2.jpg");
+}
+.FundingCategoryListCricleImageC7{
+    background-image: url("./../image/pet.jpg");
+    background-size: 150%;
+}
+.FundingCategoryListCricleImageC8{
+    background-image: url("./../image/donate.jpg");
+    background-size: 120%;
+}
+.FundingCategoryListCricleName{
+    margin-top: 8px;
+    line-height: 18px;
+    white-space: nowrap;
+    font-size: 14px;
+    color: black;
+    font-weight: 600;
+}
+
+/* 카테고리 제목 */
+.FundingProjectList{
+	margin: 50px;
+}
+.FundingProjectListHead{
+	border-bottom: 1px solid rgba(0,0,0,.1);
+    position: relative;
+    margin: 0 auto;
+    text-align: right;
+}
+.FundingProjectListHeadTitle{
+    font-weight: 700;
+    display: block;
+    position: absolute;
+    line-height: 32px;
+    font-size: 24px;
+    top:-5px;
+    left: 0;
+}
+
+input[type=search]{
+    opacity: 1;
+    outline: none;
+}
+.FundingProjectListSearch{
+    display: inline-block;
+}
+
+#searchKeyword2{
+	/* height: 30px;
+	outline: none;
+	border: none;
+	border: 1px solid rgb(225, 225, 225);
+	padding: 3px;
+	width: 0px;
+	position:absolute;
+	top: 0;
+	right: 197px;
+	padding-right: 25px;
+	background: none;
+	z-index: 3;
+	transition: width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
+	cursor: pointer; */
+	position:absolute;
+	top: 0;
+	right: 207px;
+	padding-right: 25px;
+	background: none;
+	width: 200px;
+	border:0;
+	border-bottom: 1px solid #BBB;
+	z-index: 1;
+}
+/* #searchKeyword2:focus{
+	width: 200px;
+	z-index: 1;
+	border-bottom: 1px solid #BBB;
+	cursor: text;
+	right: 197px;
+} */
+#SearchButton{
+	float: right;
+	text-align: right;
+	background: url(./../image/searchicon.png) no-repeat 50%;
+	background-size: 60%;
+	position: absolute;
+    top: -3px;
+    right: 197px;
+	width: 30px;
+	height: 30px;
+	border: 1px solid rgb(225, 225, 225);
+	outline: 0;
+	border-radius: 10%;
+	z-index: 2;
+}
+#SearchButton:hover{
+	cursor: pointer;
+}
+#searchSelect1,
+#searchSelect2{
+	outline: 0;
+	border:0;
+	margin-bottom: 10px;
+	color:#7b7b7b;
+}
+
+/* 목록 */
+.FundingProjectCardListIn{
+    display: grid;
+    grid-template-columns: repeat(3, calc(33.33% - 30px));
+    gap: 45px;
+    margin-top: 30px;
+}
+
+/* 목록 제목 */
+
+.FundingProjectCardItem{
+    background-color: #dadada;
+    border: 1px solid;
+}
+
+.FundingProjectCardItemImage{
+    width: 100%;
+    height: 200px;
+    background-image: url("./../image/tech1.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.FundingProjectCardListInfo{
+	background-color: white;
+    overflow: hidden;
+}
+.FundingProjectCardItemTitleBox{
+    height: 80px;
+}
+.FundingProjectCardItemTitleLink{
+    text-decoration: none;
+}
+
+.FundingProjectCardItemTitleLink p{
+    display: block;
+    margin:0;
+    font-size: 20px;
+    color: black;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.RewordProjectCardCategory,
+.RewordProjectCardMakerName{
+	display:block;
+    font-size: 14px;
+    font-weight: 700;
+    color:#90949c;
+    vertical-align: top;
+}
+.line{
+	border-right: 1px solid rgba(0,0,0,.1);
+	margin-right: 5px;
+}
+.RewordProjectCardCategory{
+	display:inline-block;
+}
+.RewordProjectCardMakerName{
+	display:inline-block;
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-top:10px;
+}
+
+.RewordProjectCardBar span{
+    display: block;
+    background-color: skyblue;
+    height: 2px;
+    height: 3px;
+    margin-top: 10px;
+}
+.RewordProjectCardPercent{
+    color: skyblue;
+    font-size: 15px;
+    font-weight: 600;
+}
+.RewordProjectCardAmount{
+    color: #90949c;
+    font-weight: 600;
+}
+.RewordProjectCardDay{
+    color: #90949c;
+    font-weight: 600;
+    float: right;
+}
+.MoreFunding{
+    margin-top: 45px;
+    margin-bottom: 45px;
+    text-align: center;
+
+}
+.MoreFunding button{
+    width: 100%;
+    font-size: 15px;
+    background-color: white;
+    color: skyblue;
+    padding: 15px 0px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: inherit;
+    border:0;
+    outline:0;
+}
