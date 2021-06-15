@@ -1,12 +1,13 @@
 package com.kh.interactFunding.funding.controller;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -202,23 +203,76 @@ public class FundingController {
 	
 	//박요한 push
 	@GetMapping("/news.do")
-	public void news() {
-		
-	}
-	
-	@GetMapping("/community.do")
-	public void community() {
-		
-	}
-	
-	@GetMapping("/supporter.do")
-	public void supporter() {
+	public void news(@RequestParam(value="no", defaultValue="1") int no, Model model) {
+		try {
+			log.debug("no = {}", no);
+			Map<String, Object> param = new HashMap<>();
+			param.put("no", no);
+			//1.업무로직
+			List<Funding> list = fundingService.news(param);
+			
+			//2.jsp위임
+			model.addAttribute("list", list);
+			
+		} catch (Exception e) {
+			log.error("새소식 조회 오류!", e);
+			throw e;
+		}
 		
 	}
 	
 	@GetMapping("newsView.do")
-	public void newsView() {
-		
+	public void newsView(@RequestParam(value="no", defaultValue="1") int no, Model model) {
+		try {
+			log.debug("no = {}", no);
+			Map<String, Object> param = new HashMap<>();
+			param.put("no", no);
+			//1.업무로직
+			List<Funding> list = fundingService.news(param);
+			
+			//2.jsp위임
+			model.addAttribute("list", list);
+			
+		} catch (Exception e) {
+			log.error("새소식 조회 오류!", e);
+			throw e;
+		}
+	}
+	
+	@GetMapping("/community.do")
+	public void community(@RequestParam(value="no", defaultValue="1") int comment_no, Model model) {
+		try {
+			log.debug("comment_no = {}", comment_no);
+			Map<String, Object> param = new HashMap<>();
+			param.put("comment_no", comment_no);
+			//1.업무로직
+			List<Funding> list = fundingService.community(param);
+			
+			//2.jsp위임
+			model.addAttribute("list", list);
+			
+		} catch (Exception e) {
+			log.error("새소식 조회 오류!", e);
+			throw e;
+		}
+	}
+	
+	@GetMapping("/supporter.do")
+	public void supporter(@RequestParam(value="no", defaultValue="1") int no, Model model) {
+		try {
+			log.debug("no = {}", no);
+			Map<String, Object> param = new HashMap<>();
+			param.put("no", no);
+			//1.업무로직
+			List<Funding> list = fundingService.supporter(param);
+			
+			//2.jsp위임
+			model.addAttribute("list", list);
+			
+		} catch (Exception e) {
+			log.error("새소식 조회 오류!", e);
+			throw e;
+		}
 	}
 	
 	//배기원(test 해보겠습니다)

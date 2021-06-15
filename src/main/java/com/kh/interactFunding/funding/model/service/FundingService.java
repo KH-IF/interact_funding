@@ -24,6 +24,9 @@ public interface FundingService {
 	int saveStory(Funding funding);
 	
 	//박요한
+	List<Funding> news(Map<String, Object> param);
+	List<Funding> community(Map<String, Object> param);
+	List<Funding> supporter(Map<String, Object> param);
 	
 	//배기원
 	public List<Funding> indexfundingList();
@@ -39,6 +42,7 @@ public interface FundingService {
 	public Funding selectOneFunding(int funding_no);
 
 	public List<Funding> selectFunding(int funding_no);
+	
 	
 	
 }

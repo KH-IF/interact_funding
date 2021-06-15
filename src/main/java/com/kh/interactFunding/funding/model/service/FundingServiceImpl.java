@@ -66,6 +66,20 @@ public class FundingServiceImpl implements FundingService{
 	
 	
 	//박요한
+	@Override
+	public List<Funding> news(Map<String, Object> param) {
+		return fundingDao.news(param);
+	}
+	
+	@Override
+	public List<Funding> community(Map<String, Object> param) {
+		return fundingDao.community(param);
+	}
+	
+	@Override
+	public List<Funding> supporter(Map<String, Object> param) {
+		return fundingDao.supporter(param);
+	}
 	
 	//배기원
 	@Override
@@ -102,6 +116,7 @@ public class FundingServiceImpl implements FundingService{
 	public List<Funding> selectFunding(int funding_no) {
 		return fundingDao.selectFunding(funding_no);
 	}
+
 	
 	
 }

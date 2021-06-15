@@ -179,7 +179,7 @@ yh-c-table{
 	margin: 0;
 }
 
-#FAQ-more {
+#FAQ_more {
 	display: none;
 }
 
@@ -391,6 +391,11 @@ yh-c-table{
 	width: 760px;
 	height: 50px;
 	margin-top: 30px;
+}
+
+.clicked{
+	background-color: #00b2b2;
+	color: white;
 }
 
 /* 호현 */

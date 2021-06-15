@@ -7,6 +7,30 @@
 	<!-- 김경태 -->
 	<!-- 김주연 -->
 	<!-- 박요한 -->
+	<select id="news" resultType="funding">
+		select
+			*
+		from
+			funding_board
+		where
+			no = #{no}
+	</select>
+	<select id="community" resultType="funding">
+		select
+			*
+		from
+			funding_comment
+		where
+			comment_no = #{comment_no}
+	</select>
+	<select id="supporter" resultType="funding">
+		select
+			*
+		from
+			funding_participation
+		where
+			no = #{no}
+	</select>
 	<!-- 배기원 -->
 <!--  <resultMap type="fundingExt" id="fundingMap">
 		<id column="no" property="no"></id>

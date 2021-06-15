@@ -26,6 +26,9 @@ public interface FundingDao {
 	int saveStory(Funding funding);
 	
 	//박요한
+	List<Funding> news(Map<String, Object> param);
+	List<Funding> community(Map<String, Object> param);
+	List<Funding> supporter(Map<String, Object> param);
 	
 	//배기원
 	public List<Funding> indexfundingList();
