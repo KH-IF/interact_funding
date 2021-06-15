@@ -30,7 +30,8 @@
 </style>
 <!-- 요금제 코드 사용 rate_plan_code -->
     <div class="container p-5">
-		<input type="hidden" id="hide_funding_no" value="${funding_no}">
+    <form action=""></form>
+		<input type="hidden" id="hide_funding_no" value="${funding.fundingNo}">
         <h1 class="font-weight-bold"> 요금제 선택</h1>
         <p class="text-muted">원하는 요금제를 선택해주세요</p>
 
@@ -54,7 +55,7 @@
 
             <div class="p-4 border" style="width: 45rem;">
                 <span class="h6 mb-2 text-muted">가볍게 펀딩을 시작하고 싶다면</span>
-                <input id="LightCharge" value ="light" type="radio" name="choiceCharge" class="makeLikebutton" />
+                <input id="LightCharge" value ="P1" type="radio" name="choiceCharge" class="makeLikebutton" />
                 <label class="d-inline-flex float-right btn btn-outline-info " for="LightCharge">선택하기</label>
                 
                 <br><br><br>
@@ -86,7 +87,7 @@
                 
                 <span class="h6 mb-2 text-muted">펀딩을 미리 오픈해서
                         사전에 서포터를 모으고 싶다면</span>
-                <input id="BasicCharge" value ="basic" type="radio" name="choiceCharge" class="makeLikebutton" />
+                <input id="BasicCharge" value ="P2" type="radio" name="choiceCharge" class="makeLikebutton" />
                 <label class="d-inline-flex float-right btn btn-outline-info " for="BasicCharge">선택하기</label>
                 
                 <br><br><br>
@@ -113,7 +114,7 @@
             <div class="p-4 border" style="width: 45rem;">
                 <span class="h6 mb-2 text-muted">온・오프라인에서
                         동시에 서포터를 모으고 싶다면</span>
-                <input id="ProCharge" value ="pro" type="radio" name="choiceCharge" class="makeLikebutton" />
+                <input id="ProCharge" value ="P3" type="radio" name="choiceCharge" class="makeLikebutton" />
                 <label class="d-inline-flex float-right btn btn-outline-info " for="ProCharge">선택하기</label>
                 
                 <br><br><br>
@@ -144,7 +145,7 @@
                     와디즈 담당자의 도움을 받고싶다면
                 </span>
 
-                <input id="ExpertCharge" value ="expert" type="radio" name="choiceCharge" class="makeLikebutton" />
+                <input id="ExpertCharge" value ="P4" type="radio" name="choiceCharge" class="makeLikebutton" />
                 <label class="d-inline-flex float-right btn btn-outline-info " for="ExpertCharge">선택하기</label>
                 
                 <br><br><br>
@@ -182,13 +183,16 @@ function saveCharge(){
 
     const charge = $("section").find("[name=choiceCharge]:checked").val();
     console.log(charge);
-	const no = ${funding.funding_no};
+	const no = ${funding.fundingNo};
 	console.log(no);
     
 	$.ajax({
 		url:`${pageContext.request.contextPath}/funding/saveCharge/\${no}/\${charge}`,
 		method: "put",
 		success(data){
+			console.log(data);
+			const {msg} = data;
+			window.location.href = `${pageContext.request.contextPath}/funding/ready1Funding/\${msg}`;
 		},
 		error: console.log
 		});

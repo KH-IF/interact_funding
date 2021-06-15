@@ -8,7 +8,7 @@ import com.kh.interactFunding.funding.model.vo.Attachment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 
 import com.kh.interactFunding.funding.model.vo.Funding_reward;
-
+import com.kh.interactFunding.member.model.vo.Member;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 
 
@@ -19,11 +19,14 @@ public interface FundingDao {
 	//김경태
 	
 	//김주연
+	List<FundingExt> statusYList(Member loginMember);
+	List<FundingExt> statusNList(Member loginMember);
 	int ready1FundingInsertNo(Funding funding);
 	int saveCharge(Map<String, Object> param);
 	int saveBasicInfo(FundingExt funding);
 	int insertAttachment(Attachment attach);
 	int saveStory(Funding funding);
+	int finalSubmit(Funding funding);
 	
 	//박요한
 	
