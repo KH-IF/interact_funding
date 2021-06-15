@@ -260,13 +260,12 @@
 	        <version>2.9.5</version>
 	    </dependency>
 	    
-	    <!-- 메일 발송 의존 -->
+	    <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
 		<dependency>
 		    <groupId>javax.mail</groupId>
 		    <artifactId>javax.mail-api</artifactId>
 		    <version>1.4.7</version>
 		</dependency>
-		
 		<!-- SMS 인증 관련 의존 -->
 	    <dependency>
 		    <groupId>net.nurigo</groupId>
