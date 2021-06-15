@@ -4,6 +4,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
+//	저장된 쿠키를 모두 가져온다
+	Cookie[] cookies =request.getCookies();
+	//비어 있지않다면 
+	if(cookies != null){
+		//모든 쿠키를 살펴봐서
+		for(Cookie c: cookies){
+			//""
+		}
+		
+	}
 %>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="이프" name="title" />
@@ -33,6 +43,7 @@ function showForI(){
 			$("#fundingZone").show();
 		}
 }
+
 </script>
 
 <script>
@@ -249,6 +260,9 @@ function showForI(){
 			<c:forEach items="${list}" varStatus="vs" var="funding">
 				<c:if test="${vs.count==1}">
 					<p class="funding_class-p">${funding.content}</p>
+					<div class="progress">
+				  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" value="${funding.nowAmount/funding.goalAmount*100}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+				</div>
 					<p class="kiwonfunding-percent">
 						<fmt:formatNumber
 							value="${funding.nowAmount/funding.goalAmount*100}"
@@ -374,10 +388,10 @@ function showForI(){
 		<img class="card-img-top"
 			src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_05.png"
 			alt="Card image cap">
-		<div class="card-body">
+		<div class="card-body" id="card-body">
 			<p class="card-text">
-				<c:forEach items="${list}" varStatus="vs" var="funding">
-				<c:if test="${vs.count==5}">
+				<c:forEach items="${viewlist}" varStatus="vs" var="funding">
+				<c:if test="${vs.count==1}">
 					<p class="card-text-p">${funding.content}</p>
 							<p class="card-text-p1">
 								<fmt:formatNumber
@@ -397,7 +411,7 @@ function showForI(){
 			alt="Card image cap">
 		<div class="card-body">
 			<p class="card-text">
-				<c:forEach items="${list}" varStatus="vs" var="funding">
+				<c:forEach items="${viewlist}" varStatus="vs" var="funding">
 				<c:if test="${vs.count==2}">
 					<p class="card-text-p">${funding.content}</p>
 							<p class="card-text-p1">
@@ -418,7 +432,7 @@ function showForI(){
 			alt="Card image cap">
 		<div class="card-body">
 			<p class="card-text">
-				<c:forEach items="${list}" varStatus="vs" var="funding">
+				<c:forEach items="${viewlist}" varStatus="vs" var="funding">
 				<c:if test="${vs.count==3}">
 					<p class="card-text-p">${funding.content}</p>
 							<p class="card-text-p1">
@@ -439,7 +453,7 @@ function showForI(){
 			alt="Card image cap">
 		<div class="card-body">
 			<p class="card-text">
-				<c:forEach items="${list}" varStatus="vs" var="funding">
+				<c:forEach items="${viewlist}" varStatus="vs" var="funding">
 				<c:if test="${vs.count==4}">
 					<p class="card-text-p">${funding.content}</p>
 							<p class="card-text-p1">
@@ -625,8 +639,11 @@ function showForI(){
 		</li>
 	</ul>
 </div>
-<div></div>
-
+<!-- 이미지 배너 부분  -->
+<div>
+<button type="button" class="btn btn-primary btn-lg">Large button</button>
+<img src="${pageContext.request.contextPath}/resources/images/kiwon_images/index(human).jpg"class="img-fluid" alt="Responsive image" style="height: 318px;">
+</div>
 
 <!-- 얼리버드 Container  end-->
 

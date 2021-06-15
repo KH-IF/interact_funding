@@ -35,6 +35,7 @@ public interface FundingDao {
 	public List<Funding> indexfundinglike();
 	int indexTotalContents();
 	List<Funding> indexEarlyList();
+	List<Funding> indexviewlist();
 	
 
 	//이승우

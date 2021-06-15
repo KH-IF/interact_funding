@@ -85,26 +85,28 @@ public class FundingDaoImpl implements FundingDao{
 	}
 	
 	//배기원
-	@Override
-	public List<Funding> indexfundingList() {
-		return session.selectList("funding.indexfundingList");
-	}
-	@Override
-	public List<Funding> indexfundinglike() {
-		return session.selectList("funding.indexfundinglike");
-	}
-	@Override
-	public int indexTotalContents() {
-		return session.selectOne("funding.indexTotalContents");
-	}
-	
-	
-	
-	@Override
-	public List<Funding> indexEarlyList() {
-		// TODO Auto-generated method stub
-		return session.selectList("funding.indexEarlyList");
-	}
+		@Override
+		public List<Funding> indexfundingList() {
+			return session.selectList("funding.indexfundingList");
+		}
+		@Override
+		public List<Funding> indexfundinglike() {
+			return session.selectList("funding.indexfundinglike");
+		}
+		@Override
+		public List<Funding> indexviewlist() {
+			return session.selectList("funding.indexviewlist");
+		}
+		@Override
+		public int indexTotalContents() {
+			return session.selectOne("funding.indexTotalContents");
+		}
+		@Override
+		public List<Funding> indexEarlyList() {
+			// TODO Auto-generated method stub
+			return session.selectList("funding.indexEarlyList");
+		}
+
 	//이승우
 	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {

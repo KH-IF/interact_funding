@@ -166,6 +166,27 @@
 		        ) f
 		where rownum between 1 and 6
 	    </select>
+	    <select id="indexviewlist" resultMap="fundingMap">
+				    select  
+			rownum, f.*
+			from (
+			        select funding.* ,
+			         CASE category_code
+			         WHEN 'C1' THEN '테크.가전'
+			         WHEN 'C2' THEN '푸드'
+			         WHEN  'C3' THEN '여행'
+			         WHEN  'C4' THEN '스포츠'
+			         WHEN 'C5' THEN '게임.취미'
+			         WHEN 'C6' THEN '모임'
+			         WHEN  'C7' THEN  '반려동물'
+			         WHEN  'C8' THEN '기부.후원'
+			         END
+			        from funding  
+			        where <![CDATA[start_date < sysdate and d_day > sysdate]]>
+			        order by readcount  desc
+			        ) f
+			where rownum between 1 and 4
+	    </select>
 	    
 	    <select id="indexfundinglike" resultMap="fundingMap">
 			    	select rownum, f.*

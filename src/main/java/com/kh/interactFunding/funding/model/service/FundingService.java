@@ -31,10 +31,12 @@ public interface FundingService {
 	List<Funding> supporter(Map<String, Object> param);
 	
 	//배기원
-	public List<Funding> indexfundingList();
-	List<Funding> indexEarlyList();
-	int indexTotalContents();
-	public List<Funding> indexfundinglike();
+		public List<Funding> indexfundingList();
+		List<Funding> indexEarlyList();
+		List<Funding> indexviewlist();
+		public List<Funding> indexfundinglike();
+		int indexTotalContents();
+		
 	//이승우
 	public List<Funding> fundingList(Map<String, Object> map);
 	public List<Map<String, String>> selectCategoryList();
