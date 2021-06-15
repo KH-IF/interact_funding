@@ -25,5 +25,4 @@ public interface MemberDao {
 	//이승우
 	
 	//천호현
-	
 }

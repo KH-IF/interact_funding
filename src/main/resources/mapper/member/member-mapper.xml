@@ -3,22 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
+	
 	<!-- 김윤수 -->
 	<select id="selectEmailCheck" resultType="_int" >
 		select count(*) 
 		from member
-		where email = '${email}'
+		where email = #{email}
 	</select>
 
 	<insert id="insertMemberIf">
 		insert into member(member_no, email, password, name, platform, reg_date) 
-		values(seq_member_no.nextval, '${email}', '${password}', '${name}', '${platform}', default)
+		values(seq_member_no.nextval, #{email}, #{password}, #{name}, #{platform}, default)
 	</insert>	
 	
 	<select id="selectOneMember" resultType="member">
 		select * 
 		from member
-		where email = '${email}' and platform='IF'
+		where email = #{email} and platform='IF'
 	</select>
 	<!-- 김경태 -->
 	<!-- 김주연 -->
