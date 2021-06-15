@@ -22,7 +22,7 @@ public class FundingDetailVo extends Funding{
 	private Date shippingDate;
 	private String originalFileName;
 	private String renamedFileName;
-	private char status;
+	private String status_1;
 	private String name;
 	
 	
