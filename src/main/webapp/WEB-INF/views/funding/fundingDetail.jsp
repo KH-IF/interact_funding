@@ -1,3 +1,5 @@
+<%@page import="com.kh.interactFunding.member.model.vo.Member"%>
+<%@page import="com.kh.interactFunding.funding.model.vo.FundingDetailVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -20,6 +22,14 @@
 	window.open('fundingChatMaker', '', 'status=no, height=600, width=500, left='+ popupX + ', top='+ popupY);
 		}
 </script>
+
+
+	<div id="funding_top_title">
+		${funding.title}
+		${funding.categoryCode}
+		${loginMember.name}
+	
+	</div>
 	
 	<div id="funding_tap">
             <ol>
@@ -41,39 +51,51 @@
         <div id="funding_main">
             <div id="funding_main_image_and_content">
                 <div id="funding_main_image">
-                    <img src="${pageContext.request.contextPath }/resources/images/city1.PNG" alt="" style="width: 100%; height: 100%;">
+                    <%-- <img src="${pageContext.request.contextPath }/resources/upload/city1.PNG" alt="" style="width: 100%; height: 100%;"> --%>
+   					${funding.originalFileName}
+					${funding.renamedFileName}
                 </div>
 
                 <div id="funding_main_content">
-					${funding.content}
-                    내용들어갈부분
-
+                 	<br />	<br />	<br />	<br />	<br />
+              		
+              		${funding.content}
+           		    ${funding.earlyContent}
                 </div>
             </div>
 
+			<!-- 남은날계산용 -->
+			<fmt:parseNumber value="${funding.startDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
+			<fmt:parseNumber value="${funding.DDay.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
+			
 
             <div id="funing_main_right_div">
                 <div id="funing_main_right_div_1">
-                    <div id="funding_detail_dday_div">10일 남음</div>
-                    <div id="funding_detail_dday_div">aaaaa 목표bar 들어갈곳</div>
-                    <div id="funding_detail_goal_percent_div">8500% 달성</div>
-                    <div id="funding_detail_now_amount_div">444444 원 펀딩</div>
-                    <div id="funding_detail_supporter_div">3333명의 서포터</div> <!-- funding_participation -->
-                    <input id="funding_button" type="button" value="펀딩하기" onclick="location.href='${pageContext.request.contextPath}/funding/fundingReward';" />
-                    <input type="button" value="좋아요" id="funding_detail_like_button"/>
+                    <div id="funding_detail_dday_div">${endDate - strDate}일 남았습니다</div>
+                    <div id="funding_detail_dday_bar_wrapper">
+	                    <div id="funding_detail_dday_bar" class="progress">
+		                      <div id="funding_detail_dday_bar_div" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+							  aria-valuenow="${funding.nowAmount}" aria-valuemin="0" aria-valuemax="${funding.goalAmount}" style="width:${funding.nowAmount / funding.goalAmount * 100}%">
+		 					 </div>
+						</div>
+					</div>
+                    <div id="funding_detail_goal_percent_div"> <fmt:formatNumber value="${funding.nowAmount / funding.goalAmount}" type="percent"/>달성</div><!-- 8500% 달성 -->
+                   
+                    <div id="funding_detail_now_amount_div">현재 ${funding.nowAmount}원 펀딩중</div><!-- 444444 원 펀딩 -->
+                    <div id="funding_detail_supporter_div"> 현재 ${funding2}명의 서포터</div> <!-- 3333명의 서포터funding_participation -->
+                    <input id="funding_button" type="button" value="펀딩하기" onclick="location.href='${pageContext.request.contextPath}/funding/fundingReward?funding_no=	${funding.fundingNo}';" />
+                    <input type="button" value="${funding.likeCount}좋아요" id="funding_detail_like_button"/>
                     <input type="button" value="1:1 채팅" id="funding_detail_chat_button"/>
-                    <input type="button" value="공유하기" id="funding_detail_share_button"/>
                 </div>
 
 
 				<!--메이커정보 (해당 펀딩의 작성자정보) -->
                 <div id="funing_main_right_div_2">
-                메이커 정보
+            		  메이커 정보
                 	<div id="funding_detail_maker_logo_name_div">
-                		<div id="funding_detail_maker_logo">로고</div>
-                		<div id="funding_detail_maker_name">ㅁㅁㅁ컴퍼니</div>
+                		<div id="funding_detail_maker_name">${funding.name}ㅁㅁㅁ컴퍼니</div>
                 	</div>
-                		<div id="funding_detail_maker_phone">메이커 연락처:0000</div>
+                		<div id="funding_detail_maker_phone">메이커 연락처:${funding.phone}</div>
                     <input type="button" value="메이커에게 문의하기" id="funding_detail_maker_chat_button" 
                     onclick="maker_chat_function()"/>
 
@@ -98,6 +120,13 @@
 
 
       <style>
+      
+      
+    #funding_top_title{
+    height: 106px;
+    text-align: center;  
+      
+    }
     #funding_tap {
 
     }    
@@ -184,8 +213,8 @@
     }
     
     /* 좋아요 1:1채팅 공유하기 버튼 */
-	#funding_detail_like_button, #funding_detail_chat_button, #funding_detail_share_button{
-	width:31.3%;
+	#funding_detail_like_button, #funding_detail_chat_button{
+	width:47.8%;
 	
 	}
 	
@@ -198,7 +227,32 @@
 	border: 2px solid black;
 	}
 
+	#funding_detail_dday_bar_wrapper{
+	height: 2px;
+	
+	
+	}
     </style>
+    
+    <script>
+
+    //좋아요 누를시
+	$.ajax({
+		url:"${pageContext.request.contextPath}/funding/loginMembberClickLike",
+		data: JSON.stringify(makerInfo),
+		contentType: "application/json; charset=utf-8",
+		method: "POST",
+		success(data){
+			//console.log(data);
+			const {msg} = data;
+			alert(msg);
+		},
+		error: console.log,
+		complete(){
+			e.target.reset(); //폼초기화
+			}
+		});
+	</script>	
 
 
 
