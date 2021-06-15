@@ -41,6 +41,7 @@ public interface FundingService {
 	
 	//천호현
 	public Funding selectOneFunding(int funding_no);
+	public int selectOneFunding2(int funding_no);
 
 	
 	

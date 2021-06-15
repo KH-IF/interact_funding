@@ -113,6 +113,11 @@ public class FundingServiceImpl implements FundingService{
 	public Funding selectOneFunding(int funding_no) {
 		return fundingDao.selectOneFunding(funding_no);
 	}
+	@Override
+	public int selectOneFunding2(int funding_no) {
+		return fundingDao.selectOneFunding2(funding_no);
+	}
 
+	
 	
 }
