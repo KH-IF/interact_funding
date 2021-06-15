@@ -13,11 +13,20 @@ $(() => {
 	$('#funding_reward_modal').modal("show");
 }); 
 </script> 
-
+		${funding.ratePlanCode}
+		${funding.readCount}
+		${funding.rewardNo}
+		${funding.price}
+		${funding.rewardTitle}
+		${funding.rewardContent}
+		${funding.shippingPrice}
+		${funding.limitAmount}
+		${funding.shippingDate}
+		${funding.status}
 
 	<div id="funding_reward_top_tap">
 	<span>스토리로돌아가기</span>
-			<span>[1억앵콜] 양치 3번으로 치아를 깎지 않고 하얗게 쭉~ 유지하세요!(누른 펀딩 제목들어가야함)</span>
+			<span>${funding.title}</span>
 	</div>
 		
 	<div id="funding_purchase_step">

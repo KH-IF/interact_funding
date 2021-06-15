@@ -3,12 +3,14 @@ package com.kh.interactFunding.funding.model.service;
 import java.util.List;
 
 
+
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.kh.interactFunding.funding.model.dao.FundingDao;
 import com.kh.interactFunding.funding.model.vo.Attachment;
 import com.kh.interactFunding.funding.model.vo.Funding;
+import com.kh.interactFunding.member.model.vo.Member;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +26,17 @@ public class FundingServiceImpl implements FundingService{
 	//김경태
 	
 	//김주연
+	@Override
+	public List<FundingExt> statusYList(Member loginMember) {
+		// TODO Auto-generated method stub
+		return fundingDao.statusYList(loginMember);
+	}
+	@Override
+	public List<FundingExt> statusNList(Member loginMember) {
+		// TODO Auto-generated method stub
+		return  fundingDao.statusNList(loginMember);
+	}
+
 	@Override
 	public int ready1FundingInsertNo(Funding funding) {
 		return fundingDao.ready1FundingInsertNo(funding);
@@ -57,9 +70,28 @@ public class FundingServiceImpl implements FundingService{
 		// TODO Auto-generated method stub
 		return fundingDao.saveStory(funding);
 	}
+	@Override
+	public int finalSubmit(Funding funding) {
+		// TODO Auto-generated method stub
+		return fundingDao.finalSubmit(funding);
+	}
 	
 	
 	//박요한
+	@Override
+	public List<Funding> news(Map<String, Object> param) {
+		return fundingDao.news(param);
+	}
+	
+	@Override
+	public List<Funding> community(Map<String, Object> param) {
+		return fundingDao.community(param);
+	}
+	
+	@Override
+	public List<Funding> supporter(Map<String, Object> param) {
+		return fundingDao.supporter(param);
+	}
 	
 	//배기원
 	@Override
@@ -91,11 +123,11 @@ public class FundingServiceImpl implements FundingService{
 	public Funding selectOneFunding(int funding_no) {
 		return fundingDao.selectOneFunding(funding_no);
 	}
-
 	@Override
-	public List<Funding> selectFunding(int funding_no) {
-		return fundingDao.selectFunding(funding_no);
+	public int selectOneFunding2(int funding_no) {
+		return fundingDao.selectOneFunding2(funding_no);
 	}
+
 	
 	
 }

@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 public class Funding {
 	//이승우
 	private int fundingNo;
-	private String categoryCode;
-	private String ratePlanCode;
-	private int writerNo;
 	private String title;
+	private String categoryCode;
 	private int nowAmount;
 	private int goalAmount;
+	private String ratePlanCode;
+	private int writerNo;
 	private int readCount;
 	private int likeCount;
 	private String content;
@@ -40,6 +40,9 @@ public class Funding {
 	
 	private Date regDate;
 	private String phone;
+	
+	//김주연 funding작성 완료여부 YN
+	private boolean status;			//status ----- 'Y','N' ->커스텀 타입핸들러 필요
 	
 	
 }

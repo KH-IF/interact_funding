@@ -83,7 +83,7 @@
 				<div>
 					<input type="button" value="답글" id="c-comment-btn" />
 				</div>
-				<div class="yh-c-comment" id="yh-c-comment">
+				<div class="yh-c-comment" id="yh_c_comment">
 					<textarea class="nv-c-comment" id="nv-c-comment"></textarea>
 					<input type="button" value="등록" id="nv-c-comment-btn" />
 				</div>
@@ -126,9 +126,11 @@ $("#nv-view-btn").click(() => {
 
 $("#nv-share-btn").click(function(){
 	//만일 Pop라는 녀석이 닫혀있다면??
-
-    if(document.getElementById("pop1").style.display=="none"){
-
+	console.log(111);
+	console.log(pop1.style.display);
+	console.log($(pop1).css('display'));
+    if($(pop1).css('display') == 'none'){
+		
        //열어주어라
 
        document.getElementById("pop1").style.display='block'
@@ -146,12 +148,14 @@ $("#nv-share-btn").click(function(){
 
 $("#c-comment-btn").click(function(){
 		//만일 Pop라는 녀석이 닫혀있다면??
-
-        if(document.getElementById("yh-c-comment").style.display=="none"){
+		console.log(111);
+		console.log(yh_c_comment.style.display);
+		console.log($(yh_c_comment).css('display'));
+        if($(yh_c_comment).css('display') == 'none'){
 
            //열어주어라
 
-           document.getElementById("yh-c-comment").style.display='block'
+           document.getElementById("yh_c_comment").style.display='block'
 
         //그렇지 않은 모든 경우라면??
 
@@ -159,7 +163,7 @@ $("#c-comment-btn").click(function(){
 
            //닫아주어라
 
-           document.getElementById("yh-c-comment").style.display='none'
+           document.getElementById("yh_c_comment").style.display='none'
 
         }
 });

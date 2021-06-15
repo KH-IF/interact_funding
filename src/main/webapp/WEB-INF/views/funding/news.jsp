@@ -42,24 +42,6 @@
 							</div>
 					</a></td>
 				</tr>
-				<tr>
-					<td><a href="">
-							<div>
-								<p>이벤트</p>
-								<p>제목</p>
-								<p>날짜 | 댓글</p>
-							</div>
-					</a></td>
-				</tr>
-				<tr>
-					<td><a href="">
-							<div>
-								<p>이벤트</p>
-								<p>제목</p>
-								<p>날짜 | 댓글</p>
-							</div>
-					</a></td>
-				</tr>
 			</table>
 		</div>
 	</div>
