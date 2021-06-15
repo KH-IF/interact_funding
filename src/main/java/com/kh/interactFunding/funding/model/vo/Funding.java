@@ -39,5 +39,8 @@ public class Funding {
 	private Date regDate;
 	private String phone;
 	
+	//김주연 funding작성 완료여부 YN
+	private boolean status;			//status ----- 'Y','N' ->커스텀 타입핸들러 필요
+	
 	
 }

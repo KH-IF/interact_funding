@@ -17,12 +17,11 @@
 		>
 		<!-- onsubmit="return boardValidate();" -->
     <div class="container p-5">
+        <input type="hidden" name="fundingNo" value="${funding.fundingNo}" />
+        
         <h1 class="font-weight-bold">기본 정보</h1>
         <p>프로젝트를 대표할 주요 기본 정보를 입력하세요.</p>
         
-        <!--후에 funding_no로 바꿔줄것 -->
-        <%-- <input type="hidden" name="funding_no" value="${funding.funding_no}" /> --%>
-        <input type="hidden" name="funding_no" value="17" />
         
         <br>    
         <h6> 프로젝트 제목</h6>
@@ -35,7 +34,7 @@
         <h6> 목표 금액</h6>
         <p class="text-muted" style="font-size:13px">최소 50만 원 ~ 최대 1억 원으로 설정하세요.</p>
         <div class="input-group">
-            <input name="goal_amount" type="number" min="500000" max="100000000" class="form-control" placeholder="목표 금액 입력" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <input name="goalAmount" type="number" min="500000" max="100000000" class="form-control" placeholder="목표 금액 입력" aria-label="Recipient's username" aria-describedby="basic-addon2">
             <span class="p-1">원</span>
         </div>
         <p>40자 남음</p>
@@ -62,7 +61,7 @@
         <br>
         <h6>카테고리</h6>
         <div class="input-group mb-3">
-            <select class="custom-select" name="category_code">
+            <select class="custom-select" name="categoryCode">
 <!-- : 테크가전, 푸드, 여행, 스포츠, 게임취미, 모임, 반려동물, 기부후원-->
               <option selected disabled>카테고리 선택</option>
               <option value="C1">테크가전</option>
@@ -82,17 +81,15 @@
             요건・콘텐츠 확인 및 프로젝트 진행 일정과 리워드 발송 일정을 함께 고려하여 종료일을 설정해주세요.
         </p>
         <div class="form-group row">
-		    <input class="form-control ml-3" type="date" value="<%=sf.format(nowTime)%>" name="d_day">
+		    <input class="form-control ml-3" type="date" value="<%=sf.format(nowTime)%>" name="dDay">
 		</div>
         
         <br><br>
-        <!-- 성인인증과 검색용 태그는 논의 후에 집어넣을 것 -->
         <input type="submit" class="btn btn-primary btn-lg" style="width: 200px;" value="시작하기"/>
 <!--         <button type="button" class="btn btn-primary btn-lg" style="width: 200px;" onclick="saveBasicInfo()">시작하기</button> -->
     </div>
 	</form>
-
-</section>
+	</section>
 <script>
 $(() =>{
 	$("[name=upFile]").change(e =>{
@@ -107,48 +104,6 @@ $(() =>{
 	});
 });
 
-
-/* function saveBasicInfo(){
-
-	const funding_no = ${funding.funding_no};
-	const form = $("#basicInfo")[0];
-	const $frm = $("#basicInfo");
-	const formData = new FormData(form);
-	console.log(formData);
-	
-	const title = $frm.find("[name = title]").val();
-	const goal_amount = $frm.find("[name = goal_amount]").val();
-	const category_code = $("#makerCategory option:selected").val();
-	const d_day = $frm.find("[name = d_day]").val();
-
-	
-	const funding ={
-			funding_no,
-			title,
-			goal_amount,
-			category_code,
-			d_day,
-			formData
-			}
-
-	console.log(funding);
-    
-	$.ajax({
-		url:`${pageContext.request.contextPath}/funding/saveBasicInfo`,
-		contentType: "application/json; charset=utf-8",
-		data:  JSON.stringify(funding),
-	    enctype: 'multipart/form-data',
-		dataType:'json',
-		contentType : false,
-        processData : false,
-		
-		method: "put",
-		success(data){
-			console.log(data);
-		},
-		error: console.log
-		});
-}; */
 
 /* function basicInfoValidate(){
 	var $projectTitle = $("[name=title]");
@@ -177,6 +132,7 @@ function readURL(input) {
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			$('#imgArea').attr('src', e.target.result); 
+			console.log(e.target.result);
 		}
 		reader.readAsDataURL(input.files[0]);
 	}

@@ -259,6 +259,12 @@
 	        <artifactId>jackson-databind</artifactId>
 	        <version>2.9.5</version>
 	    </dependency>
+	    <!-- SMS 인증 관련 의존 -->
+	    <dependency>
+		    <groupId>net.nurigo</groupId>
+		    <artifactId>javaSDK</artifactId>
+		    <version>2.2</version>
+		</dependency>
 	</dependencies>
     <build>
         <plugins>
