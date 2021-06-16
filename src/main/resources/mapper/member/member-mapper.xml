@@ -21,6 +21,31 @@
 		from member
 		where email = #{email} and platform='IF'
 	</select>
+	
+	<insert id="insertPoint">
+		insert into point
+		values( seq_point_no.nextval, default, #{point}, #{memberNo}, #{memo} )
+	</insert>
+	
+	<select id="selectOneCoupon" resultType="coupon">
+		select * 
+		from coupon
+		where code = #{couponText}
+	</select>
+	
+	<select id="selectCouponRecordCheck" resultType="_int">
+		select count(*)
+		from coupon_record
+		where member_no = #{memberNo} and coupon_no = #{couponNo}
+	</select>
+	<!-- no number primary key,
+    coupon_no number,
+    member_no number,
+    point number, -->
+	<insert id="insertCoupon">
+		insert into coupon_record
+		values( seq_coupon_record_no.nextval, #{couponNo}, #{memberNo}, #{point} )
+	</insert>
 	<!-- 김경태 -->
 	<!-- 김주연 -->
 	<!-- 박요한 -->
