@@ -1,24 +1,12 @@
+<%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%
-//	저장된 쿠키를 모두 가져온다
-	Cookie[] cookies =request.getCookies();
-	//비어 있지않다면 
-	if(cookies != null){
-		//모든 쿠키를 살펴봐서
-		for(Cookie c: cookies){
-			//""
-		}
-		
-	}
-%>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="이프" name="title" />
 </jsp:include>
-
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/index.css" />
 <!-- Ionicons Js 예제  -->
@@ -26,10 +14,7 @@
 
 <script>
 /* 실시간랭킹  hide show  예제*/
-function showForI(){
-		if($('input:radio[id=invest]').is(':checked')){
-			$("#fundingZone").hide();
-			$.ajax({
+	 $.ajax({
 				url:"${pageContext.request.contextPath}/funding/fundinglike",
 				success:(data) =>{
 					console.log(data);
@@ -39,11 +24,27 @@ function showForI(){
 					console.log(xhr, statusText, err);
 				}
 			});
-		}else{
-			$("#fundingZone").show();
+function showForI(){
+		 if($('input:radio[name=ranking-btn]').is(':checked')){
+			$("#fundingZone").hide();
+			$("#likeZone").css('display','block');
+			
 		}
-}
+		 else{
+			$("#fundingZone").show();
+			$("#likeZone").css('display','none');
+			 }
+	} 
+$.ajax({
+	url:"${pageContext.request.contextPath}/funding/fundingRefresh",
+	success:(data) =>{
+		console.log(data);
+	},
+	error: (xhr, statusText, err) => {
+		console.log(xhr, statusText, err);
 
+	}
+});
 </script>
 
 <script>
@@ -58,8 +59,9 @@ function showForI(){
  	if(Earlybirdbox >=2 && Earlybirdbox <=4){
  		$("#EalrybirdTag_Container").attr("style","transform:translateX("+(-240)*(--Earlybirdbox-1)+"px);")
  	 	}
-	 }
+	 } 
 </script>
+
 <div class="kiwon_cardbanner">
 	<div id="carouselExampleIndicators" class="carousel slide"
 		data-ride="carousel">
@@ -122,21 +124,21 @@ function showForI(){
 <div class="bd-sidebar-body">
 	<h1>실시간 랭킹</h1>
 	<div class="btn-group btn-group-toggle" data-toggle="buttons">
-		<label class="btn btn-secondary active"> <input type="radio"
-			name="options" id="funding" checked onchange="showForI()">
+		<label class="btn btn-secondary active"> <input type="radio" 
+			name="ranking-btn" id="funding" checked onchange="showForI()">
 			펀딩하기
 		</label>
 
 	</div>
 	<div class="btn-group btn-group-toggle" data-toggle="buttons">
 		<label class="btn btn-secondary active"> <input type="radio"
-			name="options" id="invest" checked onchange="showForI()"> 좋아요
+			name="ranking-btn" id="invest" checked onchange="showForI()" > 좋아요
 		</label> <span class="kiwon_Ranking_badge">진행중</span>
 	</div>
-	<ul class="nav">
-		<li style="font-weight: 700;" id="fundingZone"><a
-			href="${pageContext.request.contextPath }/ " style="color: #000000;">
-				<span class="orderText-span">1. <c:forEach items="${list}"
+	<ul class="nav" id="fundingZone">
+		<li style="font-weight: 700;" ><a
+			href="${pageContext.request.contextPath}/ " style="color: #000000;">
+				<span class="orderText-span">1. <c:forEach items="${likelist}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==1}">
 							<p class="Ranking_class-p1">${funding.content}</p>
@@ -153,7 +155,7 @@ function showForI(){
 					style="width: 75px; height: 63px" />
 			</span>
 		</a></li>
-		<li style="font-weight: 700;" id="fundingZone"><a
+		<li style="font-weight: 700;" ><a
 			href="${pageContext.request.contextPath }/ " style="color: #000000;">
 				<span class="orderText-span">2. <c:forEach items="${list}"
 						varStatus="vs" var="funding">
@@ -174,7 +176,7 @@ function showForI(){
 
 		</a></li>
 
-		<li style="font-weight: 700;" id="fundingZone"><a> <span
+		<li style="font-weight: 700;" ><a> <span
 				class="orderText-span">3. <c:forEach items="${list}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==3}">
@@ -192,7 +194,7 @@ function showForI(){
 					style="width: 75px; height: 63px" />
 			</span>
 		</a></li>
-		<li style="font-weight: 700;" id="fundingZone"><a> <span
+		<li style="font-weight: 700;"  ><a> <span
 				class="orderText-span">4. <c:forEach items="${list}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==4}">
@@ -211,8 +213,108 @@ function showForI(){
 			</span>
 
 		</a></li>
-		<li style="font-weight: 700;" id="fundingZone"><a> <span
+		<li style="font-weight: 700;" ><a> <span
 				class="orderText-span">5. <c:forEach items="${list}"
+						varStatus="vs" var="funding">
+						<c:if test="${vs.count==5}">
+							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="kiwonRanking_percent">
+								<fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" />
+								%<span class="kiwonfunding-percent-after">
+									${funding.categoryName}</span>
+							</p>
+						</c:if>
+					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
+					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+					style="width: 75px; height: 63px" />
+			</span>
+
+		</a></li>
+
+	</ul>
+	<!-- likeZone -->
+	<ul class="nav" id="likeZone" style="display: none;" >
+		<li style="font-weight: 700;" ><a
+			href="${pageContext.request.contextPath }/ " style="color: #000000;">
+				<span class="orderText-span">1. <c:forEach items="${likelist}"
+						varStatus="vs" var="funding">
+						<c:if test="${vs.count==1}">
+							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="kiwonRanking_percent">
+								<fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" />
+								%<span class="kiwonfunding-percent-after">
+									${funding.categoryName}</span>
+							</p>
+						</c:if>
+					</c:forEach> <img
+					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+					style="width: 75px; height: 63px" />
+			</span>
+		</a></li>
+		<li style="font-weight: 700;" ><a
+			href="${pageContext.request.contextPath }/ " style="color: #000000;">
+				<span class="orderText-span">2. <c:forEach items="${likelist}"
+						varStatus="vs" var="funding">
+						<c:if test="${vs.count==2}">
+							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="kiwonRanking_percent">
+								<fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" />
+								%<span class="kiwonfunding-percent-after">
+									${funding.categoryName}</span>
+							</p>
+						</c:if>
+					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
+					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+					style="width: 75px; height: 63px" />
+			</span>
+
+		</a></li>
+
+		<li style="font-weight: 700;" ><a> <span
+				class="orderText-span">3. <c:forEach items="${likelist}"
+						varStatus="vs" var="funding">
+						<c:if test="${vs.count==3}">
+							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="kiwonRanking_percent">
+								<fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" />
+								%<span class="kiwonfunding-percent-after">
+									${funding.categoryName}</span>
+							</p>
+						</c:if>
+					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
+					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+					style="width: 75px; height: 63px" />
+			</span>
+		</a></li>
+		<li style="font-weight: 700;"  ><a> <span
+				class="orderText-span">4. <c:forEach items="${likelist}"
+						varStatus="vs" var="funding">
+						<c:if test="${vs.count==4}">
+							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="kiwonRanking_percent">
+								<fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" />
+								%<span class="kiwonfunding-percent-after">
+									${funding.categoryName}</span>
+							</p>
+						</c:if>
+					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
+					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+					style="width: 75px; height: 63px" />
+			</span>
+
+		</a></li>
+		<li style="font-weight: 700;" ><a> <span
+				class="orderText-span">5. <c:forEach items="${likelist}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==5}">
 							<p class="Ranking_class-p1">${funding.content}</p>
@@ -236,7 +338,7 @@ function showForI(){
 <br>
 
 <div class="kiwonfunding">
-	<!-- 로그인 안되었을때-->
+<!-- 로그인 안되었을때-->
 	<c:if test="${empty loginMember}">
 		<h1>프로젝트 어때요?</h1>
 	</c:if>
@@ -244,8 +346,7 @@ function showForI(){
 	<c:if test="${not empty loginMember}">
 		<h1>${loginMember.name}님이 프로젝트 어때요?</h1>
 	</c:if>
-
-
+	
 	<!-- 펀딩하기 -->
 	<div class="kiwonfunding-div">
 		<!-- 펀딩하기 첫번째 img-->
@@ -261,7 +362,7 @@ function showForI(){
 				<c:if test="${vs.count==1}">
 					<p class="funding_class-p">${funding.content}</p>
 					<div class="progress">
-				  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" value="${funding.nowAmount/funding.goalAmount*100}" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+				  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 20%"  aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 					<p class="kiwonfunding-percent">
 						<fmt:formatNumber
@@ -283,6 +384,9 @@ function showForI(){
 			<c:forEach items="${list}" varStatus="vs" var="funding">
 				<c:if test="${vs.count==2}">
 					<p class="funding_class-p">${funding.content}</p>
+					<div class="progress">
+				  <div class="progress-bar progress-bar-striped"  value=""role="progressbar" style="width: 20%"  aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+				</div>
 					<p class="kiwonfunding-percent">
 						<fmt:formatNumber
 							value="${funding.nowAmount/funding.goalAmount*100}"
@@ -378,12 +482,16 @@ function showForI(){
 				</p>
 			</c:if>
 		</c:forEach>
+		<button type="button" class="btn btn-light" style="position: relative; left: 60%; padding: 12px; font-weight: 700;">
+		<ion-icon name="refresh-outline"></ion-icon>새로고침
+		</button>
 	</div>
 </div>
+
 <p class="p-likeProject">
 	회원들이 <span style="color: #00a2a2;">좋아할</span> 프로젝트
 </p>
-<div class="likeProject">
+<div class="likeProject" >
 	<div class="card" style="width: 18rem; margin-right: 1vw">
 		<img class="card-img-top"
 			src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_05.png"
@@ -640,8 +748,15 @@ function showForI(){
 	</ul>
 </div>
 <!-- 이미지 배너 부분  -->
-<div>
-<button type="button" class="btn btn-primary btn-lg">Large button</button>
+<div class="image-banner">
+<h1 class="image-banner-h1">이프에서 프로젝트 오픈하기</h1>
+<span class="image-banner-span">당신의 이야기를 소개하고 투자자와 서포터를 만나보세요</span>	
+<a href="${pageContext.request.contextPath }/funding/fundingStart2">
+<button type="button" class="btn btn-secondary btn-lg" style="position:absolute; left: 40%;  top:60%; padding: 0.9vw;
+	padding-inline:2vw;">바로가기 
+	<ion-icon name="arrow-forward-outline"></ion-icon>
+	 </button>
+	 </a>
 <img src="${pageContext.request.contextPath}/resources/images/kiwon_images/index(human).jpg"class="img-fluid" alt="Responsive image" style="height: 318px;">
 </div>
 

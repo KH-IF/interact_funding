@@ -521,3 +521,27 @@
    color: #90949c;
 }
 /* 최근살펴본 펀딩 end*/
+/*이미지 배너 start*/
+.image-banner{
+	position: relative;
+	
+}
+.image-banner-h1{
+	    position: absolute;
+    top: 20%;
+    left: 26%;
+    font-weight: bold;
+    color: #fff;
+}
+.image-banner-span{
+	position: absolute;
+    color: #fff;
+    top: 45%;
+    left: 20%;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+
+
+/*이미지 배너 end*/

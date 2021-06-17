@@ -7,6 +7,19 @@
 	<jsp:param value="이프" name="title" 	/>
 </jsp:include>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/fundingList.css" />
+<%
+	//사용자 쿠키 처리
+	String saveCookie =null;
+	Cookie[] cookies = request.getCookies();
+	if(cookies != null){
+		for(Cookie c : cookies){
+			String name = c.getName();
+			String value = c.getValue();
+			if("saveCookie".equals(name))
+				saveCookie = value;
+		}
+}
+%>
 <script>
 	$(function(){
 	    //이미지 불러오기
@@ -178,10 +191,12 @@
                     </a>
                     <div class="FundingProjectCardListInfo">
                         <div class="FundingProjectCardItemTitle">
-                            <div class="FundingProjectCardItemTitleBox">
-                                <a class="FundingProjectCardItemTitleLink" href="#">
+                            <div class="FundingProjectCardItemTitleBox">		
+                                <a class="FundingProjectCardItemTitleLink" href="${pageContext.request.contextPath }/">
+                                	<!-- 배기원 쿠키(테스트) 추가 하였습니다. 2021/06/16 -->
                                     <p><strong>${funding.title}</strong></p>
                                 </a>
+                                
                                 <div>
                                     <span class="RewordProjectCardCategory">${funding.categoryCode}</span>
                                     <span class="line"></span>

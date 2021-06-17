@@ -94,31 +94,34 @@ public class FundingServiceImpl implements FundingService{
 	}
 	
 	//배기원
-		@Override
-		public List<Funding> indexfundingList() {
-			return fundingDao.indexfundingList();
-		}
-		@Override
-		public List<Funding> indexfundinglike() {
-			// TODO Auto-generated method stub
-			return fundingDao.indexfundinglike();
-		}
-		
-		@Override
-		public List<Funding> indexviewlist() {
-			// TODO Auto-generated method stub
-			return fundingDao.indexviewlist();
-		}
-		@Override
-		public int indexTotalContents() {
-			// TODO Auto-generated method stub
-			return fundingDao.indexTotalContents();
-		}
-		@Override
-		public List<Funding> indexEarlyList() {
-			// TODO Auto-generated method stub
-			return fundingDao.indexEarlyList();
-		}
+	@Override
+	public List<Funding> indexfundingList() {
+		return fundingDao.indexfundingList();
+	}
+	@Override
+	public List<Funding> indexfundinglike() {
+		return fundingDao.indexfundinglike();
+	}
+	@Override
+	public List<Funding> indexviewlist() {
+		return fundingDao.indexviewlist();
+	}
+	@Override
+	public int indexTotalContents() {
+		return fundingDao.indexTotalContents();
+	}
+	@Override
+	public List<Funding> indexEarlyList() {
+		return fundingDao.indexEarlyList();
+	}
+	@Override
+	public List<Funding> indexlikelist() {
+		return fundingDao.indexlikelist();
+	}
+	@Override
+	public List<Funding> indexfundingRefresh() {
+		return fundingDao.indexfundingRefresh();
+	}
 	//이승우
 	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {
