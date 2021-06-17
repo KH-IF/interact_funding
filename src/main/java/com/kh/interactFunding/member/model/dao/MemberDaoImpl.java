@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,28 @@ public class MemberDaoImpl implements MemberDao {
 		log.debug("member.email={}",member.getEmail());
 		return session.selectOne("member.selectOneMember", member);
 	}
+
+	@Override
+	public int insertPoint(Map<String, Object> map) {
+		return session.insert("member.insertPoint",map);
+	}
+
+	@Override
+	public Coupon selectOneCoupon(Map<String, Object> map) {
+		return session.selectOne("member.selectOneCoupon",map);
+	}
+
+	@Override
+	public int selectCouponRecordCheck(Map<String, Object> map) {
+		return session.selectOne("member.selectCouponRecordCheck",map);
+	}
+
+	@Override
+	public int insertCoupon(Map<String, Object> map) {
+		return session.insert("member.insertCoupon",map);
+	}
+	
+	
 
 	// 김경태
 

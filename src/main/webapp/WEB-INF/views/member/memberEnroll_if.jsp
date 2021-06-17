@@ -140,6 +140,12 @@
 				url:"${pageContext.request.contextPath}/member/enrollAuthenticationCode",
 				data:{email:email},
 				success: function(data){
+					//중복여부이면 취소
+					if(data=='N'){
+						swal("인증코드 발송 실패", "이미 가입된 이메일 입니다", "error");
+						return;
+					}
+					
 					//인증코드 저장
 					Authentication_code=data;
 					//sweetAlert 표시

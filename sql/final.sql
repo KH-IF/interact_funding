@@ -17,6 +17,8 @@
 --=============================
 -- IF 계정
 --=============================
+drop table coupon_record;
+drop table coupon;
 drop table admin_board;
 drop table funding_participation;
 drop table like_record;
@@ -32,6 +34,8 @@ drop table message;
 drop table point;
 drop table member;
 
+drop sequence coupon_record_no;
+drop sequence seq_coupon_no;
 drop sequence seq_admin_board_no;
 drop sequence seq_funding_participation_no;
 drop sequence seq_like_record_no;
@@ -56,9 +60,9 @@ create table member(
     email varchar2(100) not null,
     password varchar2(100) not null,
     name varchar2(100),
-    platform varchar2(100),
+    platform varchar2(100) default 'IF',
     access_token varchar2(300),
-    point number,
+    point number default 0,
     reg_date date default sysdate,
     phone char(11),
     constraint pk_member_no primary key(member_no)
@@ -91,10 +95,10 @@ create or replace trigger trig_point
     for each row
 begin
     update member
-    set point = :new.point + point;
+    set point = :new.point + point
+    where member_no = :new.member_no;
 end;
 /
-    
 
 
 --메세지 테이블
@@ -341,6 +345,43 @@ create table admin_board(
 create sequence seq_admin_board_no;
 
 
+--쿠폰 테이블
+create table coupon(
+    no number primary key,
+    code varchar2(300),
+    point number
+);
+
+--쿠폰 시퀀스
+create sequence seq_coupon_no;
+
+--쿠폰값 추가
+insert into coupon values(seq_coupon_no.nextval, 'IF20210708', 5000);
+
+--쿠폰 사용내역 테이블
+create table coupon_record(
+    no number primary key,
+    coupon_no number,
+    member_no number,
+    point number,
+    constraint fk_coupon_record_coupon_no foreign key(coupon_no) references coupon(no) on delete cascade,
+    constraint fk_coupon_record_member_no foreign key(member_no) references member(member_no) on delete cascade
+);
+
+--쿠폰 사용내역 시퀀스
+create sequence seq_coupon_record_no;
+
+--쿠폰 사용내역 트리거
+create or replace trigger trig_coupon_record
+    after
+    insert on coupon_record
+    for each row
+begin
+    insert into point
+    values (seq_point_no.nextval, sysdate, :new.point, :new.member_no, :new.coupon_no || '번 쿠폰사용');
+end;
+/
+
 --알람테이블
 
 
@@ -348,28 +389,89 @@ create sequence seq_admin_board_no;
 --관리자 테이블
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 --김윤수 테스트영역
+--IF20210708
 select * from member; 
-select count(*) from member  where email = 'kimdia200@naver.com';
-desc member;
-insert into member(member_no, email, password, name, platform, reg_date) values(seq_member_no.nextval, 'email', 'password', 'name', 'platform', default);
-
-select rownum, f.*
-from (
-        select *
-        from funding  
-        where start_date < sysdate and d_day > sysdate
-        order by reg_date  desc
-        ) f
-where rownum between 1 and 6;
-update funding
-set d_day = '21/06/20';
+update member set point = 0;
 commit;
+desc member;
+alter table member
+MODIFY point number default 0;
 
-alter table funding
-modify readCount number default 0;
+select * from point;
+select * from member;
 
-select * from funding;
+select * from coupon_record;
+select * from point;
+select * from member;
+delete from coupon_record;
+commit;
 --김경태 테스트영역
 
 --김주연 테스트영역
