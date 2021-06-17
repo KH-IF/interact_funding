@@ -373,6 +373,30 @@ select * from funding;
 --김경태 테스트영역
 
 --김주연 테스트영역
+
+    select 
+    f.*,
+    (select count(*) from attachment where funding_no= f.funding_no)attach_count
+from 
+    funding f
+where 
+    f.writer_no = 21;
+order by 
+    f.funding_no desc;
+
+select F.*,
+       A.no,
+       A.funding_no,
+       A.originalfilename,
+       A.renamedfilename,
+       A.status Astatus
+from funding F left join attachment A
+on F.funding_no = A.funding_no
+where 
+    writer_no = 41;
+
+
+
 select * from category;
 select * from funding; 
 update

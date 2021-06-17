@@ -73,17 +73,22 @@
 
 //최종 제출 status Y로 바꾸기
 function finalSubmit(){
-	$.ajax({
-		url:`${pageContext.request.contextPath}/funding/finalSubmit`,
-		method: "put",
-		success(data){
-			console.log(data);
-			const {msg} = data;
-			window.location.href = `${pageContext.request.contextPath}/funding/fundingStart1/\${msg}`;
-		},
-		error: console.log
-		});
 
+	if(confirm("최종 제출하면 펀딩 삭제가 불가합니다. 최중 제출하겠습니까?")){
+
+	
+		$.ajax({
+			url:`${pageContext.request.contextPath}/funding/finalSubmit`,
+			method: "put",
+			success(data){
+				console.log(data);
+				const {msg} = data;
+				window.location.href = `${pageContext.request.contextPath}/funding/fundingStart1/\${msg}`;
+			},
+			error: console.log
+			});
+
+	}
 }
 
 

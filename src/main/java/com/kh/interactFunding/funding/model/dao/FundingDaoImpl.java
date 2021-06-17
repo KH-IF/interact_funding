@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.interactFunding.funding.model.vo.Attachment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
+import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,12 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectList("funding.statusNList",loginMember);
 	}
 	@Override
+	public FundingExt loadFunding(String fundingNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("funding.loadFunding",fundingNo);
+	}
+
+	@Override
 	public int ready1FundingInsertNo(Funding funding) {
 		// TODO Auto-generated method stub
 		return session.insert("funding.ready1FundingInsertNo",funding);
@@ -63,11 +70,38 @@ public class FundingDaoImpl implements FundingDao{
 		return session.update("funding.saveStory",funding);
 	}
 	@Override
+	public List<Reward> loadReward(String fundingNo) {
+		// TODO Auto-generated method stub
+		return session.selectList("funding.loadReward",fundingNo);
+	}
+	@Override
+	public int insertReward(Reward reward) {
+		// TODO Auto-generated method stub
+		return session.insert("funding.insertReward",reward);
+	}
+	@Override
+	public int updateReward(Reward reward) {
+		// TODO Auto-generated method stub
+		return session.update("funding.updateReward",reward);
+	}
+	@Override
+	public int deleteReward(int rewardNo) {
+		// TODO Auto-generated method stub
+		return session.delete("funding.deleteReward",rewardNo);
+	}
+	@Override
 	public int finalSubmit(Funding funding) {
 		// TODO Auto-generated method stub
 		return session.update("funding.finalSubmit",funding);
 	}
+	@Override
+	public int deleteFunding(String fundingNo) {
+		// TODO Auto-generated method stub
+		return session.delete("funding.deleteFunding",fundingNo);
+	}
+
 	
+
 	//박요한
 	@Override
 	public List<Funding> news(Map<String, Object> param) {
@@ -128,6 +162,7 @@ public class FundingDaoImpl implements FundingDao{
 	public int selectOneFunding2(int funding_no) {
 		return session.selectOne("funding.selectOneFunding2", funding_no);
 	}
+
 
 	
 	

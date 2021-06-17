@@ -6,6 +6,7 @@ import java.util.Map;
 import com.kh.interactFunding.funding.model.vo.Attachment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
+import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Member;
 
 
@@ -23,7 +24,13 @@ public interface FundingService {
 	int saveBasicInfo(FundingExt funding);
 	int insertAttachment(Attachment attach);
 	int saveStory(Funding funding);
+	List<Reward> loadReward(String fundingNo);
+	int insertReward(Reward reward);
+	int updateReward(Reward reward);
+	int deleteReward(int rewardNo);
 	int finalSubmit(Funding funding);
+	int deleteFunding(String fundingNo);
+	FundingExt loadFunding(String fundingNo);
 	
 	//박요한
 	List<Funding> news(Map<String, Object> param);

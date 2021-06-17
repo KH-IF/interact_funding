@@ -1,3 +1,4 @@
+<%@page import="com.kh.interactFunding.funding.model.vo.FundingExt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -22,6 +23,11 @@
 }
 </style>
 
+<%
+
+	FundingExt funding = (FundingExt)session.getAttribute("funding");
+
+%>
 
 <!-- Modal 처리 -->
     <div id="makerGuide" class="modal" tabindex="-1" role="dialog">
@@ -167,11 +173,32 @@
             <br>
 
 			<button id="checkSMSPhone" class="btn btn-primary btn-lg" role="button" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/funding/checkSMS';">제출하기</button>
+			<br />
+			<!-- 최종 제출했을 시 펀딩 삭제가 불가능하다. -->
+			<c:if test="${funding.status != 'Y'}">
+			<form id="fundingDeleteFrm" method="POST" action="${pageContext.request.contextPath}/funding/deleteFunding">
+				<input type="hidden" name="fundingNo">
+				<button type="button" id="deleteFunding" class="btn btn-primary btn-lg" style="width: 200px;" onclick="deletefunding()">펀딩 삭제하기</button>
+			</form>
+			</c:if>
 			
         </div>
         </section>
 <script>
+	//펀딩 삭제하기 버튼 
+	function deletefunding(){
 
+		const fundingNo = ${funding.fundingNo};
+
+		if(confirm("프로젝트"+fundingNo+"번 펀딩을 삭제하시겠습니까?")){
+			const $frm = $('#fundingDeleteFrm');
+			$frm.find("[name = fundingNo]").val(fundingNo);
+			$frm.submit();
+			
+		
+		}
+
+	}
 
 
 	//일주일 동안 보지 않기 setCookie 메소드를 통해 쿠키 이름과 expires(유효시간)을 쿠키에 저장시킨다. 

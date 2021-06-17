@@ -1,7 +1,10 @@
+<%@page import="com.kh.interactFunding.funding.model.vo.FundingExt"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/WEB-INF/views/common/makerNav.jsp" flush="false">
     <jsp:param value="Basic Info | IF Maker Studio" name="title"/>
@@ -15,7 +18,6 @@
 		method="post"
 		enctype="multipart/form-data" 
 		>
-		<!-- onsubmit="return boardValidate();" -->
     <div class="container p-5">
         <input type="hidden" name="fundingNo" value="${funding.fundingNo}" />
         
@@ -26,19 +28,30 @@
         <br>    
         <h6> 프로젝트 제목</h6>
         <div class="input-group">
+        <c:if test="${funding.title != null}">
+            <input value="${funding.title}" name="title" type="text" class="form-control" maxlength="40" placeholder="제목 입력" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        </c:if>
+        <c:if test="${funding.title == null}">
             <input name="title" type="text" class="form-control" maxlength="40" placeholder="제목 입력" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        </c:if>
         </div>
-        <p>40자 남음</p>
 
         <br>    
         <h6> 목표 금액</h6>
         <p class="text-muted" style="font-size:13px">최소 50만 원 ~ 최대 1억 원으로 설정하세요.</p>
         <div class="input-group">
+         <c:if test="${funding.goalAmount != null}">
+            <input value="${funding.goalAmount}" name="goalAmount" type="number" min="500000" max="100000000" class="form-control" placeholder="목표 금액 입력" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <span class="p-1">원</span>
+         </c:if>
+         <c:if test="${funding.goalAmount == null}">
             <input name="goalAmount" type="number" min="500000" max="100000000" class="form-control" placeholder="목표 금액 입력" aria-label="Recipient's username" aria-describedby="basic-addon2">
             <span class="p-1">원</span>
+         </c:if>
         </div>
-        <p>40자 남음</p>
-
+     
+     	
+     
         <br>
         <h6>대표 이미지</h6>
 	   	
@@ -52,10 +65,21 @@
             텍스트 및 로고 삽입 금지
         </p>
         
+     
+	    <c:if test="${funding.attachList != null}">
+	    <c:forEach items="${funding.attachList}" var="attach">
+	    	<div style="margin-top:10px;">
+	    		<img src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}" style="width:20vw; height:20vh;" onerror="imgAreaError()"/>
+	    	</div>
+	    </c:forEach>
+	    </c:if>
 	    <!-- 업로드 했을 때 미리보기 이미지 -->
-    	<div id="imgViewArea" style="margin-top:10px; display:none;">
-    		<img id="imgArea" style="width:200px; height:100px;" onerror="imgAreaError()"/>
-    	</div>
+	    <c:if test="${funding.attachList == null}">
+	    	<div id="imgViewArea" style="margin-top:10px; display:none;">
+	    		<img id="imgArea" style="width:20vw; height:20vh;" onerror="imgAreaError()"/>
+	    	</div>
+	    </c:if>
+	
 		 
 
         <br>
@@ -64,29 +88,41 @@
             <select class="custom-select" name="categoryCode">
 <!-- : 테크가전, 푸드, 여행, 스포츠, 게임취미, 모임, 반려동물, 기부후원-->
               <option selected disabled>카테고리 선택</option>
-              <option value="C1">테크가전</option>
-              <option value="C2">푸드</option>
-              <option value="C3">여행</option>
-              <option value="C4">스포츠</option>
-              <option value="C5">게임취미</option>
-              <option value="C6">모임</option>
-              <option value="C7">반려동물</option>
-              <option value="C8">기부후원</option>
+              <option value="C1" ${funding.categoryCode eq 'C1'? "selected":""}>테크가전</option>
+              <option value="C2" ${funding.categoryCode eq 'C2'? "selected":""}>푸드</option>
+              <option value="C3" ${funding.categoryCode eq 'C3'? "selected":""}>여행</option>
+              <option value="C4" ${funding.categoryCode eq 'C4'? "selected":""}>스포츠</option>
+              <option value="C5" ${funding.categoryCode eq 'C5'? "selected":""}>게임취미</option>
+              <option value="C6" ${funding.categoryCode eq 'C6'? "selected":""}>모임</option>
+              <option value="C7" ${funding.categoryCode eq 'C7'? "selected":""}>반려동물</option>
+              <option value="C8" ${funding.categoryCode eq 'C8'? "selected":""}>기부후원</option>
             </select>
         </div>
 
         <br>
+     	
+        
         <h6>프로젝트 종료일</h6>
         <p class="text-muted">
             요건・콘텐츠 확인 및 프로젝트 진행 일정과 리워드 발송 일정을 함께 고려하여 종료일을 설정해주세요.
         </p>
+  
+     	<c:if test="${funding.DDay == null}">
         <div class="form-group row">
-		    <input class="form-control ml-3" type="date" value="<%=sf.format(nowTime)%>" name="dDay">
+		    <input class="form-control ml-3" type="date" value="<%=sf.format(nowTime) %>" name="dDay">
 		</div>
+     	</c:if>
+ 
+     	<c:if test="${funding.DDay != null}">
+        <div class="form-group row">
+		    <input class="form-control ml-3" type="date" value="${funding.DDay}" name="dDay">
+		</div>
+     	</c:if>
+   
         
         <br><br>
         <input type="submit" class="btn btn-primary btn-lg" style="width: 200px;" value="시작하기"/>
-<!--         <button type="button" class="btn btn-primary btn-lg" style="width: 200px;" onclick="saveBasicInfo()">시작하기</button> -->
+
     </div>
 	</form>
 	</section>
