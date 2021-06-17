@@ -52,7 +52,7 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 @Controller
 @RequestMapping("/funding")
 @Slf4j
-@SessionAttributes({"funding"})
+@SessionAttributes({"funding","loginMember"})
 public class FundingController {
 	@Autowired
 	private FundingService fundingService;

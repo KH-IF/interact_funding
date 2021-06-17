@@ -156,3 +156,34 @@ a:active {
 	font-weight:bold;
 	font-size:20px;
 }
+.msgTitle{
+	width:460px;
+	height:25px;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.msgFrom{
+	width:460px;
+	height:25px;
+	text-align: right;
+}
+.msgContainer, .msgContainer2{
+	width:465px;
+	height:52px;
+	margin:2px;
+	padding:0;
+	border-radius: 10px;
+}
+.hide{
+	display: none;
+}
+.textRight{
+	text-align: right;
+}
+.modal-title,.msgTitle{
+	font-weight:bold;
+}
+.bRadius{
+	border-radius: 10px;	
+}

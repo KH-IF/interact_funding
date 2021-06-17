@@ -106,14 +106,16 @@ create table message(
     no number,
     to_member_no number,
     from_member_no number,
-    msg varchar2(2000),
-    read char(1),
+    from_member_name varchar2(100),
+    title varchar2(200),
+    content varchar2(2000),
+    read char(1) default 'N',
+    to_member_name varchar2(100),
     constraint pk_message_no primary key(no),
     constraint fk_to_member_no foreign key(to_member_no) references member(member_no) on delete set null,
     constraint fk_from_member_no foreign key(from_member_no) references member(member_no) on delete set null,
     constraint ck_read check(read in ('Y','N'))
 );
-
 --메세지 테이블 seq
 create sequence seq_message_no;
 
@@ -472,6 +474,28 @@ select * from point;
 select * from member;
 delete from coupon_record;
 commit;
+
+update member
+set point = 0
+where not member_no=2;
+commit;
+
+--    no number,
+--    to_member_no number,
+--    from_member_no number,
+--    from_member_name varchar2(100),
+--    title
+--    content varchar2(2000),
+--    read char(1) default 'N',.
+
+insert into message
+values(seq_message_no.nextval, 2, 23, '배기원', '제목제목제목title3', '내용입니다아아아3', 'Y');
+commit;
+desc message;
+select * from message;
+
+
+
 --김경태 테스트영역
 
 --김주연 테스트영역

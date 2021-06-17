@@ -40,13 +40,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.interactFunding.member.model.service.MemberService;
 import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
+import com.kh.interactFunding.member.model.vo.Msg;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
 @RequestMapping("/member")
-@SessionAttributes({"loginMember","next"})
+@SessionAttributes({"loginMember","next","receive","send"})
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
@@ -56,7 +57,6 @@ public class MemberController {
 	final String username = "interact.funding";
 	final String password = "if1234!!!";
 	//김윤수
-	
 	@GetMapping("/login")
 	public void login(@SessionAttribute(required = false) String next , @RequestHeader (name = "Referer", required = false) String referer, Model model) {
 		log.info("referer@login = {}", referer);
@@ -144,12 +144,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/memberDetails")
-	public void memberDetails() {
-		
-	}
-	
-	
 	@GetMapping("enrollAuthenticationCode")
 	public void enrollAuthenticationCode(@RequestParam String email, HttpServletResponse response) throws IOException {
 		log.debug("email = {}",email);
@@ -225,6 +219,12 @@ public class MemberController {
 		return mbp;
 	}
 	
+	
+	//마이페이지
+	@GetMapping("/memberDetails")
+	public void memberDetails() {
+	}
+	
 	//마이페이지 포인트충전
 	@ResponseBody
 	@PostMapping("addPoint")
@@ -283,6 +283,45 @@ public class MemberController {
 		//현재 로그인 중인 세션에 포인트 추가도 해줌~(다시불러오기 귀찮)
 		loginMember.setPoint(loginMember.getPoint()+c.getPoint());
 		model.addAttribute("loginMember", loginMember);
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("sendMsg")
+	public Map<String, Object> sendMsg(Msg msg) {
+		Map<String, Object> map = new HashMap<>();
+		log.debug("msg = {}",msg);
+		//전송하는 대상이 유효한지 확인
+		Member toMember = memberService.selectOneMemberUseNo(msg.getToMemberNo());
+		log.debug("toMember={}",toMember);
+		if(toMember==null) {
+			map.put("status", false);
+			map.put("msgg", "대상이 존재하지 않습니다");
+			return map;
+		}
+		//받는사람 이름 표시
+		msg.setToMemberName(toMember.getName());
+		//메시지 전송하기
+		int result = memberService.sendMsg(msg);
+		log.debug("성공여부={}",Boolean.parseBoolean(String.valueOf(result)));
+		map.put("status", true);
+		map.put("msgg", "쪽지를 전송했습니다");
+		return map;
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("msgReadStatusChg")
+	public Map<String, Object> msgReadStatusChg(@RequestParam int no) {
+		Map<String, Object> map = new HashMap<>();
+		log.debug("no@controller= {}",no);
+		//읽음표시 진행
+		int result = memberService.msgReadStatusChg(no);
+		if(result==0) {
+			map.put("status", false);
+			return map;
+		}
+		map.put("status", true);
 		return map;
 	}
 	
