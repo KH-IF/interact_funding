@@ -32,11 +32,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.interactFunding.member.model.service.MemberService;
+import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -222,6 +224,68 @@ public class MemberController {
 		mbp.setContent(html, "text/html; charset=utf-8");
 		return mbp;
 	}
+	
+	//마이페이지 포인트충전
+	@ResponseBody
+	@PostMapping("addPoint")
+	public Map<String, Object> addPoint(int memberNo, int point, String memo, @SessionAttribute Member loginMember, Model model) {
+		log.debug("memberNo={}",memberNo);
+		log.debug("point={}",point);
+		log.debug("memo={}",memo);
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberNo", memberNo);
+		map.put("point", point);
+		map.put("memo", memo);
+		
+		int result=memberService.insertPoint(map);
+		loginMember.setPoint(loginMember.getPoint()+point);
+		model.addAttribute("loginMember", loginMember);
+		map.clear();
+		map.put("msgg", point+"원 결제 완료");
+		return map;
+	}
+	
+	//쿠폰입력 충전
+	@ResponseBody
+	@PostMapping("inputCoupon")
+	public Map<String,Object> inputCoupon(Model model, int memberNo, String couponText, @SessionAttribute Member loginMember) {
+		log.debug("memberNo = {}",memberNo);
+		log.debug("couponText = {}",couponText);
+		Map<String, Object> map = new HashMap<>();
+		map.put("couponText", couponText);
+		//1. 유효한 쿠폰인지 검사
+		Coupon c = memberService.selectOneCoupon(map);
+		if(c == null) {
+			map.put("status", false);
+			map.put("msg", "유효하지 않은 쿠폰");
+			return map;
+		}
+		
+		//2. 해당 쿠폰에 대해 사용내역 조회
+		map.put("memberNo", memberNo);
+		map.put("couponNo", c.getNo());
+		int result = memberService.selectCouponRecordCheck(map);
+		
+		//2.1분기처리 사용한적있음 = 충전안됨, 사용한적 없음 = 사용기록 남기고 충전
+		if(result>0) {
+			//사용한 기록 있음
+			map.put("status", false);
+			map.put("msg", "이미 사용한 쿠폰");
+			return map;
+		}
+		
+		//coupon_record테이블에 기록추가 - 트리거로 작동시키기
+		map.put("point", c.getPoint());
+		result = memberService.insertCoupon(map);
+		map.put("status", true);
+		map.put("msg", c.getPoint()+"포인트 쿠폰 사용 완료");
+		
+		//현재 로그인 중인 세션에 포인트 추가도 해줌~(다시불러오기 귀찮)
+		loginMember.setPoint(loginMember.getPoint()+c.getPoint());
+		model.addAttribute("loginMember", loginMember);
+		return map;
+	}
+	
 	//김경태
 	
 	//김주연

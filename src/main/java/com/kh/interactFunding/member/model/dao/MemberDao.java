@@ -2,6 +2,7 @@ package com.kh.interactFunding.member.model.dao;
 
 import java.util.Map;
 
+import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
 
 public interface MemberDao {
@@ -11,6 +12,14 @@ public interface MemberDao {
 	int insertMemberIf(Member member);
 
 	Member selectOneMember(Member member);
+
+	int insertPoint(Map<String, Object> map);
+
+	Coupon selectOneCoupon(Map<String, Object> map);
+
+	int selectCouponRecordCheck(Map<String, Object> map);
+
+	int insertCoupon(Map<String, Object> map);
 
 	//김윤수
 	
