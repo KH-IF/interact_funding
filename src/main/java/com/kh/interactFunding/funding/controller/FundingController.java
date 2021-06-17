@@ -493,7 +493,6 @@ public class FundingController {
 			//jsp에 위임
 			mav.addObject("list", list);
 			mav.addObject("categoryList", categoryList);
-			mav.addObject("searchKeyword", searchKeyword);
 			
 			return mav;
 		}
