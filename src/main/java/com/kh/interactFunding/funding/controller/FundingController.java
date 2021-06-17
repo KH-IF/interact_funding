@@ -493,6 +493,7 @@ public class FundingController {
 			//jsp에 위임
 			mav.addObject("list", list);
 			mav.addObject("categoryList", categoryList);
+			mav.addObject("searchKeyword", searchKeyword);
 			
 			return mav;
 		}
@@ -509,7 +510,9 @@ public class FundingController {
 			) {
 		Map<String, Object> map = new HashMap<>();
 		
-		List<Funding> list = fundingService.fundingList(map);
+		List<Funding> list = fundingService.earlyList(map);
+		
+		mav.addObject("list", list);
 		return mav;
 	}
 	

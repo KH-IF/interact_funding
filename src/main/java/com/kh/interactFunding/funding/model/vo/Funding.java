@@ -23,6 +23,8 @@ public class Funding {
 	private int likeCount;
 	private String content;
 	private String earlyContent;
+	//이승우 name 추가
+	private String name;
 	
 	//김주연 start_day date로 변환
 	//@DateTimeFormat(pattern = "yyyy-MM-dd")

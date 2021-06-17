@@ -7,6 +7,7 @@
 	<jsp:param value="이프" name="title" 	/>
 </jsp:include>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/fundingList.css" />
+
 <script>
 	$(function(){
 	    //이미지 불러오기
@@ -21,12 +22,12 @@
 	});
 	//더보기
 	$(function(){
-	    $(".FundingProjectCardItem").slice(0,9).show();
+	    $(".FundingProjectCardItem").slice(0,3).show();
 	    $("#moreBtn").click(function(e){
-			e.preventDefault();
-			$(".FundingProjectCardItem:hidden").slice(0,9).show();
+			/* e.preventDefault(); */
+			$(".FundingProjectCardItem:hidden").slice(0,3).show();
 			if($(".FundingProjectCardItem:hidden").length == 0){
-				console.log("더이상 항목이 없습니다.");
+				swal("", "더이상 항목이 없습니다.","info")
 			}
 	    })
 	});
@@ -128,7 +129,7 @@
             <div class="FundingCategoryListWrap">
             	<ul>
                 	<li id="FundingCategoryC0" class="C0">
-                		<a class="FundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?search=">
+                		<a class="FundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?search=${param.searchKeyword}">
 		                     <span class="FundingCategoryListCricle">
 		                         <span class="FundingCategoryListCricleImageC0"></span>
 		                         <span class="FundingCategoryListCricleName">전체보기</span>
@@ -136,14 +137,14 @@
 		                </a>
                 	</li>
                 	<c:forEach items="${categoryList}" var="funding">
-                	<li id="FundingCategory${funding.categoryCode}" class="${funding.categoryCode}">
-                		<a class="FundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=${funding.categoryCode}&search=">
-		                    <span class="FundingCategoryListCricle">
-		                        <span class="FundingCategoryListCricleImage${funding.categoryCode}"></span>
-		                        <span class="FundingCategoryListCricleName">${funding.categoryName}</span>
-		                    </span>
-		                </a>
-                	</li>
+	                	<li id="FundingCategory" class="${funding.categoryCode}">
+	                		<a class="FundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=${funding.categoryCode}&search=${param.searchKeyword}">
+			                    <span class="FundingCategoryListCricle">
+			                        <span class="FundingCategoryListCricleImage${funding.categoryCode}"></span>
+			                        <span class="FundingCategoryListCricleName">${funding.categoryName}</span>
+			                    </span>
+			                </a>
+	                	</li>
                 	</c:forEach>
                 </ul>
             </div>
@@ -153,7 +154,7 @@
         <div class="FundingProjectListHead">
             <h3 class="FundingProjectListHeadTitle">전체보기</h3>
             <form action="" class="FundingProjectListSearchFrm" onsubmit="return false;">
-                <input type="search" id="searchKeyword2" placeholder="검색">
+                <input type="search" id="searchKeyword2" placeholder="검색" value="${param.searchKeyword}" >
                 <input type="button" id="SearchButton" value="">
             </form>
             <select name="status" id="searchSelect1">
@@ -163,7 +164,7 @@
             </select>
             <select name="status" id="searchSelect2">
             	<option value="recent" ${param.searchSelect2 eq 'recent' ? 'selected' : ''}>최신순</option>
-            	<option value="recommand" ${param.searchSelect2 eq 'recommand' ? 'selected' : ''}>추천순</option>
+            	<option value="recommand" ${param.searchSelect2 eq 'recommand' ? 'selected' : ''}>과거순</option>
             </select>
             
         </div>
@@ -173,208 +174,59 @@
                 <!-- 목록 제목 -->
 	        	<c:forEach items="${list}" var="funding">
                 <div class="FundingProjectCardItem">
-                    <a href="#" class="FundingProjectCardItemImageArea">
+                    <a href="${pageContext.request.contextPath}/funding/fundingDetail?funding_no=${funding.fundingNo}" class="FundingProjectCardItemImageArea">
                         <div class="FundingProjectCardItemImage"></div>
                     </a>
                     <div class="FundingProjectCardListInfo">
                         <div class="FundingProjectCardItemTitle">
                             <div class="FundingProjectCardItemTitleBox">
-                                <a class="FundingProjectCardItemTitleLink" href="#">
+                                <a class="FundingProjectCardItemTitleLink" href="${pageContext.request.contextPath}/funding/fundingDetail?funding_no=${funding.fundingNo}">
                                     <p><strong>${funding.content}</strong></p>
                                 </a>
                                 <div>
                                     <span class="RewordProjectCardCategory">${funding.categoryName}</span>
                                     <span class="line"></span>
-                                    <span class="RewordProjectCardMakerName">
-                                        ${funding.writerNo}
+                                    <span class="rewordProjectCardMakerName">
+                                        ${funding.name}
                                     </span>
                                 </div>
                             </div>
-                            <div class="RewordProjectCardBar">
-                                <span style="width: ${(funding.nowAmount/funding.goalAmount)*100}%;"></span>
-                            </div>
+							<!-- 날짜계산 -->
+                           	<fmt:parseNumber value="${funding.startDate.time / (1000*60*60*24)}" integerOnly="true" var="staDate"/>
+                           	<fmt:parseNumber value="${funding.DDay.time / (1000*60*60*24)}" integerOnly="true" var="dDate"/>
+                           	<c:if test="${dDate-staDate > 0}" >
+                           	<div class="progress">
+						        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: ${(funding.nowAmount/funding.goalAmount)*100}%"></div>
+						    </div>
                             <span class="RewordProjectCardPercent">
                             	<fmt:formatNumber value="${(funding.nowAmount/funding.goalAmount)}" type="percent"/>
                             </span>
                             <span class="RewordProjectCardAmount">
 								<fmt:formatNumber value="${funding.goalAmount}" pattern="#,###원"/>
 							</span>
-                           	<span class="RewordProjectCardDay">
-                           		<%-- <fmt:parseDate value="${funding.startDate}" var="startDate" pattern="yyyy-MM-dd HH:mm:ss"/>
-                           		<fmt:formatDate value="${funding.startDate}" pattern="yyyy년MM월dd일"/> --%>
-                           		<%-- <fmt:parseDate value="${funding.startDate}" var="startDate" pattern="yyyy년MM월dd일"/> Unparseable date: "Wed Jun 30 00:00:00 KST 2021" --%>
-                           		<%-- ${funding.startDate} <!-- Wed Jun 30 00:00:00 KST 2021 --> --%>
-                           		<%-- <fmt:formatDate var="startDate" value="${funding.startDate}" pattern="yyyy년MM월dd일"/>
-                           		<fmt:formatDate var="DDay" value="${funding.DDay}" pattern="yyyy년MM월dd일"/> 날짜가 나오지 않음--%>
-								<%-- <fmt:parseNumber value="${startDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"/>
-								<fmt:parseNumber value="${DDay.time / (1000*60*60*24)}" integerOnly="true" var="endDate"/> 형변환 불가능--%>
-                           	</span>
+                           		<span class="RewordProjectCardDay">${dDate-staDate}일 남음</span>
+                           	</c:if>
+                           	<c:if test="${dDate-staDate <= 0}" >
+                           	<div class="progress">
+						        <div class="progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: ${(funding.nowAmount/funding.goalAmount)*100}%"></div>
+						    </div>
+                            <span class="RewordProjectCardPercent">
+                            	<fmt:formatNumber value="${(funding.nowAmount/funding.goalAmount)}" type="percent"/>
+                            </span>
+                            <span class="RewordProjectCardAmount">
+								<fmt:formatNumber value="${funding.goalAmount}" pattern="#,###원"/>
+							</span>
+                           		<span class="RewordProjectCardDay" style="color:red;">마감</span>
+                           	</c:if>
+                           		
                         </div>
                     </div>
                 </div>
                 </c:forEach>
-                
-                <!-- <div class="FundingProjectCardItem">
-                    <a href="#" class="FundingProjectCardItemImageArea">
-                        <div class="FundingProjectCardItemImage"></div>
-                    </a>
-                    <div class="FundingProjectCardListInfo">
-                        <div class="FundingProjectCardItemTitle">
-                            <div class="FundingProjectCardItemTitleBox">
-                                <a class="FundingProjectCardItemTitleLink" href="#">
-                                    <p><strong>가전제품의 놀라움!!!!</strong></p>
-                                </a>
-                                <div>
-                                    <span class="RewordProjectCardCategory">테크·가전</span>
-                                    <span class="line"></span>
-                                    <span class="RewordProjectCardMakerName">
-                                        TG삼보
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="RewordProjectCardBar">
-                                <span style="width: 20%;"></span>
-                            </div>
-                            <span class="RewordProjectCardPercent">20%</span>
-                            <span class="RewordProjectCardAmount">10,000,000원</span>
-                            <span class="RewordProjectCardDay">24일 남음</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="FundingProjectCardItem">
-                    <a href="#" class="FundingProjectCardItemImageArea">
-                        <div class="FundingProjectCardItemImage"></div>
-                    </a>
-                    <div class="FundingProjectCardListInfo">
-                        <div class="FundingProjectCardItemTitle">
-                            <div class="FundingProjectCardItemTitleBox">
-                                <a class="FundingProjectCardItemTitleLink" href="#">
-                                    <p><strong>가전제품의 놀라움!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</strong></p>
-                                </a>
-                                <div>
-                                    <span class="RewordProjectCardCategory">테크·가전</span>
-                                    <span class="RewordProjectCardMakerName">
-                                        한성컴퓨터
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="RewordProjectCardBar">
-                                <span style="width: 20%;"></span>
-                            </div>
-                            <span class="RewordProjectCardPercent">20%</span>
-                            <span class="RewordProjectCardAmount">10,000,000원</span>
-                            <span class="RewordProjectCardDay">24일 남음</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="FundingProjectCardItem">
-                    <a href="#" class="FundingProjectCardItemImageArea">
-                        <div class="FundingProjectCardItemImage"></div>
-                    </a>
-                    <div class="FundingProjectCardListInfo">
-                        <div class="FundingProjectCardItemTitle">
-                            <div class="FundingProjectCardItemTitleBox">
-                                <a class="FundingProjectCardItemTitleLink" href="#">
-                                    <p><strong>가전제품의 놀라움!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</strong></p>
-                                </a>
-                                <div>
-                                    <span class="RewordProjectCardCategory">테크·가전</span>
-                                    <span class="RewordProjectCardMakerName">
-                                        ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="RewordProjectCardBar">
-                                <span style="width: 20%;"></span>
-                            </div>
-                            <span class="RewordProjectCardPercent">20%</span>
-                            <span class="RewordProjectCardAmount">10,000,000원</span>
-                            <span class="RewordProjectCardDay">24일 남음</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="FundingProjectCardItem">
-                    <a href="#" class="FundingProjectCardItemImageArea">
-                        <div class="FundingProjectCardItemImage"></div>
-                    </a>
-                    <div class="FundingProjectCardListInfo">
-                        <div class="FundingProjectCardItemTitle">
-                            <div class="FundingProjectCardItemTitleBox">
-                                <a class="FundingProjectCardItemTitleLink" href="#">
-                                    <p><strong>가전제품의 놀라움!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</strong></p>
-                                </a>
-                                <div>
-                                    <span class="RewordProjectCardCategory">테크·가전</span>
-                                    <span class="RewordProjectCardMakerName">
-                                        주연테크(?)
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="RewordProjectCardBar">
-                                <span style="width: 20%;"></span>
-                            </div>
-                            <span class="RewordProjectCardPercent">20%</span>
-                            <span class="RewordProjectCardAmount">10,000,000원</span>
-                            <span class="RewordProjectCardDay">24일 남음</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="FundingProjectCardItem">
-                    <a href="#" class="FundingProjectCardItemImageArea">
-                        <div class="FundingProjectCardItemImage"></div>
-                    </a>
-                    <div class="FundingProjectCardListInfo">
-                        <div class="FundingProjectCardItemTitle">
-                            <div class="FundingProjectCardItemTitleBox">
-                                <a class="FundingProjectCardItemTitleLink" href="#">
-                                    <p><strong>가전제품의 놀라움!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</strong></p>
-                                </a>
-                                <div>
-                                    <span class="RewordProjectCardCategory">테크·가전</span>
-                                    <span class="RewordProjectCardMakerName">
-                                        주연테크(?)
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="RewordProjectCardBar">
-                                <span style="width: 20%;"></span>
-                            </div>
-                            <span class="RewordProjectCardPercent">20%</span>
-                            <span class="RewordProjectCardAmount">10,000,000원</span>
-                            <span class="RewordProjectCardDay">24일 남음</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="FundingProjectCardItem">
-                    <a href="#" class="FundingProjectCardItemImageArea">
-                        <div class="FundingProjectCardItemImage"></div>
-                    </a>
-                    <div class="FundingProjectCardListInfo">
-                        <div class="FundingProjectCardItemTitle">
-                            <div class="FundingProjectCardItemTitleBox">
-                                <a class="FundingProjectCardItemTitleLink" href="#">
-                                    <p><strong>가전제품의 놀라움!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</strong></p>
-                                </a>
-                                <div>
-                                    <span class="RewordProjectCardCategory">테크·가전</span>
-                                    <span class="RewordProjectCardMakerName">
-                                        주연테크(?)
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="RewordProjectCardBar">
-                                <span style="width: 20%;"></span>
-                            </div>
-                            <span class="RewordProjectCardPercent">20%</span>
-                            <span class="RewordProjectCardAmount">10,000,000원</span>
-                            <span class="RewordProjectCardDay">24일 남음</span>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
         <div>
-            <div class="MoreFunding">
+            <div class="moreFunding">
                 <button id="moreBtn">더보기↓</button>
             </div>
         </div>
@@ -406,6 +258,19 @@
 		var category = $("#FundingCategory").attr("class");
 		console.log(category);
 	}); */
+
+	//카테고리
+	function categorySplit(){
+		var para = document.location.href.split("?");
+    	var paraLength = para.length;
+    	var categoryName = para[paraLength-1];
+    	var categoryArea = categoryName.split("&");
+    	var categoryCode = categoryArea[0];
+    	var categorySp = categoryCode.split("=");
+    	var category = categorySp[1];
+    	return category;
+	}
+
     
   	//펀딩검색
     $("#SearchButton").click(function (){
@@ -415,23 +280,26 @@
     function search2(){
     	var keyword = $("#searchKeyword2").val();
         /* var category = $("#FundingCategory").attr("class"); */
+        var category = categorySplit();
     	var searchSelect1 = $("#searchSelect1").val();
         var searchSelect2 = $("#searchSelect2").val();
     	console.log(keyword);
-    	/* console.log(category); */
+    	console.log(category);
     	console.log(searchSelect1);
     	console.log(searchSelect2);
+    	
 		
 		if(keyword.length ==0){
 			swal("검색키워드","한글자 이상 입력해주세요","info");
 			return;
 		}
 		else{
+			swal("",keyword+"검색중...", "success")
 			var url = "${pageContext.request.contextPath}/funding/fundingList";
-			/* url = url + "?category=" + $(".FundingCategory").attr("id"); */
-			url = url + "?searchSelect1=" + $('#searchSelect1').val();
-			url = url + "&searchSelect2=" + $('#searchSelect2').val();
-			url = url + "&searchKeyword="+$('#searchKeyword2').val();
+			url = url + "?category=" + category;
+			url = url + "&searchSelect1=" + searchSelect1;
+			url = url + "&searchSelect2=" + searchSelect2;
+			url = url + "&searchKeyword=" + keyword;
 			location.href = url;
 			console.log(url);
 		}
@@ -441,8 +309,6 @@
         if(e.keyCode == 13)
             search2();
     })
-    
-    $()
     
 </script>
 

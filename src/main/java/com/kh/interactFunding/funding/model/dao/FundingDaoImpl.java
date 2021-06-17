@@ -115,7 +115,12 @@ public class FundingDaoImpl implements FundingDao{
 	@Override
 	public List<Map<String, String>> selectCategoryList() {
 		return session.selectList("funding.selectCategoryList");
-	}	
+	}
+	
+	@Override
+	public List<Funding> earlyList(Map<String, Object> map) {
+		return session.selectList("funding.selectEarlyList", map);
+	}
 
 	//천호현
 

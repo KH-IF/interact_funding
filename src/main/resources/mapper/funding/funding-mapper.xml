@@ -198,17 +198,20 @@
 		from
 			(select
 			f.*,
-			c.category_name categoryName
+			c.category_name categoryName,
+			m.name Name
 			from
 			funding f
 				left join category c
 					on f.category_code = c.category_code
+				left join member m
+                	on f.writer_no = m.member_no
+			order by f.reg_date desc
 		) f
 		<where>
-			content like '%' || '${searchKeyword}' || '%'
-			<if test="FundingCategory != 'C0'">
-			and category_code like '%' || '${category}' || '%'
-			</if>
+			content like '%' || #{searchKeyword} || '%' 
+			and start_date <![CDATA[<]]> sysdate
+			and category_code like '%' || #{category} || '%'
 			<if test="searchSelect1 == 'processing'">
 			and d_day <![CDATA[>]]> sysdate
 			</if>
@@ -228,6 +231,24 @@
 			*
 		from
 			category c
+	</select>
+	<select id="selectEarlyList" resultMap="fundingMap">
+		select
+		    f.*
+		from
+		    (
+		    select
+		        f.*,
+		        m.name Name
+		    from
+		    funding f
+		        left join member m
+		            on f.writer_no = m.member_no
+		        order by f.reg_date desc
+		)f
+		<where>
+			start_date <![CDATA[>]]> sysdate
+		</where>
 	</select>
 	<!-- 천호현 -->
     

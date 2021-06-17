@@ -11,29 +11,31 @@
 }
 
 /*오픈예정 리스트*/
-.EarlyProjectListHeadTitle{
+.earlyProjectListHeadTitle{
 	font-size:24px;
 	font-weight:700;
 	margin-top: 60px;
 	margin-bottom: 20px
 }
-.EarlyProjectCardItemTitleLinkArea{
-	text-decoration:none;
+.earlyProjectCardItemTitleLinkArea{
+	text-decoration: none;
 }
-.EarlyProjectCardItemTitleLink,
-.EarlyProjectCardDay,
-p .RewordProjectCardMakerName{
+.earlyProjectCardItemTitleLink,
+.earlyProjectCardDay,
+.rewordProjectCardMakerName{
 	margin:0;
 }
-.EarlyProjectCardItemTitleLink{
+.earlyProjectCardItemTitleLink{
+	display: block;
 	font-size:20px;
 }
-.EarlyProjectCardDay{
+.earlyProjectCardDay{
+	display: block;
 	font-weight:700;
 	font-size:20px;
 	color: #00b2b2;
 }
-p .RewordProjectCardMakerName{
+.rewordProjectCardMakerName{
 	font-weight:700;
 	font-size:13px;
 }
@@ -47,25 +49,13 @@ p .RewordProjectCardMakerName{
     padding-bottom: 50px;
 }
 
+#FundingCategoryC0,
 #FundingCategory{
 	display:inline-block;
 	padding-left: 48px;
     text-indent: -48px;
 }
 
-#FundingCategoryC0,
-#FundingCategoryC1,
-#FundingCategoryC2,
-#FundingCategoryC3,
-#FundingCategoryC4,
-#FundingCategoryC5,
-#FundingCategoryC6,
-#FundingCategoryC7,
-#FundingCategoryC8{
-	display:inline-block;
-	padding-left: 48px;
-    text-indent: -48px;
-}
 .FundingCategoryList{
     padding-left: 48px;
     text-indent: -48px;
@@ -295,7 +285,7 @@ input[type=search]{
 }
 
 .RewordProjectCardCategory,
-.RewordProjectCardMakerName{
+.rewordProjectCardMakerName{
 	display:block;
     font-size: 14px;
     font-weight: 700;
@@ -309,7 +299,7 @@ input[type=search]{
 .RewordProjectCardCategory{
 	display:inline-block;
 }
-.RewordProjectCardMakerName{
+.rewordProjectCardMakerName{
 	display:inline-block;
     width: 100px;
     overflow: hidden;
@@ -323,6 +313,9 @@ input[type=search]{
     height: 2px;
     height: 3px;
     margin-top: 10px;
+}
+.progress{
+	height: 5px;
 }
 .RewordProjectCardPercent{
     color: skyblue;
@@ -338,13 +331,13 @@ input[type=search]{
     font-weight: 600;
     float: right;
 }
-.MoreFunding{
+.moreFunding{
     margin-top: 45px;
     margin-bottom: 45px;
     text-align: center;
 
 }
-.MoreFunding button{
+.moreFunding button{
     width: 100%;
     font-size: 15px;
     background-color: white;

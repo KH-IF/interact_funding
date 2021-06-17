@@ -38,7 +38,7 @@ public interface FundingService {
 	//이승우
 	public List<Funding> fundingList(Map<String, Object> map);
 	public List<Map<String, String>> selectCategoryList();
-
+	public List<Funding> earlyList(Map<String, Object> map);
 
 	
 	//천호현
