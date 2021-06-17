@@ -245,4 +245,42 @@
         from funding_participation
         where funding_no = #{funding_no}
     </select>
+    
+    <select id="likeCheck" resultMap="likeMap">
+    	select *
+    	from like_record
+    	where member_no = #{member_no} and funding_no = #{funding_no}
+    </select>
+	   
+	<insert id="insertLike">
+		insert into like_record
+		values (seq_like_record_no.nextval, #{funding_no}, #{member_no}, 'Y')
+	</insert>
+	
+	<resultMap type="map" id="likeMap">
+		<id column="no" property="no"/>
+		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
+		<result column="funding_no" property="funding_no"/>
+		<result column="member_no" property="member_no"/>
+	</resultMap>
+	
+	<update id="updateLike">
+		update like_record
+		set status = #{status, typeHandler=booleanYnTypeHandler}
+		where no = #{no}
+	</update>
+	
+	<select id="likeCount" resultType="_int">
+		select count(*)
+		from like_record
+		where funding_no = #{funding_no} and status = 'Y'
+	</select>
+	
+	
+	<select id="likeStatusCheck" resultType="_int">
+		select count(*)
+		from like_record
+		where member_no = #{member_no} and status = 'Y'
+	</select>
+    
 </mapper>

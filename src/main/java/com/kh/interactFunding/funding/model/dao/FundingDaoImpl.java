@@ -128,6 +128,29 @@ public class FundingDaoImpl implements FundingDao{
 	public int selectOneFunding2(int funding_no) {
 		return session.selectOne("funding.selectOneFunding2", funding_no);
 	}
+	@Override
+	public Map<String, Object> likeCheck(Map<String, Object> map) {
+		return session.selectOne("funding.likeCheck",map);
+	}
+	@Override
+	public int insertLike(Map<String, Object> map) {
+		return session.insert("funding.insertLike",map);
+	}
+	@Override
+	public int updateLike(Map<String, Object> map) {
+		return session.update("funding.updateLike",map);
+	}
+	@Override
+	public int likeCount(Map<String, Object> map) {
+		return session.selectOne("funding.likeCount", map);
+	}
+	@Override
+	public int likeStatusCheck(int member_no) {
+		return session.selectOne("funding.likeStatusCheck", member_no);
+	}
+	
+	
+	
 
 	
 	
