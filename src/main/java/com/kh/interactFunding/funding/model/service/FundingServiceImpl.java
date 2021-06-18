@@ -126,12 +126,12 @@ public class FundingServiceImpl implements FundingService{
 	}
 	//천호현
 	@Override
-	public Funding selectOneFunding(int funding_no) {
-		return fundingDao.selectOneFunding(funding_no);
+	public Funding selectOneFunding(int fundingNo) {
+		return fundingDao.selectOneFunding(fundingNo);
 	}
 	@Override
-	public int selectOneFunding2(int funding_no) {
-		return fundingDao.selectOneFunding2(funding_no);
+	public int selectOneFunding2(int fundingNo) {
+		return fundingDao.selectOneFunding2(fundingNo);
 	}
 	@Override
 	public Map<String, Object> likeCheck(Map<String, Object> map) {
@@ -150,8 +150,8 @@ public class FundingServiceImpl implements FundingService{
 		return fundingDao.likeCount(map);
 	}
 	@Override
-	public int likeStatusCheck(int member_no) {
-		return fundingDao.likeStatusCheck(member_no);
+	public int likeStatusCheck(int memberNo) {
+		return fundingDao.likeStatusCheck(memberNo);
 	}
 	
 	

@@ -20,7 +20,7 @@
 	$.ajax({
 		url:"${pageContext.request.contextPath}/funding/likeStatusCheck",
 		data: {
-			member_no : ${loginMember.memberNo},
+			memberNo : ${loginMember.memberNo},
 		},
 		success(data){
 			console.log(data)
@@ -120,7 +120,7 @@
                    
                     <div id="funding_detail_now_amount_div">현재 ${funding.nowAmount}원 펀딩중</div><!-- 444444 원 펀딩 -->
                     <div id="funding_detail_supporter_div"> 현재 ${funding2}명의 서포터</div> <!-- 3333명의 서포터funding_participation -->
-                    <input id="funding_button" type="button" value="펀딩하기" onclick="location.href='${pageContext.request.contextPath}/funding/fundingReward?funding_no=	${funding.fundingNo}';" class="btn btn-info"/>
+                    <input id="funding_button" type="button" value="펀딩하기" onclick="location.href='${pageContext.request.contextPath}/funding/fundingReward?fundingNo=	${funding.fundingNo}';" class="btn btn-info"/>
                     <button type="button" id="funding_detail_like_button" class="btn btn-outline-secondary" onclick="like_controll()">
                     <!--하트  -->
                     <span id="icon_heart" style="color:red;"><i class="far fa-heart"></i></span>
@@ -355,15 +355,11 @@
     //좋아요 누를시
 	function like_controll(){
 		$("#funding_detail_like_button").attr("onclick","");
-		if(${loginMember} == null){
-			alert("로그인하셔야합니다");
-			}
-		
 		$.ajax({
 			url: "${pageContext.request.contextPath}/funding/loginMemberClickLike",
 			data: {
-				member_no : ${loginMember.memberNo},
-				funding_no : ${funding.fundingNo},
+				memberNo : ${loginMember.memberNo},
+				fundingNo : ${funding.fundingNo},
 			},
 			method: "POST",
 			success(data){

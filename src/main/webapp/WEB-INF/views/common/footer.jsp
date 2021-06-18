@@ -13,7 +13,7 @@
 	<h2><a href="${pageContext.request.contextPath }/funding/news.do">박요한</a></h2>
 	<h2><a href="${pageContext.request.contextPath }/">배기원</a></h2>
 	<h2><a href="${pageContext.request.contextPath }/funding/fundingList">이승우</a></h2>
-	<h2><a href="${pageContext.request.contextPath }/funding/fundingDetail?funding_no=99">천호현</a></h2>
+	<h2><a href="${pageContext.request.contextPath }/funding/fundingDetail?fundingNo=99">천호현</a></h2>
 	</footer>
 </body>
 </html>

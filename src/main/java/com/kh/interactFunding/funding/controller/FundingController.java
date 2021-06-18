@@ -516,9 +516,9 @@ public class FundingController {
 	//천호현
 	
 	@GetMapping("/fundingDetail") 
-	public void fundingDetail(@RequestParam int	funding_no, Model model) { //1. 업무로직 
-		Funding funding = fundingService.selectOneFunding(funding_no);
-		int funding2 = fundingService.selectOneFunding2(funding_no);//funding_participation
+	public void fundingDetail(@RequestParam int	fundingNo, Model model) { //1. 업무로직 
+		Funding funding = fundingService.selectOneFunding(fundingNo);
+		int funding2 = fundingService.selectOneFunding2(fundingNo);//funding_participation
 		log.debug("funding = {}" , funding); 
 		log.debug("funding2 = {}" , funding2); 
 		//2. 위임 
@@ -528,8 +528,8 @@ public class FundingController {
 
 	
 	@GetMapping("/fundingReward")
-	public void fundingReward(@RequestParam int	funding_no, Model model) {
-		Funding funding = fundingService.selectOneFunding(funding_no);
+	public void fundingReward(@RequestParam int	fundingNo, Model model) {
+		Funding funding = fundingService.selectOneFunding(fundingNo);
 		log.debug("funding = {}" , funding); 
 		//2. 위임 
 		model.addAttribute("funding", funding);
@@ -547,12 +547,12 @@ public class FundingController {
 	
 	@ResponseBody
 	@PostMapping("/loginMemberClickLike")
-	public Map<String, Object> loginMemberClickLike(@RequestParam int member_no, @RequestParam int funding_no) {
+	public Map<String, Object> loginMemberClickLike(@RequestParam int memberNo, @RequestParam int fundingNo) {
 		
 		//0. 값 처리
 		Map<String, Object> map = new HashMap<>();
-		map.put("member_no", member_no);
-		map.put("funding_no", funding_no);
+		map.put("memberNo", memberNo);
+		map.put("fundingNo", fundingNo);
 		
 		//ajax like숫자 실시간조회 + 리턴할 결과값 (likeCount + fillHeart.png 등등)
 		Map<String, Object> returnResult = new HashMap<>();
@@ -598,9 +598,9 @@ public class FundingController {
 	//좋아요 클릭여부확인
 	@ResponseBody
 	@GetMapping("/likeStatusCheck")
-	public int likeStatusCheck(@RequestParam int member_no) {
-		log.debug("member_no@@ = {}", member_no);
-		int result = fundingService.likeStatusCheck(member_no);
+	public int likeStatusCheck(@RequestParam int memberNo) {
+		log.debug("memberNo@@ = {}", memberNo);
+		int result = fundingService.likeStatusCheck(memberNo);
 		log.debug("result@@ = {}", result);
 		
 		return result;

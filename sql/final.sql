@@ -803,6 +803,18 @@ select count(*)
 from like_record
 where funding_no = 99 and status = 'Y';
 
+select *
+from funding F
+    join funding_board R
+    on F.funding_no = R.funding_no
+where F.funding_no = 99;
+
+insert into funding_board values(1,99, '박요한테스트', 21, '내용입니다', default, 0 );
+insert into funding_board values(2,99, '천호현테스트', 21, '내용22', default, 0 );
+
+select * from funding_board;
+
+
 -----------------------
 select * from tab;
 
