@@ -70,19 +70,10 @@ public class FundingDaoImpl implements FundingDao{
 	
 	//박요한
 	@Override
-	public List<Funding> news(Map<String, Object> param) {
-		return session.selectList("funding.news", param);
+	public List<Funding> fundingNews(int funding_no) {
+		return session.selectList("funding.fundingNews", funding_no);
 	}
 	
-	@Override
-	public List<Funding> community(Map<String, Object> param) {
-		return session.selectList("funding.community", param);
-	}
-	
-	@Override
-	public List<Funding> supporter(Map<String, Object> param) {
-		return session.selectList("funding.supporter", param);
-	}
 	
 	//배기원
 	@Override
@@ -128,6 +119,7 @@ public class FundingDaoImpl implements FundingDao{
 	public int selectOneFunding2(int funding_no) {
 		return session.selectOne("funding.selectOneFunding2", funding_no);
 	}
+	
 
 	
 	
