@@ -198,7 +198,7 @@ public class FundingController {
 		
 		//기본정보 작성여부 확인
 		String categoryCode = fundingR.getCategoryCode();
-		String title =  fundingR.getTitle();
+		String title ="";  //fundingR.getTitle();
 		Date dDay = fundingR.getDDay();
 		//vo 수정 후 바꿔 줄것
 		//Attachment attach =  fundingR.getAttachList();
@@ -595,7 +595,7 @@ public class FundingController {
 		log.debug("1111");
 		List<Funding> likeList=null;
 		try {
-		likeList =fundingService.indexfundinglike();
+			likeList =fundingService.indexfundinglike();
 		}catch (Exception e) {
 			log.error("좋아요 페이지가 안됩니다.",e);
 			throw e;
@@ -620,13 +620,17 @@ public class FundingController {
 	@GetMapping("/fundingList")
 	public ModelAndView fundingList(
 			ModelAndView mav,
-			@RequestParam(defaultValue="") String category,
-			@RequestParam(defaultValue="") String searchSelect1,
-			@RequestParam(defaultValue="") String searchSelect2,
-			@RequestParam(defaultValue="") String searchKeyword,
-			@RequestParam(required = true, defaultValue = "1") int cPage,
+			@RequestParam(defaultValue="" ,required = false) String category,
+			@RequestParam(defaultValue="" ,required = false) String searchSelect1,
+			@RequestParam(defaultValue="" ,required = false) String searchSelect2,
+			@RequestParam(defaultValue="" ,required = false) String searchKeyword,
+			@RequestParam(required = false, defaultValue = "1") int cPage,
 			HttpServletRequest request
 		) {
+		
+		log.debug("category ={}",category);
+		log.debug("cPage ={}",cPage);
+		
 		try {
 //			log.debug("cPage = {}", cPage); // 페이지 구현
 			final int limit = 6; // 최대생성수
@@ -639,9 +643,6 @@ public class FundingController {
 			map.put("limit", limit);
 			map.put("offset", offset);
 			
-			// 카테고리 업무로직
-			List<Map<String, String>> categoryList = fundingService.selectCategoryList();
-			
 			// 검색 업무로직
 			List<Funding> list = fundingService.fundingList(map);
 			int totalContents = fundingService.selectFundingListTotalContents(map);
@@ -653,7 +654,6 @@ public class FundingController {
 			
 			//jsp에 위임
 			mav.addObject("list", list); 
-			mav.addObject("categoryList", categoryList); // 카테고리
 			mav.addObject("pageBar", pageBar); // 페이지
 			mav.addObject("map", map);
 			
@@ -673,9 +673,8 @@ public class FundingController {
 			ModelAndView mav,
 			@RequestParam(defaultValue="") String early
 			) {
-		Map<String, Object> map = new HashMap<>();
 		
-		List<Funding> list = fundingService.earlyList(map);
+		List<Funding> list = fundingService.earlyList();
 		
 		mav.addObject("list", list);
 		return mav;

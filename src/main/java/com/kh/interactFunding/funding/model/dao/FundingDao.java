@@ -46,7 +46,7 @@ public interface FundingDao {
 	public List<Funding> indexfundingList();
 	public List<Funding> indexfundinglike();
 	int indexTotalContents();
-	List<Funding> indexEarlyList();
+	//List<Funding> indexEarlyList();
 	List<Funding> indexviewlist();
 	List<Funding> indexlikelist();
 	List<Funding> indexfundingRefresh();
@@ -55,8 +55,8 @@ public interface FundingDao {
 	//이승우
 	public List<Funding> fundingList(Map<String, Object> map);
 	public int selectFundingListTotalContents(Map<String, Object> map);
-	public List<Map<String, String>> selectCategoryList();
-	public List<Funding> earlyList(Map<String, Object> map);
+	public List<Funding> earlyList();
+	
 	//천호현
 	public Funding selectOneFunding(int fundingNo);
 	public int selectOneFunding2(int fundingNo);

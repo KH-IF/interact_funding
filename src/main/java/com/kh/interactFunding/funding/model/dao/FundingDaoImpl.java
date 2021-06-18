@@ -43,84 +43,68 @@ public class FundingDaoImpl implements FundingDao{
 	//김주연
 	@Override
 	public List<FundingExt> statusYList(Member loginMember) {
-		// TODO Auto-generated method stub
 		return session.selectList("funding.statusYList",loginMember);
 	}
 	@Override
 	public List<FundingExt> statusNList(Member loginMember) {
-		// TODO Auto-generated method stub
 		return session.selectList("funding.statusNList",loginMember);
 	}
 	@Override
 	public FundingExt loadFunding(String fundingNo) {
-		// TODO Auto-generated method stub
 		return session.selectOne("funding.loadFunding",fundingNo);
 	}
 
 	@Override
 	public int ready1FundingInsertNo(Funding funding) {
-		// TODO Auto-generated method stub
 		return session.insert("funding.ready1FundingInsertNo",funding);
 	}
 	@Override
 	public FundingExt selectCheckFunding(String fundingNo) {
-		// TODO Auto-generated method stub
 		return session.selectOne("funding.selectCheckFunding",fundingNo);
 	}
 	@Override
 	public int saveCharge(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return session.update("funding.saveCharge",param);
 	}
 	@Override
 	public int saveBasicInfo(FundingExt funding) {
-		// TODO Auto-generated method stub
 		return session.update("funding.saveBasicInfo",funding);
 	}
 	@Override
 	public int insertAttachment(Attachment attach) {
-		// TODO Auto-generated method stub
 		return session.insert("funding.insertAttachment",attach);
 	}
 	@Override
 	public int saveStory(Funding funding) {
-		// TODO Auto-generated method stub
 		return session.update("funding.saveStory",funding);
 	}
 	@Override
 	public List<Reward> loadReward(String fundingNo) {
-		// TODO Auto-generated method stub
 		return session.selectList("funding.loadReward",fundingNo);
 	}
 	
 	@Override
 	public Reward selectOneReward(String rewardNo) {
-		// TODO Auto-generated method stub
 		return session.selectOne("funding.selectOneReward",rewardNo);
 	}
 	@Override
 	public int insertReward(Reward reward) {
-		// TODO Auto-generated method stub
 		return session.insert("funding.insertReward",reward);
 	}
 	@Override
 	public int updateReward(Reward reward) {
-		// TODO Auto-generated method stub
 		return session.update("funding.updateReward",reward);
 	}
 	@Override
 	public int deleteReward(int rewardNo) {
-		// TODO Auto-generated method stub
 		return session.delete("funding.deleteReward",rewardNo);
 	}
 	@Override
 	public int finalSubmit(Funding funding) {
-		// TODO Auto-generated method stub
 		return session.update("funding.finalSubmit",funding);
 	}
 	@Override
 	public int deleteFunding(String fundingNo) {
-		// TODO Auto-generated method stub
 		return session.delete("funding.deleteFunding",fundingNo);
 	}
 
@@ -149,10 +133,10 @@ public class FundingDaoImpl implements FundingDao{
 	public int indexTotalContents() {
 		return session.selectOne("funding.indexTotalContents");
 	}
-	@Override
-	public List<Funding> indexEarlyList() {
-		return session.selectList("funding.indexEarlyList");
-	}
+//	@Override
+//	public List<Funding> indexEarlyList() {
+//		return session.selectList("funding.indexEarlyList");
+//	}
 	@Override
 	public List<Funding> indexlikelist() {
 		return session.selectList("funding.indexlikelist");
@@ -171,15 +155,10 @@ public class FundingDaoImpl implements FundingDao{
 		log.debug("map@dap = {}",map);
 		return session.selectList("funding.selectFundingList", map, rowBounds);
 	}
-
-	@Override
-	public List<Map<String, String>> selectCategoryList() {
-		return session.selectList("funding.selectCategoryList");
-	}
 	
 	@Override
-	public List<Funding> earlyList(Map<String, Object> map) {
-		return session.selectList("funding.selectEarlyList", map);
+	public List<Funding> earlyList() {
+		return session.selectList("funding.selectEarlyList");
 	}
 	
 	@Override

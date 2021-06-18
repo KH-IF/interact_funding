@@ -13,5 +13,5 @@ public class Attachment {
 	private int fundingNo;
 	private String originalFilename;
 	private String renamedFilename;
-	private boolean status;	
+	private Boolean status;	
 }

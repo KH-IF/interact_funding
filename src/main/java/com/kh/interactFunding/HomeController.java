@@ -37,7 +37,7 @@ public class HomeController {
 			// request getParameter 매서드를 이용
 			List<Funding>list =fundingService.indexfundingList();
 			//earlyList 페이지 리스트
-			List<Funding>earlylist= fundingService.indexEarlyList();
+			//List<Funding>earlylist= fundingService.indexEarlyList();
 			//회원님이 좋아할 (쿠키)
 			List<Funding>viewlist=fundingService.indexviewlist();
 			//likeList 페이지 
@@ -57,7 +57,7 @@ public class HomeController {
 			
 		    model.addAttribute("cookie",cookie);
 			model.addAttribute("list",list);
-			model.addAttribute("earlylist",earlylist);
+			//model.addAttribute("earlylist",earlylist);
 			model.addAttribute("viewlist",viewlist);
 			model.addAttribute("likelist",likelist);
 			
