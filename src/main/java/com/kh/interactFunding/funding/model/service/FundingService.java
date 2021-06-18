@@ -39,21 +39,19 @@ public interface FundingService {
 	//박요한
 	List<Funding> fundingNews(int funding_no);
 	
+	
 	//배기원
 	public List<Funding> indexfundingList();
-	public List<Funding> indexfundinglike();
-	List<Funding> indexEarlyList();
 	List<Funding> indexviewlist();
 	List<Funding> indexlikelist();
 	List<Funding> indexfundingRefresh();
-	int indexTotalContents();
+	List<Funding> indexRankingviewlist();
 	
 		
 	//이승우
 	public List<Funding> fundingList(Map<String, Object> map);
 	public int selectFundingListTotalContents(Map<String, Object> map);
-	public List<Map<String, String>> selectCategoryList();
-	public List<Funding> earlyList(Map<String, Object> map);
+	public List<Funding> earlyList();
 
 	
 	//천호현

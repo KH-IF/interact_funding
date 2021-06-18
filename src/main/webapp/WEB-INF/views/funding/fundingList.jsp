@@ -159,7 +159,7 @@
                 <input type="button" id="searchButton" value="">
             </form>
             <select name="status" id="searchSelect1">
-            	<option value="All">전체</option>
+            	<option value="">전체</option> 
             	<option value="processing" ${map.searchSelect1 eq 'processing' ? 'selected' : ''}>진행중</option>
             	<option value="quit" ${map.searchSelect1 eq 'quit' ? 'selected' : ''}>종료</option>
             </select>
