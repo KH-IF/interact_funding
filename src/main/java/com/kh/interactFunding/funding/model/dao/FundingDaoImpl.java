@@ -168,11 +168,6 @@ public class FundingDaoImpl implements FundingDao{
 		log.debug("map@dap = {}",map);
 		return session.selectList("funding.selectFundingList", map, rowBounds);
 	}
-
-	@Override
-	public List<Map<String, String>> selectCategoryList() {
-		return session.selectList("funding.selectCategoryList");
-	}
 	
 	@Override
 	public List<Funding> earlyList(Map<String, Object> map) {

@@ -393,27 +393,12 @@
 	<!-- 이승우 -->
 	<select id="selectFundingList" resultMap="fundingMap">
 		select
-			f.*
-		from
-			(select
-			f.*,
-			c.category_name categoryName,
-			m.name Name,
-			a.renamedfilename
-			from
-			funding f
-				left join category c
-					on f.category_code = c.category_code
-				left join member m
-                	on f.writer_no = m.member_no
-                left join attachment a
-                	on f.funding_no = a.funding_no
-			order by f.reg_date desc
-		) f
+			*
+		from funding
 		<where>
 			content like '%' || #{searchKeyword} || '%' 
 			and start_date <![CDATA[<]]> sysdate
-			<if test="category != 'undefined' and category != '' and category != 'C0'">
+			<if test="category != '' and category != null">
 			and category_code like '%' || #{category} || '%'
 			</if>
 			<if test="searchSelect1 == 'processing'">
@@ -429,12 +414,6 @@
 		<if test="searchSelect2 == 'recommand'">
 		order by like_count desc
 		</if>
-	</select>
-	<select id="selectCategoryList" resultMap="fundingMap">
-		select
-			*
-		from
-			category c
 	</select>
 	<select id="selectFundingListTotalContents" resultType="_int">
 		select

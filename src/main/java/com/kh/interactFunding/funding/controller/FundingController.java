@@ -661,10 +661,10 @@ public class FundingController {
 	@GetMapping("/fundingList")
 	public ModelAndView fundingList(
 			ModelAndView mav,
-			@RequestParam(defaultValue="") String category,
-			@RequestParam(defaultValue="") String searchSelect1,
-			@RequestParam(defaultValue="") String searchSelect2,
-			@RequestParam(defaultValue="") String searchKeyword,
+			@RequestParam(required = false, defaultValue="") String category,
+			@RequestParam(required = false, defaultValue="") String searchSelect1,
+			@RequestParam(required = false, defaultValue="") String searchSelect2,
+			@RequestParam(required = false, defaultValue="") String searchKeyword,
 			@RequestParam(required = true, defaultValue = "1") int cPage,
 			HttpServletRequest request
 		) {
@@ -679,10 +679,7 @@ public class FundingController {
 			map.put("category", category);
 			map.put("limit", limit);
 			map.put("offset", offset);
-			
-			// 카테고리 업무로직
-			List<Map<String, String>> categoryList = fundingService.selectCategoryList();
-			
+
 			// 검색 업무로직
 			List<Funding> list = fundingService.fundingList(map);
 			int totalContents = fundingService.selectFundingListTotalContents(map);
@@ -694,7 +691,6 @@ public class FundingController {
 			
 			//jsp에 위임
 			mav.addObject("list", list); 
-			mav.addObject("categoryList", categoryList); // 카테고리
 			mav.addObject("pageBar", pageBar); // 페이지
 			mav.addObject("map", map);
 			
