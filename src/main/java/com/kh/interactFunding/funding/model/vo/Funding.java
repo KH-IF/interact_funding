@@ -17,6 +17,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Funding {
 	private int fundingNo;
+	private String title;
 	private String categoryCode;
 	private int nowAmount;
 	private int goalAmount;

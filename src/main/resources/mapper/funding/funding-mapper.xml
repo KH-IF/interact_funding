@@ -29,7 +29,7 @@
 	
 	<!-- 김경태 -->
 	<!-- 김주연 -->
-	<select id="statusYList" resultMap="fundingCollectionMap">
+	<select id="statusYList" resultMap="fundingExtMap">
 		select F.*,
 		       A.no,
 		       A.funding_no,
@@ -44,7 +44,7 @@
 		order by
 			F.funding_no desc
 	</select>
-	<select id="statusNList" resultMap="fundingCollectionMap">
+	<select id="statusNList" resultMap="fundingExtMap">
 		select F.*,
 		       A.no "attach_no",
 		       A.funding_no,
@@ -60,37 +60,11 @@
 			F.funding_no desc
 	</select>
 	
-	<resultMap type="FundingExt" id="fundingCollectionMap">
-		<id column ="funding_no" property="fundingNo"/>
-		<result column="title" property="title"/>
-		<result column="category_code" property="categoryCode"/>
-		<result column="now_amount" property="nowAmount"/>
-		<result column="goal_amount" property="goalAmount"/>
-		<result column="rate_plan_code" property="ratePlanCode"/>
-		<result column="writer_no" property="writerNo"/>
-		<result column="read_count" property="readCount"/>
-		<result column="like_count" property="likeCount"/>
-		<result column="content" property="content"/>
-		<result column="early_content" property="earlyContent"/>
-		<result column="start_date" property="startDate"/>
-		<result column="d_day" property="dDay"/>
-		<result column="reg_date" property="regDate"/>
-		<result column="phone" property="phone"/>
-		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
-		<collection property="attachList" ofType="attachment">
-			<id column="attach_no" property="no"/>
-			<result column="funding_no" property="fundingNo"/>
-			<result column="originalFilename" property="originalFilename"/>
-			<result column="renamedFilename" property="renamedFilename"/>
-			<result column="astatus" property="status" typeHandler="booleanYnTypeHandler"/>
-		</collection>
-	</resultMap>
-	
-	<resultMap type="FundingExt" id="fundingMap">
+	<resultMap type="FundingExt" id="fundingExtMap">
 		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
 	</resultMap>
 	
-	<select id="loadFunding" resultMap="fundingCollectionMap">
+	<select id="loadFunding" resultMap="fundingExtMap">
 		select F.*,
 		       A.no "attach_no",
 		       A.funding_no,
@@ -104,7 +78,7 @@
 			F.funding_no = #{fundingNo}	
 	</select>
 	
-	<select id="selectCheckFunding" resultMap="fundingCollectionMap">
+	<select id="selectCheckFunding" resultMap="fundingExtMap">
 		select F.*,
 	       A.no "attach_no",
 	       A.funding_no,
@@ -278,7 +252,7 @@
 	
 	
 	<!-- 박요한 -->
-	<select id="fundingNews" resultMap="fundingMap">
+	<select id="fundingNews" resultMap="fundingExtMap">
 		select *
         from funding F 
             join funding_board R 
@@ -289,14 +263,14 @@
 	</select>
 	
 	
-	<select id="community" resultMap="fundingMap">
+	<select id="community" resultMap="fundingExtMap">
 		select *
         from funding_comment
         where comment_no = #{commet_no}
 	</select>
 	
 	
-	<select id="supporter" resultMap="fundingMap">
+	<select id="supporter" resultMap="fundingExtMap">
 		select *
         from funding F 
             join funding_participation R 
@@ -316,7 +290,7 @@
 			#{content}
 		)
 	</insert>
-	<select id="newsView" resultMap="fundingMap">
+	<select id="newsView" resultMap="fundingExtMap">
 		select *
         from funding F 
             join funding_board R 
@@ -326,57 +300,39 @@
         where F.funding_no = #{funding_no}
 	</select>
 	<!-- 배기원 -->
-		<select id="indexfundingList" resultMap="fundingMap">
-				select rownum, f.*
-		from (
-			        select funding.* ,
-		       CASE category_code
-			         WHEN 'C1' THEN '테크·가전'
-			         WHEN 'C2' THEN '푸드'
-			         WHEN  'C3' THEN '여행'
-			         WHEN  'C4' THEN '스포츠'
-			         WHEN 'C5' THEN '게임·취미'
-			         WHEN 'C6' THEN '모임'
-			         WHEN  'C7' THEN  '반려동물'
-			         WHEN  'C8' THEN '기부.후원'
-			         END as categoryName  
-		        from funding  
-		        where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
-		        order by reg_date  desc
+		<select id="indexfundingList" resultMap="fundingVoMap">
+		select rownum, f.*
+			from (
+			        select funding.* 
+		        	from funding  
+		        	where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
+		        		  and status ='Y'
+		       		order by reg_date  desc
 		        ) f
 		where rownum between 1 and 6
 	    </select>
-	    <select id="indexviewlist" resultMap="fundingMap">
-				    select  
-			rownum, f.*
+	    <select id="indexviewlist" resultMap="fundingVoMap">
+			select rownum, f.*
 			from (
-			        select funding.* ,
-			         CASE category_code
-			         WHEN 'C1' THEN '테크.가전'
-			         WHEN 'C2' THEN '푸드'
-			         WHEN  'C3' THEN '여행'
-			         WHEN  'C4' THEN '스포츠'
-			         WHEN 'C5' THEN '게임.취미'
-			         WHEN 'C6' THEN '모임'
-			         WHEN  'C7' THEN  '반려동물'
-			         WHEN  'C8' THEN '기부.후원'
-			         END as categoryName  
+			        select funding.* 
 			        from funding  
 			        where <![CDATA[start_date < sysdate and d_day > sysdate]]>
+			        	  and status ='Y'
 			        order by readcount  desc
 			        ) f
 			where rownum between 1 and 4
 	    </select>
 	    
-	    <select id="indexfundinglike" resultMap="fundingMap">
-			    	select rownum, f.*
-		from (
-		        select *
-		        from funding   
-		      where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
-		        order by like_count desc
+	    <select id="indexfundinglike" resultMap="fundingVoMap">
+			select rownum, f.*
+			from (
+			        select *
+			        from funding   
+			      	where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
+			      		  and status ='Y'
+			        order by like_count desc
 		        ) f
-		where rownum between 1 and 5
+			where rownum between 1 and 5
 	    </select>
 	    
 	    <select id="indexTotalContents" resultType="_int">
@@ -387,13 +343,14 @@
 		where 
 	       start_date<![CDATA[> ]]>sysdate 
 	    </select>
-	    <select id="indexEarlyList" resultMap="fundingMap">
+	    
+	    <!-- <select id="indexEarlyList" resultMap="fundingVoMap">
 		    select*from funding 
 	    where 
 	       start_date<![CDATA[> ]]>sysdate 
-	    </select>
+	    </select> -->
 	    
-	    <select id="indexlikelist" resultMap="fundingMap" >
+	    <select id="indexlikelist" resultMap="fundingVoMap" >
 	    	select  
 		rownum, f.*
 		from (
@@ -415,51 +372,28 @@
 		where rownum between 1 and 5
 	    </select>
 	    
-	    <select id="indexfundingRefresh" resultMap="fundingMap">
-			    select  
-		rownum, f.*
-		from (
-		        select funding.* ,
-		         CASE category_code
-		         WHEN 'C1' THEN '테크.가전'
-		         WHEN 'C2' THEN '푸드'
-		         WHEN  'C3' THEN '여행'
-		         WHEN  'C4' THEN '스포츠'
-		         WHEN 'C5' THEN '게임.취미'
-		         WHEN 'C6' THEN '모임'
-		         WHEN  'C7' THEN  '반려동물'
-		         WHEN  'C8' THEN '기부.후원'
-		         END as categoryName  
-		        from funding  
-		        where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
-		        order by start_date  desc
+	    <select id="indexfundingRefresh" resultMap="fundingVoMap">
+			    select rownum, f.*
+				from (
+				        select funding.* 
+				        from funding  
+				        where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
+				        	  and status = 'Y'
+				        order by start_date  desc
 		        ) f
 		where rownum between 1 and 6
 	    </select>
 	<!-- 이승우 -->
-	<select id="selectFundingList" resultMap="fundingMap">
-		select
-			f.*
-		from
-			(select
-			f.*,
-			c.category_name categoryName,
-			m.name Name,
-			a.renamedfilename
-			from
-			funding f
-				left join category c
-					on f.category_code = c.category_code
-				left join member m
-                	on f.writer_no = m.member_no
-                left join attachment a
-                	on f.funding_no = a.funding_no
-			order by f.reg_date desc
-		) f
+	<!-- searchKeyword searchSelect1 searchSelect2 category -->
+	<!-- processing selected(진행중 종료) recent recommand (최신순 과거순) -->
+	<select id="selectFundingList" resultMap="fundingVoMap">
+		select *
+		from funding
 		<where>
-			content like '%' || #{searchKeyword} || '%' 
+			status = 'Y'
+			and title like '%' || #{searchKeyword} || '%' 
 			and start_date <![CDATA[<]]> sysdate
-			<if test="category != 'undefined' and category != '' and category != 'C0'">
+			<if test="category != null and category != ''">
 			and category_code like '%' || #{category} || '%'
 			</if>
 			<if test="searchSelect1 == 'processing'">
@@ -476,32 +410,16 @@
 		order by like_count desc
 		</if>
 	</select>
-	<select id="selectCategoryList" resultMap="fundingMap">
-		select
-			*
-		from
-			category c
-	</select>
+
 	<select id="selectFundingListTotalContents" resultType="_int">
 		select
 			count(*)
-		from
-			(select
-			f.*,
-			c.category_name categoryName,
-			m.name Name
-			from
-			funding f
-				left join category c
-					on f.category_code = c.category_code
-				left join member m
-                	on f.writer_no = m.member_no
-			order by f.reg_date desc
-		) f
+		from funding
 		<where>
-			content like '%' || #{searchKeyword} || '%' 
+			status = 'Y'
+			and title like '%' || #{searchKeyword} || '%' 
 			and start_date <![CDATA[<]]> sysdate
-			<if test="category != 'undefined' and category != '' and category != 'C0'">
+			<if test="category != null and category != '' and category != 'C0'">
 			and category_code like '%' || #{category} || '%'
 			</if>
 			<if test="searchSelect1 == 'processing'">
@@ -511,29 +429,13 @@
 			and d_day <![CDATA[<]]> sysdate
 			</if>
 		</where>
-		<if test="searchSelect2 == 'recent'">
-		order by reg_date desc
-		</if>
-		<if test="searchSelect2 == 'recommand'">
-		order by like_count desc
-		</if>
 	</select>
-	<select id="selectEarlyList" resultMap="fundingMap">
-		select
-		    f.*
-		from
-		    (
-		    select
-		        f.*,
-		        m.name Name
-		    from
-		    funding f
-		        left join member m
-		            on f.writer_no = m.member_no
-		        order by f.reg_date desc
-		)f
+	<select id="selectEarlyList" resultMap="fundingVoMap">
+		select * 
+		from funding
 		<where>
-			start_date <![CDATA[>]]> sysdate
+			status = 'Y'
+			and start_date <![CDATA[>]]> sysdate
 		</where>
 	</select>
 	<!-- 천호현 -->

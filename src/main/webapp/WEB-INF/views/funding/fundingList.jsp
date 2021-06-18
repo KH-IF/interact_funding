@@ -7,9 +7,7 @@
 	<jsp:param value="이프" name="title" 	/>
 </jsp:include>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/fundingList.css" />
-<<<<<<< HEAD
 
-=======
 <%
 	//사용자 쿠키 처리
 	String saveCookie =null;
@@ -23,7 +21,6 @@
 		}
 }
 %>
->>>>>>> branch 'master' of https://github.com/KH-IF/interact_funding.git
 <script>
 	$(function(){
 	    //이미지 불러오기
@@ -175,7 +172,7 @@
                 <input type="button" id="searchButton" value="">
             </form>
             <select name="status" id="searchSelect1">
-            	<option value="All">전체</option>
+            	<option value="">전체</option> 
             	<option value="processing" ${map.searchSelect1 eq 'processing' ? 'selected' : ''}>진행중</option>
             	<option value="quit" ${map.searchSelect1 eq 'quit' ? 'selected' : ''}>종료</option>
             </select>

@@ -77,6 +77,7 @@ public class FundingServiceImpl implements FundingService{
         }
         return result;
     }
+
 	@Override
 	public int insertAttachment(Attachment attach) {
 		return fundingDao.insertAttachment(attach);
@@ -144,53 +145,66 @@ public class FundingServiceImpl implements FundingService{
 	public List<Funding> indexfundingList() {
 		List<Funding> fundingList = fundingDao.indexfundingList();
 		
-		/* fundingList.setAttachment(fundingDao.indexfundingList()); */
+		for(Funding funding: fundingList) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+		}
 		
-		/*
-		 * Funding funding = fundingDao.selectOneFundingKYS(no);
-		 * funding.setAttachment(fundingDao.selectOneAttach(no)); return funding;
-		 */
-		
-		
-		/*
-		 * if(funding.set().size() > 0) { for(Attachment attach:
-		 * funding.getAttachList()) { attach.setFundingNo(funding.getFundingNo()); //이번에
-		 * 발급받은 funindg pk| attach no fk세팅 result = insertAttachment(attach);
-		 * log.debug("attach={}",attach); } }
-		 */
-		
-		return fundingDao.indexfundingList();
+		return fundingList;
 	}
 	@Override
 	public List<Funding> indexfundinglike() {
-		return fundingDao.indexfundinglike();
+		List<Funding> fundingList = fundingDao.indexfundinglike();
+		
+		for(Funding funding: fundingList) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+		}
+		
+		return fundingList;
 	}
 	@Override
 	public List<Funding> indexviewlist() {
-		return fundingDao.indexviewlist();
+		List<Funding> fundingList = fundingDao.indexviewlist();
+		
+		for(Funding funding: fundingList) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+		}
+		
+		return fundingList;
 	}
 	@Override
 	public int indexTotalContents() {
 		return fundingDao.indexTotalContents();
 	}
-	@Override
-	public List<Funding> indexEarlyList() {
-		return fundingDao.indexEarlyList();
-	}
+//	@Override
+//	public List<Funding> indexEarlyList() {
+//		return fundingDao.indexEarlyList();
+//	}
 	@Override
 	public List<Funding> indexlikelist() {
 		return fundingDao.indexlikelist();
 	}
 	@Override
 	public List<Funding> indexfundingRefresh() {
-		return fundingDao.indexfundingRefresh();
+		List<Funding> fundingList = fundingDao.indexfundingRefresh();
+		
+		for(Funding funding: fundingList) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+		}
+		
+		return fundingList;
 	}
 	
 	
 	//이승우
 	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {
-		return fundingDao.fundingList(map);
+		List<Funding> fundingList = fundingDao.fundingList(map);
+		
+		for(Funding funding: fundingList) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+		}
+		
+		return fundingList;
 	}
 
 	@Override
@@ -199,13 +213,8 @@ public class FundingServiceImpl implements FundingService{
 	}
 	
 	@Override
-	public List<Map<String, String>> selectCategoryList() {
-		return fundingDao.selectCategoryList();
-	}
-	
-	@Override
-	public List<Funding> earlyList(Map<String, Object> map) {
-		return fundingDao.earlyList(map);
+	public List<Funding> earlyList() {
+		return fundingDao.earlyList();
 	}
 
 	//천호현
