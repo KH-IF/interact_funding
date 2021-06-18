@@ -58,13 +58,22 @@ public class FundingServiceImpl implements FundingService{
 		log.debug("funding = {}",funding);
 		
 		//attachment 등록
-		if(funding.getAttachList().size() > 0) {
-			for(Attachment attach: funding.getAttachList()) {
-				attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
-				result = insertAttachment(attach);
-				log.debug("attach={}",attach);
-			}
-		}	
+		//vo객체 고치고나서 수정하기
+		//if(funding.getAttach != null) {
+			Attachment attach = new Attachment();
+			attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
+			result = insertAttachment(attach);
+			log.debug("attach={}",attach);
+		
+		//}
+			
+//		if(funding.getAttachList().size() > 0) {
+//			for(Attachment attach: funding.getAttachList()) {
+//				attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
+//				result = insertAttachment(attach);
+//				log.debug("attach={}",attach);
+//			}
+//		}	
 		return result;
 	}
 	@Override

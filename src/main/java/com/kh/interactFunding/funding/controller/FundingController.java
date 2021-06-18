@@ -78,18 +78,17 @@ public class FundingController {
 	@GetMapping("/fundingStart1")
 	public void fundingStart1(HttpSession session, Model model) {
 		
-		log.debug("session={}",session.getAttribute("loginMember"));
+		//log.debug("session={}",session.getAttribute("loginMember"));
 		
 		Member loginMember = (Member) session.getAttribute("loginMember");
-		
-		log.debug("fundingStart1");
 	
 		try {
+			log.debug("fundingStart1");
 			List<FundingExt> statusYList = fundingService.statusYList(loginMember);
 			List<FundingExt> statusNList = fundingService.statusNList(loginMember);
-			log.debug("statusYList={}",statusYList);
-			log.debug("statusNList={}",statusNList);
-			log.debug("loginMember={}",loginMember);
+			//log.debug("statusYList={}",statusYList);
+			//log.debug("statusNList={}",statusNList);
+			//log.debug("loginMember={}",loginMember);
 		
 			model.addAttribute("statusYList", statusYList);
 			model.addAttribute("statusNList", statusNList);
@@ -104,7 +103,7 @@ public class FundingController {
 	@GetMapping("/fundingStart1/{msg}")
 	@ResponseBody
 	public ModelAndView fundingStart1(@PathVariable(name="msg") String msg, ModelAndView mav, HttpServletRequest request) {
-		log.debug("fundingStart1");
+		log.debug("fundingStart1msg");
 		RedirectView view = new RedirectView(request.getContextPath()+"/funding/fundingStart1");
 		//url관련한 것을 자동으로 붙여주는 속성
 		view.setExposeModelAttributes(false); //이 설정을 할려고 view객체를 사용함
@@ -120,7 +119,7 @@ public class FundingController {
 	//jsp로 이동하기 용
 	@GetMapping("/fundingStart2")
 	public void fundingStart2(@SessionAttribute FundingExt funding,Model model) {
-		log.debug("funding={}",funding);
+		//log.debug("funding={}",funding);
 		model.addAttribute("funding",funding);
 	}
 	
@@ -128,7 +127,8 @@ public class FundingController {
 	@GetMapping("/existFunding")
 	public String fundingStart2(@RequestParam(value="fundingNo") String fundingNo, Model model, @SessionAttribute Member loginMember) {
 		try {
-			log.debug("fundingNo={}",fundingNo);
+			log.debug("existFunding");
+			//log.debug("fundingNo={}",fundingNo);
 			FundingExt funding = fundingService.loadFunding(fundingNo);
 			model.addAttribute("funding",funding);
 			model.addAttribute("loginMember",loginMember);
@@ -143,8 +143,7 @@ public class FundingController {
 	@PostMapping("/newFunding")
 	public String ready1FundingInsertNo(FundingExt funding, HttpSession session) {
 		try {
-			log.debug("newFunding");
-			
+			log.debug("newFunding");		
 			Member loginMember = (Member) session.getAttribute("loginMember");
 			funding.setWriterNo(loginMember.getMemberNo());
 			
@@ -152,8 +151,8 @@ public class FundingController {
 			
 			session.setAttribute("funding", funding);
 			
-			log.debug("result={}",result);
-			log.debug("funding_no={}",funding.getFundingNo());
+			//log.debug("result={}",result);
+			//log.debug("funding_no={}",funding.getFundingNo());
 		} catch (Exception e) {
 			log.error("펀딩 start 에러(funding_no 부여)",e);
 			throw e;
@@ -163,56 +162,76 @@ public class FundingController {
 	
 	@GetMapping("/fundingStart3")
 	public void fundingStart3() {
-		log.debug("fundingStart3");
+		//log.debug("fundingStart3");
 	}
 	@GetMapping("/fundingStart4")
 	public void fundingStart4() {
-		log.debug("fundingStart4");
+		//log.debug("fundingStart4");
 	}
 	@GetMapping("/fundingStart5")
 	public void fundingStart5() {
-		log.debug("fundingStart5");
+		//log.debug("fundingStart5");
 	}
 
 	@GetMapping("/ready1Funding")
 	public void ready1Funding(@SessionAttribute FundingExt funding, RedirectAttributes redirectAttr) {
+		
+		log.debug("ready1Funding");
 		
 		String fundingNo = String.valueOf(funding.getFundingNo());
 		
 		FundingExt fundingR = fundingService.selectCheckFunding(fundingNo);
 		List<Reward> rewardList = fundingService.loadReward(fundingNo);
 		
+		//모든 확인은 작성이 되었을 경우를 산정하고 mapper에 작성확인 전달
 		//요금제 작성여부 확인
-		fundingR.getRatePlanCode();
-		
-		//기본정보 작성여부 확인
-		fundingR.getCategoryCode();
-		fundingR.getTitle();
-		fundingR.getDDay();
-		fundingR.getAttachList();
-		
-		//스토리 작성여부 확인
-		fundingR.getContent();
-		fundingR.getEarlyContent();
-		fundingR.getStartDate();
-		
-		//리워드 작성여부 확인
-		for(Reward reward:rewardList) {
-			reward.getRewardNo();
-			reward.getTitle();
-			reward.getContent();
-			reward.getPrice();
-			reward.getLimitAmount();
-			reward.getShippingPrice();
-			reward.getShippingDate();
+		String ratePlanCode = fundingR.getRatePlanCode();
+		if(ratePlanCode!= null && ratePlanCode != "") {
+			
 		}
 		
-		log.debug("ready1Funding");
+		//기본정보 작성여부 확인
+		String categoryCode = fundingR.getCategoryCode();
+		String title =  fundingR.getTitle();
+		Date dDay = fundingR.getDDay();
+		//vo 수정 후 바꿔 줄것
+		//Attachment attach =  fundingR.getAttachList();
+		
+		if(categoryCode != null && categoryCode != "") {
+			
+		}
+		if(title != null && title != "") {
+			
+		}
+		if(dDay != null) {
+			
+		}
+		
+		//스토리 작성여부 확인
+		String content = fundingR.getContent();
+		String earlyContent = fundingR.getEarlyContent();
+		Date startDate = fundingR.getStartDate();
+		if(content != null && content !="") {
+			
+		}
+		
+		if(content != null && content != "") {
+			
+		}
+		
+			
+			
+		//리워드 작성여부 확인
+		if(!rewardList.isEmpty()) {
+			
+		}
+		
+		
 	}
 	@GetMapping("/ready1Funding/{msg}")
 	@ResponseBody
 	public ModelAndView ready1Funding(@PathVariable(name="msg") String msg, ModelAndView mav, HttpServletRequest request) {
-		log.debug("ready1Funding");
+		log.debug("ready1Funding msg");
 		RedirectView view = new RedirectView(request.getContextPath()+"/funding/ready1Funding");
 		//url관련한 것을 자동으로 붙여주는 속성
 		view.setExposeModelAttributes(false); //이 설정을 할려고 view객체를 사용함
@@ -225,13 +244,11 @@ public class FundingController {
 		return mav;
 	}
 	
-
-	
 	@GetMapping("/ready2Charge")
 	public void ready2Funding() {
-		
-		log.debug("ready2Charge");
+		//log.debug("ready2Charge");
 	}
+	
 	@PutMapping("/saveCharge/{no}/{charge}")
 	@ResponseBody
 	public Map<String, Object> saveCharge(@PathVariable(name="no") String no ,@PathVariable(name="charge") String charge) {
@@ -239,7 +256,7 @@ public class FundingController {
 			Map<String, Object> param = new HashMap<String, Object>();
 			param.put("no",no);
 			param.put("charge",charge);
-			log.debug("param={}",param);
+			//log.debug("param={}",param);
 			int result =  fundingService.saveCharge(param);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("msg","요금제를 저장하였습니다.");		
@@ -256,7 +273,7 @@ public class FundingController {
 			String fundingNo = String.valueOf(funding.getFundingNo());
 			FundingExt fundingR = fundingService.loadFunding(fundingNo);
 			model.addAttribute("funding",fundingR);
-			log.debug("ready3BasicInfo");
+			//log.debug("ready3BasicInfo");
 		} catch (Exception e) {
 			log.error("basicinfo 불러오기 에러",e);
 			throw e;
@@ -265,11 +282,11 @@ public class FundingController {
 	@PostMapping("/saveBasicInfo")
 	public String  saveBasicInfo(
 			@ModelAttribute FundingExt funding,
-			@RequestParam(name="upFile") MultipartFile[] upFiles,
+			@RequestParam(name="upFile") MultipartFile upFile,
 			RedirectAttributes redirectAttr
 			) throws Exception {
-		log.debug("funding = {}",funding);
-		log.debug("upFiles = {}",upFiles);
+		//log.debug("funding = {}",funding);
+		//log.debug("upFiles = {}",upFiles);
 		try {
 			String saveDirectory = application.getRealPath("/resources/upload");
 			log.debug("saveDirectory ={}",saveDirectory);
@@ -278,31 +295,25 @@ public class FundingController {
 			File dir = new File(saveDirectory);
 			if(!dir.exists())
 				dir.mkdirs(); //복수개의 디렉토리를 생성
-			
-			List<Attachment> attachList = new ArrayList<>();
-			
-			for(MultipartFile upfile : upFiles) {
-				//input[name=upFile]로부터 비어있는 upFile이 넘어온다.
-				if(upfile.isEmpty()) continue; 
-				
+							
 				String renamedFilename = 
-						HelloSpringUtils.getRenamedFilename(upfile.getOriginalFilename());
+						HelloSpringUtils.getRenamedFilename(upFile.getOriginalFilename());
 				
 				//a. 서버컴퓨터에 저장
 									// 부모디렉토리, 파일명
 				File dest = new File(saveDirectory, renamedFilename);
-				upfile.transferTo(dest); //파일이동
+				upFile.transferTo(dest); //파일이동
 				
-				//b. 저장된 데이터를 Attachment객체에 저장 및 list 추가
+				//b. 저장된 데이터를 Attachment객체에 저장 
 				Attachment attach = new Attachment();
-				attach.setOriginalFilename(upfile.getOriginalFilename());
+				attach.setOriginalFilename(upFile.getOriginalFilename());
 				attach.setRenamedFilename(renamedFilename);
-				attachList.add(attach);
-			}
+				
 			
-			log.debug("attachList = {}" ,attachList);
-			//board객체에 설정
-			funding.setAttachList(attachList);
+			
+			log.debug("attach = {}" ,attach);
+			//funding객체에 설정 vo수정후 고칠것
+			//funding.setAttach(attach);
 			
 			//2. 업무로직 : DB 저장 board, attachment
 			int result = fundingService.saveBasicInfo(funding);
@@ -318,19 +329,19 @@ public class FundingController {
 	}
 	@GetMapping("/ready4Story")
 	public void ready4Story() {
-		log.debug("ready4Story");
+		//log.debug("ready4Story");
 	}
 	
 	@GetMapping("/ready4StoryLoad")
 	@ResponseBody
 	public Map<String, Object> ready4Story(@SessionAttribute FundingExt funding) {
 		try {
-			log.debug("funding={}",funding);
+			//log.debug("funding={}",funding);
 			String fundingNo = String.valueOf(funding.getFundingNo());
 			FundingExt fundingR = fundingService.loadFunding(fundingNo);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("funding",fundingR);
-			log.debug("ready4StoryLoad");
+			//log.debug("ready4StoryLoad");
 			return map;
 		} catch (Exception e) {
 			log.error("story 불러오기 에러",e);
@@ -341,34 +352,33 @@ public class FundingController {
 	@PostMapping("/saveStory")
 	public String saveStory(FundingExt funding, RedirectAttributes redirectAttr){
 		try {
-			log.debug("funding={}",funding);
+			//log.debug("funding={}",funding);
 
 			String earlyContent = funding.getEarlyContent();
 			Date startDayCompare =funding.getDDay();
 			
 			Date nowTime = new Date();
 			
-			//얼리버드 선택안했을 경우 값이 null로 들어가게
+			//얼리버드 선택안했을 경우 ealyContent 값이 null로 들어가게
 			if(startDayCompare == nowTime) {
 				earlyContent = null;
 				funding.setEarlyContent(earlyContent);
 			}
 						
-			log.debug("earlyContent ={}, startDay={}",earlyContent,funding.getDDay());
+			//log.debug("earlyContent ={}, startDay={}",earlyContent,funding.getDDay());
 
 			int result = fundingService.saveStory(funding);
 			
-			log.debug("funding = {}",funding);
+			//log.debug("funding = {}",funding);
 			redirectAttr.addFlashAttribute("msg","스토리를 저장하였습니다.");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		
 		return "redirect:/funding/ready1Funding";
 	}
 	
+	//reward 수정에서 값을 뿌려주기 위한 메소드
 	@GetMapping("/selectOneReward/{rewardNo}")
 	@ResponseBody
 	public Map<String, Object> selectOneReward(@PathVariable(name="rewardNo") String rewardNo) {
@@ -377,7 +387,7 @@ public class FundingController {
 			Reward chReward = fundingService.selectOneReward(rewardNo);
 			Map<String,Object> map = new HashMap<String, Object>();
 			map.put("chReward", chReward);
-			log.debug("chReward={}",chReward);
+			//log.debug("chReward={}",chReward);
 			return map;
 		} catch (Exception e) {
 			log.error("reward 하나 불러오기 에러",e);
@@ -403,10 +413,8 @@ public class FundingController {
 	@PostMapping("/insertReward")
 	public String  insertReward(Reward reward, RedirectAttributes redirectAttr) {
 		log.debug("reward={}",reward);
-		try {
-			
-			int result = fundingService.insertReward(reward);
-			
+		try {	
+			int result = fundingService.insertReward(reward);	
 			return "redirect:/funding/ready5Reward";
 		} catch (Exception e) {
 			log.error("reward 등록 에러",e);
@@ -418,9 +426,7 @@ public class FundingController {
 	public String updateReward(Reward reward, RedirectAttributes redirectAttr, Model model) {
 		log.debug("reward={}",reward);
 		try {
-			
 			int result = fundingService.updateReward(reward);
-			
 			return "redirect:/funding/ready5Reward";
 		} catch (Exception e) {
 			log.error("reward 수정 에러",e);
@@ -430,17 +436,12 @@ public class FundingController {
 	
 	@PostMapping("/deleteReward")
 	public String deleteReward(Reward reward, RedirectAttributes redirectAttr, Model model) {
-		log.debug("reward={}",reward.getRewardNo());
+		//log.debug("reward={}",reward.getRewardNo());
 		try {
-			
 			int rewardNo = reward.getRewardNo();
-			
 			int result = fundingService.deleteReward(rewardNo);
-			
 			redirectAttr.addFlashAttribute("msg","리워드를 삭제하였습니다.");
-			
 			model.addAttribute("reward",reward);
-			
 			return "redirect:/funding/ready5Reward";
 		} catch (Exception e) {
 			log.error("reward 삭제 에러",e);
@@ -452,7 +453,7 @@ public class FundingController {
 	@ResponseBody
 	public Map<String, Object> finalSubmit(@SessionAttribute FundingExt funding){
 		try {
-				log.debug("funding={}",funding);
+				//log.debug("funding={}",funding);
 				//int result =  fundingService.finalSubmit(funding);
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("msg","최종 제출하였습니다.");		
@@ -472,10 +473,10 @@ public class FundingController {
 			Model model){
 		try {
 			log.debug("deleteFunding");
-			log.debug("fundingNo={}",fundingNo);
+			//log.debug("fundingNo={}",fundingNo);
 			int result =  fundingService.deleteFunding(fundingNo);
 			redirectAttr.addFlashAttribute("msg","펀딩을 삭제하였습니다.");
-			log.debug("result={}",result);
+			//log.debug("result={}",result);
 			
 			//세션 종료
 			request.getSession().removeAttribute("funding");
