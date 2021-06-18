@@ -58,13 +58,14 @@ public interface FundingDao {
 	public List<Funding> earlyList();
 	
 	//천호현
-	public Funding selectOneFunding(int fundingNo);
-	public int selectOneFunding2(int fundingNo);
+	public FundingExt selectOneFunding(int fundingNo);
+	public int fundingParticipationCount(int fundingNo);
 	Map<String, Object> likeCheck(Map<String, Object> map);
 	int insertLike(Map<String, Object> map);
 	int updateLike(Map<String, Object> map);
 	int likeCount(Map<String, Object> map);
 	int likeStatusCheck(int memberNo);
+	List<Reward> selectRewardList(int fundingNo);
 
 
 }
