@@ -480,20 +480,23 @@ set point = 0
 where not member_no=2;
 commit;
 
---    no number,
---    to_member_no number,
---    from_member_no number,
---    from_member_name varchar2(100),
---    title
---    content varchar2(2000),
---    read char(1) default 'N',.
 
 insert into message
 values(seq_message_no.nextval, 2, 23, '배기원', '제목제목제목title3', '내용입니다아아아3', 'Y');
 commit;
 desc message;
-select * from message;
+select * from message where from_member_no = 2 order by no desc;
 
+select * from like_record;
+insert into like_record values(seq_like_record_no.nextval, 15, 2, 'Y');
+commit;
+select * from funding;
+
+update funding
+set writer_no = 2, status = 'Y'
+where funding_no=15;
+
+commit;
 
 
 --김경태 테스트영역

@@ -23,7 +23,14 @@ public class FundingDaoImpl implements FundingDao{
 	private SqlSessionTemplate session;
 	
 	//김윤수
-	
+	@Override
+	public List<Integer> selectMyLikeNoList(int memberNo){
+		return session.selectList("funding.selectMyLikeNoList",memberNo);
+	}
+	@Override
+	public Funding selectOneFundingKYS(int no) {
+		return session.selectOne("funding.selectOneFundingKYS",no);
+	}
 	//김경태
 	
 	//김주연

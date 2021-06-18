@@ -4,7 +4,9 @@ package com.kh.interactFunding.member.controller;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -37,6 +39,8 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.interactFunding.funding.model.service.FundingService;
+import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.member.model.service.MemberService;
 import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
@@ -52,6 +56,9 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private FundingService fundingService;
+	
 	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
 	final String username = "interact.funding";
@@ -62,10 +69,10 @@ public class MemberController {
 		log.info("referer@login = {}", referer);
 		log.debug("next@login = {}",next);
 		//나중에 스프링 시큐리티 사용할때 수정바람, 로그인시 로그인 페이지 못들어오게끔
-//		if(referer != null && next==null) {
+		if(referer != null && next==null) {
 			model.addAttribute("next", referer);
 			log.debug("next 세션값 생성");
-//		}
+		}
 	}
 	
 	@PostMapping("/login_if")
@@ -222,7 +229,22 @@ public class MemberController {
 	
 	//마이페이지
 	@GetMapping("/memberDetails")
-	public void memberDetails() {
+	public void memberDetails(@SessionAttribute(required = false) Member loginMember, Model model) {
+		//임시코드 추후 접근권한 업그레이시 삭제할 코드
+		if(loginMember==null) return;
+		
+		//최근 내가 누른 좋아요 페이지 최대5개 번호 가져오기
+		List<Integer> noList = fundingService.selectMyLikeNoList(loginMember.getMemberNo());
+		log.debug("내가 좋아요 누른 리스트 : {}",noList);
+		
+		//해당하는 펀딩 리스트 가져오기
+		List<Funding> list = new ArrayList<>();
+		for(int x : noList) {
+			list.add(fundingService.selectOneFundingKYS(x));
+		}
+		log.debug("내가 좋아하는 펀딩리스트 = {}",list);
+		model.addAttribute(list);
+		
 	}
 	
 	//마이페이지 포인트충전
