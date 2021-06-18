@@ -12,9 +12,9 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.spi.http.HttpHandler;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+
+import org.springframework.web.bind.annotation.CookieValue;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,8 +50,10 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.kh.interactFunding.common.util.HelloSpringUtils;
+import com.kh.interactFunding.common.util.PageBarUtils;
 import com.kh.interactFunding.funding.model.service.FundingService;
 import com.kh.interactFunding.funding.model.vo.Attachment;
+import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.funding.model.vo.Reward;
@@ -536,76 +542,33 @@ public class FundingController {
 	
 	//박요한 push
 	@GetMapping("/news.do")
-	public void news(@RequestParam(value="no", defaultValue="1") int no, Model model) {
-		try {
-			log.debug("no = {}", no);
-			Map<String, Object> param = new HashMap<>();
-			param.put("no", no);
-			//1.업무로직
-			List<Funding> list = fundingService.news(param);
-			
-			//2.jsp위임
-			model.addAttribute("list", list);
-			
-		} catch (Exception e) {
-			log.error("새소식 조회 오류!", e);
-			throw e;
-		}
-		
+	public void news(@RequestParam int funding_no, Model model) {
+		log.debug("funding_no = {}" , funding_no);
+		//업무로직
+		List<Funding> News = fundingService.fundingNews(funding_no);
+		log.debug("News = {}" , News);
+		model.addAttribute("News", News);
 	}
 	
 	@GetMapping("newsView.do")
-	public void newsView(@RequestParam(value="no", defaultValue="1") int no, Model model) {
-		try {
-			log.debug("no = {}", no);
-			Map<String, Object> param = new HashMap<>();
-			param.put("no", no);
-			//1.업무로직
-			List<Funding> list = fundingService.news(param);
-			
-			//2.jsp위임
-			model.addAttribute("list", list);
-			
-		} catch (Exception e) {
-			log.error("새소식 조회 오류!", e);
-			throw e;
-		}
+	public void newsView() {
+		
 	}
 	
 	@GetMapping("/community.do")
-	public void community(@RequestParam(value="no", defaultValue="1") int comment_no, Model model) {
-		try {
-			log.debug("comment_no = {}", comment_no);
-			Map<String, Object> param = new HashMap<>();
-			param.put("comment_no", comment_no);
-			//1.업무로직
-			List<Funding> list = fundingService.community(param);
-			
-			//2.jsp위임
-			model.addAttribute("list", list);
-			
-		} catch (Exception e) {
-			log.error("새소식 조회 오류!", e);
-			throw e;
-		}
+	public void community() {
+		
+	}
+	
+	@PostMapping("/communityEnroll.do")
+	public String communityEnroll() { 
+		
+		return "";
 	}
 	
 	@GetMapping("/supporter.do")
-	public void supporter(@RequestParam(value="no", defaultValue="1") int no, Model model) {
-		try {
-			log.debug("no = {}", no);
-			Map<String, Object> param = new HashMap<>();
-			param.put("no", no);
-			//1.업무로직
-			List<Funding> list = fundingService.supporter(param);
-			
-			//2.jsp위임
-			model.addAttribute("list", list);
-			
-		} catch (Exception e) {
-			log.error("새소식 조회 오류!", e);
-			throw e;
-		}
+	public void supporter() {
+		
 	}
 	
 	/**
@@ -633,48 +596,72 @@ public class FundingController {
 		List<Funding> likeList=null;
 		try {
 		likeList =fundingService.indexfundinglike();
-		log.info("likeList={}",likeList);
 		}catch (Exception e) {
-			log.error("메인페이지 좋아요가 안됩니다",e);
+			log.error("좋아요 페이지가 안됩니다.",e);
 			throw e;
 		}
 		return likeList;
 	}
-	 
-	 
-	
+	@ResponseBody
+	@GetMapping("fundingRefresh")
+	public  List<Funding>indexfundingRefresh(Model model,HttpSession session){
+			List<Funding>Refreshlist=null;
+			try {
+				Refreshlist=fundingService.indexfundingRefresh();
+				log.info("Refreshlist={}",Refreshlist);
+			}catch (Exception e) {
+				log.error("새로고침 예제",e);
+				throw e;
+			}
+		return Refreshlist;
+	}	
 	//이승우
 	//흠흠
 	@GetMapping("/fundingList")
 	public ModelAndView fundingList(
 			ModelAndView mav,
-			@RequestParam(defaultValue="") String searchKeyword,
+			@RequestParam(defaultValue="") String category,
 			@RequestParam(defaultValue="") String searchSelect1,
 			@RequestParam(defaultValue="") String searchSelect2,
-			@RequestParam(defaultValue="") String category
+			@RequestParam(defaultValue="") String searchKeyword,
+			@RequestParam(required = true, defaultValue = "1") int cPage,
+			HttpServletRequest request
 		) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("searchKeyword", searchKeyword);
-		map.put("searchSelect1", searchSelect1);
-		map.put("searchSelect2", searchSelect2);
-		map.put("category", category);
-		
 		try {
+//			log.debug("cPage = {}", cPage); // 페이지 구현
+			final int limit = 6; // 최대생성수
+			final int offset = (cPage - 1) * limit;
+			Map<String, Object> map = new HashMap<>();
+			map.put("searchKeyword", searchKeyword);
+			map.put("searchSelect1", searchSelect1);
+			map.put("searchSelect2", searchSelect2);
+			map.put("category", category);
+			map.put("limit", limit);
+			map.put("offset", offset);
+			
 			// 카테고리 업무로직
 			List<Map<String, String>> categoryList = fundingService.selectCategoryList();
 			
 			// 검색 업무로직
 			List<Funding> list = fundingService.fundingList(map);
-			log.debug("searchTitle = {}", searchKeyword);
-			System.out.println("list"+list);
-			log.debug("list = {}", list);
+			int totalContents = fundingService.selectFundingListTotalContents(map);
+			String url = request.getRequestURI() + "?category=" + category + "&searchSelect1=" + searchSelect1 + "&searchSelect2=" + searchSelect2 + "&searchKeyword=" + searchKeyword;
+			
+			
+//			log.debug("totalContents = {}, url = {}", totalContents, url);
+			String pageBar = PageBarUtils.getPageBar(totalContents, cPage, limit, url);
 			
 			//jsp에 위임
-			mav.addObject("list", list);
-			mav.addObject("categoryList", categoryList);
+			mav.addObject("list", list); 
+			mav.addObject("categoryList", categoryList); // 카테고리
+			mav.addObject("pageBar", pageBar); // 페이지
+			mav.addObject("map", map);
 			
+//			log.debug("searchTitle = {}", searchKeyword);
+//			log.debug("list = {}", list);
 			return mav;
-		}
+			}
+		
 		catch(Exception e){
 			log.error("fundingList 조회 오류");
 			throw e;
@@ -688,16 +675,18 @@ public class FundingController {
 			) {
 		Map<String, Object> map = new HashMap<>();
 		
-		List<Funding> list = fundingService.fundingList(map);
+		List<Funding> list = fundingService.earlyList(map);
+		
+		mav.addObject("list", list);
 		return mav;
 	}
 	
 	//천호현
 	
 	@GetMapping("/fundingDetail") 
-	public void fundingDetail(@RequestParam int	funding_no, Model model) { //1. 업무로직 
-		Funding funding = fundingService.selectOneFunding(funding_no);
-		int funding2 = fundingService.selectOneFunding2(funding_no);//funding_participation
+	public void fundingDetail(@RequestParam int	fundingNo, Model model) { //1. 업무로직 
+		Funding funding = fundingService.selectOneFunding(fundingNo);
+		int funding2 = fundingService.selectOneFunding2(fundingNo);//funding_participation
 		log.debug("funding = {}" , funding); 
 		log.debug("funding2 = {}" , funding2); 
 		//2. 위임 
@@ -707,8 +696,8 @@ public class FundingController {
 
 	
 	@GetMapping("/fundingReward")
-	public void fundingReward(@RequestParam int	funding_no, Model model) {
-		Funding funding = fundingService.selectOneFunding(funding_no);
+	public void fundingReward(@RequestParam int	fundingNo, Model model) {
+		Funding funding = fundingService.selectOneFunding(fundingNo);
 		log.debug("funding = {}" , funding); 
 		//2. 위임 
 		model.addAttribute("funding", funding);
@@ -724,9 +713,66 @@ public class FundingController {
 	public void fundingFindAddress() {
 	}
 	
-	@GetMapping("/loginMembberClickLike")
-	public void loginMembberClickLike() {
-		//Member memeber = fundingService.selectLoginMember();
+	@ResponseBody
+	@PostMapping("/loginMemberClickLike")
+	public Map<String, Object> loginMemberClickLike(@RequestParam int memberNo, @RequestParam int fundingNo) {
+		
+		//0. 값 처리
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberNo", memberNo);
+		map.put("fundingNo", fundingNo);
+		
+		//ajax like숫자 실시간조회 + 리턴할 결과값 (likeCount + fillHeart.png 등등)
+		Map<String, Object> returnResult = new HashMap<>();
+		
+		
+		//1. 요청한 사용자가 좋아요를 누른 적이 있는지 확인
+		Map<String, Object> result  = fundingService.likeCheck(map);
+		log.debug("result@map = {}",result);
+		
+		//2.1 좋아요 누른적이 없음 -> like테이블에 status Y로 insert   (fillHeart.png)
+		if(result==null || result.size()==0) {
+			//인설트
+			fundingService.insertLike(map); //funding_no, member_no
+			int likeCount = fundingService.likeCount(map);
+			returnResult.put("likeCount", likeCount);
+			returnResult.put("heart", "on");
+			return returnResult;
+			
+		}
+
+		//둘다 뒤집어서 업데이트 해야되서 위로 뺌
+		result.put("status", !(Boolean)result.get("status"));
+		
+		//2.2 좋아요 누른적이 있음, 현재 status = Y -> status = N  (좋아요 취소)     (emptyHeart.png)
+		//2.3 좋아요 누른적이 있음, 현재 status = N -> status = Y (다시 좋아요)   (fillHeart.png)
+		//업데이트
+		fundingService.updateLike(result);
+		
+		//성공
+		if((Boolean) result.get("status")) {
+			int likeCount = fundingService.likeCount(map);
+			returnResult.put("likeCount", likeCount);
+			returnResult.put("heart", "on");
+			return returnResult;
+		}
+		//실패
+		int likeCount = fundingService.likeCount(map);
+		returnResult.put("heart", "off");
+		returnResult.put("likeCount", likeCount);
+		return returnResult;
+	}
+	
+	//좋아요 클릭여부확인
+	@ResponseBody
+	@GetMapping("/likeStatusCheck")
+	public int likeStatusCheck(@RequestParam int memberNo) {
+		log.debug("memberNo@@ = {}", memberNo);
+		int result = fundingService.likeStatusCheck(memberNo);
+		log.debug("result@@ = {}", result);
+		
+		return result;
+		
 	}
 	
 	

@@ -22,6 +22,12 @@
 		where email = #{email} and platform='IF'
 	</select>
 	
+	<select id="selectOneMemberUseNo" resultType="member">
+		select * 
+		from member
+		where member_no = #{toMemberNo}
+	</select>
+	
 	<insert id="insertPoint">
 		insert into point
 		values( seq_point_no.nextval, default, #{point}, #{memberNo}, #{memo} )
@@ -38,14 +44,39 @@
 		from coupon_record
 		where member_no = #{memberNo} and coupon_no = #{couponNo}
 	</select>
-	<!-- no number primary key,
-    coupon_no number,
-    member_no number,
-    point number, -->
+	
 	<insert id="insertCoupon">
 		insert into coupon_record
 		values( seq_coupon_record_no.nextval, #{couponNo}, #{memberNo}, #{point} )
 	</insert>
+	
+	<select id="selectReceiveMsg" resultMap="MsgMap">
+		select *
+		from message
+		where to_member_no = #{memberNo}
+		order by no desc
+	</select>
+	
+	<select id="selectSendMsg" resultMap="MsgMap">
+		select * 
+		from message
+		where from_member_no = #{memberNo}
+		order by no desc
+	</select>
+	<insert id="sendMsg">
+		insert into message
+		values(seq_message_no.nextval, #{toMemberNo}, #{fromMemberNo}, #{fromMemberName}, #{title}, #{content}, default, #{toMemberName})
+	</insert>
+	
+	<update id="msgReadStatusChg">
+		update message
+		set read = 'Y'
+		where no = #{no}
+	</update>
+	
+	<resultMap type="msg" id="MsgMap">
+		<result column="read" property="read" typeHandler="booleanYnTypeHandler"/>
+	</resultMap>
 	<!-- 김경태 -->
 	<!-- 김주연 -->
 	<!-- 박요한 -->

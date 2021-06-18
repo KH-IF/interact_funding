@@ -4,6 +4,7 @@ package com.kh.interactFunding.funding.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,7 +25,14 @@ public class FundingDaoImpl implements FundingDao{
 	private SqlSessionTemplate session;
 	
 	//김윤수
-	
+	@Override
+	public List<Integer> selectMyLikeNoList(int memberNo){
+		return session.selectList("funding.selectMyLikeNoList",memberNo);
+	}
+	@Override
+	public Funding selectOneFundingKYS(int no) {
+		return session.selectOne("funding.selectOneFundingKYS",no);
+	}
 	//김경태
 	
 	//김주연
@@ -115,18 +123,8 @@ public class FundingDaoImpl implements FundingDao{
 
 	//박요한
 	@Override
-	public List<Funding> news(Map<String, Object> param) {
-		return session.selectList("funding.news", param);
-	}
-	
-	@Override
-	public List<Funding> community(Map<String, Object> param) {
-		return session.selectList("funding.community", param);
-	}
-	
-	@Override
-	public List<Funding> supporter(Map<String, Object> param) {
-		return session.selectList("funding.supporter", param);
+	public List<Funding> fundingNews(int funding_no) {
+		return session.selectList("funding.fundingNews", funding_no);
 	}
 	
 	//배기원
@@ -139,47 +137,81 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectList("funding.indexfundinglike");
 	}
 	@Override
+	public List<Funding> indexviewlist() {
+		return session.selectList("funding.indexviewlist");
+	}
+	@Override
 	public int indexTotalContents() {
 		return session.selectOne("funding.indexTotalContents");
 	}
-	
-	
-	
 	@Override
 	public List<Funding> indexEarlyList() {
-		// TODO Auto-generated method stub
 		return session.selectList("funding.indexEarlyList");
+	}
+	@Override
+	public List<Funding> indexlikelist() {
+		return session.selectList("funding.indexlikelist");
+	}
+	
+	@Override
+	public List<Funding> indexfundingRefresh() {
+		return session.selectList("funding.indexfundingRefresh");
 	}
 	//이승우
 	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {
+		int offset = (int)map.get("offset");
+		int limit = (int)map.get("limit");
+		RowBounds rowBounds = new RowBounds(offset, limit);
 		log.debug("map@dap = {}",map);
-		return session.selectList("funding.selectFundingList", map);
+		return session.selectList("funding.selectFundingList", map, rowBounds);
 	}
 
 	@Override
 	public List<Map<String, String>> selectCategoryList() {
 		return session.selectList("funding.selectCategoryList");
-	}	
-
+	}
+	
+	@Override
+	public List<Funding> earlyList(Map<String, Object> map) {
+		return session.selectList("funding.selectEarlyList", map);
+	}
+	
+	@Override
+	public int selectFundingListTotalContents(Map<String, Object> map) {
+		return session.selectOne("funding.selectFundingListTotalContents", map);
+	}
+	
 	//천호현
 
 	@Override
-	public Funding selectOneFunding(int funding_no) {
-		return session.selectOne("funding.selectOneFunding", funding_no);
+	public Funding selectOneFunding(int fundingNo) {
+		return session.selectOne("funding.selectOneFunding", fundingNo);
 	}
 	
 	@Override
-	public int selectOneFunding2(int funding_no) {
-		return session.selectOne("funding.selectOneFunding2", funding_no);
+	public int selectOneFunding2(int fundingNo) {
+		return session.selectOne("funding.selectOneFunding2", fundingNo);
 	}
-
-
-	
-	
-
-	
-
-	
+	@Override
+	public Map<String, Object> likeCheck(Map<String, Object> map) {
+		return session.selectOne("funding.likeCheck",map);
+	}
+	@Override
+	public int insertLike(Map<String, Object> map) {
+		return session.insert("funding.insertLike",map);
+	}
+	@Override
+	public int updateLike(Map<String, Object> map) {
+		return session.update("funding.updateLike",map);
+	}
+	@Override
+	public int likeCount(Map<String, Object> map) {
+		return session.selectOne("funding.likeCount", map);
+	}
+	@Override
+	public int likeStatusCheck(int memberNo) {
+		return session.selectOne("funding.likeStatusCheck", memberNo);
+	}
 	
 }

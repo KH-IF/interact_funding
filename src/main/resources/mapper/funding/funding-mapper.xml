@@ -4,6 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="funding">
 	<!-- 김윤수 -->
+	<select id="selectMyLikeNoList" resultType="_int">
+		select funding_no
+		from like_record
+		where member_no = #{memberNo} and status='Y'
+		order by no desc
+	</select>
+	
+	<select id="selectOneFundingKYS" resultMap="fundingVoMap">
+		select * 
+		from funding
+		where funding_no = #{no}
+	</select>
+	<resultMap type="funding" id="fundingVoMap">
+		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
+	</resultMap>
+	
 	<!-- 김경태 -->
 	<!-- 김주연 -->
 	<select id="statusYList" resultMap="fundingCollectionMap">
@@ -255,29 +271,52 @@
 	
 	
 	<!-- 박요한 -->
-	<select id="news" resultMap="fundingMap">
-		select
-			*
-		from
-			funding_board
-		where
-			no = #{no}
+	<select id="fundingNews" resultMap="fundingMap">
+		select *
+        from funding F 
+            join funding_board R 
+            on F.funding_no = R.funding_no
+            join member M
+            on F.writer_no = M.member_no
+        where F.funding_no = #{funding_no}
 	</select>
+	
+	
 	<select id="community" resultMap="fundingMap">
-		select
-			*
-		from
-			funding_comment
-		where
-			comment_no = #{comment_no}
+		select *
+        from funding_comment
+        where comment_no = #{commet_no}
 	</select>
+	
+	
 	<select id="supporter" resultMap="fundingMap">
-		select
-			*
-		from
-			funding_participation
-		where
-			no = #{no}
+		select *
+        from funding F 
+            join funding_participation R 
+            on F.funding_no = R.funding_no
+            join member M
+            on F.writer_no = M.member_no
+        where F.funding_no = #{funding_no}
+	</select>
+	<insert id="insertComment">
+		insert into
+			funding_comment(
+				comment_no,
+				content
+			)
+		values(
+			seq_funding_comment_no.nextval,
+			#{content}
+		)
+	</insert>
+	<select id="newsView" resultMap="fundingMap">
+		select *
+        from funding F 
+            join funding_board R 
+            on F.funding_no = R.funding_no
+            join member M
+            on F.writer_no = M.member_no
+        where F.funding_no = #{funding_no}
 	</select>
 	<!-- 배기원 -->
 		<select id="indexfundingList" resultMap="fundingMap">
@@ -299,6 +338,27 @@
 		        order by reg_date  desc
 		        ) f
 		where rownum between 1 and 6
+	    </select>
+	    <select id="indexviewlist" resultMap="fundingMap">
+				    select  
+			rownum, f.*
+			from (
+			        select funding.* ,
+			         CASE category_code
+			         WHEN 'C1' THEN '테크.가전'
+			         WHEN 'C2' THEN '푸드'
+			         WHEN  'C3' THEN '여행'
+			         WHEN  'C4' THEN '스포츠'
+			         WHEN 'C5' THEN '게임.취미'
+			         WHEN 'C6' THEN '모임'
+			         WHEN  'C7' THEN  '반려동물'
+			         WHEN  'C8' THEN '기부.후원'
+			         END as categoryName  
+			        from funding  
+			        where <![CDATA[start_date < sysdate and d_day > sysdate]]>
+			        order by readcount  desc
+			        ) f
+			where rownum between 1 and 4
 	    </select>
 	    
 	    <select id="indexfundinglike" resultMap="fundingMap">
@@ -325,16 +385,75 @@
 	    where 
 	       start_date<![CDATA[> ]]>sysdate 
 	    </select>
+	    
+	    <select id="indexlikelist" resultMap="fundingMap" >
+	    	select  
+		rownum, f.*
+		from (
+		        select funding.* ,
+		         CASE category_code
+		         WHEN 'C1' THEN '테크.가전'
+		         WHEN 'C2' THEN '푸드'
+		         WHEN  'C3' THEN '여행'
+		         WHEN  'C4' THEN '스포츠'
+		         WHEN 'C5' THEN '게임.취미'
+		         WHEN 'C6' THEN '모임'
+		         WHEN  'C7' THEN  '반려동물'
+		         WHEN  'C8' THEN '기부.후원'
+		         END as categoryName  
+		        from funding  
+		        where<![CDATA[ start_date < sysdate and d_day > sysdate]]>
+		        order by like_count  desc
+		        ) f
+		where rownum between 1 and 5
+	    </select>
+	    
+	    <select id="indexfundingRefresh" resultMap="fundingMap">
+			    select  
+		rownum, f.*
+		from (
+		        select funding.* ,
+		         CASE category_code
+		         WHEN 'C1' THEN '테크.가전'
+		         WHEN 'C2' THEN '푸드'
+		         WHEN  'C3' THEN '여행'
+		         WHEN  'C4' THEN '스포츠'
+		         WHEN 'C5' THEN '게임.취미'
+		         WHEN 'C6' THEN '모임'
+		         WHEN  'C7' THEN  '반려동물'
+		         WHEN  'C8' THEN '기부.후원'
+		         END as categoryName  
+		        from funding  
+		        where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
+		        order by start_date  desc
+		        ) f
+		where rownum between 1 and 6
+	    </select>
 	<!-- 이승우 -->
 	<select id="selectFundingList" resultMap="fundingMap">
 		select
-			*
+			f.*
 		from
+			(select
+			f.*,
+			c.category_name categoryName,
+			m.name Name,
+			a.renamedfilename
+			from
 			funding f
+				left join category c
+					on f.category_code = c.category_code
+				left join member m
+                	on f.writer_no = m.member_no
+                left join attachment a
+                	on f.funding_no = a.funding_no
+			order by f.reg_date desc
+		) f
 		<where>
-			title like '%' || '${searchKeyword}' || '%'
-			<if test="FundingCategory != 'C0'">
-			and category_code like '%' || '${category}' || '%'
+			content like '%' || #{searchKeyword} || '%' 
+			and start_date <![CDATA[<]]> sysdate
+			<if test="category != 'undefined' and category != '' and category != 'C0'">
+			and category_code like '%' || #{category} || '%'
 			</if>
 			<if test="searchSelect1 == 'processing'">
 			and d_day <![CDATA[>]]> sysdate
@@ -356,6 +475,60 @@
 		from
 			category c
 	</select>
+	<select id="selectFundingListTotalContents" resultType="_int">
+		select
+			count(*)
+		from
+			(select
+			f.*,
+			c.category_name categoryName,
+			m.name Name
+			from
+			funding f
+				left join category c
+					on f.category_code = c.category_code
+				left join member m
+                	on f.writer_no = m.member_no
+			order by f.reg_date desc
+		) f
+		<where>
+			content like '%' || #{searchKeyword} || '%' 
+			and start_date <![CDATA[<]]> sysdate
+			<if test="category != 'undefined' and category != '' and category != 'C0'">
+			and category_code like '%' || #{category} || '%'
+			</if>
+			<if test="searchSelect1 == 'processing'">
+			and d_day <![CDATA[>]]> sysdate
+			</if>
+			<if test="searchSelect1 == 'quit'">
+			and d_day <![CDATA[<]]> sysdate
+			</if>
+		</where>
+		<if test="searchSelect2 == 'recent'">
+		order by reg_date desc
+		</if>
+		<if test="searchSelect2 == 'recommand'">
+		order by like_count desc
+		</if>
+	</select>
+	<select id="selectEarlyList" resultMap="fundingMap">
+		select
+		    f.*
+		from
+		    (
+		    select
+		        f.*,
+		        m.name Name
+		    from
+		    funding f
+		        left join member m
+		            on f.writer_no = m.member_no
+		        order by f.reg_date desc
+		)f
+		<where>
+			start_date <![CDATA[>]]> sysdate
+		</where>
+	</select>
 	<!-- 천호현 -->
     
     <select id="selectOneFunding" resultMap="FundingDetailVoMap">
@@ -367,7 +540,7 @@
             on F.funding_no = A.funding_no
             join member M
             on F.writer_no = M.member_no
-        where F.funding_no = #{funding_no}
+        where F.funding_no = #{fundingNo}
     </select>
     
     <resultMap type="FundingDetailVo" id="FundingDetailVoMap">
@@ -377,6 +550,44 @@
     <select id="selectOneFunding2" resultType="_int">
         select count(*) count
         from funding_participation
-        where funding_no = #{funding_no}
+        where funding_no = #{fundingNo}
     </select>
+    
+    <select id="likeCheck" resultMap="likeMap">
+    	select *
+    	from like_record
+    	where member_no = #{memberNo} and funding_no = #{fundingNo}
+    </select>
+	   
+	<insert id="insertLike">
+		insert into like_record
+		values (seq_like_record_no.nextval, #{fundingNo}, #{memberNo}, 'Y')
+	</insert>
+	
+	<resultMap type="map" id="likeMap">
+		<id column="no" property="no"/>
+		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
+		<result column="funding_no" property="fundingNo"/>
+		<result column="member_no" property="memberNo"/>
+	</resultMap>
+	
+	<update id="updateLike">
+		update like_record
+		set status = #{status, typeHandler=booleanYnTypeHandler}
+		where no = #{no}
+	</update>
+	
+	<select id="likeCount" resultType="_int">
+		select count(*)
+		from like_record
+		where funding_no = #{fundingNo} and status = 'Y'
+	</select>
+	
+	
+	<select id="likeStatusCheck" resultType="_int">
+		select count(*)
+		from like_record
+		where member_no = #{memberNo} and status = 'Y'
+	</select>
+    
 </mapper>

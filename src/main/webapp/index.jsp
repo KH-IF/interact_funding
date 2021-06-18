@@ -1,14 +1,12 @@
+<%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%
-%>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="이프" name="title" />
 </jsp:include>
-
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/index.css" />
 <!-- Ionicons Js 예제  -->
@@ -16,10 +14,7 @@
 
 <script>
 /* 실시간랭킹  hide show  예제*/
-function showForI(){
-		if($('input:radio[id=invest]').is(':checked')){
-			$("#fundingZone").hide();
-			$.ajax({
+ $.ajax({
 				url:"${pageContext.request.contextPath}/funding/fundinglike",
 				success:(data) =>{
 					console.log(data);
@@ -29,9 +24,52 @@ function showForI(){
 					console.log(xhr, statusText, err);
 				}
 			});
-		}else{
-			$("#fundingZone").show();
+function showForI(){
+		 if($('input:radio[name=ranking-btn]').is(':checked')){
+			$("#fundingZone").hide();
+			$("#likeZone").css('display','block');
+			
 		}
+		 else{
+			$("#fundingZone").show();
+			$("#likeZone").css('display','none');
+			 }
+	} 
+
+function Refresh(){
+$.ajax({
+	url:"${pageContext.request.contextPath}/funding/fundingRefresh",
+	success:function(json) {
+		console.log(json);
+		 $('#kiwonfunding').empty();
+		 $('#kiwonfunding-1').empty();
+		 var html = '';
+		        html = $('<div class="kiwonfunding-div" id="kiwonfunding">' +
+				        '<div class="kiwonfunding-div-img1">'+
+				        '<a href="${pageContext.request.contextPath }/" class="funding_class">'+
+				        ' <img src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_04.png"alt="">'
+				        +'</a>'+'<p class="funding_class-p">'+'</p>'+' <div class="progress">'+' <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 20%" aria-valuenow="10" aria-valuemin="0"aria-valuemax="100">'
+						+'</div>' +'</div>'+'<p class="kiwonfunding-percent">'+ '%'+'<span class="kiwonfunding-percent-after">'+'</span>'+'</p>'+'</div>'+'<div class="kiwonfunding-div-img2">'+ '<a href="${pageContext.request.contextPath }/" class="funding_class">'
+						+'<img src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_05.png">'+'</a>'+'<p class="funding_class-p">'+'</p>'+'<div class="progress">'+'<div class="progress-bar progress-bar-striped" value=""role="progressbar" style="width: 20%" aria-valuenow="10"aria-valuemin="0" aria-valuemax="100">'+
+						'</div>'+'</div>'+'<p class="kiwonfunding-percent">'+'%'+'<span class="kiwonfunding-percent-after"'+'</span>'+'</p>'+'</div>'+'<div class="kiwonfunding-div-img3">'+'<a href="${pageContext.request.contextPath }/" class="funding_class">'+'<img src="${pageContext.request.contextPath}/resources/images/kiwon_images//sample_images_06.png">'+
+						'</a>'+'<p class="funding_class-p">'+'</p>'+'<div class="progress">'+'<div class="progress-bar progress-bar-striped" value=""role="progressbar" style="width: 20%" aria-valuenow="10" a0ria-valuemin="0" aria-valuemax="100">'+'</div>'+'</div>'+'<p class="kiwonfunding-percent">'+'%'+'<span class="kiwonfunding-percent-after">'+'</span>'+'</p>'+'</div>'+'</div>');
+		        $('#kiwonfunding').append(html);
+		  var html1='';
+		  	html1=$('<div class="kiwonfunding-1" id="kiwonfunding-1">'+'<div class="kiwonfunding-div-img4">'+
+				  	'<a href="${pageContext.request.contextPath }/" class="funding_class4">'+'<img src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_07.png">'+'</a>'+'<p class="funding_class-p1">'+'</p>'
+				  	+'<div class="progress">'+'<div class="progress-bar progress-bar-striped" value=""role="progressbar" style="width: 20%" aria-valuenow="10"aria-valuemin="0" aria-valuemax="100">'+'</div>'+'</div>'+'<p class="kiwonfunding-percent">'+'%'+' <span class="kiwonfunding-percent-after">'+'</span>'+'</p>'+'</div>'
+				  	+'<div class="kiwonfunding-div-img5">'+'<a href="${pageContext.request.contextPath }/" class="funding_class">'+'<img src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_08.png"width="240px" height="134px">'+'</a>'+'<p class="funding_class-p1">'+'</p>'+'<div class="progress">'+'<div class="progress-bar progress-bar-striped" value="" role="progressbar" style="width: 20%" aria-valuenow="10"aria-valuemin="0" aria-valuemax="100">'
+				  	+'</div>'+'</div>'+'<p class="kiwonfunding-percent">'+'%'+'<span class="kiwonfunding-percent-after">'+'</span>'+'</p>'+'</div>'+'</div>'+'<div class="kiwonfunding-div-img6">'+'<a href="${pageContext.request.contextPath }/" class="funding_class">'
+				  	+'<img src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_10.png"width="240px" height="134px">'+'</a>'+'<p class="funding_class-p1">'+'</p>'+'<div class="progress">'+'<div class="progress-bar progress-bar-striped" value="" role="progressbar" style="width: 20%" aria-valuenow="10"aria-valuemin="0" aria-valuemax="100">'+'</div>'+'</div>'+'<p class="kiwonfunding-percent">'+'%'+'<span class="kiwonfunding-percent-after">'+'</span>'+'</p>'+'<button type="button" id="button" class="btn btn-light" onclick="Refresh()"style="position: relative; left: 60%; padding: 12px; font-weight: 700;">'+'<ion-icon name="refresh-outline">'+'</ion-icon>'
+				  	+'새로고침'+'</button>'+'</div>'+'</div>'
+				  	);
+		  		$('#kiwonfunding-1').append(html1);
+	},
+	error: (xhr, statusText, err) => {
+		console.log(xhr, statusText, err);
+
+	}
+});
 }
 </script>
 
@@ -47,8 +85,9 @@ function showForI(){
  	if(Earlybirdbox >=2 && Earlybirdbox <=4){
  		$("#EalrybirdTag_Container").attr("style","transform:translateX("+(-240)*(--Earlybirdbox-1)+"px);")
  	 	}
-	 }
+	 } 
 </script>
+
 <div class="kiwon_cardbanner">
 	<div id="carouselExampleIndicators" class="carousel slide"
 		data-ride="carousel">
@@ -112,21 +151,22 @@ function showForI(){
 	<h1>실시간 랭킹</h1>
 	<div class="btn-group btn-group-toggle" data-toggle="buttons">
 		<label class="btn btn-secondary active"> <input type="radio"
-			name="options" id="funding" checked onchange="showForI()">
+			name="ranking-btn" id="funding" checked onchange="showForI()">
 			펀딩하기
 		</label>
 
 	</div>
 	<div class="btn-group btn-group-toggle" data-toggle="buttons">
 		<label class="btn btn-secondary active"> <input type="radio"
-			name="options" id="invest" checked onchange="showForI()"> 좋아요
+			name="ranking-btn" id="invest" checked onchange="showForI()">
+			좋아요
 		</label> <span class="kiwon_Ranking_badge">진행중</span>
 	</div>
-	<ul class="nav">
-		<li style="font-weight: 700;" id="fundingZone"><a
-			href="${pageContext.request.contextPath }/ " style="color: #000000;">
-				<span class="orderText-span">1. <c:forEach items="${list}"
-						varStatus="vs" var="funding">
+	<ul class="nav" id="fundingZone">
+		<li style="font-weight: 700;"><a
+			href="${pageContext.request.contextPath}/ " style="color: #000000;">
+				<span class="orderText-span">1. <c:forEach
+						items="${list}" varStatus="vs" var="funding">
 						<c:if test="${vs.count==1}">
 							<p class="Ranking_class-p1">${funding.content}</p>
 							<p class="kiwonRanking_percent">
@@ -142,7 +182,7 @@ function showForI(){
 					style="width: 75px; height: 63px" />
 			</span>
 		</a></li>
-		<li style="font-weight: 700;" id="fundingZone"><a
+		<li style="font-weight: 700;"><a
 			href="${pageContext.request.contextPath }/ " style="color: #000000;">
 				<span class="orderText-span">2. <c:forEach items="${list}"
 						varStatus="vs" var="funding">
@@ -163,7 +203,7 @@ function showForI(){
 
 		</a></li>
 
-		<li style="font-weight: 700;" id="fundingZone"><a> <span
+		<li style="font-weight: 700;"><a> <span
 				class="orderText-span">3. <c:forEach items="${list}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==3}">
@@ -181,7 +221,7 @@ function showForI(){
 					style="width: 75px; height: 63px" />
 			</span>
 		</a></li>
-		<li style="font-weight: 700;" id="fundingZone"><a> <span
+		<li style="font-weight: 700;"><a> <span
 				class="orderText-span">4. <c:forEach items="${list}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==4}">
@@ -200,8 +240,108 @@ function showForI(){
 			</span>
 
 		</a></li>
-		<li style="font-weight: 700;" id="fundingZone"><a> <span
+		<li style="font-weight: 700;"><a> <span
 				class="orderText-span">5. <c:forEach items="${list}"
+						varStatus="vs" var="funding">
+						<c:if test="${vs.count==5}">
+							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="kiwonRanking_percent">
+								<fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" />
+								%<span class="kiwonfunding-percent-after">
+									${funding.categoryName}</span>
+							</p>
+						</c:if>
+					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
+					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+					style="width: 75px; height: 63px" />
+			</span>
+
+		</a></li>
+
+	</ul>
+	<!-- likeZone -->
+	<ul class="nav" id="likeZone" style="display: none;">
+		<li style="font-weight: 700;"><a
+			href="${pageContext.request.contextPath }/ " style="color: #000000;">
+				<span class="orderText-span">1. <c:forEach
+						items="${likelist}" varStatus="vs" var="funding">
+						<c:if test="${vs.count==1}">
+							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="kiwonRanking_percent">
+								<fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" />
+								%<span class="kiwonfunding-percent-after">
+									${funding.categoryName}</span>
+							</p>
+						</c:if>
+					</c:forEach> <img
+					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+					style="width: 75px; height: 63px" />
+			</span>
+		</a></li>
+		<li style="font-weight: 700;"><a
+			href="${pageContext.request.contextPath }/ " style="color: #000000;">
+				<span class="orderText-span">2. <c:forEach
+						items="${likelist}" varStatus="vs" var="funding">
+						<c:if test="${vs.count==2}">
+							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="kiwonRanking_percent">
+								<fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" />
+								%<span class="kiwonfunding-percent-after">
+									${funding.categoryName}</span>
+							</p>
+						</c:if>
+					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
+					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+					style="width: 75px; height: 63px" />
+			</span>
+
+		</a></li>
+
+		<li style="font-weight: 700;"><a> <span
+				class="orderText-span">3. <c:forEach items="${likelist}"
+						varStatus="vs" var="funding">
+						<c:if test="${vs.count==3}">
+							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="kiwonRanking_percent">
+								<fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" />
+								%<span class="kiwonfunding-percent-after">
+									${funding.categoryName}</span>
+							</p>
+						</c:if>
+					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
+					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+					style="width: 75px; height: 63px" />
+			</span>
+		</a></li>
+		<li style="font-weight: 700;"><a> <span
+				class="orderText-span">4. <c:forEach items="${likelist}"
+						varStatus="vs" var="funding">
+						<c:if test="${vs.count==4}">
+							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="kiwonRanking_percent">
+								<fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" />
+								%<span class="kiwonfunding-percent-after">
+									${funding.categoryName}</span>
+							</p>
+						</c:if>
+					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
+					src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_09.png"
+					style="width: 75px; height: 63px" />
+			</span>
+
+		</a></li>
+		<li style="font-weight: 700;"><a> <span
+				class="orderText-span">5. <c:forEach items="${likelist}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==5}">
 							<p class="Ranking_class-p1">${funding.content}</p>
@@ -231,12 +371,11 @@ function showForI(){
 	</c:if>
 	<!-- 로그인 되었을때 -->
 	<c:if test="${not empty loginMember}">
-		<h1>${loginMember.name}님이 프로젝트 어때요?</h1>
+		<h1>${loginMember.name}님이프로젝트 어때요?</h1>
 	</c:if>
 
-
 	<!-- 펀딩하기 -->
-	<div class="kiwonfunding-div">
+	<div class="kiwonfunding-div" id="kiwonfunding">
 		<!-- 펀딩하기 첫번째 img-->
 
 		<div class="kiwonfunding-div-img1">
@@ -249,6 +388,11 @@ function showForI(){
 			<c:forEach items="${list}" varStatus="vs" var="funding">
 				<c:if test="${vs.count==1}">
 					<p class="funding_class-p">${funding.content}</p>
+					<div class="progress">
+						<div class="progress-bar progress-bar-striped" role="progressbar"
+							style="width: 20%" aria-valuenow="10" aria-valuemin="0"
+							aria-valuemax="100"></div>
+					</div>
 					<p class="kiwonfunding-percent">
 						<fmt:formatNumber
 							value="${funding.nowAmount/funding.goalAmount*100}"
@@ -269,6 +413,11 @@ function showForI(){
 			<c:forEach items="${list}" varStatus="vs" var="funding">
 				<c:if test="${vs.count==2}">
 					<p class="funding_class-p">${funding.content}</p>
+					<div class="progress">
+						<div class="progress-bar progress-bar-striped" value=""
+							role="progressbar" style="width: 20%" aria-valuenow="10"
+							aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
 					<p class="kiwonfunding-percent">
 						<fmt:formatNumber
 							value="${funding.nowAmount/funding.goalAmount*100}"
@@ -287,6 +436,11 @@ function showForI(){
 			<c:forEach items="${list}" varStatus="vs" var="funding">
 				<c:if test="${vs.count==3}">
 					<p class="funding_class-p">${funding.content}</p>
+					<div class="progress">
+						<div class="progress-bar progress-bar-striped" value=""
+							role="progressbar" style="width: 20%" aria-valuenow="10"
+							aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
 					<p class="kiwonfunding-percent">
 						<fmt:formatNumber
 							value="${funding.nowAmount/funding.goalAmount*100}"
@@ -296,12 +450,11 @@ function showForI(){
 					</p>
 				</c:if>
 			</c:forEach>
-
 		</div>
 		<!-- 기획전  240 x 134 px -->
 	</div>
 </div>
-<div class="kiwonfunding-1">
+<div class="kiwonfunding-1" id="kiwonfunding-1">
 	<div class="kiwonfunding-div-img4">
 		<!--  오른쪽 아래 -->
 		<a href="${pageContext.request.contextPath }/" class="funding_class4">
@@ -311,6 +464,11 @@ function showForI(){
 		<c:forEach items="${list}" varStatus="vs" var="funding">
 			<c:if test="${vs.count==4}">
 				<p class="funding_class-p1">${funding.content}</p>
+					<div class="progress">
+						<div class="progress-bar progress-bar-striped" value=""
+							role="progressbar" style="width: 20%" aria-valuenow="10"
+							aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
 				<p class="kiwonfunding-percent">
 					<fmt:formatNumber
 						value="${funding.nowAmount/funding.goalAmount*100}"
@@ -330,11 +488,14 @@ function showForI(){
 			src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_08.png"
 			width="240px" height="134px">
 		</a>
-
-
 		<c:forEach items="${list}" varStatus="vs" var="funding">
 			<c:if test="${vs.count==5}">
 				<p class="funding_class-p1">${funding.content}</p>
+					<div class="progress">
+						<div class="progress-bar progress-bar-striped" value=""
+							role="progressbar" style="width: 20%" aria-valuenow="10"
+							aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
 				<p class="kiwonfunding-percent">
 					<fmt:formatNumber
 						value="${funding.nowAmount/funding.goalAmount*100}"
@@ -355,6 +516,11 @@ function showForI(){
 		<c:forEach items="${list}" varStatus="vs" var="funding">
 			<c:if test="${vs.count==6}">
 				<p class="funding_class-p1">${funding.content}</p>
+					<div class="progress">
+						<div class="progress-bar progress-bar-striped" value=""
+							role="progressbar" style="width: 20%" aria-valuenow="10"
+							aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
 				<p class="kiwonfunding-percent">
 					<fmt:formatNumber
 						value="${funding.nowAmount/funding.goalAmount*100}"
@@ -364,8 +530,14 @@ function showForI(){
 				</p>
 			</c:if>
 		</c:forEach>
+		<button type="button" id="button" class="btn btn-light" onclick="Refresh()"
+			style="position: relative; left: 60%; padding: 12px; font-weight: 700;">
+			<ion-icon name="refresh-outline"></ion-icon>
+			새로고침
+		</button>
 	</div>
 </div>
+
 <p class="p-likeProject">
 	회원들이 <span style="color: #00a2a2;">좋아할</span> 프로젝트
 </p>
@@ -374,19 +546,18 @@ function showForI(){
 		<img class="card-img-top"
 			src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_05.png"
 			alt="Card image cap">
-		<div class="card-body">
+		<div class="card-body" id="card-body">
 			<p class="card-text">
-				<c:forEach items="${list}" varStatus="vs" var="funding">
-				<c:if test="${vs.count==5}">
-					<p class="card-text-p">${funding.content}</p>
-							<p class="card-text-p1">
-								<fmt:formatNumber
-									value="${funding.nowAmount/funding.goalAmount*100}"
-									pattern="##.###" />
-								%<span class="card-text-span">
-									${funding.categoryName}</span>
-							</p>
-						</c:if>
+				<c:forEach items="${viewlist}" varStatus="vs" var="funding">
+					<c:if test="${vs.count==1}">
+						<p class="card-text-p">${funding.content}</p>
+						<p class="card-text-p1">
+							<fmt:formatNumber
+								value="${funding.nowAmount/funding.goalAmount*100}"
+								pattern="##.###" />
+							%<span class="card-text-span"> ${funding.categoryName}</span>
+						</p>
+					</c:if>
 				</c:forEach>
 			</p>
 		</div>
@@ -397,17 +568,16 @@ function showForI(){
 			alt="Card image cap">
 		<div class="card-body">
 			<p class="card-text">
-				<c:forEach items="${list}" varStatus="vs" var="funding">
-				<c:if test="${vs.count==2}">
-					<p class="card-text-p">${funding.content}</p>
-							<p class="card-text-p1">
-								<fmt:formatNumber
-									value="${funding.nowAmount/funding.goalAmount*100}"
-									pattern="##.###" />
-								%<span class="card-text-span">
-									${funding.categoryName}</span>
-							</p>
-						</c:if>
+				<c:forEach items="${viewlist}" varStatus="vs" var="funding">
+					<c:if test="${vs.count==2}">
+						<p class="card-text-p">${funding.content}</p>
+						<p class="card-text-p1">
+							<fmt:formatNumber
+								value="${funding.nowAmount/funding.goalAmount*100}"
+								pattern="##.###" />
+							%<span class="card-text-span"> ${funding.categoryName}</span>
+						</p>
+					</c:if>
 				</c:forEach>
 			</p>
 		</div>
@@ -418,17 +588,16 @@ function showForI(){
 			alt="Card image cap">
 		<div class="card-body">
 			<p class="card-text">
-				<c:forEach items="${list}" varStatus="vs" var="funding">
-				<c:if test="${vs.count==3}">
-					<p class="card-text-p">${funding.content}</p>
-							<p class="card-text-p1">
-								<fmt:formatNumber
-									value="${funding.nowAmount/funding.goalAmount*100}"
-									pattern="##.###" />
-								%<span class="card-text-span">
-									${funding.categoryName}</span>
-							</p>
-						</c:if>
+				<c:forEach items="${viewlist}" varStatus="vs" var="funding">
+					<c:if test="${vs.count==3}">
+						<p class="card-text-p">${funding.content}</p>
+						<p class="card-text-p1">
+							<fmt:formatNumber
+								value="${funding.nowAmount/funding.goalAmount*100}"
+								pattern="##.###" />
+							%<span class="card-text-span"> ${funding.categoryName}</span>
+						</p>
+					</c:if>
 				</c:forEach>
 			</p>
 		</div>
@@ -439,17 +608,16 @@ function showForI(){
 			alt="Card image cap">
 		<div class="card-body">
 			<p class="card-text">
-				<c:forEach items="${list}" varStatus="vs" var="funding">
-				<c:if test="${vs.count==4}">
-					<p class="card-text-p">${funding.content}</p>
-							<p class="card-text-p1">
-								<fmt:formatNumber
-									value="${funding.nowAmount/funding.goalAmount*100}"
-									pattern="##.###" />
-								%<span class="card-text-span">
-									${funding.categoryName}</span>
-							</p>
-						</c:if>
+				<c:forEach items="${viewlist}" varStatus="vs" var="funding">
+					<c:if test="${vs.count==4}">
+						<p class="card-text-p">${funding.content}</p>
+						<p class="card-text-p1">
+							<fmt:formatNumber
+								value="${funding.nowAmount/funding.goalAmount*100}"
+								pattern="##.###" />
+							%<span class="card-text-span"> ${funding.categoryName}</span>
+						</p>
+					</c:if>
 				</c:forEach>
 			</p>
 		</div>
@@ -625,8 +793,20 @@ function showForI(){
 		</li>
 	</ul>
 </div>
-<div></div>
-
+<!-- 이미지 배너 부분  -->
+<div class="image-banner">
+	<h1 class="image-banner-h1">이프에서 프로젝트 오픈하기</h1>
+	<span class="image-banner-span">당신의 이야기를 소개하고 투자자와 서포터를 만나보세요</span>
+	<button type="button" class="btn btn-secondary btn-lg"
+		style="position: absolute; left: 40%; top: 60%; padding: 0.9vw; padding-inline: 2vw;"
+		onclick="openProject();">
+		바로가기
+		<ion-icon name="arrow-forward-outline"></ion-icon>
+	</button>
+	<img
+		src="${pageContext.request.contextPath}/resources/images/kiwon_images/index(human).jpg"
+		class="img-fluid" alt="Responsive image" style="height: 318px;">
+</div>
 
 <!-- 얼리버드 Container  end-->
 

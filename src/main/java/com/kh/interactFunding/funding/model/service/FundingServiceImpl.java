@@ -23,7 +23,14 @@ public class FundingServiceImpl implements FundingService{
 	private FundingDao fundingDao;
 	
 	//김윤수
-	
+	@Override
+	public List<Integer> selectMyLikeNoList(int memberNo) {
+		return fundingDao.selectMyLikeNoList(memberNo);
+	}
+	@Override
+	public Funding selectOneFundingKYS(int no) {
+		return fundingDao.selectOneFundingKYS(no);
+	}
 	//김경태
 	
 	//김주연
@@ -131,20 +138,12 @@ public class FundingServiceImpl implements FundingService{
 	
 	
 	//박요한
-	@Override
-	public List<Funding> news(Map<String, Object> param) {
-		return fundingDao.news(param);
-	}
 	
 	@Override
-	public List<Funding> community(Map<String, Object> param) {
-		return fundingDao.community(param);
+	public List<Funding> fundingNews(int funding_no) {
+		return fundingDao.fundingNews(funding_no);
 	}
 	
-	@Override
-	public List<Funding> supporter(Map<String, Object> param) {
-		return fundingDao.supporter(param);
-	}
 	
 	//배기원
 	@Override
@@ -153,41 +152,85 @@ public class FundingServiceImpl implements FundingService{
 	}
 	@Override
 	public List<Funding> indexfundinglike() {
-		// TODO Auto-generated method stub
 		return fundingDao.indexfundinglike();
 	}
 	@Override
+	public List<Funding> indexviewlist() {
+		return fundingDao.indexviewlist();
+	}
+	@Override
 	public int indexTotalContents() {
-		// TODO Auto-generated method stub
 		return fundingDao.indexTotalContents();
 	}
-	
 	@Override
 	public List<Funding> indexEarlyList() {
-		// TODO Auto-generated method stub
 		return fundingDao.indexEarlyList();
+	}
+	@Override
+	public List<Funding> indexlikelist() {
+		return fundingDao.indexlikelist();
+	}
+	@Override
+	public List<Funding> indexfundingRefresh() {
+		return fundingDao.indexfundingRefresh();
 	}
 	//이승우
 	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {
 		return fundingDao.fundingList(map);
 	}
+
+	@Override
+	public int selectFundingListTotalContents(Map<String, Object> map) {
+		return fundingDao.selectFundingListTotalContents(map);
+	}
 	
 	@Override
 	public List<Map<String, String>> selectCategoryList() {
 		return fundingDao.selectCategoryList();
 	}
+	
+	@Override
+	public List<Funding> earlyList(Map<String, Object> map) {
+		return fundingDao.earlyList(map);
+	}
+
 	//천호현
 	@Override
-	public Funding selectOneFunding(int funding_no) {
-		return fundingDao.selectOneFunding(funding_no);
+	public Funding selectOneFunding(int fundingNo) {
+		return fundingDao.selectOneFunding(fundingNo);
 	}
 	@Override
-	public int selectOneFunding2(int funding_no) {
-		return fundingDao.selectOneFunding2(funding_no);
+	public int selectOneFunding2(int fundingNo) {
+		return fundingDao.selectOneFunding2(fundingNo);
 	}
+	@Override
+	public Map<String, Object> likeCheck(Map<String, Object> map) {
+		return fundingDao.likeCheck(map);
+	}
+	@Override
+	public int insertLike(Map<String, Object> map) {
+		return fundingDao.insertLike(map);
+	}
+	@Override
+	public int updateLike(Map<String, Object> map) {
+		return fundingDao.updateLike(map);
+	}
+	@Override
+	public int likeCount(Map<String, Object> map) {
+		return fundingDao.likeCount(map);
+	}
+	@Override
+	public int likeStatusCheck(int memberNo) {
+		return fundingDao.likeStatusCheck(memberNo);
+	}
+	
+	
 
 	
 
+	
+
+	
 	
 }

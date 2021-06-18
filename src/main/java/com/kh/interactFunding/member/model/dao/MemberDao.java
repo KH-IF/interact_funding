@@ -1,9 +1,11 @@
 package com.kh.interactFunding.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
+import com.kh.interactFunding.member.model.vo.Msg;
 
 public interface MemberDao {
 
@@ -20,6 +22,16 @@ public interface MemberDao {
 	int selectCouponRecordCheck(Map<String, Object> map);
 
 	int insertCoupon(Map<String, Object> map);
+
+	List<Msg> selectReceiveMsg(Member loginMember);
+
+	List<Msg> selectSendMsg(Member loginMember);
+
+	Member selectOneMemberUseNo(int toMemberNo);
+
+	int sendMsg(Msg msg);
+
+	int msgReadStatusChg(int no);
 
 	//김윤수
 	

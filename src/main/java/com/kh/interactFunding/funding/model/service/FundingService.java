@@ -13,6 +13,8 @@ import com.kh.interactFunding.member.model.vo.Member;
 public interface FundingService {
 	
 	//김윤수
+	List<Integer> selectMyLikeNoList(int memberNo);
+	Funding selectOneFundingKYS(int no);
 	
 	//김경태
 	
@@ -35,23 +37,32 @@ public interface FundingService {
 	FundingExt loadFunding(String fundingNo);
 	
 	//박요한
-	List<Funding> news(Map<String, Object> param);
-	List<Funding> community(Map<String, Object> param);
-	List<Funding> supporter(Map<String, Object> param);
+	List<Funding> fundingNews(int funding_no);
 	
 	//배기원
 	public List<Funding> indexfundingList();
-	List<Funding> indexEarlyList();
-	int indexTotalContents();
 	public List<Funding> indexfundinglike();
+	List<Funding> indexEarlyList();
+	List<Funding> indexviewlist();
+	List<Funding> indexlikelist();
+	List<Funding> indexfundingRefresh();
+	int indexTotalContents();
+	
+		
 	//이승우
 	public List<Funding> fundingList(Map<String, Object> map);
+	public int selectFundingListTotalContents(Map<String, Object> map);
 	public List<Map<String, String>> selectCategoryList();
-
+	public List<Funding> earlyList(Map<String, Object> map);
 
 	
 	//천호현
-	public Funding selectOneFunding(int funding_no);
-	public int selectOneFunding2(int funding_no);
+	public Funding selectOneFunding(int fundingNo);
+	public int selectOneFunding2(int fundinNo);
+	Map<String, Object> likeCheck(Map<String, Object> map);
+	int insertLike(Map<String, Object> map);
+	int updateLike(Map<String, Object> result);
+	int likeCount(Map<String, Object> map);
+	int likeStatusCheck(int membeNo);
 
 }
