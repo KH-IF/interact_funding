@@ -12,15 +12,15 @@
 <div id="funding_tap">
 	<ol>
 		<li><a
-			href="${pageContext.request.contextPath }/funding/funding_detail">스토리</a>
+			href="${pageContext.request.contextPath }/funding/funding_detail.do?funding_no=${funding.fundingNo}">스토리</a>
 		</li>
-		<li><a href="${pageContext.request.contextPath }/funding/news.do">새소식</a>
-		</li>
-		<li><a
-			href="${pageContext.request.contextPath }/funding/community.do">커뮤니티</a>
+		<li><a href="${pageContext.request.contextPath }/funding/news.do?funding_no=${funding.fundingNo}">새소식</a>
 		</li>
 		<li><a
-			href="${pageContext.request.contextPath }/funding/supporter.do">서포터</a>
+			href="${pageContext.request.contextPath }/funding/community.do?funding_no=${funding.fundingNo}">커뮤니티</a>
+		</li>
+		<li><a
+			href="${pageContext.request.contextPath }/funding/supporter.do?funding_no=${funding.fundingNo}">서포터</a>
 		</li>
 	</ol>
 </div>
@@ -161,7 +161,13 @@
 				<div>
 					<input type="button" value="글 남기기" id="c-write-btn" />
 				</div>
-				<div class="c-write-container">
+				<form 
+					name="cc_write_container" 
+					action="${pageContext.request.contextPath}/funding/communityEnroll.do" 
+					method="post"
+					enctype="multipart/form-data" 
+					onsubmit="return boardValidate();">
+				<div class="c-write-container" id="c_write_container">
 					<div class="c-write-view" id="c-write-view">
 						<div class="c-write-view-a">
 							<a href="">x</a>
@@ -199,8 +205,8 @@
 							</div>
 						</div>
 						<div class="c-write-comment" id="c-write-comment">
-							<textarea class="c-write-comment-textb"
-								id="c-write-comment-textb"> </textarea>
+							<textarea class="c-write-comment-textb" name="content"
+								id="c_write_comment_textb"> </textarea>
 						</div>
 						<div class="comment-red">
 							<small><strong>최근 메이커 또는 제3자에 대한 허위사실 유포, 비방 목적의
@@ -222,7 +228,7 @@
 							</ol>
 						</div>
 						<div class="yh-c-write-view-btn">
-							<input type="button" value="등록" />
+							<input type="submit" value="등록"/>
 						</div>
 					</div>
 					<div class="dim"></div>
@@ -232,35 +238,41 @@
 					<label for="c-chk1"><input type="checkbox" name="c-chk1"
 						id="c-chk1" />&nbsp;체험리뷰</label>
 				</div>
+			</form>
 			</div>
 
 			<!-- 댓글 -->
-			<div class="yh-comment">
+			<form name="yh-cocomment" 
+					action="${pageContext.request.contextPath}/funding/communityEnroll.do" 
+					method="post"
+					enctype="multipart/form-data" 
+					onsubmit="return cocoment();">
+			<div class="yh-comment" id="yh_comment">
+			<c:forEach items="${list}" var="funding">
 				<div>
-					<strong>id</strong> <span>펀딩 참여자</span> <span>응원 · 17시간전</span>
+					<strong>id</strong> <span>펀딩 참여자</span> <span><small>응원 · <fmt:formatDate value="${funding.regDate}" pattern="yy-MM-dd"/></small></span>
 				</div>
 				<div>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-						Fugiat laudantium aperiam totam aut magni voluptas perspiciatis
-						sed ad quam ut molestiae ea eum doloremque blanditiis architecto
-						rem laborum autem quae.</p>
+					<p>${funding.content}</p>
 				</div>
 				<div>
 					<input type="button" value="답글" id="c-comment-btn" />
 				</div>
 				<div class="yh-c-comment" id="yh_c_comment">
-					<textarea class="nv-c-comment" id="nv-c-comment"></textarea>
-					<input type="button" value="등록" id="nv-c-comment-btn" />
+					<textarea class="nv-c-comment" id="nv-c-comment" name="content"></textarea>
+					<input type="submit" value="등록" id="nv-c-comment-btn" />
 				</div>
 				<div class="yh-maker-comment">
 					<div>
-						<strong>id</strong> <span>메이커</span> <span>17시간전</span>
+						<strong>id</strong> <span>메이커</span> <span>시간</span>
 					</div>
 					<div>
-						<p>감사링!</p>
+						<p>ㄴㅇㄹㅇㄹ</p>
 					</div>
 				</div>
+			</c:forEach>
 			</div>
+			</form>
 		</div>
 	</div>
 	<div id="funing_main_right_div">
@@ -523,6 +535,24 @@ function handleClick(event) {
 
   init();
 
+  function boardValidate(){
+		var $content = $("[name=content]");
+		if(/^(.|\n)+$/.test($content.val()) == false){
+			alert("내용을 입력하세요");
+			return false;
+		}
+		return true;
+	}
+	
+  function cocoment(){
+		var $content = $("[name=content]");
+		console.log(content);
+		if(/^(.|\n)+$/.test($content.val()) == false){
+			alert("내용을 입력하세요");
+			return false;
+		}
+		return true;
+	}
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

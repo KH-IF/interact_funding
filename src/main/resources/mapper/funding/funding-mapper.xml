@@ -255,29 +255,52 @@
 	
 	
 	<!-- 박요한 -->
-	<select id="news" resultMap="fundingMap">
-		select
-			*
-		from
-			funding_board
-		where
-			no = #{no}
+	<select id="fundingNews" resultMap="fundingMap">
+		select *
+        from funding F 
+            join funding_board R 
+            on F.funding_no = R.funding_no
+            join member M
+            on F.writer_no = M.member_no
+        where F.funding_no = #{funding_no}
 	</select>
+	
+	
 	<select id="community" resultMap="fundingMap">
-		select
-			*
-		from
-			funding_comment
-		where
-			comment_no = #{comment_no}
+		select *
+        from funding_comment
+        where comment_no = #{commet_no}
 	</select>
+	
+	
 	<select id="supporter" resultMap="fundingMap">
-		select
-			*
-		from
-			funding_participation
-		where
-			no = #{no}
+		select *
+        from funding F 
+            join funding_participation R 
+            on F.funding_no = R.funding_no
+            join member M
+            on F.writer_no = M.member_no
+        where F.funding_no = #{funding_no}
+	</select>
+	<insert id="insertComment">
+		insert into
+			funding_comment(
+				comment_no,
+				content
+			)
+		values(
+			seq_funding_comment_no.nextval,
+			#{content}
+		)
+	</insert>
+	<select id="newsView" resultMap="fundingMap">
+		select *
+        from funding F 
+            join funding_board R 
+            on F.funding_no = R.funding_no
+            join member M
+            on F.writer_no = M.member_no
+        where F.funding_no = #{funding_no}
 	</select>
 	<!-- 배기원 -->
 		<select id="indexfundingList" resultMap="fundingMap">

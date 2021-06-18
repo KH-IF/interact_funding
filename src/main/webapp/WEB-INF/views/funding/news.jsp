@@ -8,19 +8,27 @@
 </jsp:include>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/news.css" />
+	${loginMember.memberNo}
+	${News[0].writerNo}
+	
+	
+	
+	
+	
+	
 
 <div id="funding_tap">
 	<ol>
 		<li><a
-			href="${pageContext.request.contextPath }/funding/funding_detail">스토리</a>
+			href="${pageContext.request.contextPath }/funding/funding_detail.do?funding_no=${funding.fundingNo}">스토리</a>
 		</li>
-		<li><a href="${pageContext.request.contextPath }/funding/news.do">새소식</a>
-		</li>
-		<li><a
-			href="${pageContext.request.contextPath }/funding/community.do">커뮤니티</a>
+		<li><a href="${pageContext.request.contextPath }/funding/news.do?funding_no=${funding.fundingNo}">새소식</a>
 		</li>
 		<li><a
-			href="${pageContext.request.contextPath }/funding/supporter.do">서포터</a>
+			href="${pageContext.request.contextPath }/funding/community.do?funding_no=${funding.fundingNo}">커뮤니티</a>
+		</li>
+		<li><a
+			href="${pageContext.request.contextPath }/funding/supporter.do?funding_no=${funding.fundingNo}">서포터</a>
 		</li>
 	</ol>
 </div>
@@ -30,18 +38,22 @@
 		<div class="yh-view">
 			<h2>새소식</h2>
 		</div>
+		<c:if test="${loginMember.memberNo == News[0].writerNo}">
+			<input type="button" value="글쓰기" />
+		</c:if>
+		
 		<div class="yh-containertable">
 			<table class="yh-table">
-				<tr>
-					<td><a
-						href="${pageContext.request.contextPath }/funding/newsView.do">
-							<div>
-								<p>이벤트</p>
-								<p>제목</p>
-								<p>날짜 | 댓글</p>
-							</div>
-					</a></td>
-				</tr>
+				<c:forEach items="${News}" var="news">
+					<tr>
+						<td><a
+							href="${pageContext.request.contextPath }/funding/newsView.do?funding_no=${news.fundingNo}">
+									<p><small>이벤트</small></p>
+									<p>${news.title}</p>
+									<p><small>${news.regDate}</small></p>
+						</a></td>
+					</tr>
+				</c:forEach>
 			</table>
 		</div>
 	</div>

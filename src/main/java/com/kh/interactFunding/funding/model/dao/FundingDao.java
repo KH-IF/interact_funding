@@ -36,9 +36,8 @@ public interface FundingDao {
 	int deleteFunding(String fundingNo);
 	
 	//박요한
-	List<Funding> news(Map<String, Object> param);
-	List<Funding> community(Map<String, Object> param);
-	List<Funding> supporter(Map<String, Object> param);
+	
+	List<Funding> fundingNews(int funding_no);
 	
 	//배기원
 	public List<Funding> indexfundingList();
@@ -58,6 +57,8 @@ public interface FundingDao {
 	//천호현
 	public Funding selectOneFunding(int funding_no);
 	public int selectOneFunding2(int funding_no);
+	
+	
 
 	
 

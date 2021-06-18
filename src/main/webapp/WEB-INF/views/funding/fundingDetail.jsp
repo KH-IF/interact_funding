@@ -37,7 +37,7 @@
                     <a href="${pageContext.request.contextPath }/funding/fundingDetail">스토리</a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath }/funding/news.do">새소식</a>
+                    <a href="${pageContext.request.contextPath }/funding/news.do?funding_no=${funding.fundingNo}">새소식</a>
                 </li>
                 <li>
                     <a href="${pageContext.request.contextPath }/funding/community.do">커뮤니티</a>

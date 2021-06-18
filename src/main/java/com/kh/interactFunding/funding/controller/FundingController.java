@@ -53,6 +53,7 @@ import com.kh.interactFunding.common.util.HelloSpringUtils;
 import com.kh.interactFunding.common.util.PageBarUtils;
 import com.kh.interactFunding.funding.model.service.FundingService;
 import com.kh.interactFunding.funding.model.vo.Attachment;
+import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.funding.model.vo.Reward;
@@ -540,76 +541,33 @@ public class FundingController {
 	
 	//박요한 push
 	@GetMapping("/news.do")
-	public void news(@RequestParam(value="no", defaultValue="1") int no, Model model) {
-		try {
-			log.debug("no = {}", no);
-			Map<String, Object> param = new HashMap<>();
-			param.put("no", no);
-			//1.업무로직
-			List<Funding> list = fundingService.news(param);
-			
-			//2.jsp위임
-			model.addAttribute("list", list);
-			
-		} catch (Exception e) {
-			log.error("새소식 조회 오류!", e);
-			throw e;
-		}
-		
+	public void news(@RequestParam int funding_no, Model model) {
+		log.debug("funding_no = {}" , funding_no);
+		//업무로직
+		List<Funding> News = fundingService.fundingNews(funding_no);
+		log.debug("News = {}" , News);
+		model.addAttribute("News", News);
 	}
 	
 	@GetMapping("newsView.do")
-	public void newsView(@RequestParam(value="no", defaultValue="1") int no, Model model) {
-		try {
-			log.debug("no = {}", no);
-			Map<String, Object> param = new HashMap<>();
-			param.put("no", no);
-			//1.업무로직
-			List<Funding> list = fundingService.news(param);
-			
-			//2.jsp위임
-			model.addAttribute("list", list);
-			
-		} catch (Exception e) {
-			log.error("새소식 조회 오류!", e);
-			throw e;
-		}
+	public void newsView() {
+		
 	}
 	
 	@GetMapping("/community.do")
-	public void community(@RequestParam(value="no", defaultValue="1") int comment_no, Model model) {
-		try {
-			log.debug("comment_no = {}", comment_no);
-			Map<String, Object> param = new HashMap<>();
-			param.put("comment_no", comment_no);
-			//1.업무로직
-			List<Funding> list = fundingService.community(param);
-			
-			//2.jsp위임
-			model.addAttribute("list", list);
-			
-		} catch (Exception e) {
-			log.error("새소식 조회 오류!", e);
-			throw e;
-		}
+	public void community() {
+		
+	}
+	
+	@PostMapping("/communityEnroll.do")
+	public String communityEnroll() { 
+		
+		return "";
 	}
 	
 	@GetMapping("/supporter.do")
-	public void supporter(@RequestParam(value="no", defaultValue="1") int no, Model model) {
-		try {
-			log.debug("no = {}", no);
-			Map<String, Object> param = new HashMap<>();
-			param.put("no", no);
-			//1.업무로직
-			List<Funding> list = fundingService.supporter(param);
-			
-			//2.jsp위임
-			model.addAttribute("list", list);
-			
-		} catch (Exception e) {
-			log.error("새소식 조회 오류!", e);
-			throw e;
-		}
+	public void supporter() {
+		
 	}
 	
 	/**
