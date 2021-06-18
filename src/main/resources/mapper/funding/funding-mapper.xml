@@ -4,6 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="funding">
 	<!-- 김윤수 -->
+	<select id="selectMyLikeNoList" resultType="_int">
+		select funding_no
+		from like_record
+		where member_no = #{memberNo} and status='Y'
+		order by no desc
+	</select>
+	
+	<select id="selectOneFundingKYS" resultMap="fundingVoMap">
+		select * 
+		from funding
+		where funding_no = #{no}
+	</select>
+	<resultMap type="funding" id="fundingVoMap">
+		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
+	</resultMap>
+	
 	<!-- 김경태 -->
 	<!-- 김주연 -->
 	<select id="statusYList" resultMap="fundingCollectionMap">

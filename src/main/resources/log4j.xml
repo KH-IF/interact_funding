@@ -31,11 +31,11 @@
     <!-- additivity : 부모logger전파여부 기본값 true -->
 	<!-- Query Loggers  -->
 	<logger name="jdbc.sqlonly" additivity="false">
-		<level value="INFO" />
+		<level value="debug" />
 		<appender-ref ref="sqlLogger"/>
 	</logger>
 	<logger name="jdbc.resultsettable" additivity="false">
-		<level value="INFO" />
+		<level value="debug" />
 		<appender-ref ref="sqlLogger"/>
 	</logger>
 	<!-- 

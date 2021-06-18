@@ -1,5 +1,6 @@
 package com.kh.interactFunding.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
+import com.kh.interactFunding.member.model.vo.Msg;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -54,6 +56,31 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int insertCoupon(Map<String, Object> map) {
 		return session.insert("member.insertCoupon",map);
+	}
+
+	@Override
+	public List<Msg> selectReceiveMsg(Member loginMember) {
+		return session.selectList("member.selectReceiveMsg", loginMember);
+	}
+
+	@Override
+	public List<Msg> selectSendMsg(Member loginMember) {
+		return session.selectList("member.selectSendMsg", loginMember);
+	}
+
+	@Override
+	public Member selectOneMemberUseNo(int toMemberNo) {
+		return session.selectOne("member.selectOneMemberUseNo",toMemberNo);
+	}
+
+	@Override
+	public int sendMsg(Msg msg) {
+		return session.insert("member.sendMsg",msg);
+	}
+
+	@Override
+	public int msgReadStatusChg(int no) {
+		return session.update("member.msgReadStatusChg",no);
 	}
 	
 	

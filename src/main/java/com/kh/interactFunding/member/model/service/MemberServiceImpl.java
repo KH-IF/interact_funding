@@ -1,5 +1,6 @@
 package com.kh.interactFunding.member.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.interactFunding.member.model.dao.MemberDao;
 import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
+import com.kh.interactFunding.member.model.vo.Msg;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -52,6 +54,32 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.insertCoupon(map);
 	}
 
+	@Override
+	public List<Msg> selectReceiveMsg(Member loginMember) {
+		return memberDao.selectReceiveMsg(loginMember);
+	}
+
+	@Override
+	public List<Msg> selectSendMsg(Member loginMember) {
+		return memberDao.selectSendMsg(loginMember);
+	}
+
+	@Override
+	public Member selectOneMemberUseNo(int toMemberNo) {
+		return memberDao.selectOneMemberUseNo(toMemberNo);
+	}
+
+	@Override
+	public int sendMsg(Msg msg) {
+		return memberDao.sendMsg(msg);
+	}
+
+	@Override
+	public int msgReadStatusChg(int no) {
+		return memberDao.msgReadStatusChg(no);
+	}
+
+	
 	
 	// 김경태
 

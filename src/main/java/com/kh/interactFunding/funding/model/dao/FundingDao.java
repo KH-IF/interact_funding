@@ -14,6 +14,8 @@ import com.kh.interactFunding.member.model.vo.Member;
 public interface FundingDao {
 
 	//김윤수
+	List<Integer> selectMyLikeNoList(int memberNo);
+	Funding selectOneFundingKYS(int no);
 	
 	//김경태
 	

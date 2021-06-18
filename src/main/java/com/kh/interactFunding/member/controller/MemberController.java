@@ -4,7 +4,9 @@ package com.kh.interactFunding.member.controller;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -37,35 +39,40 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.interactFunding.funding.model.service.FundingService;
+import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.member.model.service.MemberService;
 import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
+import com.kh.interactFunding.member.model.vo.Msg;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
 @RequestMapping("/member")
-@SessionAttributes({"loginMember","next"})
+@SessionAttributes({"loginMember","next","receive","send"})
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private FundingService fundingService;
 	
 	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
 	final String username = "interact.funding";
 	final String password = "if1234!!!";
 	//김윤수
-	
 	@GetMapping("/login")
 	public void login(@SessionAttribute(required = false) String next , @RequestHeader (name = "Referer", required = false) String referer, Model model) {
 		log.info("referer@login = {}", referer);
 		log.debug("next@login = {}",next);
 		//나중에 스프링 시큐리티 사용할때 수정바람, 로그인시 로그인 페이지 못들어오게끔
-//		if(referer != null && next==null) {
+		if(referer != null && next==null) {
 			model.addAttribute("next", referer);
 			log.debug("next 세션값 생성");
-//		}
+		}
 	}
 	
 	@PostMapping("/login_if")
@@ -144,12 +151,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/memberDetails")
-	public void memberDetails() {
-		
-	}
-	
-	
 	@GetMapping("enrollAuthenticationCode")
 	public void enrollAuthenticationCode(@RequestParam String email, HttpServletResponse response) throws IOException {
 		log.debug("email = {}",email);
@@ -225,6 +226,27 @@ public class MemberController {
 		return mbp;
 	}
 	
+	
+	//마이페이지
+	@GetMapping("/memberDetails")
+	public void memberDetails(@SessionAttribute(required = false) Member loginMember, Model model) {
+		//임시코드 추후 접근권한 업그레이시 삭제할 코드
+		if(loginMember==null) return;
+		
+		//최근 내가 누른 좋아요 페이지 최대5개 번호 가져오기
+		List<Integer> noList = fundingService.selectMyLikeNoList(loginMember.getMemberNo());
+		log.debug("내가 좋아요 누른 리스트 : {}",noList);
+		
+		//해당하는 펀딩 리스트 가져오기
+		List<Funding> list = new ArrayList<>();
+		for(int x : noList) {
+			list.add(fundingService.selectOneFundingKYS(x));
+		}
+		log.debug("내가 좋아하는 펀딩리스트 = {}",list);
+		model.addAttribute(list);
+		
+	}
+	
 	//마이페이지 포인트충전
 	@ResponseBody
 	@PostMapping("addPoint")
@@ -283,6 +305,45 @@ public class MemberController {
 		//현재 로그인 중인 세션에 포인트 추가도 해줌~(다시불러오기 귀찮)
 		loginMember.setPoint(loginMember.getPoint()+c.getPoint());
 		model.addAttribute("loginMember", loginMember);
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("sendMsg")
+	public Map<String, Object> sendMsg(Msg msg) {
+		Map<String, Object> map = new HashMap<>();
+		log.debug("msg = {}",msg);
+		//전송하는 대상이 유효한지 확인
+		Member toMember = memberService.selectOneMemberUseNo(msg.getToMemberNo());
+		log.debug("toMember={}",toMember);
+		if(toMember==null) {
+			map.put("status", false);
+			map.put("msgg", "대상이 존재하지 않습니다");
+			return map;
+		}
+		//받는사람 이름 표시
+		msg.setToMemberName(toMember.getName());
+		//메시지 전송하기
+		int result = memberService.sendMsg(msg);
+		log.debug("성공여부={}",Boolean.parseBoolean(String.valueOf(result)));
+		map.put("status", true);
+		map.put("msgg", "쪽지를 전송했습니다");
+		return map;
+		
+	}
+	
+	@ResponseBody
+	@PostMapping("msgReadStatusChg")
+	public Map<String, Object> msgReadStatusChg(@RequestParam int no) {
+		Map<String, Object> map = new HashMap<>();
+		log.debug("no@controller= {}",no);
+		//읽음표시 진행
+		int result = memberService.msgReadStatusChg(no);
+		if(result==0) {
+			map.put("status", false);
+			return map;
+		}
+		map.put("status", true);
 		return map;
 	}
 	

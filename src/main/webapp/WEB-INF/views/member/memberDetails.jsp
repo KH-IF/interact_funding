@@ -11,7 +11,6 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/memberEnroll.css" />
-
 	<div id="detailsContainer">
 		<div id="detailsLeft">
 			<div id="imgbox">
@@ -40,8 +39,8 @@
 					<h5><fmt:formatNumber value="${loginMember.point!=null ? loginMember.point : 0}" pattern="#,##0"/></h5>
 				</div>
 				<h4 id="chgBox1" onclick="change1();">포인트 충전</h4>
-				<div id="chgBox2">
-					<input type="number" id="input_payment" value="" placeholder="최소금액 100원"/>
+				<div id="chgBox2" class="hide">
+					<input type="number" id="input_payment" value="" step="1000" placeholder="최소금액 100원"/>
 					<input type="button" class="btn btn-info" value="충전" onclick="pay();"/>
 					<input type="button" class="btn btn-dark" value="취소" onclick="change2();"/>
 				</div>
@@ -50,12 +49,18 @@
 			<hr />
 			<!-- 메시지, 쿠폰 영역 -->
 			<div id="middleBox">
-				<div id="mail">
+				<!-- <div id="mail" class="dropdown-toggle" data-toggle="modal" data-target="#modalMessage"> -->
+				<div id="mail" class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
 					  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
 					</svg><span>메시지</span>
 				</div>
-				<div id="coupon" data-toggle="modal" data-target="#modalCoupon">
+				<div class="dropdown-menu" aria-labelledby="mail">
+				  <div class="dropdown-item" data-toggle="modal" data-target="#modalReceive">받은 쪽지함</div>
+				  <div class="dropdown-item" data-toggle="modal" data-target="#modalSend">보낸 쪽지함</div>
+				</div>
+				
+				<div id="coupon" class="dropdown-toggle" data-toggle="modal" data-target="#modalCoupon">
 					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
 					  <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
 					  <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
@@ -67,7 +72,6 @@
 				<hr />
 		</div>
 	</div>
-	
 	
 	<!-- Coupon Modal -->
 	<div class="modal fade" id="modalCoupon" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -83,111 +87,112 @@
 	        <input id="couponText" type="text" class="form-control" placeholder="쿠폰을 입력해주세요" aria-label="Username" aria-describedby="basic-addon1">
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 	        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="inputCoupon();">입력</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 	
 	<script>
-		$('#myModal').on('shown.bs.modal', function () {
-			  $('#myInput').trigger('focus')
-		});
+	//로그아웃 함수
+	function logout(){
+		location.href='${pageContext.request.contextPath}/member/logout';
+	}
 
-		function inputCoupon(){
-			var couponText = $("#couponText").val();
-			$("#couponText").val("");
-
-			//쿠폰입력을 작업 진행 백엔드 ajax
-			$.ajax({
-				url: "${pageContext.request.contextPath}/member/inputCoupon",
-				method:"post",
-				data:{
-					memberNo:${loginMember.memberNo},
-					couponText:couponText,
-				},
-				success:(data)=>{
-					console.log(data);
-					const {status, msg, now} = data;
-					if(status==false){
-						swal("사용불가", msg, "error");
-						return;
-					}
-					swal("사용완료", msg, "success").then(function(){
-						location.href="${pageContext.request.contextPath}/member/memberDetails";
-					});
-				},
-				error: console.log
-		    });
-		}
-		
+	//change1, change2 포인트 충전 눌렀을대 서로 교체됨
+	function change1(){
+		$("#chgBox1").hide();
+		$("#chgBox2").show();
+	}
+	function change2(){
 		$("#chgBox2").hide();
-		function change1(){
-			$("#chgBox1").hide();
-			$("#chgBox2").show();
-		}
-		function change2(){
-			$("#chgBox2").hide();
-			$("#chgBox1").show();
-			$("#input_payment").val("");
-		}
+		$("#chgBox1").show();
+		$("#input_payment").val("");
+	}
 	
-		function logout(){
-			location.href='${pageContext.request.contextPath}/member/logout';
+	//포인트 결제하기 눌렀을때 결제 연결하는 함수
+	function pay(){
+		const cash = $("#input_payment").val();
+		if(cash==0){
+			swal("최소금액", "최소 결제금액은 100원입니다", "info");
+			return;
 		}
+		//아임포트 결제 라이브러리(김윤수가맹점번호)
+		IMP.init("imp24074705");
+		// IMP.request_pay(param, callback) 호출
+		IMP.request_pay({
+		   pg : 'inicis', // 결제방식
+		   pay_method : 'card',    // 결제 수단
+		   merchant_uid : 'merchant_' + new Date().getTime(),
+		   name : '주문명: 포인트충전',    // order 테이블에 들어갈 주문명 혹은 주문 번호
+		   amount : cash,    // 결제 금액
+		   buyer_email : '${loginMember.email}',    // 구매자 email
+		   buyer_name :  '${loginMember.name}',    // 구매자 이름
+		   buyer_tel :  '${loginMember.phone}',    // 구매자 전화번호
+		   m_redirect_url : '${pageContext.request.contextPath}/member/memberDetails'    // 결제 완료 후 보낼 컨트롤러의 메소드명
+		}, function(rsp) {
+		    if ( rsp.success ) { // 성공시
+			    console.log(rsp);
+		        var msg = '결제가 완료되었습니다.';
+		        msg += '고유ID : ' + rsp.imp_uid;
+		        msg += '상점 거래ID : ' + rsp.merchant_uid;
+		        msg += '결제 금액 : ' + rsp.paid_amount;
+		        msg += '카드 승인번호 : ' + rsp.apply_num;
+		        $.ajax({
+					url: "${pageContext.request.contextPath}/member/addPoint",
+					method:"post",
+					data:{
+						memberNo:${loginMember.memberNo},
+						point:cash,
+						memo:"포인트 충전",
+					},
+					success:(data)=>{
+						var {msgg} = data;
+						swal("결제완료",msgg, "success").then(function(){
+							location.href="${pageContext.request.contextPath}/member/memberDetails";
+						});
+					},
+					error: console.log
+			    });
+		        change2();
+		    } else { // 실패시
+		        var msg = '결제에 실패하였습니다.';
+		        msg += '에러내용 : ' + rsp.error_msg;
+		        swal("결제실패",msg,"error");
+		    }
+		});
+	}
 
-		function pay(){
-			const cash = $("#input_payment").val();
-			if(cash==0){
-				swal("최소금액", "최소 결제금액은 100원입니다", "info");
-				return;
-			}
-			//아임포트 결제 라이브러리(김윤수가맹점번호)
-			IMP.init("imp24074705");
-			// IMP.request_pay(param, callback) 호출
-			IMP.request_pay({
-			   pg : 'inicis', // 결제방식
-			   pay_method : 'card',    // 결제 수단
-			   merchant_uid : 'merchant_' + new Date().getTime(),
-			   name : '주문명: 포인트충전',    // order 테이블에 들어갈 주문명 혹은 주문 번호
-			   amount : cash,    // 결제 금액
-			   buyer_email : '${loginMember.email}',    // 구매자 email
-			   buyer_name :  '${loginMember.name}',    // 구매자 이름
-			   buyer_tel :  '${loginMember.phone}',    // 구매자 전화번호
-			   m_redirect_url : '${pageContext.request.contextPath}/member/memberDetails'    // 결제 완료 후 보낼 컨트롤러의 메소드명
-			}, function(rsp) {
-			    if ( rsp.success ) { // 성공시
-				    console.log(rsp);
-			        var msg = '결제가 완료되었습니다.';
-			        msg += '고유ID : ' + rsp.imp_uid;
-			        msg += '상점 거래ID : ' + rsp.merchant_uid;
-			        msg += '결제 금액 : ' + rsp.paid_amount;
-			        msg += '카드 승인번호 : ' + rsp.apply_num;
-			        $.ajax({
-						url: "${pageContext.request.contextPath}/member/addPoint",
-						method:"post",
-						data:{
-							memberNo:${loginMember.memberNo},
-							point:cash,
-							memo:"포인트 충전",
-						},
-						success:(data)=>{
-							var {msgg} = data;
-							swal("결제완료",msgg, "success").then(function(){
-								location.href="${pageContext.request.contextPath}/member/memberDetails";
-							});
-						},
-						error: console.log
-				    });
-			        change2();
-			    } else { // 실패시
-			        var msg = '결제에 실패하였습니다.';
-			        msg += '에러내용 : ' + rsp.error_msg;
-			        swal("결제실패",msg,"error");
-			    }
-			});
-		}
+	//쿠폰입력작업하는 함수
+	function inputCoupon(){
+		var couponText = $("#couponText").val();
+		$("#couponText").val("");
+
+		//쿠폰입력을 작업 진행 백엔드 ajax
+		$.ajax({
+			url: "${pageContext.request.contextPath}/member/inputCoupon",
+			method:"post",
+			data:{
+				memberNo:${loginMember.memberNo},
+				couponText:couponText,
+			},
+			success:(data)=>{
+				console.log(data);
+				const {status, msg, now} = data;
+				if(status==false){
+					swal("사용불가", msg, "error");
+					return;
+				}
+				swal("사용완료", msg, "success").then(function(){
+					location.href="${pageContext.request.contextPath}/member/memberDetails";
+				});
+			},
+			error: console.log
+	    });
+	}
+
+	
 	</script>
 	
 	<style>

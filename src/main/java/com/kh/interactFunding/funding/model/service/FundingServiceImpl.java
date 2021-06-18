@@ -23,7 +23,14 @@ public class FundingServiceImpl implements FundingService{
 	private FundingDao fundingDao;
 	
 	//김윤수
-	
+	@Override
+	public List<Integer> selectMyLikeNoList(int memberNo) {
+		return fundingDao.selectMyLikeNoList(memberNo);
+	}
+	@Override
+	public Funding selectOneFundingKYS(int no) {
+		return fundingDao.selectOneFundingKYS(no);
+	}
 	//김경태
 	
 	//김주연
