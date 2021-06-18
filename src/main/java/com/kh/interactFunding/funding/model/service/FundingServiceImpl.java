@@ -181,13 +181,35 @@ public class FundingServiceImpl implements FundingService{
 
 	//천호현
 	@Override
-	public Funding selectOneFunding(int funding_no) {
-		return fundingDao.selectOneFunding(funding_no);
+	public Funding selectOneFunding(int fundingNo) {
+		return fundingDao.selectOneFunding(fundingNo);
 	}
 	@Override
-	public int selectOneFunding2(int funding_no) {
-		return fundingDao.selectOneFunding2(funding_no);
+	public int selectOneFunding2(int fundingNo) {
+		return fundingDao.selectOneFunding2(fundingNo);
 	}
+	@Override
+	public Map<String, Object> likeCheck(Map<String, Object> map) {
+		return fundingDao.likeCheck(map);
+	}
+	@Override
+	public int insertLike(Map<String, Object> map) {
+		return fundingDao.insertLike(map);
+	}
+	@Override
+	public int updateLike(Map<String, Object> map) {
+		return fundingDao.updateLike(map);
+	}
+	@Override
+	public int likeCount(Map<String, Object> map) {
+		return fundingDao.likeCount(map);
+	}
+	@Override
+	public int likeStatusCheck(int memberNo) {
+		return fundingDao.likeStatusCheck(memberNo);
+	}
+	
+	
 
 	
 

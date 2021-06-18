@@ -49,6 +49,8 @@ drop sequence seq_message_no;
 drop sequence seq_point_no;
 drop sequence seq_member_no;
 
+
+drop trigger trig_like_update;
 drop trigger trig_like;
 drop trigger trig_funding_participation;
 drop trigger trig_point;
@@ -289,6 +291,28 @@ begin
     update funding
     set like_count = like_count+1
     where funding_no = :new.funding_no;
+end;
+/
+
+
+--funding 좋아요 업데이트 관리 테이블 시퀀스
+create or replace trigger trig_like_update
+    after
+    update on like_record
+    for each row
+begin
+    --N으로 바뀔때
+    if:new.status = 'N' then
+        update funding
+        set like_count = like_count-1
+        where funding_no = :new.funding_no;
+     --Y로 바뀔때
+    else
+        update funding
+        set like_count = like_count+1
+        where funding_no = :new.funding_no;
+        
+     end if;
 end;
 /
 
@@ -791,6 +815,24 @@ desc message;
 select count(*)
 from funding_participation;
 
+select *
+from funding;
+
+update like_record
+	    <set>
+	        <if test="status == 'Y'">status='N',</if>
+	        <if test="status == 'N'">status='Y',</if>
+    	</set>
+    	where member_no = #{member_no}
+
+select  *
+from member M
+        join like_record L
+        on M.member_no = L.member_no
+where M.member_no = 21;
+
+
+update
 
 select F.FUNDING_NO,
         F.TITLE,
@@ -812,6 +854,11 @@ select count(*) count
 from funding_participation
 where funding_no = 99;
 
+    	
+update like_record
+set status = 'Y'
+where member_no = 21;
+
 select *
 from funding F 
     join funding_reward R 
@@ -821,6 +868,53 @@ from funding F
     join member M
     on F.writer_no = M.member_no
 where F.funding_no = 99;
+
+select count(*)
+    	from like_record
+    	where member_no = 21 and funding_no = 99;
+        
+delete like_record;
+
+select count(*)
+from like_record
+where funding_no = 99;
+
+
+select * 
+from like_record;
+
+select *
+from funding
+where funding_no = 99;
+
+UPDATE funding  
+SET like_count = 0 
+WHERE funding_no = 99;
+
+select *
+from member;
+
+
+select count(*)
+from like_record
+where member_no = 21 and status = 'Y';
+
+select count(*)
+from like_record
+where funding_no = 99 and status = 'Y';
+
+select *
+from funding F
+    join funding_board R
+    on F.funding_no = R.funding_no
+where F.funding_no = 99;
+
+insert into funding_board values(1,99, '박요한테스트', 21, '내용입니다', default, 0 );
+insert into funding_board values(2,99, '천호현테스트', 21, '내용22', default, 0 );
+
+select * from funding_board;
+
+
 -----------------------
 select * from tab;
 

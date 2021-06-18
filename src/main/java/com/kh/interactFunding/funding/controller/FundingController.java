@@ -683,9 +683,9 @@ public class FundingController {
 	//천호현
 	
 	@GetMapping("/fundingDetail") 
-	public void fundingDetail(@RequestParam int	funding_no, Model model) { //1. 업무로직 
-		Funding funding = fundingService.selectOneFunding(funding_no);
-		int funding2 = fundingService.selectOneFunding2(funding_no);//funding_participation
+	public void fundingDetail(@RequestParam int	fundingNo, Model model) { //1. 업무로직 
+		Funding funding = fundingService.selectOneFunding(fundingNo);
+		int funding2 = fundingService.selectOneFunding2(fundingNo);//funding_participation
 		log.debug("funding = {}" , funding); 
 		log.debug("funding2 = {}" , funding2); 
 		//2. 위임 
@@ -695,8 +695,8 @@ public class FundingController {
 
 	
 	@GetMapping("/fundingReward")
-	public void fundingReward(@RequestParam int	funding_no, Model model) {
-		Funding funding = fundingService.selectOneFunding(funding_no);
+	public void fundingReward(@RequestParam int	fundingNo, Model model) {
+		Funding funding = fundingService.selectOneFunding(fundingNo);
 		log.debug("funding = {}" , funding); 
 		//2. 위임 
 		model.addAttribute("funding", funding);
@@ -712,9 +712,66 @@ public class FundingController {
 	public void fundingFindAddress() {
 	}
 	
-	@GetMapping("/loginMembberClickLike")
-	public void loginMembberClickLike() {
-		//Member memeber = fundingService.selectLoginMember();
+	@ResponseBody
+	@PostMapping("/loginMemberClickLike")
+	public Map<String, Object> loginMemberClickLike(@RequestParam int memberNo, @RequestParam int fundingNo) {
+		
+		//0. 값 처리
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberNo", memberNo);
+		map.put("fundingNo", fundingNo);
+		
+		//ajax like숫자 실시간조회 + 리턴할 결과값 (likeCount + fillHeart.png 등등)
+		Map<String, Object> returnResult = new HashMap<>();
+		
+		
+		//1. 요청한 사용자가 좋아요를 누른 적이 있는지 확인
+		Map<String, Object> result  = fundingService.likeCheck(map);
+		log.debug("result@map = {}",result);
+		
+		//2.1 좋아요 누른적이 없음 -> like테이블에 status Y로 insert   (fillHeart.png)
+		if(result==null || result.size()==0) {
+			//인설트
+			fundingService.insertLike(map); //funding_no, member_no
+			int likeCount = fundingService.likeCount(map);
+			returnResult.put("likeCount", likeCount);
+			returnResult.put("heart", "on");
+			return returnResult;
+			
+		}
+
+		//둘다 뒤집어서 업데이트 해야되서 위로 뺌
+		result.put("status", !(Boolean)result.get("status"));
+		
+		//2.2 좋아요 누른적이 있음, 현재 status = Y -> status = N  (좋아요 취소)     (emptyHeart.png)
+		//2.3 좋아요 누른적이 있음, 현재 status = N -> status = Y (다시 좋아요)   (fillHeart.png)
+		//업데이트
+		fundingService.updateLike(result);
+		
+		//성공
+		if((Boolean) result.get("status")) {
+			int likeCount = fundingService.likeCount(map);
+			returnResult.put("likeCount", likeCount);
+			returnResult.put("heart", "on");
+			return returnResult;
+		}
+		//실패
+		int likeCount = fundingService.likeCount(map);
+		returnResult.put("heart", "off");
+		returnResult.put("likeCount", likeCount);
+		return returnResult;
+	}
+	
+	//좋아요 클릭여부확인
+	@ResponseBody
+	@GetMapping("/likeStatusCheck")
+	public int likeStatusCheck(@RequestParam int memberNo) {
+		log.debug("memberNo@@ = {}", memberNo);
+		int result = fundingService.likeStatusCheck(memberNo);
+		log.debug("result@@ = {}", result);
+		
+		return result;
+		
 	}
 	
 	
