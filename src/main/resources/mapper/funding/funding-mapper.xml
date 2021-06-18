@@ -16,6 +16,13 @@
 		from funding
 		where funding_no = #{no}
 	</select>
+	
+	<select id="selectOneAttach" resultType="attachment">
+		select * 
+		from attachment
+		where funding_no = #{no}
+	</select>
+	
 	<resultMap type="funding" id="fundingVoMap">
 		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
 	</resultMap>

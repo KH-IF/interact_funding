@@ -29,7 +29,9 @@ public class FundingServiceImpl implements FundingService{
 	}
 	@Override
 	public Funding selectOneFundingKYS(int no) {
-		return fundingDao.selectOneFundingKYS(no);
+		Funding funding = fundingDao.selectOneFundingKYS(no);
+		funding.setAttachment(fundingDao.selectOneAttach(no));
+		return funding;
 	}
 	//김경태
 	
@@ -58,22 +60,23 @@ public class FundingServiceImpl implements FundingService{
 		// TODO Auto-generated method stub
 		return fundingDao.saveCharge(param);
 	}
+	
+	
 	@Override
-	public int saveBasicInfo(FundingExt funding) {
-		int result = 0;
-		result = fundingDao.saveBasicInfo(funding);
-		log.debug("funding = {}",funding);
-		
-		//attachment 등록
-		if(funding.getAttachList().size() > 0) {
-			for(Attachment attach: funding.getAttachList()) {
-				attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
-				result = insertAttachment(attach);
-				log.debug("attach={}",attach);
-			}
-		}	
-		return result;
-	}
+    public int saveBasicInfo(FundingExt funding) {
+        int result = 0;
+        result = fundingDao.saveBasicInfo(funding);
+        log.debug("funding = {}",funding);
+        
+        //attachment 등록
+        if(funding.getAttachment() != null) {
+            Attachment attach = new Attachment();
+            attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
+            result = insertAttachment(attach);
+            log.debug("attach={}",attach);
+        }
+        return result;
+    }
 	@Override
 	public int insertAttachment(Attachment attach) {
 		return fundingDao.insertAttachment(attach);
@@ -139,6 +142,23 @@ public class FundingServiceImpl implements FundingService{
 	//배기원
 	@Override
 	public List<Funding> indexfundingList() {
+		List<Funding> fundingList = fundingDao.indexfundingList();
+		
+		/* fundingList.setAttachment(fundingDao.indexfundingList()); */
+		
+		/*
+		 * Funding funding = fundingDao.selectOneFundingKYS(no);
+		 * funding.setAttachment(fundingDao.selectOneAttach(no)); return funding;
+		 */
+		
+		
+		/*
+		 * if(funding.set().size() > 0) { for(Attachment attach:
+		 * funding.getAttachList()) { attach.setFundingNo(funding.getFundingNo()); //이번에
+		 * 발급받은 funindg pk| attach no fk세팅 result = insertAttachment(attach);
+		 * log.debug("attach={}",attach); } }
+		 */
+		
 		return fundingDao.indexfundingList();
 	}
 	@Override
@@ -165,6 +185,8 @@ public class FundingServiceImpl implements FundingService{
 	public List<Funding> indexfundingRefresh() {
 		return fundingDao.indexfundingRefresh();
 	}
+	
+	
 	//이승우
 	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {
