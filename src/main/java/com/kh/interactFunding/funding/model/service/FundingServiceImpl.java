@@ -119,6 +119,11 @@ public class FundingServiceImpl implements FundingService{
 	public List<Funding> fundingList(Map<String, Object> map) {
 		return fundingDao.fundingList(map);
 	}
+
+	@Override
+	public int selectFundingListTotalContents(Map<String, Object> map) {
+		return fundingDao.selectFundingListTotalContents(map);
+	}
 	
 	@Override
 	public List<Map<String, String>> selectCategoryList() {
@@ -129,6 +134,7 @@ public class FundingServiceImpl implements FundingService{
 	public List<Funding> earlyList(Map<String, Object> map) {
 		return fundingDao.earlyList(map);
 	}
+
 	//천호현
 	@Override
 	public Funding selectOneFunding(int funding_no) {

@@ -118,7 +118,7 @@
 	                <c:forEach items="${list}" var="funding">
 	                <div class="fundingProjectCardItem">
 	                    <a href="#" class="FundingProjectCardItemImageArea">
-	                        <div class="FundingProjectCardItemImage"></div>
+	                        <div class="fundingProjectCardItemImage"></div>
 	                    </a>
 	                    <div class="FundingProjectCardListInfo">
 	                        <div class="FundingProjectCardItemTitle">
@@ -142,7 +142,7 @@
 	                
 	                <div class="fundingProjectCardItem">
 	                    <a href="#" class="FundingProjectCardItemImageArea">
-	                        <div class="FundingProjectCardItemImage"></div>
+	                        <div class="fundingProjectCardItemImage"></div>
 	                    </a>
 	                    <div class="FundingProjectCardListInfo">
 	                        <div class="FundingProjectCardItemTitle">

@@ -38,6 +38,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.kh.interactFunding.common.util.HelloSpringUtils;
+import com.kh.interactFunding.common.util.PageBarUtils;
 import com.kh.interactFunding.funding.model.service.FundingService;
 import com.kh.interactFunding.funding.model.vo.Attachment;
 import com.kh.interactFunding.funding.model.vo.Funding;
@@ -469,31 +470,46 @@ public class FundingController {
 	@GetMapping("/fundingList")
 	public ModelAndView fundingList(
 			ModelAndView mav,
-			@RequestParam(defaultValue="") String searchKeyword,
+			@RequestParam(defaultValue="") String category,
 			@RequestParam(defaultValue="") String searchSelect1,
 			@RequestParam(defaultValue="") String searchSelect2,
-			@RequestParam(defaultValue="") String category
+			@RequestParam(defaultValue="") String searchKeyword,
+			@RequestParam(required = true, defaultValue = "1") int cPage,
+			HttpServletRequest request
 		) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("searchKeyword", searchKeyword);
-		map.put("searchSelect1", searchSelect1);
-		map.put("searchSelect2", searchSelect2);
-		map.put("category", category);
 		
 		try {
+//			log.debug("cPage = {}", cPage); // 페이지 구현
+			final int limit = 6; // 최대생성수
+			final int offset = (cPage - 1) * limit;
+			Map<String, Object> map = new HashMap<>();
+			map.put("searchKeyword", searchKeyword);
+			map.put("searchSelect1", searchSelect1);
+			map.put("searchSelect2", searchSelect2);
+			map.put("category", category);
+			map.put("limit", limit);
+			map.put("offset", offset);
+			
 			// 카테고리 업무로직
 			List<Map<String, String>> categoryList = fundingService.selectCategoryList();
 			
 			// 검색 업무로직
 			List<Funding> list = fundingService.fundingList(map);
-			log.debug("searchTitle = {}", searchKeyword);
-			System.out.println("list"+list);
-			log.debug("list = {}", list);
+			int totalContents = fundingService.selectFundingListTotalContents(map);
+			String url = request.getRequestURI() + "?category=" + category + "&searchSelect1=" + searchSelect1 + "&searchSelect2=" + searchSelect2 + "&searchKeyword=" + searchKeyword;
+			
+			
+//			log.debug("totalContents = {}, url = {}", totalContents, url);
+			String pageBar = PageBarUtils.getPageBar(totalContents, cPage, limit, url);
 			
 			//jsp에 위임
-			mav.addObject("list", list);
-			mav.addObject("categoryList", categoryList);
+			mav.addObject("list", list); 
+			mav.addObject("categoryList", categoryList); // 카테고리
+			mav.addObject("pageBar", pageBar); // 페이지
+			mav.addObject("map", map);
 			
+//			log.debug("searchTitle = {}", searchKeyword);
+//			log.debug("list = {}", list);
 			return mav;
 		}
 		catch(Exception e){

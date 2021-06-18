@@ -18,19 +18,20 @@
 	    $("img[alt=image5]").attr("src","${pageContext.request.contextPath }/resources/image/game.jpg");
 	
 		//페이드인 효과
-	    $('.FundingProjectCardItemImage').animate({'opacity':'1'},500);
+	    $('.fundingProjectCardItemImage').animate({'opacity':'1'},500);
 	});
 	//더보기
-	$(function(){
-	    $(".FundingProjectCardItem").slice(0,3).show();
+	/* $(function(){
+	    $(".FundingProjectCardItem").slice(0,6).show();
 	    $("#moreBtn").click(function(e){
-			/* e.preventDefault(); */
-			$(".FundingProjectCardItem:hidden").slice(0,3).show();
+			e.preventDefault();
+			$(".FundingProjectCardItem:hidden").slice(0,6).show();
 			if($(".FundingProjectCardItem:hidden").length == 0){
 				swal("", "더이상 항목이 없습니다.","info")
+				$(".moreFunding").hide();
 			}
 	    })
-	});
+	}); */
 
 	/* $(".FundingCategoryList").click(e => {
 		var $a = $(e.target).
@@ -65,10 +66,10 @@
    	overflow: hidden;
    	text-overflow: ellipsis;
 }
-.FundingProjectCardItem{
+/* .FundingProjectCardItem{
 	display:none;
-}
-.FundingProjectCardItemImage{
+} */
+.fundingProjectCardItemImage{
 	opacity: 0;
 }
 </style>
@@ -124,24 +125,24 @@
             <span class="carousel-control-next-icon"></span>
         </a>
     </div>
-    <div class="FundingCategoryContainer">
-        <div class="FundingCategoryList">
-            <div class="FundingCategoryListWrap">
+    <div class="fundingCategoryContainer">
+        <div class="fundingCategoryList">
+            <div class="fundingCategoryListWrap">
             	<ul>
-                	<li id="FundingCategoryC0" class="C0">
-                		<a class="FundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?search=${param.searchKeyword}">
-		                     <span class="FundingCategoryListCricle">
-		                         <span class="FundingCategoryListCricleImageC0"></span>
-		                         <span class="FundingCategoryListCricleName">전체보기</span>
+                	<li id="fundingCategory" class="C0">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C0&searchKeyword=${map.searchKeyword}">
+		                     <span class="fundingCategoryListCricle">
+		                         <span class="fundingCategoryListCricleImageC0"></span>
+		                         <span class="fundingCategoryListCricleName">전체보기</span>
 		                     </span>
 		                </a>
                 	</li>
                 	<c:forEach items="${categoryList}" var="funding">
-	                	<li id="FundingCategory" class="${funding.categoryCode}">
-	                		<a class="FundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=${funding.categoryCode}&search=${param.searchKeyword}">
-			                    <span class="FundingCategoryListCricle">
-			                        <span class="FundingCategoryListCricleImage${funding.categoryCode}"></span>
-			                        <span class="FundingCategoryListCricleName">${funding.categoryName}</span>
+	                	<li id="fundingCategory" class="${funding.categoryCode}">
+	                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=${funding.categoryCode}&searchKeyword=${map.searchKeyword}">
+			                    <span class="fundingCategoryListCricle">
+			                        <span class="fundingCategoryListCricleImage${funding.categoryCode}"></span>
+			                        <span class="fundingCategoryListCricleName">${funding.categoryName}</span>
 			                    </span>
 			                </a>
 	                	</li>
@@ -150,41 +151,41 @@
             </div>
         </div>
     </div>
-    <div class="FundingProjectList">
-        <div class="FundingProjectListHead">
-            <h3 class="FundingProjectListHeadTitle">전체보기</h3>
-            <form action="" class="FundingProjectListSearchFrm" onsubmit="return false;">
-                <input type="search" id="searchKeyword2" placeholder="검색" value="${param.searchKeyword}" >
-                <input type="button" id="SearchButton" value="">
+    <div class="fundingProjectList">
+        <div class="fundingProjectListHead">
+            <h3 class="fundingProjectListHeadTitle">전체보기</h3>
+            <form action="" class="fundingProjectListSearchFrm" onsubmit="return false;">
+                <input type="search" id="searchKeyword2" placeholder="검색" value="${map.searchKeyword}" >
+                <input type="button" id="searchButton" value="">
             </form>
             <select name="status" id="searchSelect1">
             	<option value="All">전체</option>
-            	<option value="processing" ${param.searchSelect1 eq 'processing' ? 'selected' : ''}>진행중</option>
-            	<option value="quit" ${param.searchSelect1 eq 'quit' ? 'selected' : ''}>종료</option>
+            	<option value="processing" ${map.searchSelect1 eq 'processing' ? 'selected' : ''}>진행중</option>
+            	<option value="quit" ${map.searchSelect1 eq 'quit' ? 'selected' : ''}>종료</option>
             </select>
             <select name="status" id="searchSelect2">
-            	<option value="recent" ${param.searchSelect2 eq 'recent' ? 'selected' : ''}>최신순</option>
-            	<option value="recommand" ${param.searchSelect2 eq 'recommand' ? 'selected' : ''}>과거순</option>
+            	<option value="recent" ${map.searchSelect2 eq 'recent' ? 'selected' : ''}>최신순</option>
+            	<option value="recommand" ${map.searchSelect2 eq 'recommand' ? 'selected' : ''}>과거순</option>
             </select>
             
         </div>
         <!-- 목록 -->
-        <div class="FundingProjectCardList">
-            <div class="FundingProjectCardListIn">
+        <div class="fundingProjectCardList">
+            <div class="fundingProjectCardListIn">
                 <!-- 목록 제목 -->
 	        	<c:forEach items="${list}" var="funding">
-                <div class="FundingProjectCardItem">
+                <div class="fundingProjectCardItem">
                     <a href="${pageContext.request.contextPath}/funding/fundingDetail?funding_no=${funding.fundingNo}" class="FundingProjectCardItemImageArea">
-                        <div class="FundingProjectCardItemImage"></div>
+                        <div class="fundingProjectCardItemImage"></div>
                     </a>
-                    <div class="FundingProjectCardListInfo">
-                        <div class="FundingProjectCardItemTitle">
-                            <div class="FundingProjectCardItemTitleBox">
-                                <a class="FundingProjectCardItemTitleLink" href="${pageContext.request.contextPath}/funding/fundingDetail?funding_no=${funding.fundingNo}">
+                    <div class="fundingProjectCardListInfo">
+                        <div class="fundingProjectCardItemTitle">
+                            <div class="fundingProjectCardItemTitleBox">
+                                <a class="fundingProjectCardItemTitleLink" href="${pageContext.request.contextPath}/funding/fundingDetail?funding_no=${funding.fundingNo}">
                                     <p><strong>${funding.content}</strong></p>
                                 </a>
                                 <div>
-                                    <span class="RewordProjectCardCategory">${funding.categoryName}</span>
+                                    <span class="rewordProjectCardCategory">${funding.categoryName}</span>
                                     <span class="line"></span>
                                     <span class="rewordProjectCardMakerName">
                                         ${funding.name}
@@ -225,11 +226,12 @@
                 </c:forEach>
             </div>
         </div>
-        <div>
+        ${pageBar}
+<!--         <div>
             <div class="moreFunding">
                 <button id="moreBtn">더보기↓</button>
             </div>
-        </div>
+        </div>         -->
     </div>
 </div>
 
@@ -253,24 +255,6 @@
 			location.href = url;
 		}
     } */
-
-	/* $(".FundingCategoryListCricle").click(function (){
-		var category = $("#FundingCategory").attr("class");
-		console.log(category);
-	}); */
-
-	//카테고리
-	function categorySplit(){
-		var para = document.location.href.split("?");
-    	var paraLength = para.length;
-    	var categoryName = para[paraLength-1];
-    	var categoryArea = categoryName.split("&");
-    	var categoryCode = categoryArea[0];
-    	var categorySp = categoryCode.split("=");
-    	var category = categorySp[1];
-    	return category;
-	}
-
     
   	//펀딩검색
     $("#SearchButton").click(function (){
@@ -280,8 +264,9 @@
     function search2(){
     	var keyword = $("#searchKeyword2").val();
         /* var category = $("#FundingCategory").attr("class"); */
-        var category = categorySplit();
+        var category = "${map.category}";
     	var searchSelect1 = $("#searchSelect1").val();
+    	/* var searchSelect1 = "${map.searchSelect1}"; */
         var searchSelect2 = $("#searchSelect2").val();
     	console.log(keyword);
     	console.log(category);
@@ -294,9 +279,8 @@
 			return;
 		}
 		else{
-			swal("",keyword+"검색중...", "success")
 			var url = "${pageContext.request.contextPath}/funding/fundingList";
-			url = url + "?category=" + category;
+			url = url + "?category=${map.category}";
 			url = url + "&searchSelect1=" + searchSelect1;
 			url = url + "&searchSelect2=" + searchSelect2;
 			url = url + "&searchKeyword=" + keyword;
