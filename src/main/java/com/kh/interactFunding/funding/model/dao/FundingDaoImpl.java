@@ -108,6 +108,7 @@ public class FundingDaoImpl implements FundingDao{
 	public List<Funding> indexlikelist() {
 		return session.selectList("funding.indexlikelist");
 	}
+	
 	@Override
 	public List<Funding> indexfundingRefresh() {
 		return session.selectList("funding.indexfundingRefresh");

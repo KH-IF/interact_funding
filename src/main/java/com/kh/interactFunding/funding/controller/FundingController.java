@@ -456,7 +456,6 @@ public class FundingController {
 		List<Funding> likeList=null;
 		try {
 		likeList =fundingService.indexfundinglike();
-		log.info("likeList={}",likeList);
 		}catch (Exception e) {
 			log.error("좋아요 페이지가 안됩니다.",e);
 			throw e;
@@ -466,13 +465,13 @@ public class FundingController {
 	@ResponseBody
 	@GetMapping("fundingRefresh")
 	public  List<Funding>indexfundingRefresh(Model model,HttpSession session){
-			log.debug("2222");
 			List<Funding>Refreshlist=null;
 			try {
 				Refreshlist=fundingService.indexfundingRefresh();
 				log.info("Refreshlist={}",Refreshlist);
 			}catch (Exception e) {
 				log.error("새로고침 예제",e);
+				throw e;
 			}
 		return Refreshlist;
 	}	

@@ -39,7 +39,6 @@ public class HomeController {
 			List<Funding>viewlist=fundingService.indexviewlist();
 			//likeList 페이지 
 			List<Funding>likelist= fundingService.indexlikelist();
-
 			// Cookie값 설정
 			try{            int i = Integer.parseInt(value);
 			value = Integer.toString(++i);
@@ -58,18 +57,8 @@ public class HomeController {
 			model.addAttribute("earlylist",earlylist);
 			model.addAttribute("viewlist",viewlist);
 			model.addAttribute("likelist",likelist);
-			//debug
-			log.debug("list={}",list);
-			log.debug("earlylist={}",earlylist);
-			log.debug("viewlist={}",viewlist);
-			log.debug("likelist={}",likelist);
-			//info
-			log.info("list={}",list);
-			log.info("earlylist={}",earlylist);
-			log.info("viewlist={}",viewlist);
-			log.info("likelist={}",likelist);
 			
-			
+				
 		}catch (Exception e) {
 			log.error("메인페이지 조회가 안됩니다",e);
 			throw e;
