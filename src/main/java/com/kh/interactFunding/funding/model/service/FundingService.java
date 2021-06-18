@@ -20,11 +20,13 @@ public interface FundingService {
 	List<FundingExt> statusYList(Member loginMember);
 	List<FundingExt> statusNList(Member loginMember);
 	int ready1FundingInsertNo(Funding funding);
+	FundingExt selectCheckFunding(String fundingNo);
 	int saveCharge(Map<String, Object> param);
 	int saveBasicInfo(FundingExt funding);
 	int insertAttachment(Attachment attach);
 	int saveStory(Funding funding);
 	List<Reward> loadReward(String fundingNo);
+	Reward selectOneReward(String rewardNo);
 	int insertReward(Reward reward);
 	int updateReward(Reward reward);
 	int deleteReward(int rewardNo);

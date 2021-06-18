@@ -1,7 +1,5 @@
-<%@page import="java.util.Calendar"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
-<%@page import="com.kh.interactFunding.funding.model.vo.Reward" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -104,8 +102,8 @@
         <div id="makerRewardInsert" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document" >
             <div class="modal-content">
-            <%-- <form name="rewardInsertFrm" action="${pageContext.request.contextPath}/funing/insertReward" method="PUT"> --%>
-            <form name="rewardInsertFrm" class="border-0">
+            <form id="rewardInsertFrm" name="rewardInsertFrm" action="${pageContext.request.contextPath}/funding/insertReward" method="POST"
+            	onsubmit="return rewardInsertValidate();">          
                 <input type="hidden" name="fundingNo" value="${funding.fundingNo}">
                 <div class="modal-header">
                     <p class="font-weight-bold">리워드 추가</p>
@@ -212,11 +210,11 @@
 	                    ※ 설정한 발송 시작일까지 리워드가 발송되지 않을 경우, 서포터가 펀딩금 반환을 신청할 수 있으니 신중하게 선택하세요.
 	                   	<br /><br />
 	                    <!-- 종료일 동적으로 설정하기 -->
-	                    ※ 종료일+11개월(<strong>2022-05-10</strong>)까지 리워드 발송이 시작되지 않은 경우, <strong>2022-05-11</strong>에 미발송 상태인 서포터의 펀딩금 반환이 자동으로 완료 처리(결제 취소)되니 유의하세요
+	                    ※ 종료일+11개월까지 리워드 발송이 시작되지 않은 경우, 미발송 상태인 서포터의 펀딩금 반환이 자동으로 완료 처리(결제 취소)되니 유의하세요
                     </p>
                     
                     <div style="text-align:center;">
-                        <input type="reset" value="취소" class="d-inline-flex btn btn-outline-primary btn-lg "/>
+                        <input type="reset" data-dismiss="modal" value="취소" class="d-inline-flex btn btn-outline-primary btn-lg "/>
                         &nbsp;&nbsp;
                         <input type="submit" value="등록" class="d-inline-flex btn btn-primary btn-lg"></input>
                     </div>
@@ -231,9 +229,11 @@
          <div id="makerRewardUpdate" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document" >
             <div class="modal-content">
-            <form name="rewardUpdateFrm" action="${pageContext.request.contextPath}/funding/updateReward" method="POST">
+            <form id="rewardUpdateFrm" name="rewardUpdateFrm" action="${pageContext.request.contextPath}/funding/updateReward" method="POST"
+            onsubmit="return rewardUpdateValidate();">
                 <%--  <c:forEach items="${rewardList}" var="reward"> --%>
-                 <input type="hidden" name="fundingNo" value="${reward.fundingNo}">
+                 <input type="hidden" name="hiddenRewardInfo"/>
+                 <input type="hidden" name="fundingNo"/>
                  <div class="modal-header">
                     <p class="font-weight-bold">리워드 수정</p>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -243,8 +243,8 @@
                 <hr>
                 <div class="modal-body" data-spy="scroll"  style="height: 80vh;">
                     
-                    <br>    
-                    <h6 class="font-weight-bold">${reward.price}</h6>
+                    <br>
+                    <h6 class="font-weight-bold"> 금액</h6>    
                     <div class="input-group">
                         <input name="price" type="number" min ="1000" max="100000000"  class="form-control" placeholder="목표 금액 입력" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <span class="p-1">원</span>
@@ -253,13 +253,13 @@
                     <br>    
                     <h6 class="font-weight-bold">리워드명</h6>
                     <div class="input-group">
-                        <textarea value="${reward.title}" name="title" id="rewardName" type="text" class="form-control" maxlength="40" placeholder="타이틀 입력 ex)[얼리버드]기본 리워드"  rows="1" aria-label="Recipient's username" aria-describedby="basic-addon2"></textarea>
+                        <textarea name="title" id="rewardName" type="text" class="form-control" maxlength="40" placeholder="타이틀 입력 ex)[얼리버드]기본 리워드"  rows="1" aria-label="Recipient's username" aria-describedby="basic-addon2"></textarea>
                     </div>
                     <p id="rewardName_cnt" class="text-muted ml-1" style="font-size: 12px">60자 남음</p>
 
                     <h6 class="font-weight-bold">상세설명</h6>
                     <div class="input-group">
-                        <textarea value="${reward.content}" id="describe" name="content" class="form-control" aria-label="With textarea" id="basicRequireYes" placeholder="제공하는 리워드가 무엇인지 간략하게 제시해 주세요." cols=""  rows="3" maxlength="400"></textarea>
+                        <textarea id="describe" name="content" class="form-control" aria-label="With textarea" id="basicRequireYes" placeholder="제공하는 리워드가 무엇인지 간략하게 제시해 주세요." cols=""  rows="3" maxlength="400"></textarea>
                     </div>
                         <!-- 몇 글자 남았는지 표시 -->
                         <p id="describe_cnt" class="text-muted ml-1" style="font-size: 12px">400자 남음</p>
@@ -289,25 +289,25 @@
                     <h6>배송조건</h6>
                     <div class="makerRewardShipPrice ml-1">
                     	<div class="custom-control custom-radio">
-							<input type="radio" id="shipNeed2"
-								class="custom-control-input"  onchange="showShipPrice()" ${reward.shippPrice > 0 ? "checked":""}> 
-								<label class="custom-control-label" for="shipNeed">배송이 필요한 리워드 입니다.</label>
+							<input type="radio" name="shipPriceYN" id="shipNeed2"
+								class="custom-control-input"  onchange="showShipPrice2()"> 
+								<label class="custom-control-label" for="shipNeed2">배송이 필요한 리워드 입니다.</label>
 						</div>
 						    <!-- 배송이 필요한 리워드 일때만 보일 것 -->
 						<br>
-                        <div id="shipPrice" class="input-group">
+                        <div id="shipPrice2" class="input-group">
                             <label class="p-1 ml-4">배송료&nbsp;</label>
                             <div>
 	                            <input name="shippingPrice" type="text" style="width:100px" class="border rounded" value="0" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            	<span class="p-1">${reward.shippPrice}원</span>
+                            	<span class="p-1">원</span>
                                 <p class="text-muted" style="font-size: 12px">(배송비가 없는 경우,0원 입력)</p>
                             </div>                            
                             
                         </div>
 						<div class="custom-control custom-radio">
-							<input type="radio" name="shipPriceYN" id="scheduled"
-								class="custom-control-input" onchange="showShipPrice()"> <label
-								class="custom-control-label" for="scheduled">배송이 필요 없는 리워드입니다.</label>
+							<input type="radio" name="shipPriceYN" id="noShip2"
+								class="custom-control-input" onchange="showShipPrice2()"> <label
+								class="custom-control-label" for="noShip2">배송이 필요 없는 리워드입니다.</label>
 						</div>
                     </div>
 
@@ -315,7 +315,7 @@
                     <h6 class="font-weight-bold">제한수량</h6>
                     <div class="input-group">
                         <input name="limitAmount" type="number" class="form-control" maxlength="40" placeholder="수량 입력" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <span class="p-1">${reward.limitAmount}개</span>
+                        <span class="p-1">개</span>
                     </div>
                     
                     <br>
@@ -329,7 +329,7 @@
 				 
 				     	<c:if test="${reward.shippingDate != null}">
 				        <div class="form-group row">
-						    <input class="form-control ml-3" type="date" value="${reward.shippingDate}" name="shippingDate">
+						    <input class="form-control ml-3" type="date" value="" name="shippingDate">
 						</div>
 				     	</c:if>
                     </div>
@@ -339,11 +339,11 @@
 	                    ※ 설정한 발송 시작일까지 리워드가 발송되지 않을 경우, 서포터가 펀딩금 반환을 신청할 수 있으니 신중하게 선택하세요.
 	                   	<br /><br />
 	                    <!-- 종료일 동적으로 설정하기 -->
-	                    ※ 종료일+11개월(<strong>2022-05-10</strong>)까지 리워드 발송이 시작되지 않은 경우, <strong>2022-05-11</strong>에 미발송 상태인 서포터의 펀딩금 반환이 자동으로 완료 처리(결제 취소)되니 유의하세요
+	                    ※ 종료일+11개월까지 리워드 발송이 시작되지 않은 경우, 미발송 상태인 서포터의 펀딩금 반환이 자동으로 완료 처리(결제 취소)되니 유의하세요
                     </p>
                     
                     <div style="text-align:center;">
-                        <input type="reset" value="취소" class="d-inline-flex btn btn-outline-primary btn-lg "/>
+                        <input type="reset" value="취소" data-dismiss="modal" class="d-inline-flex btn btn-outline-primary btn-lg "/>
                         &nbsp;&nbsp;
                         <input type="submit" value="수정" class="d-inline-flex btn btn-primary btn-lg"></input>
                     </div>
@@ -390,11 +390,8 @@
                     
                     <div class="d-flex justify-content-end">
                         <!-- 매개변수로 reward no 넘겨줄것 -->
-                        <button type="button" class="btn btn-outline-secondary mr-3" onclick="makerRewardUpdate(this)" 
-                        data-rewardNo="${reward.rewardNo}"
-                      
-                        
-                        >편집</button>
+                        <button type="button" class="btn btn-outline-secondary mr-3" 
+                        data-target="#makerRewardUpdate" data-toggle="modal" onclick="sendRewardInfo(${reward.rewardNo})">편집</button>
                         <button type="button" class="btn btn-outline-secondary" onclick="deleteReward(${reward.rewardNo})">삭제</a></button>
                     </div>
                 </div>
@@ -414,90 +411,189 @@
 </section> 
 <script>
 
-	//비동기로 리워드 등록하기
-	$(document.rewardInsertFrm).submit(e =>{
-		e.preventDefault(); //폼제출 방지
-		const $frm = $(e.target);
-		const fundingNo = $frm.find("[name=fundingNo]").val();
-		const price = $frm.find("[name=price]").val();
-		const title = $frm.find("[name=title]").val();
-		const content = $frm.find("[name=content]").val();
-		const shippingPrice = $frm.find("[name=shippingPrice]").val();
-		const limitAmount = $frm.find("[name=limitAmount]").val();
-		const shippingDate = $frm.find("[name=shippingDate]").val();
-	
-
-		const reward ={
-			fundingNo,
-			price,
-			title,
-			content,
-			shippingPrice,
-			limitAmount,
-			shippingDate
-		};
-
-		console.log(reward);
-		
-		$.ajax({
-			url:"${pageContext.request.contextPath}/funding/insertReward",
-			data: JSON.stringify(reward),
-			contentType: "application/json; charset=utf-8",
-			method: "POST",
-			success(data){
-				console.log(data);
-				const {msg} = data;
-				alert(msg);
-				window.location.href = `${pageContext.request.contextPath}/funding/ready5Reward`;
-			},
-			error: console.log,
-			complete(){
-				e.target.reset(); //폼초기화
-				}
-			});
-		
-	});
+	var fundingNo;
+	var price;
+	var title;
+	var content;
+	var shippingPrice;
+	var limitAmount;
+	var shippingDate;
 
 
    function makerRewardAdd(){
         $("#makerRewardInsert").modal()
     };
 
-    function makerRewardUpdate(btn){
-       	const rewardNo = $(btn).data("rewardNo");
-       	console.log(rewardNo);
-		console.log(reward.price);
+    function sendRewardInfo(rewardNo){
 
-		
-        $("#makerRewardUpdate").modal()
+		console.log(rewardNo);
+
+		$.ajax({
+			url:`${pageContext.request.contextPath}/funding/selectOneReward/\${rewardNo}`,
+			contentType: "application/json; charset=utf-8",
+			async:false,
+			method: "GET",
+			success(data){
+				
+				const {chReward} = data;
+
+				fundingNo = chReward.fundingNo;
+				price = chReward.price;
+				title = chReward.title;
+				content = chReward.content;
+				shippingPrice = chReward.shippingPrice;
+				limitAmount = chReward.limitAmount;
+				shippingDate = chReward.shippingDate;
+
+				
+			},
+			error: console.log
+			});
+
         
-    
-
-       
-       	
-		const $frm = $("#rewardUpdateFrm");
-		$frm.find("[name=fundingNo]").val();
-		const price = $frm.find("[name=price]").val();
-		const title = $frm.find("[name=title]").val();
-		const content = $frm.find("[name=content]").val();
-		const shippingPrice = $frm.find("[name=shippingPrice]").val();
-		const limitAmount = $frm.find("[name=limitAmount]").val();
-		const shippingDate = $frm.find("[name=shippingDate]").val();
+/*     	var reward =$(btn).data("reward");
+    	console.log(typeof reward);
+		
+		rewardInfo = reward.split("[()]");
+			
+		console.log(reward[0]);
+		console.log(reward);
+		console.log(rewardInfo);
+		console.log(rewardInfo.title);
+		console.log(rewardInfo[1]); */
+		
     };
 
+	function formatDate(date) {
+		 var d = new Date(date),
+		 month = '' + (d.getMonth() + 1),
+		 day = '' + d.getDate(),
+		 year = d.getFullYear();
+		 if (month.length < 2) month = '0' + month; 
+		 if (day.length < 2) day = '0' + day; 
+		 return [year, month, day].join('-'); }
+    
+    
+    $('#makerRewardUpdate').on('show.bs.modal', function(e) {
+
+        
+        	console.log("작동");
+        	console.log(fundingNo);
+    		const $frm = $("[name=rewardUpdateFrm]",e.target);
+	    	$frm.find("[name=fundingNo]").val(fundingNo);
+			$frm.find("[name=price]").val(price);
+			$frm.find("[name=title]").val(title);
+			$frm.find("[name=content]").val(content);
+			if(shippingPrice > 0 && shippingPrice != null){
+				$frm.find("[id=shipNeed2]").prop("checked",true);
+				$frm.find("[name=shippingPrice]").val(shippingPrice);
+			}else{
+				$frm.find("[id=noShip2]").prop("checked",true);
+				$("#shipPrice2").hide();
+			}
+			$frm.find("[name=limitAmount]").val(limitAmount);
+			$frm.find("[name=shippingDate]").val(formatDate(shippingDate));
+    	});
+	
+
+    //유효성 검사
+    function rewardInsertValidate(){
+
+    	var $frm =  $('#rewardInsertFrm');
+       
+    	console.log($frm);
+    	const $price = $frm.find("[name=price]").val();
+    	const $title = $frm.find("[name=title]").val();
+    	const $content = $frm.find("[name=content]").val();
+    	const $shippingPrice = $frm.find("[name=shippingPrice]").val();
+    	const $limitAmount = $frm.find("[name=limitAmount]").val();
+    	const $shippingDate = $frm.find("[name=shippingDate]").val();
+    	console.log($content);
+
+    	if(/^(.|\n)+$/.test($price) == false){
+    		swal("리워드 금액을 입력하세요","","warning")
+    		return false;
+    	}
+    	if(/^(.|\n)+$/.test($title) == false){
+    		swal("리워드명을 입력하세요","","warning")
+    		return false;
+    	}
+    	if(/^(.|\n)+$/.test($content) == false){
+    		swal("상세설명을 입력하세요","","warning")
+    		return false;
+    	}
+    	if(/^(.|\n)+$/.test($shippingPrice) == false){
+    		swal("배송비를 입력하세요","","warning")
+    		return false;
+    	}
+    	if(/^(.|\n)+$/.test($limitAmount) == false){
+    		swal("제한수량을 입력하세요","","warning")
+    		return false;
+    	}
+   
+
+    	return true;
+    }
+    
+    function rewardUpdateValidate(){
+
+    	var $frm =  $('#rewardUpdateFrm');
+     
+    	console.log($frm);
+    	const $price = $frm.find("[name=price]").val();
+    	const $title = $frm.find("[name=title]").val();
+    	const $content = $frm.find("[name=content]").val();
+    	const $shippingPrice = $frm.find("[name=shippingPrice]").val();
+    	const $limitAmount = $frm.find("[name=limitAmount]").val();
+    	//배송시작일을 default값이 있으므로 필요가 없음
+    	console.log($content);
+
+    	if(/^(.|\n)+$/.test($price) == false){
+    		swal("리워드 금액을 입력하세요","","warning")
+    		return false;
+    	}
+    	if(/^(.|\n)+$/.test($title) == false){
+    		swal("리워드명을 입력하세요","","warning")
+    		return false;
+    	}
+    	if(/^(.|\n)+$/.test($content) == false){
+    		swal("상세설명을 입력하세요","","warning")
+    		return false;
+    	}
+    	if(/^(.|\n)+$/.test($shippingPrice) == false){
+    		swal("배송비를 입력하세요","","warning")
+    		return false;
+    	}
+    	if(/^(.|\n)+$/.test($limitAmount) == false){
+    		swal("제한수량을 입력하세요","","warning")
+    		return false;
+    	}
+    
+    	return true;
+    }
+
+    
     // 배송비 선택시 보이게 안보이게 하기
     function showShipPrice(){
         if($('input:radio[id=shipNeed]').is(':checked')){
-            console.log("보임");
-            $('#shipPrice').show();
-        }else if($('input:radio[id=shipNeed2]').is(':checked')){
-        	console.log("보임");
+            console.log("1보임");
             $('#shipPrice').show();
         }else{
             console.log("안보임");
             $('#shipPrice').hide();
 
-            }
+        }
+    };
+    
+    // 배송비 선택시 보이게 안보이게 하기
+    function showShipPrice2(){
+       if($('input:radio[id=shipNeed2]').is(':checked')){
+        	console.log("2보임");
+            $('#shipPrice2').show();
+        }else{
+            console.log("안보임");
+            $('#shipPrice2').hide();
+        }
     };
 
     //옵션 선택시 보이게 안보이게 하기
@@ -558,29 +654,6 @@
             
     	});
 		
-    	/* swal({
-    			title: "리워드를 삭제하겠습니까?",
-    			icon:"warning",
-    			dangerMode :true,
-    			closeOnClickOutside: false,
-    			buttons :{
-					cancel:{
-						text:"취소",
-						value:false,
-						className:'btn btn-outline-primary'
-					},
-					confirm : {
-						text:"확인",
-						value:true,
-						className:'btn btn-outline-danger'
-					}
-        		}
-        	}).then(function(){
-    		  var $frm = $(document.rewardUpdateDeleteFrm);
-              $frm.find("[name = rewardNo]").val(rewardNo);
-              $frm.submit();
-            
-    	}); */
      
     }
 

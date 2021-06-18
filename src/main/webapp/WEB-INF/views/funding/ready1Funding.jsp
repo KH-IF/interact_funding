@@ -189,7 +189,7 @@
 	function deletefunding(){
 
 		const fundingNo = ${funding.fundingNo};
-
+	
 		if(confirm("프로젝트"+fundingNo+"번 펀딩을 삭제하시겠습니까?")){
 			const $frm = $('#fundingDeleteFrm');
 			$frm.find("[name = fundingNo]").val(fundingNo);

@@ -50,6 +50,11 @@ public class FundingDaoImpl implements FundingDao{
 		return session.insert("funding.ready1FundingInsertNo",funding);
 	}
 	@Override
+	public FundingExt selectCheckFunding(String fundingNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("funding.selectCheckFunding",fundingNo);
+	}
+	@Override
 	public int saveCharge(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return session.update("funding.saveCharge",param);
@@ -73,6 +78,12 @@ public class FundingDaoImpl implements FundingDao{
 	public List<Reward> loadReward(String fundingNo) {
 		// TODO Auto-generated method stub
 		return session.selectList("funding.loadReward",fundingNo);
+	}
+	
+	@Override
+	public Reward selectOneReward(String rewardNo) {
+		// TODO Auto-generated method stub
+		return session.selectOne("funding.selectOneReward",rewardNo);
 	}
 	@Override
 	public int insertReward(Reward reward) {

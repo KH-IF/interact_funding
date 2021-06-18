@@ -37,10 +37,14 @@ public class FundingServiceImpl implements FundingService{
 		// TODO Auto-generated method stub
 		return  fundingDao.statusNList(loginMember);
 	}
-
 	@Override
 	public int ready1FundingInsertNo(Funding funding) {
 		return fundingDao.ready1FundingInsertNo(funding);
+	}
+	@Override
+	public FundingExt selectCheckFunding(String fundingNo) {
+		// TODO Auto-generated method stub
+		return fundingDao.selectCheckFunding(fundingNo);
 	}
 	@Override
 	public int saveCharge(Map<String, Object> param) {
@@ -76,6 +80,12 @@ public class FundingServiceImpl implements FundingService{
 	public List<Reward> loadReward(String fundingNo) {
 		// TODO Auto-generated method stub
 		return fundingDao.loadReward(fundingNo);
+	}
+	
+	@Override
+	public Reward selectOneReward(String rewardNo) {
+		// TODO Auto-generated method stub
+		return fundingDao.selectOneReward(rewardNo);
 	}
 	@Override
 	public int insertReward(Reward reward) {

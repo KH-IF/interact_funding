@@ -21,10 +21,12 @@ public interface FundingDao {
 	List<FundingExt> statusNList(Member loginMember);
 	FundingExt loadFunding(String fundingNo);
 	int ready1FundingInsertNo(Funding funding);
+	FundingExt selectCheckFunding(String fundingNo);
 	int saveCharge(Map<String, Object> param);
 	int saveBasicInfo(FundingExt funding);
 	int insertAttachment(Attachment attach);
 	List<Reward> loadReward(String fundingNo);
+	Reward selectOneReward(String rewardNo);
 	int insertReward(Reward reward);
 	int updateReward(Reward reward);
 	int deleteReward(int rewardNo);

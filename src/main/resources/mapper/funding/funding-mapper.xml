@@ -81,7 +81,20 @@
 			F.funding_no = #{fundingNo}	
 	</select>
 	
+	<select id="selectCheckFunding" resultMap="fundingCollectionMap">
+		select F.*,
+	       A.no "attach_no",
+	       A.funding_no,
+	       A.originalfilename,
+	       A.renamedfilename,
+	       A.status "astatus"
+		from 
+			funding F left join attachment A
+				on F.funding_no = A.funding_no
+		where 
+			F.funding_no = #{fundingNo}	
 	
+	</select>
 	
 	<insert id="ready1FundingInsertNo">
 		insert into
@@ -168,6 +181,15 @@
 			funding_reward
 		where
 			funding_no=#{fundingNo}
+	</select>
+	
+	<select id="selectOneReward" resultType="reward">
+		select
+			*
+		from
+			funding_reward
+		where
+			reward_no=#{rewardNo}
 	</select>
 	
 	<insert id="insertReward">
