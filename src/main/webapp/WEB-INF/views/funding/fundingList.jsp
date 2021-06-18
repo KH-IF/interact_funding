@@ -136,16 +136,70 @@
 		                     </span>
 		                </a>
                 	</li>
-                	<c:forEach items="${categoryList}" var="funding">
-	                	<li id="fundingCategory" class="${funding.categoryCode}">
-	                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=${funding.categoryCode}&searchKeyword=${map.searchKeyword}">
-			                    <span class="fundingCategoryListCricle">
-			                        <span class="fundingCategoryListCricleImage${funding.categoryCode}"></span>
-			                        <span class="fundingCategoryListCricleName">${funding.categoryName}</span>
-			                    </span>
-			                </a>
-	                	</li>
-                	</c:forEach>
+                	<li id="fundingCategory" class="C1">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C1&searchKeyword=${map.searchKeyword}">
+		                     <span class="fundingCategoryListCricle">
+		                         <span class="fundingCategoryListCricleImageC1"></span>
+		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                     </span>
+		                </a>
+                	</li>
+                	<li id="fundingCategory" class="C2">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C2&searchKeyword=${map.searchKeyword}">
+		                     <span class="fundingCategoryListCricle">
+		                         <span class="fundingCategoryListCricleImageC2"></span>
+		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                     </span>
+		                </a>
+                	</li>
+                	<li id="fundingCategory" class="C3">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C3&searchKeyword=${map.searchKeyword}">
+		                     <span class="fundingCategoryListCricle">
+		                         <span class="fundingCategoryListCricleImageC3"></span>
+		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                     </span>
+		                </a>
+                	</li>
+                	<li id="fundingCategory" class="C4">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C4&searchKeyword=${map.searchKeyword}">
+		                     <span class="fundingCategoryListCricle">
+		                         <span class="fundingCategoryListCricleImageC4"></span>
+		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                     </span>
+		                </a>
+                	</li>
+                	<li id="fundingCategory" class="C5">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C5&searchKeyword=${map.searchKeyword}">
+		                     <span class="fundingCategoryListCricle">
+		                         <span class="fundingCategoryListCricleImageC5"></span>
+		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                     </span>
+		                </a>
+                	</li>
+                	<li id="fundingCategory" class="C6">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C6&searchKeyword=${map.searchKeyword}">
+		                     <span class="fundingCategoryListCricle">
+		                         <span class="fundingCategoryListCricleImageC6"></span>
+		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                     </span>
+		                </a>
+                	</li>
+                	<li id="fundingCategory" class="C7">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C7&searchKeyword=${map.searchKeyword}">
+		                     <span class="fundingCategoryListCricle">
+		                         <span class="fundingCategoryListCricleImageC7"></span>
+		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                     </span>
+		                </a>
+                	</li>
+                	<li id="fundingCategory" class="C8">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C8&searchKeyword=${map.searchKeyword}">
+		                     <span class="fundingCategoryListCricle">
+		                         <span class="fundingCategoryListCricleImageC8"></span>
+		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                     </span>
+		                </a>
+                	</li>
                 </ul>
             </div>
         </div>
@@ -158,7 +212,7 @@
                 <input type="button" id="searchButton" value="">
             </form>
             <select name="status" id="searchSelect1">
-            	<option value="All">전체</option>
+            	<option value="">전체</option> 
             	<option value="processing" ${map.searchSelect1 eq 'processing' ? 'selected' : ''}>진행중</option>
             	<option value="quit" ${map.searchSelect1 eq 'quit' ? 'selected' : ''}>종료</option>
             </select>

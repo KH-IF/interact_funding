@@ -91,11 +91,11 @@ $(() => {
 
 
 	<!-- 리워드 모달부분  -->
-    <div id="funding_reward_modal" class="modal" tabindex="-1" role="dialog" data-backdrop="static">
+    <div id="funding_reward_modal" class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title">잠깐! 결제하기가 아닌 펀딩하기인 이유를 확인하고, 펀딩하세요.</h5>
+	        <h3 class="modal-title"><Strong>잠깐!</Strong> 결제하기가 아닌 펀딩하기인 이유를 확인하고, 펀딩하세요.</h3>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	        </button>
 	      </div>
@@ -106,21 +106,21 @@ $(() => {
 			<div id="funding_reward_check_div" class="form-check form-check-inline">
 				<div class="funding_reward_check_div_class">
 					<input type="checkbox" class="form-check-input" name="reward_check1" id="reward_check1" value="1">
-					<label class="form-check-label" for="reward_check1" id="reward_check1_label">펀딩한 리워드는 새롭게 준비하고 있는 제품・서비스입니다.</label>&nbsp;
+					<label class="form-check-label" for="reward_check1" id="reward_check1_label1">펀딩한 리워드는 새롭게 준비하고 있는 제품・서비스입니다.</label>&nbsp;
 				</div>
 			        <p>펀딩 후, 리워드를 제작・준비하는 크라우드펀딩 특성상, 품질 이슈가 발생할 수 있습니다.
 					리워드 품질 이슈 발생 시 반환·정책 - 상세 정책을 꼭 확인해주세요.</p>
 			
 				<div class="funding_reward_check_div_class">
 					<input type="checkbox" class="form-check-input" name="reward_check2" id="reward_check2" value="2">
-					<label class="form-check-label" for="reward_check2">바로 결제되지 않으며, 펀딩 종료 후에는 결제를 취소할 수 없습니다.</label>&nbsp;
+					<label class="form-check-label" for="reward_check2" id="reward_check1_label2">바로 결제되지 않으며, 펀딩 종료 후에는 결제를 취소할 수 없습니다.</label>&nbsp;
 				</div>
 					<p>펀딩이 종료되고 목표 금액이 달성될 경우 2021.06.07에 결제가 진행됩니다.
 					펀딩 종료 2021.06.04 이후에는 메이커의 프로젝트 수행을 위해 결제 취소가 불가합니다.</p>
 			
 				<div class="funding_reward_check_div_class">
 					<input type="checkbox" class="form-check-input" name="reward_check3" id="reward_check3" value="3">
-					<label class="form-check-label" for="reward_check3">펀딩한 리워드는 즉시 배송되지 않습니다.</label>&nbsp;
+					<label class="form-check-label" for="reward_check3" id="reward_check1_label3">펀딩한 리워드는 즉시 배송되지 않습니다.</label>&nbsp;
 				</div>
 					<p> 메이커가 약속한 리워드 발송 시작일을 확인했나요? 메이커는 펀딩이 성공해야 리워드 제작・준비를 진행합니다.
 					리워드 펀딩 특성상 발송이 지연되거나 불가할 수 있으니, 반환·정책 - 상세 정책을 꼭 확인해주세요.</p>
@@ -128,7 +128,7 @@ $(() => {
 			
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" id="button_modal_footer">계속해서 펀딩하기</button>
+	        <button type="button" class="btn btn-outline-info" id="button_modal_footer">계속해서 펀딩하기</button>
 	      </div>
 	    </div>
 	  </div>
@@ -144,11 +144,15 @@ $(() => {
 	
 	div, span{
 	
-	border: 2px solid black;
 	
 	
 	}
-	
+	.form-check-input{
+    border: 1px solid rgba(0,0,0,.15);
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 50%;
+	}
 	
 	#funding_reward_check_div {
 	
@@ -226,6 +230,7 @@ $(() => {
 	
 	.funding_reward_check_div_class{
 	display: flex;
+	border: 1px solid #f0f2f5;
 	
 	}
 	
@@ -247,6 +252,53 @@ $(() => {
 	padding-top: 93px;
 	
 	}
+	.modal-title{
+	margin-bottom: 0;
+    line-height: 1.5;
+    font-size: 28px;
+    font-weight: 400;
+    margin-left: 16px;
+	}
+	.modal-body{
+	font-family: Roboto,Noto Sans KR,-apple-system,Dotum,sans-serif;
+    font-weight: 400;
+	}
+	
+	
+	.form-check-label{
+	font-size: 17px;
+	font-weight: 600;
+	
+	}
+	#funding_reward_check_div > p{
+    line-height: 1.70;
+    letter-spacing: -.4px;
+    font-weight: 400;
+	}
+	
+	#button_modal_footer{
+	width: 100%;
+    height: 61px;
+	}
+	
+	#funding_reward_check_div > p{
+	margin-top:18px;
+    width: 92%;
+    margin-top: 18px;
+    margin-left: 27px;
+    font-weight: 600;
+	
+	}
+	
+	.form-check-inline .form-check-input{
+	position: static;
+    margin-top: 7px;
+    margin-right: .3125rem;
+    margin-left: 10px;
+	
+	}
+	
+	
 	</style>
 	
 	<script>
@@ -258,19 +310,20 @@ $(() => {
 			}
 	});
 
-
+	$("#reward_check1_label1 ,#reward_check1_label2, #reward_check1_label3").css("color","#babdc0")
 	
 	/*모달 각각 체크되면 색상변경*/
  	$("#reward_check1,#reward_check2, #reward_check3").on('click', function() {
  	 	
  	 	 if ($(this).prop('checked')) {
-		 	 	  	$(this).parent().css("background-color","red")
+		 	 	  	//$(this).parent().css("color","black")
+		 	 	  	$(this).next().css("color","black")
  		} else{
-	 		$(this).parent().css("background-color","white")
+	 		$(this).next().css("color","#babdc0")
 		} 
 	});
 
-	</script>
+<!-- 	</script> -->
 	
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>	

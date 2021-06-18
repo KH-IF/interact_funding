@@ -168,13 +168,13 @@ $.ajax({
 				<span class="orderText-span">1. <c:forEach
 						items="${list}" varStatus="vs" var="funding">
 						<c:if test="${vs.count==1}">
-							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="Ranking_class-p1">${funding.title}</p>
 							<p class="kiwonRanking_percent">
 								<fmt:formatNumber
 									value="${funding.nowAmount/funding.goalAmount*100}"
 									pattern="##.###" />
 								%<span class="kiwonfunding-percent-after">
-									${funding.categoryName}</span>
+									${funding.categoryCode}</span>
 							</p>
 						</c:if>
 					</c:forEach> <img
@@ -187,13 +187,13 @@ $.ajax({
 				<span class="orderText-span">2. <c:forEach items="${list}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==2}">
-							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="Ranking_class-p1">${funding.title}</p>
 							<p class="kiwonRanking_percent">
 								<fmt:formatNumber
 									value="${funding.nowAmount/funding.goalAmount*100}"
 									pattern="##.###" />
 								%<span class="kiwonfunding-percent-after">
-									${funding.categoryName}</span>
+									${funding.categoryCode}</span>
 							</p>
 						</c:if>
 					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
@@ -207,13 +207,13 @@ $.ajax({
 				class="orderText-span">3. <c:forEach items="${list}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==3}">
-							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="Ranking_class-p1">${funding.title}</p>
 							<p class="kiwonRanking_percent">
 								<fmt:formatNumber
 									value="${funding.nowAmount/funding.goalAmount*100}"
 									pattern="##.###" />
 								%<span class="kiwonfunding-percent-after">
-									${funding.categoryName}</span>
+									${funding.categoryCode}</span>
 							</p>
 						</c:if>
 					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
@@ -225,13 +225,13 @@ $.ajax({
 				class="orderText-span">4. <c:forEach items="${list}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==4}">
-							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="Ranking_class-p1">${funding.title}</p>
 							<p class="kiwonRanking_percent">
 								<fmt:formatNumber
 									value="${funding.nowAmount/funding.goalAmount*100}"
 									pattern="##.###" />
 								%<span class="kiwonfunding-percent-after">
-									${funding.categoryName}</span>
+									${funding.categoryCode}</span>
 							</p>
 						</c:if>
 					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
@@ -244,13 +244,13 @@ $.ajax({
 				class="orderText-span">5. <c:forEach items="${list}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==5}">
-							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="Ranking_class-p1">${funding.title}</p>
 							<p class="kiwonRanking_percent">
 								<fmt:formatNumber
 									value="${funding.nowAmount/funding.goalAmount*100}"
 									pattern="##.###" />
 								%<span class="kiwonfunding-percent-after">
-									${funding.categoryName}</span>
+									${funding.categoryCode}</span>
 							</p>
 						</c:if>
 					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
@@ -268,13 +268,13 @@ $.ajax({
 				<span class="orderText-span">1. <c:forEach
 						items="${likelist}" varStatus="vs" var="funding">
 						<c:if test="${vs.count==1}">
-							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="Ranking_class-p1">${funding.title}</p>
 							<p class="kiwonRanking_percent">
 								<fmt:formatNumber
 									value="${funding.nowAmount/funding.goalAmount*100}"
 									pattern="##.###" />
 								%<span class="kiwonfunding-percent-after">
-									${funding.categoryName}</span>
+									${funding.categoryCode}</span>
 							</p>
 						</c:if>
 					</c:forEach> <img
@@ -287,13 +287,13 @@ $.ajax({
 				<span class="orderText-span">2. <c:forEach
 						items="${likelist}" varStatus="vs" var="funding">
 						<c:if test="${vs.count==2}">
-							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="Ranking_class-p1">${funding.title}</p>
 							<p class="kiwonRanking_percent">
 								<fmt:formatNumber
 									value="${funding.nowAmount/funding.goalAmount*100}"
 									pattern="##.###" />
 								%<span class="kiwonfunding-percent-after">
-									${funding.categoryName}</span>
+									${funding.categoryCode}</span>
 							</p>
 						</c:if>
 					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
@@ -307,13 +307,13 @@ $.ajax({
 				class="orderText-span">3. <c:forEach items="${likelist}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==3}">
-							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="Ranking_class-p1">${funding.title}</p>
 							<p class="kiwonRanking_percent">
 								<fmt:formatNumber
 									value="${funding.nowAmount/funding.goalAmount*100}"
 									pattern="##.###" />
 								%<span class="kiwonfunding-percent-after">
-									${funding.categoryName}</span>
+									${funding.categoryCode}</span>
 							</p>
 						</c:if>
 					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
@@ -325,13 +325,13 @@ $.ajax({
 				class="orderText-span">4. <c:forEach items="${likelist}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==4}">
-							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="Ranking_class-p1">${funding.title}</p>
 							<p class="kiwonRanking_percent">
 								<fmt:formatNumber
 									value="${funding.nowAmount/funding.goalAmount*100}"
 									pattern="##.###" />
 								%<span class="kiwonfunding-percent-after">
-									${funding.categoryName}</span>
+									${funding.categoryCode}</span>
 							</p>
 						</c:if>
 					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
@@ -344,13 +344,13 @@ $.ajax({
 				class="orderText-span">5. <c:forEach items="${likelist}"
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count==5}">
-							<p class="Ranking_class-p1">${funding.content}</p>
+							<p class="Ranking_class-p1">${funding.title}</p>
 							<p class="kiwonRanking_percent">
 								<fmt:formatNumber
 									value="${funding.nowAmount/funding.goalAmount*100}"
 									pattern="##.###" />
 								%<span class="kiwonfunding-percent-after">
-									${funding.categoryName}</span>
+									${funding.categoryCode}</span>
 							</p>
 						</c:if>
 					</c:forEach> <!-- 94x63 픽셀 지정 ---> <img
@@ -387,7 +387,7 @@ $.ajax({
 			</a>
 			<c:forEach items="${list}" varStatus="vs" var="funding">
 				<c:if test="${vs.count==1}">
-					<p class="funding_class-p">${funding.content}</p>
+					<p class="funding_class-p">${funding.title}</p>
 					<div class="progress">
 						<div class="progress-bar progress-bar-striped" role="progressbar"
 							style="width: 20%" aria-valuenow="10" aria-valuemin="0"
@@ -398,7 +398,7 @@ $.ajax({
 							value="${funding.nowAmount/funding.goalAmount*100}"
 							pattern="##.###" />
 						% <span class="kiwonfunding-percent-after">
-							${funding.categoryName}</span>
+							${funding.categoryCode}</span>
 					</p>
 				</c:if>
 			</c:forEach>
@@ -412,7 +412,7 @@ $.ajax({
 			</a>
 			<c:forEach items="${list}" varStatus="vs" var="funding">
 				<c:if test="${vs.count==2}">
-					<p class="funding_class-p">${funding.content}</p>
+					<p class="funding_class-p">${funding.title}</p>
 					<div class="progress">
 						<div class="progress-bar progress-bar-striped" value=""
 							role="progressbar" style="width: 20%" aria-valuenow="10"
@@ -423,7 +423,7 @@ $.ajax({
 							value="${funding.nowAmount/funding.goalAmount*100}"
 							pattern="##.###" />
 						% <span class="kiwonfunding-percent-after">
-							${funding.categoryName}</span>
+							${funding.categoryCode}</span>
 					</p>
 				</c:if>
 			</c:forEach>
@@ -435,7 +435,7 @@ $.ajax({
 			</a>
 			<c:forEach items="${list}" varStatus="vs" var="funding">
 				<c:if test="${vs.count==3}">
-					<p class="funding_class-p">${funding.content}</p>
+					<p class="funding_class-p">${funding.title}</p>
 					<div class="progress">
 						<div class="progress-bar progress-bar-striped" value=""
 							role="progressbar" style="width: 20%" aria-valuenow="10"
@@ -446,7 +446,7 @@ $.ajax({
 							value="${funding.nowAmount/funding.goalAmount*100}"
 							pattern="##.###" />
 						% <span class="kiwonfunding-percent-after">
-							${funding.categoryName}</span>
+							${funding.categoryCode}</span>
 					</p>
 				</c:if>
 			</c:forEach>
@@ -463,7 +463,7 @@ $.ajax({
 		</a>
 		<c:forEach items="${list}" varStatus="vs" var="funding">
 			<c:if test="${vs.count==4}">
-				<p class="funding_class-p1">${funding.content}</p>
+				<p class="funding_class-p1">${funding.title}</p>
 					<div class="progress">
 						<div class="progress-bar progress-bar-striped" value=""
 							role="progressbar" style="width: 20%" aria-valuenow="10"
@@ -474,7 +474,7 @@ $.ajax({
 						value="${funding.nowAmount/funding.goalAmount*100}"
 						pattern="##.###" />
 					% <span class="kiwonfunding-percent-after">
-						${funding.categoryName}</span>
+						${funding.categoryCode}</span>
 				</p>
 			</c:if>
 		</c:forEach>
@@ -490,7 +490,7 @@ $.ajax({
 		</a>
 		<c:forEach items="${list}" varStatus="vs" var="funding">
 			<c:if test="${vs.count==5}">
-				<p class="funding_class-p1">${funding.content}</p>
+				<p class="funding_class-p1">${funding.title}</p>
 					<div class="progress">
 						<div class="progress-bar progress-bar-striped" value=""
 							role="progressbar" style="width: 20%" aria-valuenow="10"
@@ -501,7 +501,7 @@ $.ajax({
 						value="${funding.nowAmount/funding.goalAmount*100}"
 						pattern="##.###" />
 					% <span class="kiwonfunding-percent-after">
-						${funding.categoryName}</span>
+						${funding.categoryCode}</span>
 				</p>
 			</c:if>
 		</c:forEach>
@@ -515,7 +515,7 @@ $.ajax({
 		</a>
 		<c:forEach items="${list}" varStatus="vs" var="funding">
 			<c:if test="${vs.count==6}">
-				<p class="funding_class-p1">${funding.content}</p>
+				<p class="funding_class-p1">${funding.title}</p>
 					<div class="progress">
 						<div class="progress-bar progress-bar-striped" value=""
 							role="progressbar" style="width: 20%" aria-valuenow="10"
@@ -526,7 +526,7 @@ $.ajax({
 						value="${funding.nowAmount/funding.goalAmount*100}"
 						pattern="##.###" />
 					% <span class="kiwonfunding-percent-after">
-						${funding.categoryName}</span>
+						${funding.categoryCode}</span>
 				</p>
 			</c:if>
 		</c:forEach>
@@ -550,12 +550,12 @@ $.ajax({
 			<p class="card-text">
 				<c:forEach items="${viewlist}" varStatus="vs" var="funding">
 					<c:if test="${vs.count==1}">
-						<p class="card-text-p">${funding.content}</p>
+						<p class="card-text-p">${funding.title}</p>
 						<p class="card-text-p1">
 							<fmt:formatNumber
 								value="${funding.nowAmount/funding.goalAmount*100}"
 								pattern="##.###" />
-							%<span class="card-text-span"> ${funding.categoryName}</span>
+							%<span class="card-text-span"> ${funding.categoryCode}</span>
 						</p>
 					</c:if>
 				</c:forEach>
@@ -570,12 +570,12 @@ $.ajax({
 			<p class="card-text">
 				<c:forEach items="${viewlist}" varStatus="vs" var="funding">
 					<c:if test="${vs.count==2}">
-						<p class="card-text-p">${funding.content}</p>
+						<p class="card-text-p">${funding.title}</p>
 						<p class="card-text-p1">
 							<fmt:formatNumber
 								value="${funding.nowAmount/funding.goalAmount*100}"
 								pattern="##.###" />
-							%<span class="card-text-span"> ${funding.categoryName}</span>
+							%<span class="card-text-span"> ${funding.categoryCode}</span>
 						</p>
 					</c:if>
 				</c:forEach>
@@ -590,12 +590,12 @@ $.ajax({
 			<p class="card-text">
 				<c:forEach items="${viewlist}" varStatus="vs" var="funding">
 					<c:if test="${vs.count==3}">
-						<p class="card-text-p">${funding.content}</p>
+						<p class="card-text-p">${funding.title}</p>
 						<p class="card-text-p1">
 							<fmt:formatNumber
 								value="${funding.nowAmount/funding.goalAmount*100}"
 								pattern="##.###" />
-							%<span class="card-text-span"> ${funding.categoryName}</span>
+							%<span class="card-text-span"> ${funding.categoryCode}</span>
 						</p>
 					</c:if>
 				</c:forEach>
@@ -610,12 +610,12 @@ $.ajax({
 			<p class="card-text">
 				<c:forEach items="${viewlist}" varStatus="vs" var="funding">
 					<c:if test="${vs.count==4}">
-						<p class="card-text-p">${funding.content}</p>
+						<p class="card-text-p">${funding.title}</p>
 						<p class="card-text-p1">
 							<fmt:formatNumber
 								value="${funding.nowAmount/funding.goalAmount*100}"
 								pattern="##.###" />
-							%<span class="card-text-span"> ${funding.categoryName}</span>
+							%<span class="card-text-span"> ${funding.categoryCode}</span>
 						</p>
 					</c:if>
 				</c:forEach>
@@ -670,14 +670,14 @@ $.ajax({
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count eq 1}">
 
-							<h1 class="EalrybirdCard_Type_h1">${funding.earlyContent}</h1>
+							<h1 class="EalrybirdCard_Type_h1">${funding.title}</h1>
 							<p class="EalrybirdCard_percent">
 								<!--DB 사용예제! -->
 								<span class="EalrybirdCard_percent-span"> <fmt:formatNumber
 										value="${funding.nowAmount/funding.goalAmount*100}"
 										pattern="##.###" /> % <span
 									class="kiwonfunding-percent-after">
-										${funding.categoryName}</span>
+										${funding.categoryCode}</span>
 								</span>
 								<!-- after  -->
 							</p>
@@ -720,14 +720,14 @@ $.ajax({
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count eq 2}">
 
-							<h1 class="EalrybirdCard_Type_h1">${funding.earlyContent}</h1>
+							<h1 class="EalrybirdCard_Type_h1">${funding.title}</h1>
 							<p class="EalrybirdCard_percent">
 								<!--DB 사용예제! -->
 								<span class="EalrybirdCard_percent-span"> <fmt:formatNumber
 										value="${funding.nowAmount/funding.goalAmount*100}"
 										pattern="##.###" /> % <span
 									class="kiwonfunding-percent-after">
-										${funding.categoryName}</span>
+										${funding.categoryCode}</span>
 								</span>
 								<!-- after  -->
 							</p>
@@ -768,14 +768,14 @@ $.ajax({
 						varStatus="vs" var="funding">
 						<c:if test="${vs.count eq 3}">
 
-							<h1 class="EalrybirdCard_Type_h1">${funding.earlyContent}</h1>
+							<h1 class="EalrybirdCard_Type_h1">${funding.title}</h1>
 							<p class="EalrybirdCard_percent">
 								<!--DB 사용예제! -->
 								<span class="EalrybirdCard_percent-span"> <fmt:formatNumber
 										value="${funding.nowAmount/funding.goalAmount*100}"
 										pattern="##.###" /> % <span
 									class="kiwonfunding-percent-after">
-										${funding.categoryName}</span>
+										${funding.categoryCode}</span>
 								</span>
 								<!-- after  -->
 							</p>

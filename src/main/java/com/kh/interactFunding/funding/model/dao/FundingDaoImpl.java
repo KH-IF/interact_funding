@@ -25,90 +25,86 @@ public class FundingDaoImpl implements FundingDao{
 	private SqlSessionTemplate session;
 	
 	//김윤수
+	@Override
+	public List<Integer> selectMyLikeNoList(int memberNo){
+		return session.selectList("funding.selectMyLikeNoList",memberNo);
+	}
+	@Override
+	public Funding selectOneFundingKYS(int no) {
+		return session.selectOne("funding.selectOneFundingKYS",no);
+	}
+	@Override
+	public Attachment selectOneAttach(int no) {
+		return session.selectOne("funding.selectOneAttach",no);
+	}
 	
 	//김경태
 	
 	//김주연
 	@Override
 	public List<FundingExt> statusYList(Member loginMember) {
-		// TODO Auto-generated method stub
 		return session.selectList("funding.statusYList",loginMember);
 	}
 	@Override
 	public List<FundingExt> statusNList(Member loginMember) {
-		// TODO Auto-generated method stub
 		return session.selectList("funding.statusNList",loginMember);
 	}
 	@Override
 	public FundingExt loadFunding(String fundingNo) {
-		// TODO Auto-generated method stub
 		return session.selectOne("funding.loadFunding",fundingNo);
 	}
 
 	@Override
 	public int ready1FundingInsertNo(Funding funding) {
-		// TODO Auto-generated method stub
 		return session.insert("funding.ready1FundingInsertNo",funding);
 	}
 	@Override
 	public FundingExt selectCheckFunding(String fundingNo) {
-		// TODO Auto-generated method stub
 		return session.selectOne("funding.selectCheckFunding",fundingNo);
 	}
 	@Override
 	public int saveCharge(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return session.update("funding.saveCharge",param);
 	}
 	@Override
 	public int saveBasicInfo(FundingExt funding) {
-		// TODO Auto-generated method stub
 		return session.update("funding.saveBasicInfo",funding);
 	}
 	@Override
 	public int insertAttachment(Attachment attach) {
-		// TODO Auto-generated method stub
 		return session.insert("funding.insertAttachment",attach);
 	}
 	@Override
 	public int saveStory(Funding funding) {
-		// TODO Auto-generated method stub
 		return session.update("funding.saveStory",funding);
 	}
 	@Override
 	public List<Reward> loadReward(String fundingNo) {
-		// TODO Auto-generated method stub
 		return session.selectList("funding.loadReward",fundingNo);
 	}
 	
 	@Override
 	public Reward selectOneReward(String rewardNo) {
-		// TODO Auto-generated method stub
 		return session.selectOne("funding.selectOneReward",rewardNo);
 	}
 	@Override
 	public int insertReward(Reward reward) {
-		// TODO Auto-generated method stub
 		return session.insert("funding.insertReward",reward);
 	}
 	@Override
 	public int updateReward(Reward reward) {
-		// TODO Auto-generated method stub
 		return session.update("funding.updateReward",reward);
 	}
 	@Override
 	public int deleteReward(int rewardNo) {
-		// TODO Auto-generated method stub
 		return session.delete("funding.deleteReward",rewardNo);
 	}
 	@Override
 	public int finalSubmit(Funding funding) {
-		// TODO Auto-generated method stub
 		return session.update("funding.finalSubmit",funding);
 	}
 	@Override
 	public int deleteFunding(String fundingNo) {
-		// TODO Auto-generated method stub
 		return session.delete("funding.deleteFunding",fundingNo);
 	}
 
@@ -116,19 +112,10 @@ public class FundingDaoImpl implements FundingDao{
 
 	//박요한
 	@Override
-	public List<Funding> news(Map<String, Object> param) {
-		return session.selectList("funding.news", param);
+	public List<Funding> fundingNews(int funding_no) {
+		return session.selectList("funding.fundingNews", funding_no);
 	}
 	
-	@Override
-	public List<Funding> community(Map<String, Object> param) {
-		return session.selectList("funding.community", param);
-	}
-	
-	@Override
-	public List<Funding> supporter(Map<String, Object> param) {
-		return session.selectList("funding.supporter", param);
-	}
 	//배기원
 	@Override
 	public List<Funding> indexfundingList() {
@@ -146,10 +133,10 @@ public class FundingDaoImpl implements FundingDao{
 	public int indexTotalContents() {
 		return session.selectOne("funding.indexTotalContents");
 	}
-	@Override
-	public List<Funding> indexEarlyList() {
-		return session.selectList("funding.indexEarlyList");
-	}
+//	@Override
+//	public List<Funding> indexEarlyList() {
+//		return session.selectList("funding.indexEarlyList");
+//	}
 	@Override
 	public List<Funding> indexlikelist() {
 		return session.selectList("funding.indexlikelist");
@@ -170,8 +157,8 @@ public class FundingDaoImpl implements FundingDao{
 	}
 	
 	@Override
-	public List<Funding> earlyList(Map<String, Object> map) {
-		return session.selectList("funding.selectEarlyList", map);
+	public List<Funding> earlyList() {
+		return session.selectList("funding.selectEarlyList");
 	}
 	
 	@Override
@@ -182,15 +169,33 @@ public class FundingDaoImpl implements FundingDao{
 	//천호현
 
 	@Override
-	public Funding selectOneFunding(int funding_no) {
-		return session.selectOne("funding.selectOneFunding", funding_no);
+	public Funding selectOneFunding(int fundingNo) {
+		return session.selectOne("funding.selectOneFunding", fundingNo);
 	}
 	
 	@Override
-	public int selectOneFunding2(int funding_no) {
-		return session.selectOne("funding.selectOneFunding2", funding_no);
+	public int selectOneFunding2(int fundingNo) {
+		return session.selectOne("funding.selectOneFunding2", fundingNo);
 	}
-
-
+	@Override
+	public Map<String, Object> likeCheck(Map<String, Object> map) {
+		return session.selectOne("funding.likeCheck",map);
+	}
+	@Override
+	public int insertLike(Map<String, Object> map) {
+		return session.insert("funding.insertLike",map);
+	}
+	@Override
+	public int updateLike(Map<String, Object> map) {
+		return session.update("funding.updateLike",map);
+	}
+	@Override
+	public int likeCount(Map<String, Object> map) {
+		return session.selectOne("funding.likeCount", map);
+	}
+	@Override
+	public int likeStatusCheck(int memberNo) {
+		return session.selectOne("funding.likeStatusCheck", memberNo);
+	}
 	
 }

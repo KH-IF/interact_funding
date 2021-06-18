@@ -42,7 +42,11 @@ public class PageBarUtils {
 		final int totalPage = (int) Math.ceil((double) totalContents / limit);
 		final int pageStart = ((cPage - 1) / pageBarSize) * pageBarSize + 1; 
 		final int pageEnd = pageStart + pageBarSize - 1;
-		url += "&cPage=";
+		if(url.indexOf("?")==-1) {
+			url+= "?cPage=";
+		}else {
+			url += "&cPage=";
+		}
 		int pageNo = pageStart;
 		
 		pageBar.append("<nav aria-label=\"Page navigation example\">\r\n"
