@@ -34,6 +34,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public Member selectOneMember(Member member) {
+		log.debug("member.email={}",member.getEmail());
 		return session.selectOne("member.selectOneMember", member);
 	}
 
