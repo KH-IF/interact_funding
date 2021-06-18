@@ -42,8 +42,8 @@ $.ajax({
 	success:function(json) {
 		console.log(json);
 		 $('#kiwonfunding').empty();
-		 $('#kiwonfunding-1').empty();
 		 var html = '';
+		 
 		        html = $('<div class="kiwonfunding-div" id="kiwonfunding">' +
 				        '<div class="kiwonfunding-div-img1">'+
 				        '<a href="${pageContext.request.contextPath }/" class="funding_class">'+
@@ -54,6 +54,8 @@ $.ajax({
 						'</div>'+'</div>'+'<p class="kiwonfunding-percent">'+'%'+'<span class="kiwonfunding-percent-after"'+'</span>'+'</p>'+'</div>'+'<div class="kiwonfunding-div-img3">'+'<a href="${pageContext.request.contextPath }/" class="funding_class">'+'<img src="${pageContext.request.contextPath}/resources/images/kiwon_images//sample_images_06.png">'+
 						'</a>'+'<p class="funding_class-p">'+'</p>'+'<div class="progress">'+'<div class="progress-bar progress-bar-striped" value=""role="progressbar" style="width: 20%" aria-valuenow="10" a0ria-valuemin="0" aria-valuemax="100">'+'</div>'+'</div>'+'<p class="kiwonfunding-percent">'+'%'+'<span class="kiwonfunding-percent-after">'+'</span>'+'</p>'+'</div>'+'</div>');
 		        $('#kiwonfunding').append(html);
+		        
+		        $('#kiwonfunding-1').empty();
 		  var html1='';
 		  	html1=$('<div class="kiwonfunding-1" id="kiwonfunding-1">'+'<div class="kiwonfunding-div-img4">'+
 				  	'<a href="${pageContext.request.contextPath }/" class="funding_class4">'+'<img src="${pageContext.request.contextPath}/resources/images/kiwon_images/sample_images_07.png">'+'</a>'+'<p class="funding_class-p1">'+'</p>'
