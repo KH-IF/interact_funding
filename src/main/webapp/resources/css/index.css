@@ -1,7 +1,7 @@
-@charset "UTF-8";
-/*  ì¹´ë“œë°°ë„ˆ ì´ë¯¸ì§€ ì˜†ìœ¼ë¡œ ë„—ì´ ì¡°ì • */
+/* @charset "UTF-8"; */
+/*  Ä«µå¹è³Ê ÀÌ¹ÌÁö ¿·À¸·Î † ÀÌ Á¶Á¤ */
 /*card banner start*/
-/* ìºëŸ¬ì…€(ì´ë¯¸ì§€ë³€ê²½) ì´ë¯¸ì§€ í¬ê¸° ë³€ê²½ */
+/* Ä³·¯¼¿(ÀÌ¹ÌÁöº¯°æ) ÀÌ¹ÌÁö Å©±â º¯°æ */
 .carousel-inner {
 	width: auto;
 	height: 356px;
@@ -12,14 +12,14 @@
 	height: 100%;
 }
 
-/* ê¸€ì ë³´ì´ëŠ” ì˜ˆì œ*/
+/* ±ÛÀÚ º¸ÀÌ´Â ¿¹Á¦*/
 .carousel-caption {
 	position: sticky !important;
 }
 
 .carousel-caption-span {
 	text-align: left;
-	/*ê¸€ìëŠ” display ì†ì„± flex ì—­í•  ì§€ì •*/
+	/*±ÛÀÚ´Â display ¼Ó¼º flex ¿ªÇÒ ÁöÁ¤*/
 	display: flex;
 	margin-left: 10vw;
 	font-size: 10px;
@@ -42,9 +42,9 @@
 
 /*card banner end*/
 
-/*í€ë”© ì°¸ì—¬ ë ˆì´ì•„ì›ƒ  start*/
+/*Æİµù Âü¿© ·¹ÀÌ¾Æ¿ô  start*/
 .kiwonfunding {
-	position: relative;
+	display: block;
 }
 
 .kiwonfunding h1 {
@@ -52,7 +52,7 @@
 	padding-left: 2vw;
 	margin-top: 34px;
 	line-height: 34px;
-	/* ì™€ë””ì¦ˆ color #1D2129*/
+	/* ¿ÍµğÁî color #1D2129*/
 	color: #1D2129;
 	font-weight: 700;
 }
@@ -76,12 +76,12 @@
 	margin-top: 10px;
 	font-size: 15px;
 	font-weight: 400;
-	/*ë‘ì¤„ width ê°’ìœ¼ë¡œ ì²˜ë¦¬*/
+	/*µÎÁÙ width °ªÀ¸·Î Ã³¸®*/
 	width: 250px;
 }
-/*í€ë”© ì°¸ì—¬ ë ˆì´ì•„ì›ƒ  end*/
+/*Æİµù Âü¿© ·¹ÀÌ¾Æ¿ô  end*/
 
-/*í€ë”© ì°¸ì—¬1 í™”ë©´ê¹¨ì§ ë°©ì§€ ë ˆì´ì•„ì›ƒ  start*/
+/*Æİµù Âü¿©1 È­¸é±úÁü ¹æÁö ·¹ÀÌ¾Æ¿ô  start*/
 .kiwonfunding-1 {
 	display: flex;
 }
@@ -100,7 +100,7 @@
 }
 
 .kiwonfunding-percnt1:after {
-	content: "í´ë˜ìŠ¤";
+	content: "Å¬·¡½º";
 	line-height: 18px;
 	font-size: 13px;
 	font-weight: 400;
@@ -114,11 +114,11 @@
 	margin-top: 10px;
 	font-size: 15px;
 	font-weight: 400;
-	/*ë‘ì¤„ width ê°’ìœ¼ë¡œ ì²˜ë¦¬*/
+	/*µÎÁÙ width °ªÀ¸·Î Ã³¸®*/
 	width: 250px;
 }
 
-/*í€ë”© ì°¸ì—¬1 ë ˆì´ì•„ì›ƒ  end*/
+/*Æİµù Âü¿©1 ·¹ÀÌ¾Æ¿ô  end*/
 
 /*percent API */
 .kiwonfunding-percent {
@@ -142,7 +142,7 @@
 	color: #90949c;
 }
 
-/* ê¸°íšì „ ê³ ì • */
+/* ±âÈ¹Àü °íÁ¤ */
 .funding_class_Planning {
 	display: inline-block;
 	margin-right: 12px;
@@ -162,7 +162,7 @@
 }
 
 .kiwonfunding-percnt2:after {
-	content: "í´ë˜ìŠ¤";
+	content: "Å¬·¡½º";
 	line-height: 18px;
 	font-size: 13px;
 	font-weight: 400;
@@ -192,7 +192,7 @@
 	width: 100%;
 }
 
-/*ìƒˆë¡œê³ ì¹¨ ë²„íŠ¼*/
+/*»õ·Î°íÄ§ ¹öÆ°*/
 .funding_class_btn_Plan {
 	margin-left: 37.3vw;
 	transition-property: background-color, border-color, color, opacity;
@@ -210,7 +210,7 @@
 	box-sizing: border-box !important;
 	-webkit-appearance: none;
 	-webkit-font-smoothing: antialiased;
-	/*í…Œë‘ë¦¬ ì œê±°*/
+	/*Å×µÎ¸® Á¦°Å*/
 	border: none;
 }
 
@@ -218,9 +218,9 @@
 	vertical-align: top;
 }
 
-/*í€ë”© ì°¸ì—¬ ë ˆì´ì•„ì›ƒ  end*/
+/*Æİµù Âü¿© ·¹ÀÌ¾Æ¿ô  end*/
 
-/* ì‹¤ì‹œê°„ ë­í‚¹  start*/
+/* ½Ç½Ã°£ ·©Å·  start*/
 .bd-sidebar-body {
 	height: 100%;
 	display: block;
@@ -232,7 +232,7 @@
 .bd-sidebar-body h1 {
 	font-weight: 700;
 	line-height: 4px;
-	/*ì»¬ëŸ¬ ì¡°ì •*/
+	/*ÄÃ·¯ Á¶Á¤*/
 	color: #1D2129;
 }
 
@@ -268,7 +268,7 @@
 	display: block;
 	font-weight: 700;
 	line-height: 4px;
-	/*ì»¬ëŸ¬ ì¡°ì •*/
+	/*ÄÃ·¯ Á¶Á¤*/
 	color: #1D2129;
 }
 
@@ -289,7 +289,7 @@
 	font-size: 15px;
 }
 
-/*after ë°©ì‹ */
+/*after ¹æ½Ä */
 .kiwon_Rankingbtn-funding::after {
 	position: absolute;
 	right: 0;
@@ -327,15 +327,15 @@
 	content: "";
 }
 
-/*ì§„í–‰ì¤‘ ë±ƒì§€ */
+/*ÁøÇàÁß ¹îÁö */
 .kiwon_Ranking_badge {
-	/*ê¸€ì ì‚¬ì´ ê°„ê²© ì¡°ì ˆ*/
+	/*±ÛÀÚ »çÀÌ °£°İ Á¶Àı*/
 	letter-spacing: 0;
 	font-size: 10px;
 	font-weight: 400;
 	font-style: normal;
 	position: relative;
-	/* align ì†ì„±ê°’ì„ ì„¤ì •í•¨.*/
+	/* align ¼Ó¼º°ªÀ» ¼³Á¤ÇÔ.*/
 	align-self: start;
 	margin-left: 8px;
 	border-radius: 4px;
@@ -349,7 +349,7 @@
 	position: absolute;
 	top: 50%;
 	left: -4px;
-	/* í™”ì‚´í‘œ ë°©í–¥ ì²´í¬ */
+	/* È­»ìÇ¥ ¹æÇâ Ã¼Å© */
 	transform: translateY(-50%);
 	z-index: -1;
 	border-color: transparent #557cf2 transparent transparent;
@@ -386,9 +386,9 @@
 	font-size: 30px;
 	display: flex;
 }
-/* ì‹¤ì‹œê°„ ë­í‚¹  end */
+/* ½Ç½Ã°£ ·©Å·  end */
 
-/* ì–¼ë¦¬ë²„ë“œ  start*/
+/* ¾ó¸®¹öµå  start*/
 .Ealrybird_Paging {
 	float: right;
 	margin-top: -3vw;
@@ -418,16 +418,16 @@
 
 .Ealrytbird_btn {
 	cursor: default;
-	/*íˆ¬ëª…í™” ì¡°ì ˆ */
+	/*Åõ¸íÈ­ Á¶Àı */
 	color: rgba(0, 0, 0, .15);
 	font-size: 24px;
-	/* ì´ì „í˜ì´ì§€ icon ì˜†ìœ¼ë¡œ ë°€ì–´ë‚´ê¸°*/
+	/* ÀÌÀüÆäÀÌÁö icon ¿·À¸·Î ¹Ğ¾î³»±â*/
 	margin-right: -35px;
 }
 
 .Ealrybird_page_btn {
 	cursor: pointer;
-	/*í…Œë‘ë¦¬ ì—†ì• ê¸°*/
+	/*Å×µÎ¸® ¾ø¾Ö±â*/
 	border: none;
 	background: none;
 	font-size: 16px;
@@ -483,9 +483,9 @@
 	color: rgba(0, 0, 0, .54);
 	line-height: 36px;
 }
-/*ì–¼ë¦¬ë²„ë“œ end */
+/*¾ó¸®¹öµå end */
 
-/* ìµœê·¼ì‚´í´ë³¸ í€ë”© start*/
+/* ÃÖ±Ù»ìÆìº» Æİµù start*/
 .likeProject{
 	    display: inline-flex;
     margin-left: 2vw;
@@ -520,4 +520,28 @@
    width: 100%;
    color: #90949c;
 }
-/* ìµœê·¼ì‚´í´ë³¸ í€ë”© end*/
+/* ÃÖ±Ù»ìÆìº» Æİµù end*/
+/*ÀÌ¹ÌÁö ¹è³Ê start*/
+.image-banner{
+	position: relative;
+	
+}
+.image-banner-h1{
+	    position: absolute;
+    top: 20%;
+    left: 26%;
+    font-weight: bold;
+    color: #fff;
+}
+.image-banner-span{
+	position: absolute;
+    color: #fff;
+    top: 45%;
+    left: 20%;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+
+
+/*ÀÌ¹ÌÁö ¹è³Ê end*/
