@@ -499,6 +499,30 @@ commit;
 --김경태 테스트영역
 
 --김주연 테스트영역
+
+    select 
+    f.*,
+    (select count(*) from attachment where funding_no= f.funding_no)attach_count
+from 
+    funding f
+where 
+    f.writer_no = 21;
+order by 
+    f.funding_no desc;
+
+select F.*,
+       A.no,
+       A.funding_no,
+       A.originalfilename,
+       A.renamedfilename,
+       A.status Astatus
+from funding F left join attachment A
+on F.funding_no = A.funding_no
+where 
+    writer_no = 41;
+
+
+
 select * from category;
 select * from funding; 
 update
@@ -646,6 +670,82 @@ values (28, '펀딩', 'C1', 30000, 500000,'P1' ,21, 0,0,'[피부]  피부가맑�
 
 --이승우 테스트영역
 
+select * from funding;
+select count(*) from funding;
+
+select
+			f.*
+		from
+			(select
+			f.*,
+			c.category_name categoryName,
+			m.name Name
+			from
+			funding f
+				left join category c
+					on f.category_code = c.category_code
+				left join member m
+                	on f.writer_no = m.member_no
+			order by f.reg_date desc
+		) f
+where start_date < sysdate;
+
+select 
+count(*) 
+from 
+funding f;
+
+select
+			count(*)
+		from
+			(select
+			f.*,
+			c.category_name categoryName,
+			m.name Name
+			from
+			funding f
+				left join category c
+					on f.category_code = c.category_code
+				left join member m
+                	on f.writer_no = m.member_no
+			order by f.reg_date desc
+		) f
+where content like '%코%'
+and start_date < sysdate;
+
+select
+    *
+from
+    attachment;
+
+select
+    f.*,
+    a.renamedfilename
+from
+    funding f
+left join attachment a
+    on f.funding_no = a.funding_no;
+
+select
+			f.*
+		from
+			
+ (select
+			f.*,
+			c.category_name categoryName,
+			m.name Name,
+			a.renamedfilename
+			from
+			funding f
+				left join category c
+					on f.category_code = c.category_code
+				left join member m
+                	on f.writer_no = m.member_no
+                left join attachment a
+                	on f.funding_no = a.funding_no
+			order by f.reg_date desc
+		) f
+where start_date < sysdate;
 --천호현 테스트영역
 select * from funding;
 select * from funding_reward;

@@ -12,15 +12,15 @@
 <div id="funding_tap">
 	<ol>
 		<li><a
-			href="${pageContext.request.contextPath }/funding/funding_detail">스토리</a>
+			href="${pageContext.request.contextPath }/funding/funding_detail.do?funding_no=${funding.fundingNo}">스토리</a>
 		</li>
-		<li><a href="${pageContext.request.contextPath }/funding/news.do">새소식</a>
-		</li>
-		<li><a
-			href="${pageContext.request.contextPath }/funding/community.do">커뮤니티</a>
+		<li><a href="${pageContext.request.contextPath }/funding/news.do?funding_no=${funding.fundingNo}">새소식</a>
 		</li>
 		<li><a
-			href="${pageContext.request.contextPath }/funding/supporter.do">서포터</a>
+			href="${pageContext.request.contextPath }/funding/community.do?funding_no=${funding.fundingNo}">커뮤니티</a>
+		</li>
+		<li><a
+			href="${pageContext.request.contextPath }/funding/supporter.do?funding_no=${funding.fundingNo}">서포터</a>
 		</li>
 	</ol>
 </div>

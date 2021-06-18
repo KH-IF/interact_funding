@@ -1,5 +1,5 @@
 /* 펀딩리스트 */
-.FundingMainWrapper{
+.fundingMainWrapper{
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -11,29 +11,31 @@
 }
 
 /*오픈예정 리스트*/
-.EarlyProjectListHeadTitle{
+.earlyProjectListHeadTitle{
 	font-size:24px;
 	font-weight:700;
 	margin-top: 60px;
 	margin-bottom: 20px
 }
-.EarlyProjectCardItemTitleLinkArea{
-	text-decoration:none;
+.earlyProjectCardItemTitleLinkArea{
+	text-decoration: none;
 }
-.EarlyProjectCardItemTitleLink,
-.EarlyProjectCardDay,
-p .RewordProjectCardMakerName{
+.earlyProjectCardItemTitleLink,
+.earlyProjectCardDay,
+.rewordProjectCardMakerName{
 	margin:0;
 }
-.EarlyProjectCardItemTitleLink{
+.earlyProjectCardItemTitleLink{
+	display: block;
 	font-size:20px;
 }
-.EarlyProjectCardDay{
+.earlyProjectCardDay{
+	display: block;
 	font-weight:700;
 	font-size:20px;
 	color: #00b2b2;
 }
-p .RewordProjectCardMakerName{
+.rewordProjectCardMakerName{
 	font-weight:700;
 	font-size:13px;
 }
@@ -41,32 +43,20 @@ p .RewordProjectCardMakerName{
 /*펀딩리스트*/
 /*펀딩카테고리*/
 
-.FundingCategoryContainer{
+.fundingCategoryContainer{
     text-align: center;
     padding-top: 50px;
     padding-bottom: 50px;
 }
 
-#FundingCategory{
+#fundingCategoryC0,
+#fundingCategory{
 	display:inline-block;
 	padding-left: 48px;
     text-indent: -48px;
 }
 
-#FundingCategoryC0,
-#FundingCategoryC1,
-#FundingCategoryC2,
-#FundingCategoryC3,
-#FundingCategoryC4,
-#FundingCategoryC5,
-#FundingCategoryC6,
-#FundingCategoryC7,
-#FundingCategoryC8{
-	display:inline-block;
-	padding-left: 48px;
-    text-indent: -48px;
-}
-.FundingCategoryList{
+.fundingCategoryList{
     padding-left: 48px;
     text-indent: -48px;
     line-height: 0;
@@ -75,15 +65,15 @@ p .RewordProjectCardMakerName{
 
 }
 
-.FundingCategoryListWrap{
+.fundingCategoryListWrap{
     display: inline-block;
 }
 
-.FundingCategoryListWrap ul{
+.fundingCategoryListWrap ul{
     padding: 0;
 }
 
-.FundingCategoryListCricle{
+.fundingCategoryListCricle{
     display: inline-block;
     margin: 0;
     width: 80px;
@@ -95,15 +85,15 @@ p .RewordProjectCardMakerName{
     
 }
 
-.FundingCategoryListCricleImageC0,
-.FundingCategoryListCricleImageC1,
-.FundingCategoryListCricleImageC2,
-.FundingCategoryListCricleImageC3,
-.FundingCategoryListCricleImageC4,
-.FundingCategoryListCricleImageC5,
-.FundingCategoryListCricleImageC6,
-.FundingCategoryListCricleImageC7,
-.FundingCategoryListCricleImageC8{
+.fundingCategoryListCricleImageC0,
+.fundingCategoryListCricleImageC1,
+.fundingCategoryListCricleImageC2,
+.fundingCategoryListCricleImageC3,
+.fundingCategoryListCricleImageC4,
+.fundingCategoryListCricleImageC5,
+.fundingCategoryListCricleImageC6,
+.fundingCategoryListCricleImageC7,
+.fundingCategoryListCricleImageC8{
     margin:auto;
     display: block;
     background-size: 175%;
@@ -115,49 +105,49 @@ p .RewordProjectCardMakerName{
     border-width: 2px;
     border: 2px white solid;
 }
-.FundingCategoryListCricleImageC0:hover,
-.FundingCategoryListCricleImageC1:hover,
-.FundingCategoryListCricleImageC2:hover,
-.FundingCategoryListCricleImageC3:hover,
-.FundingCategoryListCricleImageC4:hover,
-.FundingCategoryListCricleImageC5:hover,
-.FundingCategoryListCricleImageC6:hover,
-.FundingCategoryListCricleImageC7:hover,
-.FundingCategoryListCricleImageC8:hover{
+.fundingCategoryListCricleImageC0:hover,
+.fundingCategoryListCricleImageC1:hover,
+.fundingCategoryListCricleImageC2:hover,
+.fundingCategoryListCricleImageC3:hover,
+.fundingCategoryListCricleImageC4:hover,
+.fundingCategoryListCricleImageC5:hover,
+.fundingCategoryListCricleImageC6:hover,
+.fundingCategoryListCricleImageC7:hover,
+.fundingCategoryListCricleImageC8:hover{
     border: 2px skyblue solid;
 }
 
 
-.FundingCategoryListCricleImageC0{
+.fundingCategoryListCricleImageC0{
     background-image: url("./../image/category.jpg");
 }
-.FundingCategoryListCricleImageC1{
+.fundingCategoryListCricleImageC1{
     background-image: url("./../image/tech1.jpg");
 }
-.FundingCategoryListCricleImageC2{
+.fundingCategoryListCricleImageC2{
     background-image: url("./../image/food3.jpg");
 }
-.FundingCategoryListCricleImageC3{
+.fundingCategoryListCricleImageC3{
     background-image: url("./../image/trip.jpg");
 }
-.FundingCategoryListCricleImageC4{
+.fundingCategoryListCricleImageC4{
     background-image: url("./../image/sports.jpg");
 }
-.FundingCategoryListCricleImageC5{
+.fundingCategoryListCricleImageC5{
     background-image: url("./../image/game.jpg");
 }
-.FundingCategoryListCricleImageC6{
+.fundingCategoryListCricleImageC6{
     background-image: url("./../image/meeting2.jpg");
 }
-.FundingCategoryListCricleImageC7{
+.fundingCategoryListCricleImageC7{
     background-image: url("./../image/pet.jpg");
     background-size: 150%;
 }
-.FundingCategoryListCricleImageC8{
+.fundingCategoryListCricleImageC8{
     background-image: url("./../image/donate.jpg");
     background-size: 120%;
 }
-.FundingCategoryListCricleName{
+.fundingCategoryListCricleName{
     margin-top: 8px;
     line-height: 18px;
     white-space: nowrap;
@@ -167,16 +157,16 @@ p .RewordProjectCardMakerName{
 }
 
 /* 카테고리 제목 */
-.FundingProjectList{
+.fundingProjectList{
 	margin: 50px;
 }
-.FundingProjectListHead{
+.fundingProjectListHead{
 	border-bottom: 1px solid rgba(0,0,0,.1);
     position: relative;
     margin: 0 auto;
     text-align: right;
 }
-.FundingProjectListHeadTitle{
+.fundingProjectListHeadTitle{
     font-weight: 700;
     display: block;
     position: absolute;
@@ -190,25 +180,11 @@ input[type=search]{
     opacity: 1;
     outline: none;
 }
-.FundingProjectListSearch{
+.fundingProjectListSearch{
     display: inline-block;
 }
 
 #searchKeyword2{
-	/* height: 30px;
-	outline: none;
-	border: none;
-	border: 1px solid rgb(225, 225, 225);
-	padding: 3px;
-	width: 0px;
-	position:absolute;
-	top: 0;
-	right: 197px;
-	padding-right: 25px;
-	background: none;
-	z-index: 3;
-	transition: width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
-	cursor: pointer; */
 	position:absolute;
 	top: 0;
 	right: 207px;
@@ -219,14 +195,8 @@ input[type=search]{
 	border-bottom: 1px solid #BBB;
 	z-index: 1;
 }
-/* #searchKeyword2:focus{
-	width: 200px;
-	z-index: 1;
-	border-bottom: 1px solid #BBB;
-	cursor: text;
-	right: 197px;
-} */
-#SearchButton{
+
+#searchButton{
 	float: right;
 	text-align: right;
 	background: url(./../image/searchicon.png) no-repeat 50%;
@@ -241,7 +211,7 @@ input[type=search]{
 	border-radius: 10%;
 	z-index: 2;
 }
-#SearchButton:hover{
+#searchButton:hover{
 	cursor: pointer;
 }
 #searchSelect1,
@@ -253,7 +223,7 @@ input[type=search]{
 }
 
 /* 목록 */
-.FundingProjectCardListIn{
+.fundingProjectCardListIn{
     display: grid;
     grid-template-columns: repeat(3, calc(33.33% - 30px));
     gap: 45px;
@@ -262,30 +232,30 @@ input[type=search]{
 
 /* 목록 제목 */
 
-.FundingProjectCardItem{
+.fundingProjectCardItem{
     background-color: #dadada;
     border: 1px solid;
 }
 
-.FundingProjectCardItemImage{
+.fundingProjectCardItemImage{
     width: 100%;
     height: 200px;
     background-image: url("./../image/tech1.jpg");
     background-size: 100%;
     background-repeat: no-repeat;
 }
-.FundingProjectCardListInfo{
+.fundingProjectCardListInfo{
 	background-color: white;
     overflow: hidden;
 }
-.FundingProjectCardItemTitleBox{
+.fundingProjectCardItemTitleBox{
     height: 80px;
 }
-.FundingProjectCardItemTitleLink{
+.fundingProjectCardItemTitleLink{
     text-decoration: none;
 }
 
-.FundingProjectCardItemTitleLink p{
+.fundingProjectCardItemTitleLink p{
     display: block;
     margin:0;
     font-size: 20px;
@@ -294,8 +264,8 @@ input[type=search]{
     text-overflow: ellipsis;
 }
 
-.RewordProjectCardCategory,
-.RewordProjectCardMakerName{
+.rewordProjectCardCategory,
+.rewordProjectCardMakerName{
 	display:block;
     font-size: 14px;
     font-weight: 700;
@@ -306,10 +276,10 @@ input[type=search]{
 	border-right: 1px solid rgba(0,0,0,.1);
 	margin-right: 5px;
 }
-.RewordProjectCardCategory{
+.rewordProjectCardCategory{
 	display:inline-block;
 }
-.RewordProjectCardMakerName{
+.rewordProjectCardMakerName{
 	display:inline-block;
     width: 100px;
     overflow: hidden;
@@ -323,6 +293,9 @@ input[type=search]{
     height: 2px;
     height: 3px;
     margin-top: 10px;
+}
+.progress{
+	height: 5px;
 }
 .RewordProjectCardPercent{
     color: skyblue;
@@ -338,13 +311,16 @@ input[type=search]{
     font-weight: 600;
     float: right;
 }
-.MoreFunding{
+.pagination{
+    margin-top: 40px;
+}
+.moreFunding{
     margin-top: 45px;
     margin-bottom: 45px;
     text-align: center;
 
 }
-.MoreFunding button{
+.moreFunding button{
     width: 100%;
     font-size: 15px;
     background-color: white;

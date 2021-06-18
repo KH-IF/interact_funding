@@ -65,6 +65,7 @@
 		</div>
 	</div>
 	
+<<<<<<< HEAD
 	
 	<div id="funding_tap_wrapper">
 		<div id="funding_tap">
