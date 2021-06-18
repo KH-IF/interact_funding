@@ -4,6 +4,7 @@ package com.kh.interactFunding.funding.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -161,15 +162,28 @@ public class FundingDaoImpl implements FundingDao{
 	//이승우
 	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {
+		int offset = (int)map.get("offset");
+		int limit = (int)map.get("limit");
+		RowBounds rowBounds = new RowBounds(offset, limit);
 		log.debug("map@dap = {}",map);
-		return session.selectList("funding.selectFundingList", map);
+		return session.selectList("funding.selectFundingList", map, rowBounds);
 	}
 
 	@Override
 	public List<Map<String, String>> selectCategoryList() {
 		return session.selectList("funding.selectCategoryList");
-	}	
-
+	}
+	
+	@Override
+	public List<Funding> earlyList(Map<String, Object> map) {
+		return session.selectList("funding.selectEarlyList", map);
+	}
+	
+	@Override
+	public int selectFundingListTotalContents(Map<String, Object> map) {
+		return session.selectOne("funding.selectFundingListTotalContents", map);
+	}
+	
 	//천호현
 
 	@Override
@@ -183,11 +197,5 @@ public class FundingDaoImpl implements FundingDao{
 	}
 
 
-	
-	
-
-	
-
-	
 	
 }
