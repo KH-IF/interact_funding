@@ -39,6 +39,7 @@ public interface FundingService {
 	//박요한
 	List<Funding> fundingNews(int funding_no);
 	
+	
 	//배기원
 	public List<Funding> indexfundingList();
 	public List<Funding> indexfundinglike();

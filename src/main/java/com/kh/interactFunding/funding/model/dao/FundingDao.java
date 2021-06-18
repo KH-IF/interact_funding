@@ -16,6 +16,7 @@ public interface FundingDao {
 	//김윤수
 	List<Integer> selectMyLikeNoList(int memberNo);
 	Funding selectOneFundingKYS(int no);
+	Attachment selectOneAttach(int no);
 	
 	//김경태
 	

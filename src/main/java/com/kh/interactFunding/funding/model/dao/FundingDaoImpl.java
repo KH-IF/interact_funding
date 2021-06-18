@@ -33,6 +33,11 @@ public class FundingDaoImpl implements FundingDao{
 	public Funding selectOneFundingKYS(int no) {
 		return session.selectOne("funding.selectOneFundingKYS",no);
 	}
+	@Override
+	public Attachment selectOneAttach(int no) {
+		return session.selectOne("funding.selectOneAttach",no);
+	}
+	
 	//김경태
 	
 	//김주연
