@@ -6,44 +6,109 @@
 	<!-- 김윤수 -->
 	<!-- 김경태 -->
 	<!-- 김주연 -->
-	<select id="statusYList" resultMap="fundingMap">
-		select
-			f.*, 
-			(select name 
-            		from member 
-            where member_no = f.writer_no)name
-		from
-			funding f
-        
-		where
-			f.writer_no = 21
-			and f.status = 'Y'
+	<select id="statusYList" resultMap="fundingCollectionMap">
+		select F.*,
+		       A.no,
+		       A.funding_no,
+		       A.originalfilename,
+		       A.renamedfilename,
+		       A.status Astatus
+		from funding F left join attachment A
+		on F.funding_no = A.funding_no
+		where 
+		    writer_no = #{memberNo}
+		    and F.status = 'Y'
+		order by
+			F.funding_no desc
 	</select>
-	<select id="statusNList" resultMap="fundingMap">
-		select
-			f.*, 
-			(select name 
-            		from member 
-            where member_no = f.writer_no)name
-		from
-			funding f
-        
-		where
-			f.writer_no = 21
-			and f.status = 'N'
+	<select id="statusNList" resultMap="fundingCollectionMap">
+		select F.*,
+		       A.no "attach_no",
+		       A.funding_no,
+		       A.originalfilename,
+		       A.renamedfilename,
+		       A.status "astatus"
+		from funding F left join attachment A
+		on F.funding_no = A.funding_no
+		where 
+		    writer_no = #{memberNo}
+		    and F.status = 'N'
+		order by
+			F.funding_no desc
 	</select>
+	
+	<resultMap type="FundingExt" id="fundingCollectionMap">
+		<id column ="funding_no" property="fundingNo"/>
+		<result column="title" property="title"/>
+		<result column="category_code" property="categoryCode"/>
+		<result column="now_amount" property="nowAmount"/>
+		<result column="goal_amount" property="goalAmount"/>
+		<result column="rate_plan_code" property="ratePlanCode"/>
+		<result column="writer_no" property="writerNo"/>
+		<result column="read_count" property="readCount"/>
+		<result column="like_count" property="likeCount"/>
+		<result column="content" property="content"/>
+		<result column="early_content" property="earlyContent"/>
+		<result column="start_date" property="startDate"/>
+		<result column="d_day" property="dDay"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="phone" property="phone"/>
+		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
+		<collection property="attachList" ofType="attachment">
+			<id column="attach_no" property="no"/>
+			<result column="funding_no" property="fundingNo"/>
+			<result column="originalFilename" property="originalFilename"/>
+			<result column="renamedFilename" property="renamedFilename"/>
+			<result column="astatus" property="status" typeHandler="booleanYnTypeHandler"/>
+		</collection>
+	</resultMap>
+	
 	<resultMap type="FundingExt" id="fundingMap">
 		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
 	</resultMap>
+	
+	<select id="loadFunding" resultMap="fundingCollectionMap">
+		select F.*,
+		       A.no "attach_no",
+		       A.funding_no,
+		       A.originalfilename,
+		       A.renamedfilename,
+		       A.status "astatus"
+		from 
+			funding F left join attachment A
+				on F.funding_no = A.funding_no
+		where 
+			F.funding_no = #{fundingNo}	
+	</select>
+	
+	<select id="selectCheckFunding" resultMap="fundingCollectionMap">
+		select F.*,
+	       A.no "attach_no",
+	       A.funding_no,
+	       A.originalfilename,
+	       A.renamedfilename,
+	       A.status "astatus"
+		from 
+			funding F left join attachment A
+				on F.funding_no = A.funding_no
+		where 
+			F.funding_no = #{fundingNo}	
+	
+	</select>
+	
 	<insert id="ready1FundingInsertNo">
 		insert into
 			funding(
 				funding_no,
-				writer_no
+				writer_no,
+				reg_date,
+				status
 			)
 			values(
 				seq_funding_no.nextval,
-				${writerNo}
+				#{writerNo},
+				default,
+				'N'
 				
 			)
 		<!--발급받은 funding pk no값을 파라미터 funding객체의 property no에 저장한다.  -->	
@@ -60,19 +125,18 @@
 		update
 			funding
 		set
-			rate_plan_code = '${charge}'
+			rate_plan_code = #{charge}
 		where
-			funding_no = ${no}	
+			funding_no = #{no}	
 	</update>
 	<update id="saveBasicInfo">
 		update
 			funding
 		set
-			category_code = '${categoryCode}',
-			title = '${title}',
-			goal_amount = ${goalAmount},
-			reg_date = default,
-			d_day = ${dDay}
+			category_code = #{categoryCode},
+			title = #{title},
+			goal_amount = #{goalAmount},
+			d_day = #{dDay}
 		where
 			funding_no = ${fundingNo}	
 	</update>
@@ -81,14 +145,14 @@
 		attachment(
 			no,
 			funding_no,
-			original_filename,
-			renamed_filename
+			originalFilename,
+			renamedFilename
 		)
 		values(
 			seq_attachment_no.nextval,
-			${fundingNo},
-			${originalFilename},
-			${renamedFilename}
+			#{fundingNo},
+			#{originalFilename},
+			#{renamedFilename}
 		
 		)
 	</insert>
@@ -98,17 +162,81 @@
 			funding
 		<set>
 		
-			content = ${content},
+			content = #{content},
 		
-			early_content = ${earlyContent},
+			early_content = #{earlyContent},
 			
 		
-			start_date = ${startDate}
+			start_date = #{startDate}
 				
 		</set>	
 		where
-			funding_no = ${fundingNo}	
+			funding_no = #{fundingNo}	
 	</update>
+	
+	<select id="loadReward" resultType="reward">
+		select
+			*
+		from
+			funding_reward
+		where
+			funding_no=#{fundingNo}
+	</select>
+	
+	<select id="selectOneReward" resultType="reward">
+		select
+			*
+		from
+			funding_reward
+		where
+			reward_no=#{rewardNo}
+	</select>
+	
+	<insert id="insertReward">
+		insert into
+			funding_reward(
+				reward_no,
+				funding_no,
+				price,
+				title,
+				content,
+				shipping_price,
+				limit_amount,
+				shipping_date
+			)
+			values(
+				seq_funding_reward_no.nextval,
+				#{fundingNo},
+				#{price},
+				#{title},
+				#{content},
+				#{shippingPrice},
+				#{limitAmount},
+				#{shippingDate}		
+			)
+		
+	</insert>
+	
+	<update id="updateReward">
+		update
+			funding_reward
+		<set>
+			price = #{price},
+			title = #{title},
+			content = #{content},
+			shipping_price = #{shippingPrice},
+			limit_amount = #{limitAmount},
+			shipping_date = #{shippingDate}
+		</set>
+		where 
+			funding_no = #{fundingNo}
+	</update>
+	
+	<delete id="deleteReward">
+		delete from funding_reward
+		where
+			reward_no = #{rewardNo}
+	</delete>
 	
 	<update id="finalSubmit">
 		update
@@ -116,8 +244,14 @@
 		set
 			status = 'Y'
 		where
-			funding_no = ${fundingNo}
+			funding_no = #{fundingNo}
 	</update>
+	
+	<delete id="deleteFunding">
+		delete from funding
+		where 
+			funding_no =#{fundingNo}
+	</delete>
 	
 	
 	<!-- 박요한 -->

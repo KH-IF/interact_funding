@@ -1,3 +1,4 @@
+<%@page import="com.kh.interactFunding.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -25,15 +26,12 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+<%
 
+	Member loginMember = (Member) session.getAttribute("loginMember");
+
+%>
 <script>
-
-function cancel(){
-    //joocheck
-    console.log("취소 진행");
-    location.href=`${pageContext.request.contextPath}/makerFunding/cancel.do`;
-
-}
 
 window.setTimeout(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function(){
@@ -75,9 +73,13 @@ window.setTimeout(function() {
             <img src="" width="30" height="30" alt="">
         </a>
         <!-- 이름 여기에 불러올것 -->
+        <a class="aTag" href="${pageContext.request.contextPath}/funding/fundingStart1"><div class="makerName">
+        	<img src="${pageContext.request.contextPath}/resources/image/skycraper.png" style="width: 25px">
+        	${loginMember.name}</div></a>
         <a class="aTag" href="${pageContext.request.contextPath}/funding/ready1Funding"><div class="makerName">
         	<img src="${pageContext.request.contextPath}/resources/image/skycraper.png" style="width: 25px">
-        	00</div></a>
+        	${name}</div></a>
+        
         <div>
             <button type="button" class="border-0" onclick ="location.href='${pageContext.request.contextPath}'">나가기</button>
         </div>
@@ -94,7 +96,7 @@ window.setTimeout(function() {
             <div style="height:200px;">
                 <h3>
                     <!-- 프로젝트 진행명 가져오기 -->
-                    00의 
+                    ${loginMember.name}의 
                     <br>
                     멋진 프로젝트
                 </h3>
