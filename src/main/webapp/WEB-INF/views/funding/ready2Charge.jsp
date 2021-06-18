@@ -188,7 +188,7 @@ function saveCharge(){
     
 	$.ajax({
 		url:`${pageContext.request.contextPath}/funding/saveCharge/\${no}/\${charge}`,
-		method: "put",
+		method: "PUT",
 		success(data){
 			console.log(data);
 			const {msg} = data;

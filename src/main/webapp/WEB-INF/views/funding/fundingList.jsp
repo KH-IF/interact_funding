@@ -7,7 +7,23 @@
 	<jsp:param value="이프" name="title" 	/>
 </jsp:include>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/fundingList.css" />
+<<<<<<< HEAD
 
+=======
+<%
+	//사용자 쿠키 처리
+	String saveCookie =null;
+	Cookie[] cookies = request.getCookies();
+	if(cookies != null){
+		for(Cookie c : cookies){
+			String name = c.getName();
+			String value = c.getValue();
+			if("saveCookie".equals(name))
+				saveCookie = value;
+		}
+}
+%>
+>>>>>>> branch 'master' of https://github.com/KH-IF/interact_funding.git
 <script>
 	$(function(){
 	    //이미지 불러오기
@@ -178,12 +194,22 @@
                     <a href="${pageContext.request.contextPath}/funding/fundingDetail?funding_no=${funding.fundingNo}" class="FundingProjectCardItemImageArea">
                         <div class="fundingProjectCardItemImage"></div>
                     </a>
+<<<<<<< HEAD
                     <div class="fundingProjectCardListInfo">
                         <div class="fundingProjectCardItemTitle">
                             <div class="fundingProjectCardItemTitleBox">
                                 <a class="fundingProjectCardItemTitleLink" href="${pageContext.request.contextPath}/funding/fundingDetail?funding_no=${funding.fundingNo}">
                                     <p><strong>${funding.content}</strong></p>
+=======
+                    <div class="FundingProjectCardListInfo">
+                        <div class="FundingProjectCardItemTitle">
+                            <div class="FundingProjectCardItemTitleBox">		
+                                <a class="FundingProjectCardItemTitleLink" href="${pageContext.request.contextPath }/">
+                                	<!-- 배기원 쿠키(테스트) 추가 하였습니다. 2021/06/16 -->
+                                    <p><strong>${funding.title}</strong></p>
+>>>>>>> branch 'master' of https://github.com/KH-IF/interact_funding.git
                                 </a>
+                                
                                 <div>
                                     <span class="rewordProjectCardCategory">${funding.categoryName}</span>
                                     <span class="line"></span>
