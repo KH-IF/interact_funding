@@ -144,19 +144,27 @@ public class FundingServiceImpl implements FundingService{
 	}
 	@Override
 	public List<Funding> indexfundinglike() {
-		// TODO Auto-generated method stub
 		return fundingDao.indexfundinglike();
 	}
 	@Override
+	public List<Funding> indexviewlist() {
+		return fundingDao.indexviewlist();
+	}
+	@Override
 	public int indexTotalContents() {
-		// TODO Auto-generated method stub
 		return fundingDao.indexTotalContents();
 	}
-	
 	@Override
 	public List<Funding> indexEarlyList() {
-		// TODO Auto-generated method stub
 		return fundingDao.indexEarlyList();
+	}
+	@Override
+	public List<Funding> indexlikelist() {
+		return fundingDao.indexlikelist();
+	}
+	@Override
+	public List<Funding> indexfundingRefresh() {
+		return fundingDao.indexfundingRefresh();
 	}
 	//이승우
 	@Override

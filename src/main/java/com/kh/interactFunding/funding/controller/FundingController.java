@@ -12,9 +12,9 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.ws.spi.http.HttpHandler;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+
+import org.springframework.web.bind.annotation.CookieValue;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -632,16 +636,25 @@ public class FundingController {
 		List<Funding> likeList=null;
 		try {
 		likeList =fundingService.indexfundinglike();
-		log.info("likeList={}",likeList);
 		}catch (Exception e) {
-			log.error("메인페이지 좋아요가 안됩니다",e);
+			log.error("좋아요 페이지가 안됩니다.",e);
 			throw e;
 		}
 		return likeList;
 	}
-	 
-	 
-	
+	@ResponseBody
+	@GetMapping("fundingRefresh")
+	public  List<Funding>indexfundingRefresh(Model model,HttpSession session){
+			List<Funding>Refreshlist=null;
+			try {
+				Refreshlist=fundingService.indexfundingRefresh();
+				log.info("Refreshlist={}",Refreshlist);
+			}catch (Exception e) {
+				log.error("새로고침 예제",e);
+				throw e;
+			}
+		return Refreshlist;
+	}	
 	//이승우
 	//흠흠
 	@GetMapping("/fundingList")
@@ -650,8 +663,7 @@ public class FundingController {
 			@RequestParam(defaultValue="") String searchKeyword,
 			@RequestParam(defaultValue="") String searchSelect1,
 			@RequestParam(defaultValue="") String searchSelect2,
-			@RequestParam(defaultValue="") String category
-		) {
+			@RequestParam(defaultValue="") String category) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("searchKeyword", searchKeyword);
 		map.put("searchSelect1", searchSelect1);
@@ -673,7 +685,8 @@ public class FundingController {
 			mav.addObject("categoryList", categoryList);
 			
 			return mav;
-		}
+			}
+		
 		catch(Exception e){
 			log.error("fundingList 조회 오류");
 			throw e;

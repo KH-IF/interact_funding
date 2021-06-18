@@ -128,7 +128,6 @@ public class FundingDaoImpl implements FundingDao{
 	public List<Funding> supporter(Map<String, Object> param) {
 		return session.selectList("funding.supporter", param);
 	}
-	
 	//배기원
 	@Override
 	public List<Funding> indexfundingList() {
@@ -139,16 +138,25 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectList("funding.indexfundinglike");
 	}
 	@Override
+	public List<Funding> indexviewlist() {
+		return session.selectList("funding.indexviewlist");
+	}
+	@Override
 	public int indexTotalContents() {
 		return session.selectOne("funding.indexTotalContents");
 	}
-	
-	
-	
 	@Override
 	public List<Funding> indexEarlyList() {
-		// TODO Auto-generated method stub
 		return session.selectList("funding.indexEarlyList");
+	}
+	@Override
+	public List<Funding> indexlikelist() {
+		return session.selectList("funding.indexlikelist");
+	}
+	
+	@Override
+	public List<Funding> indexfundingRefresh() {
+		return session.selectList("funding.indexfundingRefresh");
 	}
 	//이승우
 	@Override

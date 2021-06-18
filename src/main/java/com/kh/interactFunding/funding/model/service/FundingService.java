@@ -41,9 +41,14 @@ public interface FundingService {
 	
 	//배기원
 	public List<Funding> indexfundingList();
-	List<Funding> indexEarlyList();
-	int indexTotalContents();
 	public List<Funding> indexfundinglike();
+	List<Funding> indexEarlyList();
+	List<Funding> indexviewlist();
+	List<Funding> indexlikelist();
+	List<Funding> indexfundingRefresh();
+	int indexTotalContents();
+	
+		
 	//이승우
 	public List<Funding> fundingList(Map<String, Object> map);
 	public List<Map<String, String>> selectCategoryList();
@@ -53,5 +58,4 @@ public interface FundingService {
 	//천호현
 	public Funding selectOneFunding(int funding_no);
 	public int selectOneFunding2(int funding_no);
-
 }
