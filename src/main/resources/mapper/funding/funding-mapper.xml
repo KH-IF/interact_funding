@@ -21,6 +21,7 @@
 		select * 
 		from attachment
 		where funding_no = #{no}
+		and status ='Y'
 	</select>
 	
 	<resultMap type="funding" id="fundingVoMap">

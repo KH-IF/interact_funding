@@ -110,21 +110,21 @@
 		            <span class="carousel-control-next-icon"></span>
 		        </a>
 	</div>
-	<div class="FundingProjectList">
+	<div class="fundingProjectList">
             <!-- 목록 -->
-	        <div class="FundingProjectCardList">
-	            <div class="FundingProjectCardListIn">
+	        <div class="fundingProjectCardList">
+	            <div class="fundingProjectCardListIn">
 	                <!-- 목록 제목 -->
 	                <c:forEach items="${list}" var="funding">
 	                <div class="fundingProjectCardItem">
-	                    <a href="#" class="FundingProjectCardItemImageArea">
-	                        <div class="fundingProjectCardItemImage"></div>
+	                    <a href="#" class="fundingProjectCardItemImageArea">
+	                        <div class="fundingProjectCardItemImage" style="background-image:url('${pageContext.request.contextPath}/resources/upload/${funding.attachment.renamedFilename}');"></div>
 	                    </a>
-	                    <div class="FundingProjectCardListInfo">
-	                        <div class="FundingProjectCardItemTitle">
-	                            <div class="FundingProjectCardItemTitleBox">
+	                    <div class="fundingProjectCardListInfo">
+	                        <div class="fundingProjectCardItemTitle">
+	                            <div class="fundingProjectCardItemTitleBox">
 	                                <a class="earlyProjectCardItemTitleLinkArea" href="#">
-                                        <span class="earlyProjectCardItemTitleLink"><strong>${funding.content}</strong></span>
+                                        <span class="earlyProjectCardItemTitleLink"><strong>${funding.title}</strong></span>
                                         <span class="earlyProjectCardDay">
                                         <fmt:formatDate value="${funding.startDate}" pattern="MM/dd(E) HH시mm분 오픈예정"/>
                                         </span>
@@ -132,7 +132,7 @@
 	                            </div>
 	                            <div>
                                 	<span class="rewordProjectCardMakerName">
-                                	${funding.name}
+                                	${funding.writerNo}
                                 	</span>
 	                            </div>
 	                        </div>
@@ -141,12 +141,12 @@
 	                </c:forEach>
 	                
 	                <div class="fundingProjectCardItem">
-	                    <a href="#" class="FundingProjectCardItemImageArea">
+	                    <a href="#" class="fundingProjectCardItemImageArea">
 	                        <div class="fundingProjectCardItemImage"></div>
 	                    </a>
-	                    <div class="FundingProjectCardListInfo">
-	                        <div class="FundingProjectCardItemTitle">
-	                            <div class="FundingProjectCardItemTitleBox">
+	                    <div class="fundingProjectCardListInfo">
+	                        <div class="fundingProjectCardItemTitle">
+	                            <div class="fundingProjectCardItemTitleBox">
 	                                <a class="earlyProjectCardItemTitleLinkArea" href="#">
                                         <span class="earlyProjectCardItemTitleLink"><strong>세상에 없던 초간편 미래형 제품 등장!</strong></span>
                                         <span class="earlyProjectCardDay">

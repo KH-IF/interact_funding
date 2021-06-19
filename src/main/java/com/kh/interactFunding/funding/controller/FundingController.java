@@ -628,8 +628,8 @@ public class FundingController {
 			HttpServletRequest request
 		) {
 		
-		log.debug("category ={}",category);
-		log.debug("cPage ={}",cPage);
+//		log.debug("category ={}",category);
+//		log.debug("cPage ={}",cPage);
 		
 		try {
 			final int limit = 6; // 최대생성수
@@ -647,7 +647,6 @@ public class FundingController {
 			int totalContents = fundingService.selectFundingListTotalContents(map);
 			String url = request.getRequestURI() + "?category=" + category + "&searchSelect1=" + searchSelect1 + "&searchSelect2=" + searchSelect2 + "&searchKeyword=" + searchKeyword;
 			
-			
 //			log.debug("totalContents = {}, url = {}", totalContents, url);
 			String pageBar = PageBarUtils.getPageBar(totalContents, cPage, limit, url);
 			
@@ -657,7 +656,7 @@ public class FundingController {
 			mav.addObject("map", map);
 			
 //			log.debug("searchTitle = {}", searchKeyword);
-//			log.debug("list = {}", list);
+			log.debug("list = {}", list);
 			return mav;
 			}
 		

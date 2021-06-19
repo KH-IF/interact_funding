@@ -11,30 +11,15 @@
 	$(function(){
 	    //이미지 불러오기
 	    $("img[alt=image1]").attr("src","${pageContext.request.contextPath }/resources/image/food3.jpg");
-	    $("img[alt=image2]").attr("src","${pageContext.request.contextPath }/resources/image/food2.jpg");
+	    /* $("img[alt=image2]").attr("src","${pageContext.request.contextPath }/resources/image/food2.jpg");
 	    $("img[alt=image3]").attr("src","${pageContext.request.contextPath }/resources/image/food1.jpg");
 	    $("img[alt=image4]").attr("src","${pageContext.request.contextPath }/resources/image/trip.jpg");
-	    $("img[alt=image5]").attr("src","${pageContext.request.contextPath }/resources/image/game.jpg");
+	    $("img[alt=image5]").attr("src","${pageContext.request.contextPath }/resources/image/game.jpg"); */
 	
 		//페이드인 효과
 	    $('.fundingProjectCardItemImage').animate({'opacity':'1'},500);
 	});
-	//더보기
-	/* $(function(){
-	    $(".FundingProjectCardItem").slice(0,6).show();
-	    $("#moreBtn").click(function(e){
-			e.preventDefault();
-			$(".FundingProjectCardItem:hidden").slice(0,6).show();
-			if($(".FundingProjectCardItem:hidden").length == 0){
-				swal("", "더이상 항목이 없습니다.","info")
-				$(".moreFunding").hide();
-			}
-	    })
-	}); */
-
-	/* $(".FundingCategoryList").click(e => {
-		var $a = $(e.target).
-	}); */
+	
 	//자동페이징
 	/* var page = 2;
 
@@ -82,6 +67,7 @@
                <li data-target="#demo" data-slide-to="4"></li>
            </ul>
 
+		   
            <div class="carousel-inner">
                <div class="carousel-item active">
                    <a href="#">
@@ -92,7 +78,18 @@
                     </div>
                 </a>
             </div>
-            <div class="carousel-item">
+            <c:forEach items="${list}" var="funding" begin="0" end="3">
+			   	<div class="carousel-item">
+                   <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}">
+                   <img src="${pageContext.request.contextPath}/resources/upload/${funding.attachment.renamedFilename}" style="width: 1300px; height: 400px;">
+	                    <div class="slide-title">
+	                     <span>${funding.title}</span>
+	                     <p></p>
+	                    </div>
+	                </a>
+	            </div>
+		   </c:forEach>
+            <!-- <div class="carousel-item">
                 <a href="#">
                     <img alt="image2" style="width: 1300px; height: 400px;">
                     <div class="slide-title">
@@ -115,7 +112,7 @@
                 <a href="#">
                     <img alt="image5" style="width: 1300px; height: 400px;">
                 </a>
-            </div>
+            </div> -->
         </div>
         <a class="carousel-control-prev" href="#demo" data-slide="prev">
             <span class="carousel-control-prev-icon"></span>
@@ -129,7 +126,7 @@
             <div class="fundingCategoryListWrap">
             	<ul>
                 	<li id="fundingCategory" class="C0">
-                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C0&searchKeyword=${map.searchKeyword}">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?searchSelect1=${map.searchSelect1}&searchSelect2=${map.searchSelect2}&searchKeyword=${map.searchKeyword}">
 		                     <span class="fundingCategoryListCricle">
 		                         <span class="fundingCategoryListCricleImageC0"></span>
 		                         <span class="fundingCategoryListCricleName">전체보기</span>
@@ -137,66 +134,66 @@
 		                </a>
                 	</li>
                 	<li id="fundingCategory" class="C1">
-                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C1&searchKeyword=${map.searchKeyword}">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C1&searchSelect1=${map.searchSelect1}&searchSelect2=${map.searchSelect2}&searchKeyword=${map.searchKeyword}">
 		                     <span class="fundingCategoryListCricle">
 		                         <span class="fundingCategoryListCricleImageC1"></span>
-		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                         <span class="fundingCategoryListCricleName">테크·가전</span>
 		                     </span>
 		                </a>
                 	</li>
                 	<li id="fundingCategory" class="C2">
-                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C2&searchKeyword=${map.searchKeyword}">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C2&searchSelect1=${map.searchSelect1}&searchSelect2=${map.searchSelect2}&searchKeyword=${map.searchKeyword}">
 		                     <span class="fundingCategoryListCricle">
 		                         <span class="fundingCategoryListCricleImageC2"></span>
-		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                         <span class="fundingCategoryListCricleName">푸드</span>
 		                     </span>
 		                </a>
                 	</li>
                 	<li id="fundingCategory" class="C3">
-                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C3&searchKeyword=${map.searchKeyword}">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C3&searchSelect1=${map.searchSelect1}&searchSelect2=${map.searchSelect2}&searchKeyword=${map.searchKeyword}">
 		                     <span class="fundingCategoryListCricle">
 		                         <span class="fundingCategoryListCricleImageC3"></span>
-		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                         <span class="fundingCategoryListCricleName">여행</span>
 		                     </span>
 		                </a>
                 	</li>
                 	<li id="fundingCategory" class="C4">
-                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C4&searchKeyword=${map.searchKeyword}">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C4&searchSelect1=${map.searchSelect1}&searchSelect2=${map.searchSelect2}&searchKeyword=${map.searchKeyword}">
 		                     <span class="fundingCategoryListCricle">
 		                         <span class="fundingCategoryListCricleImageC4"></span>
-		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                         <span class="fundingCategoryListCricleName">스포츠</span>
 		                     </span>
 		                </a>
                 	</li>
                 	<li id="fundingCategory" class="C5">
-                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C5&searchKeyword=${map.searchKeyword}">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C5&searchSelect1=${map.searchSelect1}&searchSelect2=${map.searchSelect2}&searchKeyword=${map.searchKeyword}">
 		                     <span class="fundingCategoryListCricle">
 		                         <span class="fundingCategoryListCricleImageC5"></span>
-		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                         <span class="fundingCategoryListCricleName">게임·취미</span>
 		                     </span>
 		                </a>
                 	</li>
                 	<li id="fundingCategory" class="C6">
-                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C6&searchKeyword=${map.searchKeyword}">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C6&searchSelect1=${map.searchSelect1}&searchSelect2=${map.searchSelect2}&searchKeyword=${map.searchKeyword}">
 		                     <span class="fundingCategoryListCricle">
 		                         <span class="fundingCategoryListCricleImageC6"></span>
-		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                         <span class="fundingCategoryListCricleName">모임</span>
 		                     </span>
 		                </a>
                 	</li>
                 	<li id="fundingCategory" class="C7">
-                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C7&searchKeyword=${map.searchKeyword}">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C7&searchSelect1=${map.searchSelect1}&searchSelect2=${map.searchSelect2}&searchKeyword=${map.searchKeyword}">
 		                     <span class="fundingCategoryListCricle">
 		                         <span class="fundingCategoryListCricleImageC7"></span>
-		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                         <span class="fundingCategoryListCricleName">반려동물</span>
 		                     </span>
 		                </a>
                 	</li>
                 	<li id="fundingCategory" class="C8">
-                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C8&searchKeyword=${map.searchKeyword}">
+                		<a class="fundingCategoryList" href="${pageContext.request.contextPath}/funding/fundingList?category=C8&searchSelect1=${map.searchSelect1}&searchSelect2=${map.searchSelect2}&searchKeyword=${map.searchKeyword}">
 		                     <span class="fundingCategoryListCricle">
 		                         <span class="fundingCategoryListCricleImageC8"></span>
-		                         <span class="fundingCategoryListCricleName">전체보기</span>
+		                         <span class="fundingCategoryListCricleName">기부·후원</span>
 		                     </span>
 		                </a>
                 	</li>
@@ -212,7 +209,6 @@
                 <input type="button" id="searchButton" value="">
             </form>
             <select name="status" id="searchSelect1">
-            	<option value="">전체</option> 
             	<option value="processing" ${map.searchSelect1 eq 'processing' ? 'selected' : ''}>진행중</option>
             	<option value="quit" ${map.searchSelect1 eq 'quit' ? 'selected' : ''}>종료</option>
             </select>
@@ -228,22 +224,21 @@
                 <!-- 목록 제목 -->
 	        	<c:forEach items="${list}" var="funding">
                 <div class="fundingProjectCardItem">
-                    <a href="${pageContext.request.contextPath}/funding/fundingDetail?funding_no=${funding.fundingNo}" class="FundingProjectCardItemImageArea">
-                        <div class="fundingProjectCardItemImage"></div>
+                    <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}" class="FundingProjectCardItemImageArea">
+                        <div class="fundingProjectCardItemImage" style="background-image:url('${pageContext.request.contextPath}/resources/upload/${funding.attachment.renamedFilename}');"></div>
                     </a>
 
                     <div class="fundingProjectCardListInfo">
                         <div class="fundingProjectCardItemTitle">
                             <div class="fundingProjectCardItemTitleBox">
-                                <a class="fundingProjectCardItemTitleLink" href="${pageContext.request.contextPath}/funding/fundingDetail?funding_no=${funding.fundingNo}">
+                                <a class="fundingProjectCardItemTitleLink" href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}">
                                     <p><strong>${funding.title}</strong></p>
                                 </a>
-                                
                                 <div>
-                                    <span class="rewordProjectCardCategory">${funding.categoryName}</span>
+                                    <span class="rewordProjectCardCategory">${funding.categoryCode}</span>
                                     <span class="line"></span>
                                     <span class="rewordProjectCardMakerName">
-                                        ${funding.name}
+                                        ${funding.writerNo}
                                     </span>
                                 </div>
                             </div>
@@ -254,25 +249,25 @@
                            	<div class="progress">
 						        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: ${(funding.nowAmount/funding.goalAmount)*100}%"></div>
 						    </div>
-                            <span class="RewordProjectCardPercent">
+                            <span class="rewordProjectCardPercent">
                             	<fmt:formatNumber value="${(funding.nowAmount/funding.goalAmount)}" type="percent"/>
                             </span>
-                            <span class="RewordProjectCardAmount">
+                            <span class="rewordProjectCardAmount">
 								<fmt:formatNumber value="${funding.goalAmount}" pattern="#,###원"/>
 							</span>
-                           		<span class="RewordProjectCardDay">${dDate-staDate}일 남음</span>
+                           		<span class="rewordProjectCardDay">${dDate-staDate}일 남음</span>
                            	</c:if>
                            	<c:if test="${dDate-staDate <= 0}" >
                            	<div class="progress">
 						        <div class="progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: ${(funding.nowAmount/funding.goalAmount)*100}%"></div>
 						    </div>
-                            <span class="RewordProjectCardPercent">
+                            <span class="rewordProjectCardPercent">
                             	<fmt:formatNumber value="${(funding.nowAmount/funding.goalAmount)}" type="percent"/>
                             </span>
-                            <span class="RewordProjectCardAmount">
+                            <span class="rewordProjectCardAmount">
 								<fmt:formatNumber value="${funding.goalAmount}" pattern="#,###원"/>
 							</span>
-                           		<span class="RewordProjectCardDay" style="color:red;">마감</span>
+                           		<span class="rewordProjectCardDay" style="color:red;">마감</span>
                            	</c:if>
                            		
                         </div>
@@ -312,7 +307,7 @@
     } */
     
   	//펀딩검색
-    $("#SearchButton").click(function (){
+    $("#searchButton").click(function (){
     	search2()
     });
 
