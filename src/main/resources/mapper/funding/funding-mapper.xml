@@ -440,23 +440,13 @@
 	</select>
 	<!-- 천호현 -->
     
-    <select id="selectOneFunding" resultMap="FundingDetailVoMap">
+    <select id="selectOneFunding" resultMap="fundingExtMap">
         select *
-        from funding F 
-            join funding_reward R 
-            on F.funding_no = R.funding_no
-            join attachment A
-            on F.funding_no = A.funding_no
-            join member M
-            on F.writer_no = M.member_no
-        where F.funding_no = #{fundingNo}
+        from funding
+        where funding_no = #{fundingNo}
     </select>
     
-    <resultMap type="FundingDetailVo" id="FundingDetailVoMap">
-        <result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
-    </resultMap>
-    
-    <select id="selectOneFunding2" resultType="_int">
+    <select id="fundingParticipationCount" resultType="_int">
         select count(*) count
         from funding_participation
         where funding_no = #{fundingNo}
@@ -498,5 +488,13 @@
 		from like_record
 		where member_no = #{memberNo} and status = 'Y'
 	</select>
-    
+	
+	<select id="selectRewardList" resultType="reward">
+		select
+			*
+		from
+			funding_reward
+		where
+			funding_no = #{fundingNo}
+	</select>
 </mapper>

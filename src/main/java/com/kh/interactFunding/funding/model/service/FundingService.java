@@ -57,12 +57,15 @@ public interface FundingService {
 
 	
 	//천호현
-	public Funding selectOneFunding(int fundingNo);
-	public int selectOneFunding2(int fundinNo);
+	public FundingExt selectOneFunding(int fundingNo);
+	
+	
+	int fundingParticipationCount(int fundinNo);
 	Map<String, Object> likeCheck(Map<String, Object> map);
 	int insertLike(Map<String, Object> map);
 	int updateLike(Map<String, Object> result);
 	int likeCount(Map<String, Object> map);
 	int likeStatusCheck(int membeNo);
+	List<Reward> selectRewardList(int fundingNo);
 
 }

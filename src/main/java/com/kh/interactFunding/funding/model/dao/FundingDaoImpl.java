@@ -169,13 +169,12 @@ public class FundingDaoImpl implements FundingDao{
 	//천호현
 
 	@Override
-	public Funding selectOneFunding(int fundingNo) {
+	public FundingExt selectOneFunding(int fundingNo) {
 		return session.selectOne("funding.selectOneFunding", fundingNo);
 	}
-	
 	@Override
-	public int selectOneFunding2(int fundingNo) {
-		return session.selectOne("funding.selectOneFunding2", fundingNo);
+	public int fundingParticipationCount(int fundingNo) {
+		return session.selectOne("funding.fundingParticipationCount", fundingNo);
 	}
 	@Override
 	public Map<String, Object> likeCheck(Map<String, Object> map) {
@@ -197,5 +196,11 @@ public class FundingDaoImpl implements FundingDao{
 	public int likeStatusCheck(int memberNo) {
 		return session.selectOne("funding.likeStatusCheck", memberNo);
 	}
+	@Override
+	public List<Reward> selectRewardList(int fundingNo) {
+		return session.selectList("funding.selectRewardList", fundingNo);
+	}
+
+	
 	
 }
