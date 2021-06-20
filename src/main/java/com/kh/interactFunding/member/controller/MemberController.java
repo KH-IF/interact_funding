@@ -243,8 +243,17 @@ public class MemberController {
 			list.add(fundingService.selectOneFundingKYS(x));
 		}
 		log.debug("내가 좋아하는 펀딩리스트 = {}",list);
-		model.addAttribute(list);
+		model.addAttribute("list",list);
 		
+		//내가 참여한 펀딩의 갯수
+		int particiCnt = fundingService.selectMyPartiCnt(loginMember.getMemberNo());
+		log.debug("내가 참여한 펀딩의 갯수 : {}", particiCnt);
+		model.addAttribute("particiCnt",particiCnt);
+		
+		//내가 생성한 펀딩의 갯수
+		int createCnt = fundingService.selectMyCreateCnt(loginMember.getMemberNo());
+		log.debug("내가 생성한 펀딩의 갯수 : {}", createCnt);
+		model.addAttribute("createCnt",createCnt);
 	}
 	
 	//마이페이지 포인트충전

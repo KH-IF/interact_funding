@@ -15,6 +15,8 @@ public interface FundingService {
 	//김윤수
 	List<Integer> selectMyLikeNoList(int memberNo);
 	Funding selectOneFundingKYS(int no);
+	int selectMyPartiCnt(int memberNo);
+	int selectMyCreateCnt(int memberNo);
 	
 	//김경태
 	
@@ -67,5 +69,6 @@ public interface FundingService {
 	int likeCount(Map<String, Object> map);
 	int likeStatusCheck(int membeNo);
 	List<Reward> selectRewardList(int fundingNo);
+	
 
 }

@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class FundingServiceImpl implements FundingService{
 	
+	
 	@Autowired
 	private FundingDao fundingDao;
 	
@@ -32,6 +33,14 @@ public class FundingServiceImpl implements FundingService{
 		Funding funding = fundingDao.selectOneFundingKYS(no);
 		funding.setAttachment(fundingDao.selectOneAttach(no));
 		return funding;
+	}
+	@Override
+	public int selectMyPartiCnt(int memberNo) {
+		return fundingDao.selectMyPartiCnt(memberNo);
+	}
+	@Override
+	public int selectMyCreateCnt(int memberNo) {
+		return fundingDao.selectMyCreateCnt(memberNo);
 	}
 	//김경태
 	
