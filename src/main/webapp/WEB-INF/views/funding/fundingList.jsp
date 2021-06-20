@@ -208,13 +208,14 @@
                 <input type="search" id="searchKeyword2" placeholder="검색" value="${map.searchKeyword}" >
                 <input type="button" id="searchButton" value="">
             </form>
-            <select name="status" id="searchSelect1">
+            <select name="status" id="searchSelect1" onchange="select();">
             	<option value="processing" ${map.searchSelect1 eq 'processing' ? 'selected' : ''}>진행중</option>
             	<option value="quit" ${map.searchSelect1 eq 'quit' ? 'selected' : ''}>종료</option>
             </select>
-            <select name="status" id="searchSelect2">
+            <select name="status" id="searchSelect2" onchange="select();">
             	<option value="recent" ${map.searchSelect2 eq 'recent' ? 'selected' : ''}>최신순</option>
-            	<option value="recommand" ${map.searchSelect2 eq 'recommand' ? 'selected' : ''}>과거순</option>
+            	<option value="recommand" ${map.searchSelect2 eq 'recommand' ? 'selected' : ''}>추천순</option>
+            	<option value="past" ${map.searchSelect2 eq 'past' ? 'selected' : ''}>과거순</option>
             </select>
             
         </div>
@@ -235,7 +236,32 @@
                                     <p><strong>${funding.title}</strong></p>
                                 </a>
                                 <div>
-                                    <span class="rewordProjectCardCategory">${funding.categoryCode}</span>
+                                    <span class="rewordProjectCardCategory">
+                                    	<c:if test="${funding.categoryCode == 'C1'}">
+                                    		테크·가전
+                                    	</c:if>
+                                    	<c:if test="${funding.categoryCode == 'C2'}">
+                                    		푸드
+                                    	</c:if>
+                                    	<c:if test="${funding.categoryCode == 'C3'}">
+                                    		여행
+                                    	</c:if>
+                                    	<c:if test="${funding.categoryCode == 'C4'}">
+                                    		스포츠
+                                    	</c:if>
+                                    	<c:if test="${funding.categoryCode == 'C5'}">
+                                    		게임·취미
+                                    	</c:if>
+                                    	<c:if test="${funding.categoryCode == 'C6'}">
+                                    		모임
+                                    	</c:if>
+                                    	<c:if test="${funding.categoryCode == 'C7'}">
+                                    		반려동물
+                                    	</c:if>
+                                    	<c:if test="${funding.categoryCode == 'C8'}">
+                                    		기부·후원
+                                    	</c:if>
+                                    </span>
                                     <span class="line"></span>
                                     <span class="rewordProjectCardMakerName">
                                         ${funding.writerNo}
@@ -243,9 +269,11 @@
                                 </div>
                             </div>
 							<!-- 날짜계산 -->
+							<jsp:useBean id="now" class="java.util.Date"/>
                            	<fmt:parseNumber value="${funding.startDate.time / (1000*60*60*24)}" integerOnly="true" var="staDate"/>
                            	<fmt:parseNumber value="${funding.DDay.time / (1000*60*60*24)}" integerOnly="true" var="dDate"/>
-                           	<c:if test="${dDate-staDate > 0}" >
+                           	<fmt:parseNumber value="${now.time/(1000*60*60*24)}" integerOnly="true" var="today"/>
+                           	<c:if test="${dDate-today > 0}" >
                            	<div class="progress">
 						        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: ${(funding.nowAmount/funding.goalAmount)*100}%"></div>
 						    </div>
@@ -255,9 +283,9 @@
                             <span class="rewordProjectCardAmount">
 								<fmt:formatNumber value="${funding.goalAmount}" pattern="#,###원"/>
 							</span>
-                           		<span class="rewordProjectCardDay">${dDate-staDate}일 남음</span>
+                           		<span class="rewordProjectCardDay">${dDate-today}일 남음</span>
                            	</c:if>
-                           	<c:if test="${dDate-staDate <= 0}" >
+                           	<c:if test="${dDate-today <= 0}" >
                            	<div class="progress">
 						        <div class="progress" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: ${(funding.nowAmount/funding.goalAmount)*100}%"></div>
 						    </div>
@@ -343,6 +371,16 @@
         if(e.keyCode == 13)
             search2();
     })
+
+	function select(){
+		var url = "${pageContext.request.contextPath}/funding/fundingList";
+		url = url + "?category=${map.category}";
+		url = url + "&searchSelect1=" + $("#searchSelect1").val();
+		url = url + "&searchSelect2=" + $("#searchSelect2").val();
+		url = url + "&searchKeyword=" + $("#searchKeyword2").val();
+		location.href = url;
+	}
+	
     
 </script>
 

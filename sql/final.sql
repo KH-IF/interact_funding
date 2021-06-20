@@ -697,7 +697,7 @@ values (28, '펀딩', 'C1', 30000, 500000,'P1' ,21, 0,0,'[피부]  피부가맑�
 
 --이승우 테스트영역
 
-select * from funding;
+select * from funding order by funding_no desc;
 select count(*) from funding;
 
 select
