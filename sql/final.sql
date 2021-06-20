@@ -770,9 +770,11 @@ select
                 	on f.writer_no = m.member_no
                 left join attachment a
                 	on f.funding_no = a.funding_no
-			order by f.reg_date desc
+			order by f.funding_no desc
 		) f
 where start_date < sysdate;
+
+select * from funding where status = 'Y';
 --천호현 테스트영역
 select * from funding;
 select * from funding_reward;
