@@ -1,7 +1,6 @@
 package com.kh.interactFunding.funding.model.dao;
 
 import java.util.List;
-
 import java.util.Map;
 
 import com.kh.interactFunding.funding.model.vo.Attachment;
@@ -17,6 +16,8 @@ public interface FundingDao {
 	List<Integer> selectMyLikeNoList(int memberNo);
 	Funding selectOneFundingKYS(int no);
 	Attachment selectOneAttach(int no);
+	int selectMyPartiCnt(int memberNo);
+	int selectMyCreateCnt(int memberNo);
 	
 	//김경태
 	

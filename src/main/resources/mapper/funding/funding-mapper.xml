@@ -24,6 +24,18 @@
 		and status ='Y'
 	</select>
 	
+	<select id="selectMyPartiCnt" resultType="_int">
+		select count(*)
+		from funding_participation
+		where member_no = #{memberNo}
+	</select>
+	
+	<select id="selectMyCreateCnt" resultType="_int">
+		select count(*)
+		from funding
+		where writer_no = #{memberNo} and status='Y'
+	</select>
+	
 	<resultMap type="funding" id="fundingVoMap">
 		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
 	</resultMap>

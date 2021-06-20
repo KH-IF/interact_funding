@@ -93,7 +93,7 @@ window.setTimeout(function() {
 			    <h5 class="card-title">${funding.title}</h5>
 			    <h5 class="card-title">${loginMember.name}</h5>
 			<!-- 작성자 불러오기  -->
-			    <p class="card-text">${funding.name}</p>
+			    <p class="card-text">${loginMember.name}</p>
 			    <button class="btn btn-outline-info " type="button" id="goStudio" onclick="goStudio(this)">스튜디오 바로가기 </button>
 			  </div>
 			</div>
