@@ -37,6 +37,14 @@ public class FundingDaoImpl implements FundingDao{
 	public Attachment selectOneAttach(int no) {
 		return session.selectOne("funding.selectOneAttach",no);
 	}
+	@Override
+	public int selectMyPartiCnt(int memberNo) {
+		return session.selectOne("funding.selectMyPartiCnt",memberNo);
+	}
+	@Override
+	public int selectMyCreateCnt(int memberNo) {
+		return session.selectOne("funding.selectMyCreateCnt",memberNo);
+	}
 	
 	//김경태
 	
