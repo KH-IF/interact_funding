@@ -34,6 +34,16 @@ public class MsgInterceptor extends HandlerInterceptorAdapter{
 			List<Msg> send = memberService.selectSendMsg(loginMember);
 			session.setAttribute("receive", receive);
 			session.setAttribute("send", send);
+			
+			Boolean b = true;
+			for(Msg x : receive) {
+				if(b && x.getRead()==false) {
+					b=false;
+					break;
+				}
+			}
+			log.debug("notReadMsg={}",b);
+			session.setAttribute("notReadMsg", b);
 		}
 		return super.preHandle(request, response, handler); //true 리턴 고정
 	}

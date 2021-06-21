@@ -16,6 +16,7 @@ import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Member;
+import com.kh.interactFunding.member.model.vo.Point;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,20 +40,40 @@ public class FundingDaoImpl implements FundingDao{
 	public Attachment selectOneAttach(int no) {
 		return session.selectOne("funding.selectOneAttach",no);
 	}
+	@Override
+	public int selectMyPartiCnt(int memberNo) {
+		return session.selectOne("funding.selectMyPartiCnt",memberNo);
+	}
+	@Override
+	public int selectMyCreateCnt(int memberNo) {
+		return session.selectOne("funding.selectMyCreateCnt",memberNo);
+	}
+	@Override
+	public List<Point> selectMyPointList(int memberNo) {
+		return session.selectList("funding.selectMyPointList",memberNo);
+	}
 	
 	//김경태
 	
 	//김주연
 	@Override
-	public List<FundingExt> statusYList(Member loginMember) {
-		return session.selectList("funding.statusYList",loginMember);
+	public List<FundingExt> statusYList(int memberNo) {
+		return session.selectList("funding.statusYList",memberNo);
 	}
 	@Override
-	public List<FundingExt> statusNList(Member loginMember) {
-		return session.selectList("funding.statusNList",loginMember);
+	public List<FundingExt> statusNList(int memberNo) {
+		return session.selectList("funding.statusNList",memberNo);
 	}
 	@Override
-	public FundingExt loadFunding(String fundingNo) {
+	public List<FundingExt> nowList(int memberNo) {
+		return session.selectList("funding.nowList",memberNo);
+	}
+	@Override
+	public List<FundingExt> finishList(int memberNo) {
+		return session.selectList("funding.finishList",memberNo);
+	}
+	@Override
+	public FundingExt loadFunding(int fundingNo) {
 		return session.selectOne("funding.loadFunding",fundingNo);
 	}
 
@@ -61,7 +82,7 @@ public class FundingDaoImpl implements FundingDao{
 		return session.insert("funding.ready1FundingInsertNo",funding);
 	}
 	@Override
-	public FundingExt selectCheckFunding(String fundingNo) {
+	public FundingExt selectCheckFunding(int fundingNo) {
 		return session.selectOne("funding.selectCheckFunding",fundingNo);
 	}
 	@Override
@@ -76,17 +97,22 @@ public class FundingDaoImpl implements FundingDao{
 	public int insertAttachment(Attachment attach) {
 		return session.insert("funding.insertAttachment",attach);
 	}
+	
 	@Override
-	public int saveStory(Funding funding) {
+	public int updateAttachment(int fundingNo) {
+		return session.update("funding.updateAttachment",fundingNo);
+	}
+	@Override
+	public int saveStory(FundingExt funding) {
 		return session.update("funding.saveStory",funding);
 	}
 	@Override
-	public List<Reward> loadReward(String fundingNo) {
+	public List<Reward> loadReward(int fundingNo) {
 		return session.selectList("funding.loadReward",fundingNo);
 	}
 	
 	@Override
-	public Reward selectOneReward(String rewardNo) {
+	public Reward selectOneReward(int rewardNo) {
 		return session.selectOne("funding.selectOneReward",rewardNo);
 	}
 	@Override
@@ -102,16 +128,19 @@ public class FundingDaoImpl implements FundingDao{
 		return session.delete("funding.deleteReward",rewardNo);
 	}
 	@Override
-	public int finalSubmit(Funding funding) {
-		return session.update("funding.finalSubmit",funding);
+	public int finalSubmit(int fundingNo) {
+		return session.update("funding.finalSubmit",fundingNo);
 	}
 	@Override
-	public int deleteFunding(String fundingNo) {
+	public int finalNSubmit(int fundingNo) {
+		return session.update("funding.finalNSubmit",fundingNo);
+	}
+	@Override
+	public int deleteFunding(int fundingNo) {
 		return session.delete("funding.deleteFunding",fundingNo);
 	}
 
 	
-
 	//박요한
 	@Override
 	public List<FundingBoard> selectNewsList(int fundingNo) {
@@ -144,22 +173,12 @@ public class FundingDaoImpl implements FundingDao{
 	public List<Funding> indexfundingList() {
 		return session.selectList("funding.indexfundingList");
 	}
-	@Override
-	public List<Funding> indexfundinglike() {
-		return session.selectList("funding.indexfundinglike");
-	}
+
 	@Override
 	public List<Funding> indexviewlist() {
 		return session.selectList("funding.indexviewlist");
 	}
-	@Override
-	public int indexTotalContents() {
-		return session.selectOne("funding.indexTotalContents");
-	}
-//	@Override
-//	public List<Funding> indexEarlyList() {
-//		return session.selectList("funding.indexEarlyList");
-//	}
+	
 	@Override
 	public List<Funding> indexlikelist() {
 		return session.selectList("funding.indexlikelist");
@@ -168,6 +187,11 @@ public class FundingDaoImpl implements FundingDao{
 	@Override
 	public List<Funding> indexfundingRefresh() {
 		return session.selectList("funding.indexfundingRefresh");
+	}
+	
+	@Override
+	public List<Funding> indexRankingviewlist() {
+		return session.selectList("funding.indexRankingviewlist");
 	}
 	//이승우
 	@Override
@@ -180,14 +204,24 @@ public class FundingDaoImpl implements FundingDao{
 	}
 	
 	@Override
-	public List<Funding> earlyList() {
-		return session.selectList("funding.selectEarlyList");
+	public List<Funding> earlyList(Map<String, Object> map) {
+		int offset = (int)map.get("offset");
+		int limit = (int)map.get("limit");
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		log.debug("map@dap = {}", map);
+		return session.selectList("funding.selectEarlyList", map, rowBounds);
 	}
 	
 	@Override
 	public int selectFundingListTotalContents(Map<String, Object> map) {
 		return session.selectOne("funding.selectFundingListTotalContents", map);
 	}
+	
+	@Override
+	public int selectEarlyListTotalContents() {
+		return session.selectOne("funding.selectEarlyListTotalContents");
+	}
+	
 	
 	//천호현
 

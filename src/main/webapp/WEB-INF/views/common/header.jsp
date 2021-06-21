@@ -48,7 +48,7 @@
 			<div id="login_container">
 				<div id="login_relative">
 					<%-- 읽지않은 메시지가 없는 경우 --%>
-					<c:if test="true">
+					<c:if test="${notReadMsg}">
 						<svg 
 						id="msgIcon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 						xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
@@ -56,7 +56,7 @@
 						</svg>
 					</c:if>
 					<%-- 읽지않은 메시지가 있을 경우 --%>
-					<c:if test="false">
+					<c:if test="${notReadMsg==false}">
 						<svg 
 						id="msgIcon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 						xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
@@ -105,13 +105,9 @@
 	        }
 		}
 		function openProject(){
-			if(${empty loginMember.phone}){
-				//핸드폰등록(메이커등록) 안되어있는 경우
-				location.href='${pageContext.request.contextPath}/funding/fundingStart1';
-			}else{
-				//메이커 등록이 되어있는 경우
-				location.href='${pageContext.request.contextPath}/funding/fundingStart2';
-			}
+			//무조건 fundingStart1을 거치게 변경하였습니다. 인증은 번호 변경을 원하는 경우도 있음으로 분기처리 하지 않습니다.
+			location.href='${pageContext.request.contextPath}/funding/fundingStart1';
+			
 		}
 		//모달을 사용할수있게 해주는 함수
 		$('#myModal').on('shown.bs.modal', function () {
@@ -205,10 +201,10 @@
 		}
 
 		//받은메시지함 - 메시지 발송 함수
-		function sendMsg(){
-			var title = $("[name=sendTitle]").val();
-			var content = $("[name=sendContent]").val();
-			var no = $("[name=sendToMemberNo]").val();
+		function sendMsg(btn){
+			var title = $(btn).parent().parent().find("[name=sendTitle]").val();
+			var content = $(btn).parent().parent().find("[name=sendContent]").val();
+			var no = $(btn).parent().parent().find("[name=sendToMemberNo]").val();
 			$.ajax({
 				url:"${pageContext.request.contextPath}/member/sendMsg",
 				method:"post",
@@ -228,98 +224,136 @@
 						return;
 					}
 					swal("전송성공",msgg,"success").then(function(){
-						location.href="${pageContext.request.contextPath}/member/memberDetails";
+						location.href=window.location.href;
 					});
 				},
 				error:console.log
 			});
 		}
+
+		//클릭하여 대상에게 메시지 보내기 준비
+		function msgSetting(modal){
+			var no = $(modal).data("tomemberno");
+			$("#sendContainer2 [name=sendToMemberNo]").val(no);
+		}
 	</script>
 	<!-- 받은 쪽지함 모달 -->
-					<div class="modal fade" id="modalReceive" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-					  <div class="modal-dialog modal-dialog-centered" role="document">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <h5 class="modal-title" id="exampleModalLongTitle">받은 쪽지함</h5>
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					          <span aria-hidden="true">&times;</span>
-					        </button>
-					      </div>
-					      <div class="modal-body">
-					      	<%-- 메시지 반복문 --%>
-					      	<div id="msgList">
-					      	<c:forEach items="${receive}" var="msg" varStatus="var">
-					      		<%-- 메시지 하나씩 돌림 속성 클래스 처리 --%>
-						      	<div class="msgContainer ${msg.read ? 'alert-secondary' : 'alert-warning'}" data-msgno="${msg.no }" data-read="${msg.read}" data-number="${var.count}" onclick="showMsg(this)">
-							      	<div class="msgTitle">${msg.title}</div>
-							      	<div class="msgFrom">${msg.read ? '<span class="badge badge-pill badge-light">읽음</span>' : '<span class="badge badge-pill badge-success">읽지않음</span>'} ${msg.fromMemberName} </div>
-						      	</div>
-					      	</c:forEach>
-					      	</div>
-					      	
-					      	<c:forEach items="${receive}" var="msg" varStatus="var">
-								<div id="msgDetail${var.count}" data-tono="${msg.fromMemberNo}" class="bRadius msgDetails hide alert-info">
-									<h5 class="msgTitle">제목 : ${msg.title}</h5>
-									<div class="textRight">보낸사람 : ${msg.fromMemberName}</div>
-									<hr />
-									<div>${msg.content}</div>
-								</div>	      	
-					      	</c:forEach>
-					      	<div id="sendContainer" class="hide">
-					      			<input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" 
-					      			name="sendTitle" placeholder="제목을 입력해주세요"/>
-					      			<br />
-					      			<textarea class="form-control" aria-label="With textarea" name="sendContent" placeholder="내용을 입력하세요"></textarea>
-					      			<br />
-					      			<input type="hidden" name="sendToMemberNo" value=""/>
-					      	</div>
-					      </div>
-					      <div class="modal-footer">
-					      	<button type="button" id="msgSendBtn2" class="hide btn btn-success" onclick="sendMsg()">전송</button>
-					        <button type="button" id="msgSendBtn" class="hide btn btn-success" data-tono="" onclick="reMsg(this)">답장하기</button>
-					        <button type="button" id="msgBackBtn" class="hide btn btn-secondary" onclick="msgList()">뒤로</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
+	<div class="modal fade" id="modalReceive" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">받은 쪽지함</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<%-- 메시지 반복문 --%>
+	      	<div id="msgList">
+	      	<c:forEach items="${receive}" var="msg" varStatus="var">
+	      		<%-- 메시지 하나씩 돌림 속성 클래스 처리 --%>
+		      	<div class="msgContainer ${msg.read ? 'alert-secondary' : 'alert-warning'}" data-msgno="${msg.no }" data-read="${msg.read}" data-number="${var.count}" onclick="showMsg(this)">
+			      	<div class="msgTitle">${msg.title}</div>
+			      	<div class="msgFrom">${msg.read ? '<span class="badge badge-pill badge-light">읽음</span>' : '<span class="badge badge-pill badge-success">읽지않음</span>'} ${msg.fromMemberName} </div>
+		      	</div>
+	      	</c:forEach>
+	      	</div>
+	      	
+	      	<c:forEach items="${receive}" var="msg" varStatus="var">
+				<div id="msgDetail${var.count}" data-tono="${msg.fromMemberNo}" class="bRadius msgDetails hide alert-info">
+					<h5 class="msgTitle">제목 : ${msg.title}</h5>
+					<div class="textRight">보낸사람 : ${msg.fromMemberName}</div>
+					<hr />
+					<div>${msg.content}</div>
+				</div>	      	
+	      	</c:forEach>
+	      	<div id="sendContainer" class="hide">
+	      			<input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" 
+	      			name="sendTitle" placeholder="제목을 입력해주세요"/>
+	      			<br />
+	      			<textarea class="form-control" aria-label="With textarea" name="sendContent" placeholder="내용을 입력하세요"></textarea>
+	      			<br />
+	      			<input type="hidden" name="sendToMemberNo" value=""/>
+	      	</div>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" id="msgSendBtn2" class="hide btn btn-success" onclick="sendMsg(this)" style="display: none;">전송</button>
+	        <button type="button" id="msgSendBtn" class="hide btn btn-success" data-tono="" onclick="reMsg(this)" style="display: none;">답장하기</button>
+	        <button type="button" id="msgBackBtn" class="hide btn btn-secondary" onclick="msgList()" style="display: none;">뒤로</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 					
-					<!-- 보낸 쪽지함 모달 -->
-					<div class="modal fade" id="modalSend" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-					  <div class="modal-dialog modal-dialog-centered" role="document">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <h5 class="modal-title" id="exampleModalLongTitle">보낸 쪽지함</h5>
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					          <span aria-hidden="true">&times;</span>
-					        </button>
-					      </div>
-					      <div class="modal-body">
-					      	<%-- 메시지 반복문 --%>
-					      	<div id="msgList2">
-					      	<c:forEach items="${send}" var="msg" varStatus="var">
-					      		<%-- 메시지 하나씩 돌림 속성 클래스 처리 --%>
-						      	<div class="msgContainer2 alert-secondary" data-number="${var.count}" onclick="showMsg2(this)">
-							      	<div class="msgTitle">${msg.title}</div>
-							      	<div class="msgFrom">${msg.toMemberName}</div>
-						      	</div>
-					      	</c:forEach>
-					      	</div>
-					      	
-					      	<c:forEach items="${send}" var="msg" varStatus="var">
-								<div id="msg2Detail${var.count}" class="bRadius msg2Details hide alert-info">
-									<h5 class="msgTitle">제목 : ${msg.title}</h5>
-									<div class="textRight">받는사람 : ${msg.toMemberName}</div>
-									<hr />
-									<div>${msg.content}</div>
-								</div>	      	
-					      	</c:forEach>
-					      </div>
-					      <div class="modal-footer">
-					        <button id="msgBackBtn2" type="button" class="hide btn btn-secondary" onclick="msgList2()">뒤로</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
+	<!-- 보낸 쪽지함 모달 -->
+	<div class="modal fade" id="modalSend" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">보낸 쪽지함</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<%-- 메시지 반복문 --%>
+	      	<div id="msgList2">
+	      	<c:forEach items="${send}" var="msg" varStatus="var">
+	      		<%-- 메시지 하나씩 돌림 속성 클래스 처리 --%>
+		      	<div class="msgContainer2 alert-secondary" data-number="${var.count}" onclick="showMsg2(this)">
+			      	<div class="msgTitle">${msg.title}</div>
+			      	<div class="msgFrom">${msg.toMemberName}</div>
+		      	</div>
+	      	</c:forEach>
+	      	</div>
+	      	
+	      	<c:forEach items="${send}" var="msg" varStatus="var">
+				<div id="msg2Detail${var.count}" class="bRadius msg2Details hide alert-info">
+					<h5 class="msgTitle">제목 : ${msg.title}</h5>
+					<div class="textRight">받는사람 : ${msg.toMemberName}</div>
+					<hr />
+					<div>${msg.content}</div>
+				</div>	      	
+	      	</c:forEach>
+	      </div>
+	      <div class="modal-footer">
+	        <button id="msgBackBtn2" type="button" class="hide btn btn-secondary" onclick="msgList2()" style="display: none;">뒤로</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- 쪽지 보내는 전용 모달 -->
+	<div class="modal fade" id="modalSendMsg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">쪽지 보내기</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      <c:if test="${empty loginMember}">
+	      	로그인이 필요합니다
+	      </c:if>
+	      <c:if test="${not empty loginMember}">
+	      	<div id="sendContainer2">
+	      			<input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" 
+	      			name="sendTitle" placeholder="제목을 입력해주세요"/>
+	      			<br />
+	      			<textarea class="form-control" aria-label="With textarea" name="sendContent" placeholder="내용을 입력하세요"></textarea>
+	      			<br />
+	      			<input type="hidden" name="sendToMemberNo" value=""/>
+	      	</div>
+	      </c:if>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" id="msgSendBtn2" class="hide btn btn-success" onclick="sendMsg(this)">전송</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	<section>
 	
 	

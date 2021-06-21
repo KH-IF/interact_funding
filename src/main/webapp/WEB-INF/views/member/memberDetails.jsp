@@ -10,7 +10,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/memberEnroll.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/memberDetails.css" />
 	<div id="detailsContainer">
 		<div id="detailsLeft">
 			<div id="imgbox">
@@ -26,17 +26,17 @@
 			<h5><strong>나의 프로젝트</strong></h5>
 			<div id="topbox">
 				<!-- 상단 박스 -->
-				<div id="box1">
+				<div id="box1" data-toggle="modal" data-target="#pointList">
 					<h4>포인트</h4>
 					<h5><fmt:formatNumber value="${loginMember.point!=null ? loginMember.point : 0}" pattern="#,##0"/></h5>
 				</div>
 				<div id="box2">
 					<h4>내가 참여한 펀딩</h4>
-					<h5><fmt:formatNumber value="${loginMember.point!=null ? loginMember.point : 0}" pattern="#,##0"/></h5>
+					<h5><fmt:formatNumber value="${particiCnt!=null ? particiCnt : 0}" pattern="#,##0"/></h5>
 				</div>
-				<div id="box3">
+				<div id="box3" onclick="location.href='${pageContext.request.contextPath}/funding/fundingStart1'">
 					<h4>내가 생성한 펀딩</h4>
-					<h5><fmt:formatNumber value="${loginMember.point!=null ? loginMember.point : 0}" pattern="#,##0"/></h5>
+					<h5><fmt:formatNumber value="${createCnt!=null ? createCnt : 0}" pattern="#,##0"/></h5>
 				</div>
 				<h4 id="chgBox1" onclick="change1();">포인트 충전</h4>
 				<div id="chgBox2" class="hide">
@@ -69,7 +69,23 @@
 					</svg><span>쿠폰</span>
 				</div>
 			</div>
-				<hr />
+			<hr />
+			<br />
+			<hr />
+			<h5><strong>좋아요 누른 펀딩</strong></h5>
+			<c:if test="${empty list}">
+				<div class="likedFunding">
+					<div class="likedTitle">좋아요를 누른 펀딩이 없습니다.</div>
+				</div>
+			</c:if>
+			<c:if test="${not empty list}">
+			<c:forEach items="${list}" var="funding" varStatus="var">
+			<div class="likedFunding alert alert-info" onclick="location.href='${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}'">
+					<div class="likedTitle">${var.count}. ${funding.title} </div><%-- <div class="likedWriter">작성자:${funding.writerNo }</div> --%><div class="likedDDay">종료일자: ${funding.DDay}</div>
+			</div>
+			</c:forEach>
+			</c:if>
+			<hr />
 		</div>
 	</div>
 	
@@ -94,6 +110,47 @@
 	  </div>
 	</div>
 	
+	<!-- 포인트 충전내역 모달 -->
+	<div class="modal fade" id="pointList" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">포인트 내역</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      <c:if test="${empty pList}">
+	      	충전내역이 존재하지 않습니다.
+	      </c:if>
+	      <c:if test="${not empty pList}">
+	      	<table class="table">
+ 				<thead class="thead-light">		
+	      		<tr>
+	      			<th scope="col"></th>
+	      			<th scope="col">일자</th>
+	      			<th scope="col">금액</th>
+	      			<th scope="col">내용</th>
+	      		</tr>	
+	      		</thead>
+	      		<c:forEach items="${pList}" var="point" varStatus="var">
+	      			<tr>
+	      				<td scope="row">${var.count}</td>
+	      				<td><fmt:formatDate value="${point.regDate}" pattern="yy/MM/dd hh:mm"/></td>
+	      				<td>${point.point}</td>
+	      				<td>${point.memo}</td>
+	      			</tr>
+	      		</c:forEach>
+	      	</table>
+	      </c:if>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	<script>
 	//로그아웃 함수
 	function logout(){
@@ -307,6 +364,34 @@
 			position:absolute;
 			left:0px;
 			top:0px;
+		}
+		/* likedFunding likedFunding likedDDay */
+		.likedFunding{
+			width:780px;
+			height:45px;
+			position:relative;
+			cursor:pointer;
+		}
+		.likedTitle{
+			width:500px;
+			height:30px;
+			overflow:hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-weight: bold;
+		}
+		.likedWriter{
+			position:absolute;
+			top:0px;
+			right:200px;
+		}
+		.likedDDay{
+			position:absolute;
+			top:10px;
+			right:10px;
+		}
+		#box1, #box2, #box3{
+			cursor:pointer;
 		}
 		
 }

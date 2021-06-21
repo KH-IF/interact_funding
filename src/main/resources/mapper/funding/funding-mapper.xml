@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
 <mapper namespace="funding">
 	<!-- 김윤수 -->
 	<select id="selectMyLikeNoList" resultType="_int">
@@ -20,7 +21,26 @@
 	<select id="selectOneAttach" resultType="attachment">
 		select * 
 		from attachment
-		where funding_no = #{no}
+		where funding_no = #{no} and status='Y'
+	</select>
+	
+	<select id="selectMyPartiCnt" resultType="_int">
+		select count(*)
+		from funding_participation
+		where member_no = #{memberNo}
+	</select>
+	
+	<select id="selectMyCreateCnt" resultType="_int">
+		select count(*)
+		from funding
+		where writer_no = #{memberNo} and status='Y'
+	</select>
+	
+	<select id="selectMyPointList" resultType="point">
+		select *
+		from point
+		where member_no = #{memberNo}
+		order by no desc
 	</select>
 	
 	<resultMap type="funding" id="fundingVoMap">
@@ -30,34 +50,43 @@
 	<!-- 김경태 -->
 	<!-- 김주연 -->
 	<select id="statusYList" resultMap="fundingExtMap">
-		select F.*,
-		       A.no,
-		       A.funding_no,
-		       A.originalfilename,
-		       A.renamedfilename,
-		       A.status Astatus
-		from funding F left join attachment A
-		on F.funding_no = A.funding_no
-		where 
-		    writer_no = #{memberNo}
-		    and F.status = 'Y'
+		select *
+		from funding
+		where
+			<![CDATA[start_date > sysdate]]>
+		    and writer_no = #{memberNo}
+		    and status = 'Y'
 		order by
-			F.funding_no desc
+			funding_no desc
 	</select>
 	<select id="statusNList" resultMap="fundingExtMap">
-		select F.*,
-		       A.no "attach_no",
-		       A.funding_no,
-		       A.originalfilename,
-		       A.renamedfilename,
-		       A.status "astatus"
-		from funding F left join attachment A
-		on F.funding_no = A.funding_no
-		where 
+		select *
+		from funding
+		where
 		    writer_no = #{memberNo}
-		    and F.status = 'N'
+		    and status = 'N'
 		order by
-			F.funding_no desc
+			funding_no desc
+	</select>
+	<select id="nowList" resultMap="fundingExtMap">
+		select *
+		from funding
+		where 
+		    <![CDATA[start_date < sysdate and d_day > sysdate]]>
+		    and writer_no = #{memberNo}
+		    and status = 'Y'
+		order by
+			funding_no desc
+	</select>
+	<select id="finishList" resultMap="fundingExtMap">
+		select *
+		from funding
+		where
+			<![CDATA[start_date < sysdate and d_day < sysdate]]> 
+		    and writer_no = #{memberNo}
+		    and status = 'Y'
+		order by
+			funding_no desc
 	</select>
 	
 	<resultMap type="FundingExt" id="fundingExtMap">
@@ -65,32 +94,19 @@
 	</resultMap>
 	
 	<select id="loadFunding" resultMap="fundingExtMap">
-		select F.*,
-		       A.no "attach_no",
-		       A.funding_no,
-		       A.originalfilename,
-		       A.renamedfilename,
-		       A.status "astatus"
+		select *
 		from 
-			funding F left join attachment A
-				on F.funding_no = A.funding_no
+			funding 
 		where 
-			F.funding_no = #{fundingNo}	
+			funding_no = #{fundingNo}	
 	</select>
 	
 	<select id="selectCheckFunding" resultMap="fundingExtMap">
-		select F.*,
-	       A.no "attach_no",
-	       A.funding_no,
-	       A.originalfilename,
-	       A.renamedfilename,
-	       A.status "astatus"
+		select *
 		from 
-			funding F left join attachment A
-				on F.funding_no = A.funding_no
+			funding 
 		where 
-			F.funding_no = #{fundingNo}	
-	
+			funding_no = #{fundingNo}	
 	</select>
 	
 	<insert id="ready1FundingInsertNo">
@@ -106,7 +122,6 @@
 				#{writerNo},
 				default,
 				'N'
-				
 			)
 		<!--발급받은 funding pk no값을 파라미터 funding객체의 property no에 저장한다.  -->	
 		<!--order After 실행된 다음에 가져온다  -->
@@ -143,29 +158,33 @@
 			no,
 			funding_no,
 			originalFilename,
-			renamedFilename
+			renamedFilename,
+			status
 		)
 		values(
 			seq_attachment_no.nextval,
 			#{fundingNo},
 			#{originalFilename},
-			#{renamedFilename}
-		
+			#{renamedFilename},
+			'Y'		
 		)
 	</insert>
+	<update id="updateAttachment">
+		update
+			attachment
+		set
+			status = 'N'
+		where
+			funding_no = #{fundingNo}
+	</update>
 	
 	<update id="saveStory">
 		update
 			funding
-		<set>
-		
+		<set>	
 			content = #{content},
-		
 			early_content = #{earlyContent},
-			
-		
-			start_date = #{startDate}
-				
+			start_date = #{startDate}		
 		</set>	
 		where
 			funding_no = #{fundingNo}	
@@ -244,11 +263,23 @@
 			funding_no = #{fundingNo}
 	</update>
 	
+	<update id="finalNSubmit">
+		update
+			funding
+		set
+			status = 'N'
+		where
+			funding_no = #{fundingNo}
+	</update>
+	
 	<delete id="deleteFunding">
 		delete from funding
 		where 
 			funding_no =#{fundingNo}
 	</delete>
+	
+	
+	
 	
 	
 	<!-- 박요한 -->
@@ -304,92 +335,79 @@
 			#{fundingNo}
 		)
 	</insert>
-	
-	
+	<select id="newsView" resultMap="fundingExtMap">
+		select *
+        from funding F 
+            join funding_board R 
+            on F.funding_no = R.funding_no
+            join member M
+            on F.writer_no = M.member_no
+        where F.funding_no = #{funding_no}
+	</select>
+
 	<!-- 배기원 -->
-		<select id="indexfundingList" resultMap="fundingVoMap">
+	<!-- 펀딩객체를 받는 리스트입니다. -->
+	<select id="indexfundingList" resultMap="fundingVoMap">
 		select rownum, f.*
-			from (
-			        select funding.* 
-		        	from funding  
-		        	where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
-		        		  and status ='Y'
-		       		order by reg_date  desc
-		        ) f
-		where rownum between 1 and 6
-	    </select>
-	    <select id="indexviewlist" resultMap="fundingVoMap">
-			select rownum, f.*
-			from (
-			        select funding.* 
-			        from funding  
-			        where <![CDATA[start_date < sysdate and d_day > sysdate]]>
-			        	  and status ='Y'
-			        order by readcount  desc
-			        ) f
-			where rownum between 1 and 4
-	    </select>
-	    
-	    <select id="indexfundinglike" resultMap="fundingVoMap">
-			select rownum, f.*
-			from (
-			        select *
-			        from funding   
-			      	where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
-			      		  and status ='Y'
-			        order by like_count desc
-		        ) f
-			where rownum between 1 and 5
-	    </select>
-	    
-	    <select id="indexTotalContents" resultType="_int">
-	    	select
-				count(*)
-		from
-			funding
-		where 
-	       start_date<![CDATA[> ]]>sysdate 
-	    </select>
-	    
-	    <!-- <select id="indexEarlyList" resultMap="fundingVoMap">
-		    select*from funding 
-	    where 
-	       start_date<![CDATA[> ]]>sysdate 
-	    </select> -->
-	    
-	    <select id="indexlikelist" resultMap="fundingVoMap" >
-	    	select  
-		rownum, f.*
 		from (
-		        select funding.* ,
-		         CASE category_code
-		         WHEN 'C1' THEN '테크.가전'
-		         WHEN 'C2' THEN '푸드'
-		         WHEN  'C3' THEN '여행'
-		         WHEN  'C4' THEN '스포츠'
-		         WHEN 'C5' THEN '게임.취미'
-		         WHEN 'C6' THEN '모임'
-		         WHEN  'C7' THEN  '반려동물'
-		         WHEN  'C8' THEN '기부.후원'
-		         END as categoryName  
-		        from funding  
-		        where<![CDATA[ start_date < sysdate and d_day > sysdate]]>
-		        order by like_count  desc
-		        ) f
-		where rownum between 1 and 5
-	    </select>
-	    
-	    <select id="indexfundingRefresh" resultMap="fundingVoMap">
-			    select rownum, f.*
-				from (
-				        select funding.* 
-				        from funding  
-				        where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
-				        	  and status = 'Y'
-				        order by start_date  desc
-		        ) f
+		select funding.*
+		from funding
+		where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
+		and status ='Y'
+		order by reg_date desc
+		) f
 		where rownum between 1 and 6
-	    </select>
+	</select>
+	<!-- 회원들이 좋아할 프로젝트 받아오는(조회순) 객체입니다. -->
+	<select id="indexviewlist" resultMap="fundingVoMap">
+		select rownum, f.*
+		from (
+		select funding.*
+		from funding
+		where <![CDATA[start_date < sysdate and d_day > sysdate]]>
+		and status ='Y'
+		order by readcount desc
+		) f
+		where rownum between 1 and 4
+	</select>
+	<!-- 실시간랭킹 리스트입니다. -->
+	<select id="indexlikelist" resultMap="fundingVoMap">
+		select rownum, f.*
+		from (
+		select funding.*
+		from funding
+		where<![CDATA[ start_date < sysdate and d_day > sysdate]]>
+		and status='Y'
+		order by like_count desc
+		)f
+		where rownum between 1 and 5
+	</select>
+	<!-- 새로고침 버튼시 리스트 받는객체입니다. -->
+	<select id="indexfundingRefresh" resultMap="fundingVoMap">
+		select rownum, f.*
+		from (
+		select funding.*
+		from funding
+		where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
+		and status = 'Y'
+		order by start_date desc
+		) f
+		where rownum between 1 and 6
+    </select>
+    
+   	<select id="indexRankingviewlist" resultMap="fundingVoMap">
+   		select rownum, f.*
+		from (
+		select funding.*
+		from funding
+		where <![CDATA[ start_date < sysdate and d_day > sysdate]]>
+		and status = 'Y'
+		order by readcount desc
+		) f
+		where rownum between 1 and 6
+   	</select>
+    
+    
 	<!-- 이승우 -->
 	<!-- searchKeyword searchSelect1 searchSelect2 category -->
 	<!-- processing selected(진행중 종료) recent recommand (최신순 과거순) -->
@@ -416,8 +434,10 @@
 		<if test="searchSelect2 == 'recommand'">
 		order by like_count desc
 		</if>
+		<if test="searchSelect2 == 'past'">
+		order by reg_date
+		</if>
 	</select>
-
 	<select id="selectFundingListTotalContents" resultType="_int">
 		select
 			count(*)
@@ -439,6 +459,14 @@
 	</select>
 	<select id="selectEarlyList" resultMap="fundingVoMap">
 		select * 
+		from funding
+		<where>
+			status = 'Y'
+			and start_date <![CDATA[>]]> sysdate
+		</where>
+	</select>
+	<select id="selectEarlyListTotalContents" resultType="_int">
+		select count(*)
 		from funding
 		<where>
 			status = 'Y'

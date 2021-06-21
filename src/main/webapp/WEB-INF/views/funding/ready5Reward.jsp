@@ -378,14 +378,14 @@
                     <!-- 상세설명 불러오기  -->
                     <p class="card-text text-muted">${content}</p>
                     <!-- 배송비 불러오기 -->
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mb-2">
                         <p class="font-weight-bold text-muted">배송비</p>
-                        <p class="card-subtitle mb-2 text-muted">${reward.shippingPrice}원</p>
+                        <p class="card-subtitle text-muted">${reward.shippingPrice}원</p>
                     </div>
                     <!-- 리워드 발송 시작일 불러오기 -->
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mb-2">
                         <p class="font-weight-bold text-muted">리워드 발송 시작일</p>
-                        <p class="card-subtitle mb-2 text-muted">${reward.shippingDate}</p>
+                        <p class="card-subtitle text-muted">${reward.shippingDate}</p>
                     </div>
                     
                     <div class="d-flex justify-content-end">
@@ -404,12 +404,19 @@
 
 
         <br><br>
-        <button type="button" class="btn btn-primary btn-lg" style="width: 200px;">저장하기</button>
+        <button type="button" class="btn btn-primary btn-lg" style="width: 200px;" onclick="rewardSave()">저장하기</button>
         
         
     </div>
 </section> 
 <script>
+
+	function rewardSave(){
+
+		const msg = "리워드를 저장했습니다.";
+		location.href = `${pageContext.request.contextPath}/funding/ready1Funding/\${msg}`;
+		
+	}
 
 	var fundingNo;
 	var price;

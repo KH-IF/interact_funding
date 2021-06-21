@@ -415,11 +415,19 @@ end;
 --관리자 테이블
 
 
+select * from attachment;
 
 
 
-
-
+select rownum, f.*
+			from (
+			        select funding.* 
+		        	from funding  
+		        	where start_date < sysdate and d_day > sysdate
+		        		  and status ='Y'
+		       		order by reg_date  desc
+		        ) f
+		where rownum between 1 and 6;
 
 
 
@@ -512,7 +520,7 @@ desc message;
 select * from message where from_member_no = 2 order by no desc;
 
 select * from like_record;
-insert into like_record values(seq_like_record_no.nextval, 15, 2, 'Y');
+insert into like_record values(seq_like_record_no.nextval, 99, 2, 'Y');
 commit;
 select * from funding;
 
@@ -522,6 +530,22 @@ where funding_no=15;
 
 commit;
 
+select * from attachment where status='Y';
+
+select* from funding where writer_no=2;
+
+insert into attachment values(seq_attachment_no.nextval, 14, 'dddfsfasfasz', '20210616_221024660_219.png', 'Y');
+commit;
+
+select * from funding_participation;
+update funding_participation
+set member_no = 2
+where no=3;
+
+select * from point;
+
+select * from message order by no desc;
+select * from member;
 
 --김경태 테스트영역
 
@@ -697,8 +721,10 @@ values (28, '펀딩', 'C1', 30000, 500000,'P1' ,21, 0,0,'[피부]  피부가맑�
 
 --이승우 테스트영역
 
-select * from funding;
+select * from funding order by funding_no desc;
 select count(*) from funding;
+
+select nvl(writer_no, 0) '탈퇴회원' from funding;
 
 select
 			f.*
@@ -770,9 +796,17 @@ select
                 	on f.writer_no = m.member_no
                 left join attachment a
                 	on f.funding_no = a.funding_no
-			order by f.reg_date desc
+			order by f.funding_no desc
 		) f
 where start_date < sysdate;
+
+select * from funding where status = 'Y';
+
+select
+* 
+from 
+member 
+where member_no = 0;
 --천호현 테스트영역
 select * from funding;
 select * from funding_reward;
@@ -784,8 +818,15 @@ select * from funding_reward;
 			funding_no =9;
             
 select * from member;
+
 insert into funding_reward
 values(2, 99, 2000, '옵션1', '옵션1의 content부분', 2000, 10, '2021/07/01');
+
+insert into funding_reward
+values(3, 99, 2000, '옵션2', '옵션2의 content부분', 8000, 99, '2021/07/03');
+
+insert into funding_reward
+values(5, 99, 6000, '옵션3', '옵션3의 content부분', 6000, 60, '2021/07/03');
 
 
 
@@ -942,8 +983,23 @@ insert into funding_board values(2,99, '천호현테스트', 21, '내용22', def
 select * from funding_board;
 
 
+		select
+			*
+		from
+			funding_reward
+		where
+			funding_no = 99;
+
+
 -----------------------
 select * from tab;
+
+select * 
+from funding
+where
+    start_date < sysdate
+    and d_day > sysdate;
+
 
 
 commit;
