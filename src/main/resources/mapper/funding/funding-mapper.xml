@@ -420,8 +420,10 @@
 		<if test="searchSelect2 == 'recommand'">
 		order by like_count desc
 		</if>
+		<if test="searchSelect2 == 'past'">
+		order by reg_date
+		</if>
 	</select>
-
 	<select id="selectFundingListTotalContents" resultType="_int">
 		select
 			count(*)
@@ -443,6 +445,14 @@
 	</select>
 	<select id="selectEarlyList" resultMap="fundingVoMap">
 		select * 
+		from funding
+		<where>
+			status = 'Y'
+			and start_date <![CDATA[>]]> sysdate
+		</where>
+	</select>
+	<select id="selectEarlyListTotalContents" resultType="_int">
+		select count(*)
 		from funding
 		<where>
 			status = 'Y'

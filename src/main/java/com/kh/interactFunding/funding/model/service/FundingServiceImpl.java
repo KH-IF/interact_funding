@@ -237,7 +237,6 @@ public class FundingServiceImpl implements FundingService{
 	@Override
 	public List<Funding> indexfundingRefresh() {
 		List<Funding> fundingList = fundingDao.indexfundingRefresh();
-
 		for (Funding funding : fundingList) {
 			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));
 		}
@@ -272,10 +271,14 @@ public class FundingServiceImpl implements FundingService{
 	}
 	
 	@Override
-	public List<Funding> earlyList() {
-		return fundingDao.earlyList();
+	public List<Funding> earlyList(Map<String, Object> map) {
+		return fundingDao.earlyList(map);
 	}
 
+	@Override
+	public int selectEarlyListTotalContents() {
+		return fundingDao.selectEarlyListTotalContents();
+	}
 	//천호현
 	/*
 	 * @Override public FundingExt selectOneFunding(int fundingNo) { return

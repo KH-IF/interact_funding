@@ -21,7 +21,7 @@ public class PageBarUtils {
 	
 	/**
 	 *  1. cPage 
-	 *  2. limit 10
+	 *  2. limit 6
 	 * 	3. totalContents 총 컨텐츠수
 	 * 	4. url 이동할 주소 /spring/board/boardList.do
 	 *  ----------------------------------------
@@ -51,16 +51,10 @@ public class PageBarUtils {
 		
 		pageBar.append("<nav aria-label=\"Page navigation example\">\r\n"
 				+ "  <ul class=\"pagination justify-content-center\">");
-		
+
 		//1. 이전영역
 		if(pageNo == 1) {
 			//이전버튼 비활성화
-			pageBar.append("  <li class=\"page-item disabled\">\r\n"
-					+ "      <a class=\"page-link\" href=\"#\" aria-label=\"Previous\">\r\n"
-					+ "        <span aria-hidden=\"true\">&laquo;</span>\r\n"
-					+ "        <span class=\"sr-only\">Previous</span>\r\n"
-					+ "      </a>\r\n"
-					+ "    </li>");
 		}
 		else {
 			//이전버튼 활성화
@@ -90,12 +84,7 @@ public class PageBarUtils {
 		//3. 다음영역
 		if(pageNo > totalPage) {
 			//다음버튼 비활성화
-			pageBar.append("<li class=\"page-item disabled\">\r\n"
-					+ "      <a class=\"page-link\" href=\"#\" aria-label=\"Next\">\r\n"
-					+ "        <span aria-hidden=\"true\">&raquo;</span>\r\n"
-					+ "        <span class=\"sr-only\">Next</span>\r\n"
-					+ "      </a>\r\n"
-					+ "    </li>");
+
 		}
 		else {
 			//다음버튼 활성화
