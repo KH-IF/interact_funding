@@ -1,9 +1,13 @@
 package com.kh.interactFunding;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,10 +39,13 @@ public class HomeController {
 			//펀딩 실시간 랭킹 조회순 받아오는 객체 입니다.
 			List<Funding>Rankinglist=fundingService.indexRankingviewlist();
 			
+			
+			//카테고리 이름 설정
 			model.addAttribute("list", list);
 			model.addAttribute("viewlist", viewlist);
 			model.addAttribute("likelist", likelist);
 			model.addAttribute("Rankinglist",Rankinglist);
+		
 
 		} catch (Exception e) {
 			log.error("메인페이지 조회가 안됩니다", e);

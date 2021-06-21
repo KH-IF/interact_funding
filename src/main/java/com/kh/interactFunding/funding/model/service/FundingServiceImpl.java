@@ -141,7 +141,7 @@ public class FundingServiceImpl implements FundingService{
 	
 	// 배기원
 	/**
-	 * 펀딩 리스트를 받아오는 객체입니다.
+	 * 펀딩 리스트를 받아오는(1~3) 객체입니다.
 	 */
 	@Override
 	public List<Funding> indexfundingList() {
@@ -223,13 +223,21 @@ public class FundingServiceImpl implements FundingService{
 	}
 
 	//천호현
+	/*
+	 * @Override public FundingExt selectOneFunding(int fundingNo) { return
+	 * fundingDao.selectOneFunding(fundingNo); }
+	 */
+	
 	@Override
-	public Funding selectOneFunding(int fundingNo) {
-		return fundingDao.selectOneFunding(fundingNo);
+	public FundingExt selectOneFunding(int fundingNo) {
+		FundingExt funding = fundingDao.selectOneFunding(fundingNo);
+		funding.setAttachment(fundingDao.selectOneAttach(fundingNo));
+		return funding;
 	}
+	
 	@Override
-	public int selectOneFunding2(int fundingNo) {
-		return fundingDao.selectOneFunding2(fundingNo);
+	public int fundingParticipationCount(int fundingNo) {
+		return fundingDao.fundingParticipationCount(fundingNo);
 	}
 	@Override
 	public Map<String, Object> likeCheck(Map<String, Object> map) {
@@ -251,9 +259,10 @@ public class FundingServiceImpl implements FundingService{
 	public int likeStatusCheck(int memberNo) {
 		return fundingDao.likeStatusCheck(memberNo);
 	}
-	
-	
-
+	@Override
+	public List<Reward> selectRewardList(int fundingNo) {
+		return fundingDao.selectRewardList(fundingNo);
+	}
 	
 
 	
