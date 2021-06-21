@@ -12,6 +12,7 @@ import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Member;
+import com.kh.interactFunding.member.model.vo.Point;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,8 +43,12 @@ public class FundingServiceImpl implements FundingService{
 	public int selectMyCreateCnt(int memberNo) {
 		return fundingDao.selectMyCreateCnt(memberNo);
 	}
-	//김경태
+	@Override
+	public List<Point> selectMyPointList(int memberNo) {
+		return fundingDao.selectMyPointList(memberNo);
+	}
 	
+	//김경태
 	//김주연
 	@Override
 	public List<FundingExt> statusYList(int memberNo) {

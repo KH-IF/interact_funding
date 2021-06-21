@@ -21,8 +21,7 @@
 	<select id="selectOneAttach" resultType="attachment">
 		select * 
 		from attachment
-		where funding_no = #{no}
-		  and status ='Y'
+		where funding_no = #{no} and status='Y'
 	</select>
 	
 	<select id="selectMyPartiCnt" resultType="_int">
@@ -35,6 +34,13 @@
 		select count(*)
 		from funding
 		where writer_no = #{memberNo} and status='Y'
+	</select>
+	
+	<select id="selectMyPointList" resultType="point">
+		select *
+		from point
+		where member_no = #{memberNo}
+		order by no desc
 	</select>
 	
 	<resultMap type="funding" id="fundingVoMap">

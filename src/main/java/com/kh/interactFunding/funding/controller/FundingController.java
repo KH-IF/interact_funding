@@ -1,8 +1,5 @@
 package com.kh.interactFunding.funding.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
-
 import java.beans.PropertyEditor;
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -12,17 +9,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -41,6 +38,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
+
 import com.kh.interactFunding.common.util.HelloSpringUtils;
 import com.kh.interactFunding.common.util.PageBarUtils;
 import com.kh.interactFunding.funding.model.service.FundingService;
@@ -50,6 +48,7 @@ import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.service.MemberService;
 import com.kh.interactFunding.member.model.vo.Member;
+
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -72,9 +71,11 @@ public class FundingController {
 	@Autowired
 	private ServletContext application;
 	
-
-	
-	//김윤수(test)
+	//김윤수
+	@GetMapping("myParticiFunding")
+	public void myParticiFunding() {
+		
+	}
 	
 	//김경태 졸리다
 	
