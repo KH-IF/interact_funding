@@ -151,9 +151,9 @@
 
 
                 <span id="reward_span">리워드 선택</span>
-                <div id="funing_main_right_div_3">
                 
                 <c:forEach var="reward" items="${reward}">
+                <div id="funing_main_right_div_3">
                 	${reward.price}원 펀딩
                 	<br />
                 	${reward.title}!!
@@ -171,11 +171,11 @@
                 	${reward.limitAmount} 개 남음!!
                 	<br/>
                 	ㅁㅁㅁㅁ 펀딩완료
+                </div>
                 	
                 </c:forEach>
 				
 				
-                </div>
 
 				<span id="ranking_span">인기게시글</span>
                 <div id="funing_main_right_div_4">
@@ -288,6 +288,11 @@
     height: 400px;
     padding-left: 10px;
     padding-top: 9px;
+    }
+    
+    #funing_main_right_div_3{
+    margin-bottom: 13px;
+    
     }
     
     /* 펀딩하기버튼 */
