@@ -35,15 +35,15 @@ public class MsgInterceptor extends HandlerInterceptorAdapter{
 			session.setAttribute("receive", receive);
 			session.setAttribute("send", send);
 			
-			Boolean b = false;
+			Boolean b = true;
 			for(Msg x : receive) {
-				if(b || x.getRead()) {
-					b=true;
+				if(b && x.getRead()==false) {
+					b=false;
 					break;
 				}
 			}
-			
-			session.setAttribute("newMsg", b);
+			log.debug("notReadMsg={}",b);
+			session.setAttribute("notReadMsg", b);
 		}
 		return super.preHandle(request, response, handler); //true 리턴 고정
 	}

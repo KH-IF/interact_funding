@@ -1,7 +1,6 @@
-/* @charset "UTF-8"; */
-/*  Ä«µå¹è³Ê ÀÌ¹ÌÁö ¿·À¸·Î † ÀÌ Á¶Á¤ */
-/*card banner start*/
-/* Ä³·¯¼¿(ÀÌ¹ÌÁöº¯°æ) ÀÌ¹ÌÁö Å©±â º¯°æ */
+ @charset "UTF-8"; 
+/*  ì¹´ë“œë°°ë„ˆ ì´ë¯¸ì§€ ì˜†ìœ¼ë¡œ ë„—ì´ ì¡°ì • */
+/* ìºëŸ¬ì…€(ì´ë¯¸ì§€ë³€ê²½) ì´ë¯¸ì§€ í¬ê¸° ë³€ê²½ */
 .carousel-inner {
 	width: auto;
 	height: 356px;
@@ -11,15 +10,14 @@
 	width: auto;
 	height: 100%;
 }
-
-/* ±ÛÀÚ º¸ÀÌ´Â ¿¹Á¦*/
+/* ê¸€ì ë³´ì´ëŠ” ì˜ˆì œ*/
 .carousel-caption {
 	position: sticky !important;
 }
 
 .carousel-caption-span {
 	text-align: left;
-	/*±ÛÀÚ´Â display ¼Ó¼º flex ¿ªÇÒ ÁöÁ¤*/
+ /*ê¸€ìëŠ” display ì†ì„± flex ì—­í•  ì§€ì •*/
 	display: flex;
 	margin-left: 10vw;
 	font-size: 10px;
@@ -42,83 +40,32 @@
 
 /*card banner end*/
 
-/*Æİµù Âü¿© ·¹ÀÌ¾Æ¿ô  start*/
-.kiwonfunding {
-	display: block;
-}
-
-.kiwonfunding h1 {
+/*í€ë”© ì°¸ì—¬ ë ˆì´ì•„ì›ƒ  start*/
+.card-project-h1{
 	font-size: 32px;
 	padding-left: 2vw;
-	margin-top: 34px;
+    padding-bottom: 1vw;
 	line-height: 34px;
-	/* ¿ÍµğÁî color #1D2129*/
+	/*ì™€ë””ì¦ˆ color #1D2129*/
 	color: #1D2129;
 	font-weight: 700;
 }
-
-.kiwonfunding-div {
-	display: flex;
-	flex-flow: nowrap;
+/*í€ë”© ì œëª© ì´ë¦„*/
+.card-title{
+	color:#000000;
+	 font-size: 15px;
+    font-weight: 600;
+    width: 243px;
+    height: 40px;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    overflow: hidden;
+   padding-top: 0.2vw;
+	
 }
-
-.kiwonfunding-div-img1 {
-	display: block;
-	margin-left: 2vw;
-	margin-right: 2vw;
-}
-
-.kiwonfunding-div-img2 {
-	margin-right: 2vw;
-}
-
-.funding_class-p {
-	margin-top: 10px;
-	font-size: 15px;
-	font-weight: 400;
-	/*µÎÁÙ width °ªÀ¸·Î Ã³¸®*/
-	width: 250px;
-}
-/*Æİµù Âü¿© ·¹ÀÌ¾Æ¿ô  end*/
-
-/*Æİµù Âü¿©1 È­¸é±úÁü ¹æÁö ·¹ÀÌ¾Æ¿ô  start*/
-.kiwonfunding-1 {
-	display: flex;
-}
-
-.kiwonfunding-div-img4 {
-	padding-left: 2vw;
-	padding-right: 2.5vw;
-}
-
-.kiwonfunding-div-img5 {
-	padding-right: 7.3vw;
-}
-
-.kiwonfunding-1 .kiwonfunding-div-img6 {
-	margin-left: -5vw;
-}
-
-.kiwonfunding-percnt1:after {
-	content: "Å¬·¡½º";
-	line-height: 18px;
-	font-size: 13px;
-	font-weight: 400;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	width: 100%;
-	color: #90949c;
-}
-
-.funding_class-p1 {
-	margin-top: 10px;
-	font-size: 15px;
-	font-weight: 400;
-	/*µÎÁÙ width °ªÀ¸·Î Ã³¸®*/
-	width: 250px;
-}
-
-/*Æİµù Âü¿©1 ·¹ÀÌ¾Æ¿ô  end*/
+/*í€ë”© ì°¸ì—¬ ë ˆì´ì•„ì›ƒ  end*/
 
 /*percent API */
 .kiwonfunding-percent {
@@ -142,7 +89,7 @@
 	color: #90949c;
 }
 
-/* ±âÈ¹Àü °íÁ¤ */
+/* ê¸°íšì „ ê³ ì • */
 .funding_class_Planning {
 	display: inline-block;
 	margin-right: 12px;
@@ -162,7 +109,7 @@
 }
 
 .kiwonfunding-percnt2:after {
-	content: "Å¬·¡½º";
+	content: "Å¬ï¿½ï¿½ï¿½ï¿½";
 	line-height: 18px;
 	font-size: 13px;
 	font-weight: 400;
@@ -192,7 +139,7 @@
 	width: 100%;
 }
 
-/*»õ·Î°íÄ§ ¹öÆ°*/
+/*ìƒˆë¡œê³ ì¹¨ ë²„íŠ¼*/
 .funding_class_btn_Plan {
 	margin-left: 37.3vw;
 	transition-property: background-color, border-color, color, opacity;
@@ -210,17 +157,16 @@
 	box-sizing: border-box !important;
 	-webkit-appearance: none;
 	-webkit-font-smoothing: antialiased;
-	/*Å×µÎ¸® Á¦°Å*/
+	/*í…Œë‘ë¦¬ ì œê±°*/
 	border: none;
 }
 
 .funding_class_btn_Number {
 	vertical-align: top;
 }
+/*í€ë”© ì°¸ì—¬ ë ˆì´ì•„ì›ƒ  end*/
 
-/*Æİµù Âü¿© ·¹ÀÌ¾Æ¿ô  end*/
-
-/* ½Ç½Ã°£ ·©Å·  start*/
+/* ì‹¤ì‹œê°„ ë­í‚¹  start*/
 .bd-sidebar-body {
 	height: 100%;
 	display: block;
@@ -232,7 +178,7 @@
 .bd-sidebar-body h1 {
 	font-weight: 700;
 	line-height: 4px;
-	/*ÄÃ·¯ Á¶Á¤*/
+	 /*ì»¬ëŸ¬ ì¡°ì •*/
 	color: #1D2129;
 }
 
@@ -259,6 +205,19 @@
 .Ranking_class-p1 {
 	font-size: 15px;
 	font-weight: 400;
+	position: relative;
+	display:flex;
+	padding-left: 2vw;
+}
+/*ì—¬ëŸ¬ì¤„ ìë¥´ê¸° */
+.Ranking_class-span{
+	width: 218px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 40px;
 }
 
 .kiwon_Ranking h1 {
@@ -268,7 +227,7 @@
 	display: block;
 	font-weight: 700;
 	line-height: 4px;
-	/*ÄÃ·¯ Á¶Á¤*/
+	/*ì™€ë””ì¦ˆ ì»¬ëŸ¬ì¡°ì • */
 	color: #1D2129;
 }
 
@@ -289,7 +248,7 @@
 	font-size: 15px;
 }
 
-/*after ¹æ½Ä */
+/*after ë°©ì‹ */
 .kiwon_Rankingbtn-funding::after {
 	position: absolute;
 	right: 0;
@@ -327,15 +286,15 @@
 	content: "";
 }
 
-/*ÁøÇàÁß ¹îÁö */
+/*ì§„í–‰ì¤‘ ë±ƒì§€ */
 .kiwon_Ranking_badge {
-	/*±ÛÀÚ »çÀÌ °£°İ Á¶Àı*/
+	/*ê¸€ì ì‚¬ì´ ê°„ê²© ì¡°ì ˆ*/
 	letter-spacing: 0;
 	font-size: 10px;
 	font-weight: 400;
 	font-style: normal;
 	position: relative;
-	/* align ¼Ó¼º°ªÀ» ¼³Á¤ÇÔ.*/
+	 /* align ì†ì„±ê°’ì„ ì„¤ì •í•¨.*/
 	align-self: start;
 	margin-left: 8px;
 	border-radius: 4px;
@@ -349,7 +308,7 @@
 	position: absolute;
 	top: 50%;
 	left: -4px;
-	/* È­»ìÇ¥ ¹æÇâ Ã¼Å© */
+	 /* í™”ì‚´í‘œ ë°©í–¥ ì²´í¬ */
 	transform: translateY(-50%);
 	z-index: -1;
 	border-color: transparent #557cf2 transparent transparent;
@@ -363,9 +322,8 @@
 	color: #00a2a2;
 	font-weight: 700;
 	font-size: 14px;
-	position: absolute;
-	margin-top: 2.5vw;
 	padding-left: 2vw;
+	margin-top: -1vw;
 }
 
 .orderText {
@@ -377,18 +335,13 @@
 	color: #000000;
 }
 
-.kiwonRanking_image {
-	float: right;
-	margin-top: -69px;
-}
-
 .orderText-span {
 	font-size: 30px;
-	display: flex;
+	position: absolute;
 }
-/* ½Ç½Ã°£ ·©Å·  end */
+/* ì‹¤ì‹œê°„ ë­í‚¹  end*/
 
-/* ¾ó¸®¹öµå  start*/
+/* ì–¼ë¦¬ë²„ë“œ start*/
 .Ealrybird_Paging {
 	float: right;
 	margin-top: -3vw;
@@ -416,23 +369,6 @@
 	font-size: 13px !important;
 }
 
-.Ealrytbird_btn {
-	cursor: default;
-	/*Åõ¸íÈ­ Á¶Àı */
-	color: rgba(0, 0, 0, .15);
-	font-size: 24px;
-	/* ÀÌÀüÆäÀÌÁö icon ¿·À¸·Î ¹Ğ¾î³»±â*/
-	margin-right: -35px;
-}
-
-.Ealrybird_page_btn {
-	cursor: pointer;
-	/*Å×µÎ¸® ¾ø¾Ö±â*/
-	border: none;
-	background: none;
-	font-size: 16px;
-	color: rgba(0, 0, 0, .54);
-}
 /* EarlybirdCard start*/
 .EarlybirdCard_Type {
 	border: 1px solid #e6eaed;
@@ -483,9 +419,9 @@
 	color: rgba(0, 0, 0, .54);
 	line-height: 36px;
 }
-/*¾ó¸®¹öµå end */
+/* ì–¼ë¦¬ë²„ë“œ end*/
 
-/* ÃÖ±Ù»ìÆìº» Æİµù start*/
+/*ì‹¤ì‹œê°„ë­í‚¹ ì¢‹ì•„ìš” start*/
 .likeProject{
 	    display: inline-flex;
     margin-left: 2vw;
@@ -520,8 +456,9 @@
    width: 100%;
    color: #90949c;
 }
-/* ÃÖ±Ù»ìÆìº» Æİµù end*/
-/*ÀÌ¹ÌÁö ¹è³Ê start*/
+/* ì‹¤ì‹œê°„ë­í‚¹ ì¢‹ì•„ìš”  end*/
+
+/*ì´ë¯¸ì§€ ë°°ë„ˆ  start*/
 .image-banner{
 	position: relative;
 	
@@ -542,6 +479,4 @@
     font-size: 25px;
 }
 
-
-
-/*ÀÌ¹ÌÁö ¹è³Ê end*/
+/*ì´ë¯¸ì§€ ë°°ë„ˆ end*/

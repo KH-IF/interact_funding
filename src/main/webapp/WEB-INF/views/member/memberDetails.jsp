@@ -26,7 +26,7 @@
 			<h5><strong>나의 프로젝트</strong></h5>
 			<div id="topbox">
 				<!-- 상단 박스 -->
-				<div id="box1">
+				<div id="box1" data-toggle="modal" data-target="#pointList">
 					<h4>포인트</h4>
 					<h5><fmt:formatNumber value="${loginMember.point!=null ? loginMember.point : 0}" pattern="#,##0"/></h5>
 				</div>
@@ -110,6 +110,47 @@
 	  </div>
 	</div>
 	
+	<!-- 포인트 충전내역 모달 -->
+	<div class="modal fade" id="pointList" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">포인트 내역</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      <c:if test="${empty pList}">
+	      	충전내역이 존재하지 않습니다.
+	      </c:if>
+	      <c:if test="${not empty pList}">
+	      	<table class="table">
+ 				<thead class="thead-light">		
+	      		<tr>
+	      			<th scope="col"></th>
+	      			<th scope="col">일자</th>
+	      			<th scope="col">금액</th>
+	      			<th scope="col">내용</th>
+	      		</tr>	
+	      		</thead>
+	      		<c:forEach items="${pList}" var="point" varStatus="var">
+	      			<tr>
+	      				<td scope="row">${var.count}</td>
+	      				<td><fmt:formatDate value="${point.regDate}" pattern="yy/MM/dd hh:mm"/></td>
+	      				<td>${point.point}</td>
+	      				<td>${point.memo}</td>
+	      			</tr>
+	      		</c:forEach>
+	      	</table>
+	      </c:if>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	<script>
 	//로그아웃 함수
 	function logout(){
@@ -349,7 +390,7 @@
 			top:10px;
 			right:10px;
 		}
-		#box3{
+		#box1, #box2, #box3{
 			cursor:pointer;
 		}
 		

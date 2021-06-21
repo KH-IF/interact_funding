@@ -415,11 +415,19 @@ end;
 --관리자 테이블
 
 
+select * from attachment;
 
 
 
-
-
+select rownum, f.*
+			from (
+			        select funding.* 
+		        	from funding  
+		        	where start_date < sysdate and d_day > sysdate
+		        		  and status ='Y'
+		       		order by reg_date  desc
+		        ) f
+		where rownum between 1 and 6;
 
 
 
@@ -533,6 +541,11 @@ select * from funding_participation;
 update funding_participation
 set member_no = 2
 where no=3;
+
+select * from point;
+
+select * from message order by no desc;
+select * from member;
 
 --김경태 테스트영역
 
@@ -805,8 +818,15 @@ select * from funding_reward;
 			funding_no =9;
             
 select * from member;
+
 insert into funding_reward
 values(2, 99, 2000, '옵션1', '옵션1의 content부분', 2000, 10, '2021/07/01');
+
+insert into funding_reward
+values(3, 99, 2000, '옵션2', '옵션2의 content부분', 8000, 99, '2021/07/03');
+
+insert into funding_reward
+values(5, 99, 6000, '옵션3', '옵션3의 content부분', 6000, 60, '2021/07/03');
 
 
 
@@ -963,8 +983,23 @@ insert into funding_board values(2,99, '천호현테스트', 21, '내용22', def
 select * from funding_board;
 
 
+		select
+			*
+		from
+			funding_reward
+		where
+			funding_no = 99;
+
+
 -----------------------
 select * from tab;
+
+select * 
+from funding
+where
+    start_date < sysdate
+    and d_day > sysdate;
+
 
 
 commit;

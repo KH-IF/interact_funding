@@ -79,6 +79,14 @@
 	</resultMap>
 	<!-- 김경태 -->
 	<!-- 김주연 -->
+	<update id="savePhone">
+		update
+			member
+		set
+			phone = #{phone}
+		where
+			member_no = #{memberNo}
+	</update>
 	<!-- 박요한 -->
 	<!-- 배기원 -->
 	<!-- 이승우 -->

@@ -70,8 +70,8 @@
 </script>
 	
 	<div id="funding_payment_top_tap">
-		<span>스토리로돌아가기</span>
-		<span>[1억앵콜] 양치 3번으로 치아를 깎지 않고 하얗게 쭉~ 유지하세요!(누른 펀딩 제목들어가야함)</span>
+		<span id="go_back">스토리로돌아가기</span>
+		<div id="fuding_payment_title_div">${funding.title}</div>
 	</div>
 	
 	
@@ -226,6 +226,24 @@
 	
 	
 	<style>
+	
+	#funding_payment_top_tap{
+	display: flex;
+	
+	}
+	#fuding_payment_title_div{
+    margin: auto;
+    font-size: 24px;
+    font-weight: 900;
+	}
+	
+	#go_back{
+	font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+	}
+	
+	
 	#fundingPayment_all_wrapper{
     margin: auto;
     width: 800px;
@@ -234,12 +252,11 @@
 	}
 	
 	
-	div, span{
-	
-	border: 2px solid black;
+	#go_back{
+	font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
 	}
-	
-	
 	
 	#fundingPayment_div1{
     height: 130px;
@@ -269,17 +286,17 @@
 	
 	}
 	
-		/* 펀딩서포터 */
-		#fundingPayment_div_div1{
-		width: 400px;
-		
-		}
-		
-		/* 리워드배송지 */
-		#fundingPayment_div_div2{
-		width: 400px;
-		
-		}
+	/* 펀딩서포터 */
+	#fundingPayment_div_div1{
+	width: 400px;
+	
+	}
+	
+	/* 리워드배송지 */
+	#fundingPayment_div_div2{
+	width: 400px;
+	
+	}
 	
 	
 	/* 포인트현황 */
@@ -345,6 +362,10 @@
 	
 	
 	<script>
+
+	$("#go_back").click(function() {
+		location.href="${pageContext.request.contextPath}/funding/fundingReward?fundingNo=${funding.fundingNo}";
+		});
 
 	//모두동의하기 구현
 	function chkAll() {

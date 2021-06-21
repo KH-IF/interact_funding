@@ -38,7 +38,7 @@ public interface MemberDao {
 	//김경태
 	
 	//김주연
-	
+	int savePhone(Map<String, Object> map);
 	//박요한
 	
 	//배기원
