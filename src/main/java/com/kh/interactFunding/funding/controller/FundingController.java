@@ -678,7 +678,6 @@ public class FundingController {
 	
 	@GetMapping("/fundingDetail") 
 	public void fundingDetail(@RequestParam int	fundingNo, Model model) { //1. 업무로직 
-		
 		FundingExt funding = fundingService.selectOneFunding(fundingNo);
 		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);

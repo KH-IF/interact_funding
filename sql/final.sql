@@ -942,6 +942,14 @@ insert into funding_board values(2,99, '천호현테스트', 21, '내용22', def
 select * from funding_board;
 
 
+		select
+			*
+		from
+			funding_reward
+		where
+			funding_no = 99;
+
+
 -----------------------
 select * from tab;
 

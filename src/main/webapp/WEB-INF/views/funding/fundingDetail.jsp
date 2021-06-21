@@ -73,16 +73,16 @@
 		<div id="funding_tap">
 	            <ol>
 	                <li>
-	                    <a href="${pageContext.request.contextPath }/funding/fundingDetail">스토리</a>
+	                    <a href="${pageContext.request.contextPath }/funding/fundingDetail?fundingNo=${funding.fundingNo}">스토리</a>
 	                </li>
 	                <li>
-	                    <a href="${pageContext.request.contextPath }/funding/news.do">새소식</a>
+	                    <a href="${pageContext.request.contextPath }/funding/news.do?fundingNo=${funding.fundingNo}">새소식</a>
 	                </li>
 	                <li>
-	                    <a href="${pageContext.request.contextPath }/funding/community.do">커뮤니티</a>
+	                    <a href="${pageContext.request.contextPath }/funding/community.do?fundingNo=${funding.fundingNo}">커뮤니티</a>
 	                </li>
 	                <li>
-	                    <a href="${pageContext.request.contextPath }/funding/supporter.do">서포터</a>
+	                    <a href="${pageContext.request.contextPath }/funding/supporter.do?fundingNo=${funding.fundingNo}">서포터</a>
 	                </li>
 	            </ol>
 	        </div>
@@ -152,6 +152,27 @@
 
                 <span id="reward_span">리워드 선택</span>
                 <div id="funing_main_right_div_3">
+                
+                <c:forEach var="reward" items="${reward}">
+                	${reward.price}원 펀딩
+                	<br />
+                	${reward.title}!!
+                	<br />
+                	${reward.content} 혜택
+                	<br />
+                	배송비 
+                	<br />
+                	${reward.shippingPrice}
+                	<br />
+                	리워드 발송 시작일
+                	<br />
+                	${reward.rewardNo} 예정
+                	<br />
+                	${reward.limitAmount} 개 남음!!
+                	<br/>
+                	ㅁㅁㅁㅁ 펀딩완료
+                	
+                </c:forEach>
 				
 				
                 </div>
