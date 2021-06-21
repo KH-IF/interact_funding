@@ -194,7 +194,7 @@ div.leftB{
                 <br>
             </div>
             <br>
-			${loginMember}
+			
 			<!-- 최종 제출했을 시 펀딩 삭제가 불가능하다. -->
 			<!-- 최종 제출이 안되었을 때 전화번호 인증안했을 때 -->
 			<c:if test="${funding.status != true && loginMember.phone == null}">
@@ -211,7 +211,7 @@ div.leftB{
 			<!-- 최종 제출이 안되었을 때 전화번호는 인증한 상태  -->
 			<c:if test="${funding.status != true && loginMember.phone != null}">
 				<div class="d-flex flex-row  pb-4">
-					<button name="disabledFT" id="checkSMSPhone" class="btn btn-primary btn-lg mr-4 " role="button" style="width: 200px;" onclick="finalYSubmit()" >제출하기</button>
+					<button name="disabledFT" id="checkSMSPhone" class="btn btn-primary btn-lg mr-4 " role="button" style="width: 200px;" onclick="finalSubmit()" >제출하기</button>
 					<button name="disabledFT" id="REcheckSMSPhone" class="btn btn-primary btn-lg" role="button" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/funding/checkSMS';" >번호인증 다시하기</button>
 					<p class="text-muted">(사용자 전화번호가 변경되고 제출됩니다.)</p>
 					<br />
@@ -260,6 +260,28 @@ div.leftB{
 		}
 		
 	});
+
+	function finalSubmit(){
+		swal({
+			  title: "최종제출하면 펀딩 삭제가 불가합니다. 최종제출하겠습니까?",
+			  text: "펀딩수정은 가능합니다.",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then(function(){
+				$.ajax({
+					url:`${pageContext.request.contextPath}/funding/finalSubmit`,
+					method: "PUT",
+					success(data){
+						console.log(data);
+						const {msg} = data;
+						window.location.href = `${pageContext.request.contextPath}/funding/fundingStart1/\${msg}`;
+					},
+					error: console.log
+					});
+		});
+	}
 	
 
 	function finalYSubmit(){

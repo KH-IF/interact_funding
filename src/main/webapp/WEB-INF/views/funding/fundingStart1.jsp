@@ -108,17 +108,6 @@ window.setTimeout(function() {
 				    <button class="btn btn-outline-info " type="submit" id="goStudio">스튜디오 바로가기 </button>
 				  </div>
 			</form>
-
-			<input id="fundingNo" type="hidden" value="${funding.fundingNo}"/>
-			<!-- 메인이미지 넣을 것  -->
-			  <img class="card-img-top" src="" alt="대표이미지 등록 필요">
-			  <div class="card-body">
-			    <h5 class="card-title">${funding.title}</h5>
-			    <h5 class="card-title">${loginMember.name}</h5>
-			<!-- 작성자 불러오기  -->
-			    <p class="card-text">${loginMember.name}</p>
-			    <button class="btn btn-outline-info " type="button" id="goStudio" onclick="goStudio(this)">스튜디오 바로가기 </button>
-			  </div>
 			</div>
             </c:forEach>
             </c:if>

@@ -378,14 +378,14 @@
                     <!-- 상세설명 불러오기  -->
                     <p class="card-text text-muted">${content}</p>
                     <!-- 배송비 불러오기 -->
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mb-2">
                         <p class="font-weight-bold text-muted">배송비</p>
-                        <p class="card-subtitle mb-2 text-muted">${reward.shippingPrice}원</p>
+                        <p class="card-subtitle text-muted">${reward.shippingPrice}원</p>
                     </div>
                     <!-- 리워드 발송 시작일 불러오기 -->
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mb-2">
                         <p class="font-weight-bold text-muted">리워드 발송 시작일</p>
-                        <p class="card-subtitle mb-2 text-muted">${reward.shippingDate}</p>
+                        <p class="card-subtitle text-muted">${reward.shippingDate}</p>
                     </div>
                     
                     <div class="d-flex justify-content-end">
