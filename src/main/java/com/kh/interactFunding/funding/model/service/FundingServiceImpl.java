@@ -10,8 +10,8 @@ import com.kh.interactFunding.funding.model.dao.FundingDao;
 import com.kh.interactFunding.funding.model.vo.Attachment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
+import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
-import com.kh.interactFunding.member.model.vo.Member;
 import com.kh.interactFunding.member.model.vo.Point;
 
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +47,18 @@ public class FundingServiceImpl implements FundingService{
 	public List<Point> selectMyPointList(int memberNo) {
 		return fundingDao.selectMyPointList(memberNo);
 	}
-	
+	@Override
+	public List<Integer> selectMyParticiFunding(int memberNo) {
+		return fundingDao.selectMyParticiFunding(memberNo);
+	}
+	@Override
+	public FundingParticipationCollection selectOneFundingParticipationCollection(Map<String, Object> param) {
+		return fundingDao.selectOneFundingParticipationCollection(param);
+	}
+	@Override
+	public int cancelReward(int no) {
+		return fundingDao.cancelReward(no);
+	}
 	//김경태
 	//김주연
 	@Override
