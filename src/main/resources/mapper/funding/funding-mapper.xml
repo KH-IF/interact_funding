@@ -25,6 +25,18 @@
 		  and status ='Y'
 	</select>
 	
+	<select id="selectMyPartiCnt" resultType="_int">
+		select count(*)
+		from funding_participation
+		where member_no = #{memberNo}
+	</select>
+	
+	<select id="selectMyCreateCnt" resultType="_int">
+		select count(*)
+		from funding
+		where writer_no = #{memberNo} and status='Y'
+	</select>
+	
 	<resultMap type="funding" id="fundingVoMap">
 		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
 	</resultMap>
@@ -32,34 +44,43 @@
 	<!-- 김경태 -->
 	<!-- 김주연 -->
 	<select id="statusYList" resultMap="fundingExtMap">
-		select F.*,
-		       A.no,
-		       A.funding_no,
-		       A.originalfilename,
-		       A.renamedfilename,
-		       A.status Astatus
-		from funding F left join attachment A
-		on F.funding_no = A.funding_no
-		where 
-		    writer_no = #{memberNo}
-		    and F.status = 'Y'
+		select *
+		from funding
+		where
+			<![CDATA[start_date > sysdate]]>
+		    and writer_no = #{memberNo}
+		    and status = 'Y'
 		order by
-			F.funding_no desc
+			funding_no desc
 	</select>
 	<select id="statusNList" resultMap="fundingExtMap">
-		select F.*,
-		       A.no "attach_no",
-		       A.funding_no,
-		       A.originalfilename,
-		       A.renamedfilename,
-		       A.status "astatus"
-		from funding F left join attachment A
-		on F.funding_no = A.funding_no
-		where 
+		select *
+		from funding
+		where
 		    writer_no = #{memberNo}
-		    and F.status = 'N'
+		    and status = 'N'
 		order by
-			F.funding_no desc
+			funding_no desc
+	</select>
+	<select id="nowList" resultMap="fundingExtMap">
+		select *
+		from funding
+		where 
+		    <![CDATA[start_date < sysdate and d_day > sysdate]]>
+		    and writer_no = #{memberNo}
+		    and status = 'Y'
+		order by
+			funding_no desc
+	</select>
+	<select id="finishList" resultMap="fundingExtMap">
+		select *
+		from funding
+		where
+			<![CDATA[start_date < sysdate and d_day < sysdate]]> 
+		    and writer_no = #{memberNo}
+		    and status = 'Y'
+		order by
+			funding_no desc
 	</select>
 	
 	<resultMap type="FundingExt" id="fundingExtMap">
@@ -67,32 +88,19 @@
 	</resultMap>
 	
 	<select id="loadFunding" resultMap="fundingExtMap">
-		select F.*,
-		       A.no "attach_no",
-		       A.funding_no,
-		       A.originalfilename,
-		       A.renamedfilename,
-		       A.status "astatus"
+		select *
 		from 
-			funding F left join attachment A
-				on F.funding_no = A.funding_no
+			funding 
 		where 
-			F.funding_no = #{fundingNo}	
+			funding_no = #{fundingNo}	
 	</select>
 	
 	<select id="selectCheckFunding" resultMap="fundingExtMap">
-		select F.*,
-	       A.no "attach_no",
-	       A.funding_no,
-	       A.originalfilename,
-	       A.renamedfilename,
-	       A.status "astatus"
+		select *
 		from 
-			funding F left join attachment A
-				on F.funding_no = A.funding_no
+			funding 
 		where 
-			F.funding_no = #{fundingNo}	
-	
+			funding_no = #{fundingNo}	
 	</select>
 	
 	<insert id="ready1FundingInsertNo">
@@ -108,7 +116,6 @@
 				#{writerNo},
 				default,
 				'N'
-				
 			)
 		<!--발급받은 funding pk no값을 파라미터 funding객체의 property no에 저장한다.  -->	
 		<!--order After 실행된 다음에 가져온다  -->
@@ -145,29 +152,33 @@
 			no,
 			funding_no,
 			originalFilename,
-			renamedFilename
+			renamedFilename,
+			status
 		)
 		values(
 			seq_attachment_no.nextval,
 			#{fundingNo},
 			#{originalFilename},
-			#{renamedFilename}
-		
+			#{renamedFilename},
+			'Y'		
 		)
 	</insert>
+	<update id="updateAttachment">
+		update
+			attachment
+		set
+			status = 'N'
+		where
+			funding_no = #{fundingNo}
+	</update>
 	
 	<update id="saveStory">
 		update
 			funding
-		<set>
-		
+		<set>	
 			content = #{content},
-		
 			early_content = #{earlyContent},
-			
-		
-			start_date = #{startDate}
-				
+			start_date = #{startDate}		
 		</set>	
 		where
 			funding_no = #{fundingNo}	
@@ -246,11 +257,23 @@
 			funding_no = #{fundingNo}
 	</update>
 	
+	<update id="finalNSubmit">
+		update
+			funding
+		set
+			status = 'N'
+		where
+			funding_no = #{fundingNo}
+	</update>
+	
 	<delete id="deleteFunding">
 		delete from funding
 		where 
 			funding_no =#{fundingNo}
 	</delete>
+	
+	
+	
 	
 	
 	<!-- 박요한 -->

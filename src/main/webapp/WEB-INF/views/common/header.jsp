@@ -48,7 +48,7 @@
 			<div id="login_container">
 				<div id="login_relative">
 					<%-- 읽지않은 메시지가 없는 경우 --%>
-					<c:if test="true">
+					<c:if test="${newMsg}">
 						<svg 
 						id="msgIcon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 						xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
@@ -56,7 +56,7 @@
 						</svg>
 					</c:if>
 					<%-- 읽지않은 메시지가 있을 경우 --%>
-					<c:if test="false">
+					<c:if test="${newMsg}">
 						<svg 
 						id="msgIcon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 						xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
@@ -105,13 +105,9 @@
 	        }
 		}
 		function openProject(){
-			if(${empty loginMember.phone}){
-				//핸드폰등록(메이커등록) 안되어있는 경우
-				location.href='${pageContext.request.contextPath}/funding/fundingStart1';
-			}else{
-				//메이커 등록이 되어있는 경우
-				location.href='${pageContext.request.contextPath}/funding/fundingStart2';
-			}
+			//무조건 fundingStart1을 거치게 변경하였습니다. 인증은 번호 변경을 원하는 경우도 있음으로 분기처리 하지 않습니다.
+			location.href='${pageContext.request.contextPath}/funding/fundingStart1';
+			
 		}
 		//모달을 사용할수있게 해주는 함수
 		$('#myModal').on('shown.bs.modal', function () {
@@ -275,9 +271,9 @@
 					      	</div>
 					      </div>
 					      <div class="modal-footer">
-					      	<button type="button" id="msgSendBtn2" class="hide btn btn-success" onclick="sendMsg()">전송</button>
-					        <button type="button" id="msgSendBtn" class="hide btn btn-success" data-tono="" onclick="reMsg(this)">답장하기</button>
-					        <button type="button" id="msgBackBtn" class="hide btn btn-secondary" onclick="msgList()">뒤로</button>
+					      	<button type="button" id="msgSendBtn2" class="hide btn btn-success" onclick="sendMsg()" style="display: none;">전송</button>
+					        <button type="button" id="msgSendBtn" class="hide btn btn-success" data-tono="" onclick="reMsg(this)" style="display: none;">답장하기</button>
+					        <button type="button" id="msgBackBtn" class="hide btn btn-secondary" onclick="msgList()" style="display: none;">뒤로</button>
 					      </div>
 					    </div>
 					  </div>
@@ -315,7 +311,7 @@
 					      	</c:forEach>
 					      </div>
 					      <div class="modal-footer">
-					        <button id="msgBackBtn2" type="button" class="hide btn btn-secondary" onclick="msgList2()">뒤로</button>
+					        <button id="msgBackBtn2" type="button" class="hide btn btn-secondary" onclick="msgList2()" style="display: none;">뒤로</button>
 					      </div>
 					    </div>
 					  </div>

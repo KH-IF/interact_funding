@@ -88,7 +88,10 @@ public class MemberDaoImpl implements MemberDao {
 	// 김경태
 
 	// 김주연
-
+	@Override
+	public int savePhone(Map<String, Object> map) {
+		return session.update("member.savePhone",map);
+	}
 	// 박요한
 
 	// 배기원

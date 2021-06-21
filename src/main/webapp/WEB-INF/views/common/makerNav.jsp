@@ -70,15 +70,12 @@ window.setTimeout(function() {
     <nav class="navbar sticky-top navbar-light bg-light border-bottom">
         <!-- 클릭할 시 펀딩 시작 화면으로 넘어간다. -->
         <a class="navbar-brand" href="#">
-            <img src="" width="30" height="30" alt="">
+            <img src="${pageContext.request.contextPath}/funding/ready1Funding" width="30" height="30" alt="">
         </a>
         <!-- 이름 여기에 불러올것 -->
         <a class="aTag" href="${pageContext.request.contextPath}/funding/fundingStart1"><div class="makerName">
         	<img src="${pageContext.request.contextPath}/resources/image/skycraper.png" style="width: 25px">
         	${loginMember.name}</div></a>
-        <a class="aTag" href="${pageContext.request.contextPath}/funding/ready1Funding"><div class="makerName">
-        	<img src="${pageContext.request.contextPath}/resources/image/skycraper.png" style="width: 25px">
-        	${name}</div></a>
         
         <div>
             <button type="button" class="border-0" onclick ="location.href='${pageContext.request.contextPath}'">나가기</button>
@@ -110,7 +107,11 @@ window.setTimeout(function() {
 
    
         <div class="navbar-header">
-            <li class="navbar-toggle list-group-item hoveref font-weight-bold" data-toggle="collapse" data-target="#fundingReady">펀딩준비</li>
+            <li class=" list-group-item d-flex justify-content-between"> 
+            	<a class="hoveref" href="${pageContext.request.contextPath}/funding/ready1Funding"><strong>펀딩준비</strong></a>
+            	<button class="navbar-toggle " data-toggle="collapse" data-target="#fundingReady">*</button>
+           	</li>
+            
         </div>
         <div class="collapse navbar-collapse border" id="fundingReady">
             <ul class="nav navbar-nav">
