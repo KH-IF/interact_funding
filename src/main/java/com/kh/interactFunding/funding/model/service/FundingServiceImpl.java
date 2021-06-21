@@ -37,27 +37,57 @@ public class FundingServiceImpl implements FundingService{
 	
 	//김주연
 	@Override
-	public List<FundingExt> statusYList(Member loginMember) {
-		// TODO Auto-generated method stub
-		return fundingDao.statusYList(loginMember);
+	public List<FundingExt> statusYList(int memberNo) {
+		List<FundingExt> fundingList = fundingDao.statusYList(memberNo);
+		
+		for(FundingExt funding: fundingList) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+		}
+		
+		return fundingList;
 	}
 	@Override
-	public List<FundingExt> statusNList(Member loginMember) {
-		// TODO Auto-generated method stub
-		return  fundingDao.statusNList(loginMember);
+	public List<FundingExt> statusNList(int memberNo) {
+		List<FundingExt> fundingList = fundingDao.statusNList(memberNo);
+		
+		for(FundingExt funding: fundingList) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+		}
+		
+		return fundingList;
+	}
+	@Override
+	public List<FundingExt> nowList(int memberNo) {
+		List<FundingExt> fundingList = fundingDao.nowList(memberNo);
+		
+		for(FundingExt funding: fundingList) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+		}
+		
+		return fundingList;
+	}
+	@Override
+	public List<FundingExt> finishList(int memberNo) {
+		List<FundingExt> fundingList = fundingDao.finishList(memberNo);
+		
+		for(FundingExt funding: fundingList) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+		}
+		
+		return fundingList;
 	}
 	@Override
 	public int ready1FundingInsertNo(Funding funding) {
 		return fundingDao.ready1FundingInsertNo(funding);
 	}
 	@Override
-	public FundingExt selectCheckFunding(String fundingNo) {
-		// TODO Auto-generated method stub
-		return fundingDao.selectCheckFunding(fundingNo);
+	public FundingExt selectCheckFunding(int fundingNo) {
+		FundingExt funding = fundingDao.selectCheckFunding(fundingNo);
+		funding.setAttachment(fundingDao.selectOneAttach(fundingNo));
+		return funding;
 	}
 	@Override
 	public int saveCharge(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return fundingDao.saveCharge(param);
 	}
 	
@@ -69,71 +99,81 @@ public class FundingServiceImpl implements FundingService{
         log.debug("funding = {}",funding);
         
         //attachment 등록
-        if(funding.getAttachment() != null) {
-            Attachment attach = new Attachment();
-            attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
-            result = insertAttachment(attach);
-            log.debug("attach={}",attach);
+        if(funding.getAttachment() == null) {
+//            Attachment attach = funding.getAttachment(); 
+//            attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
+//            result = insertAttachment(attach);
+//            log.debug("attach={}",attach);
+        } else {
+        	 Attachment attach =funding.getAttachment();
+             attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
+             int fundingNo = attach.getFundingNo();
+             result = updateAttachment(fundingNo);
+             result = insertAttachment(attach);
         }
+        
         return result;
     }
-
+	@Override
+	public int updateAttachment(int fundingNo) {
+		return fundingDao.updateAttachment(fundingNo);		
+	}
 	@Override
 	public int insertAttachment(Attachment attach) {
 		return fundingDao.insertAttachment(attach);
 	}
 	@Override
-	public int saveStory(Funding funding) {
-		// TODO Auto-generated method stub
+	public int saveStory(FundingExt funding) {
 		return fundingDao.saveStory(funding);
 	}
 	@Override
-	public List<Reward> loadReward(String fundingNo) {
-		// TODO Auto-generated method stub
+	public List<Reward> loadReward(int fundingNo) {
 		return fundingDao.loadReward(fundingNo);
 	}
 	
 	@Override
-	public Reward selectOneReward(String rewardNo) {
-		// TODO Auto-generated method stub
+	public Reward selectOneReward(int rewardNo) {
 		return fundingDao.selectOneReward(rewardNo);
 	}
 	@Override
 	public int insertReward(Reward reward) {
-		// TODO Auto-generated method stub
 		return fundingDao.insertReward(reward);
 	}
 	@Override
 	public int updateReward(Reward reward) {
-		// TODO Auto-generated method stub
 		return fundingDao.updateReward(reward);
 	}
 	@Override
 	public int deleteReward(int rewardNo) {
-		// TODO Auto-generated method stub
 		return fundingDao.deleteReward(rewardNo);
 	}
 
 	
 	@Override
-	public int finalSubmit(Funding funding) {
-		// TODO Auto-generated method stub
-		return fundingDao.finalSubmit(funding);
+	public int finalSubmit(int fundingNo) {
+		return fundingDao.finalSubmit(fundingNo);
 	}
 	@Override
-	public FundingExt loadFunding(String fundingNo) {
-		// TODO Auto-generated method stub
-		return fundingDao.loadFunding(fundingNo);
+	public int finalNSubmit(int fundingNo) {
+		return fundingDao.finalNSubmit(fundingNo);
 	}
 	@Override
-	public int deleteFunding(String fundingNo) {
-		// TODO Auto-generated method stub
+	public FundingExt loadFunding(int fundingNo) {
+		FundingExt funding = fundingDao.loadFunding(fundingNo);
+		funding.setAttachment(fundingDao.selectOneAttach(fundingNo));
+		return funding;
+	}
+	@Override
+	public int deleteFunding(int fundingNo) {
 		return fundingDao.deleteFunding(fundingNo);
 	}
 	
+
+	
+	
+	
 	
 	//박요한
-	
 	@Override
 	public List<Funding> fundingNews(int funding_no) {
 		return fundingDao.fundingNews(funding_no);

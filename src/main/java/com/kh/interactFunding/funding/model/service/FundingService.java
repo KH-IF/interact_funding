@@ -19,22 +19,27 @@ public interface FundingService {
 	//김경태
 	
 	//김주연
-	List<FundingExt> statusYList(Member loginMember);
-	List<FundingExt> statusNList(Member loginMember);
+	List<FundingExt> statusYList(int memberNo);
+	List<FundingExt> statusNList(int memberNo);
+	List<FundingExt> nowList(int memberNo);
+	List<FundingExt> finishList(int memberNo);	
 	int ready1FundingInsertNo(Funding funding);
-	FundingExt selectCheckFunding(String fundingNo);
+	FundingExt selectCheckFunding(int fundingNo);
 	int saveCharge(Map<String, Object> param);
 	int saveBasicInfo(FundingExt funding);
 	int insertAttachment(Attachment attach);
-	int saveStory(Funding funding);
-	List<Reward> loadReward(String fundingNo);
-	Reward selectOneReward(String rewardNo);
+	int updateAttachment(int fundingNo);
+	int saveStory(FundingExt funding);
+	List<Reward> loadReward(int fundingNo);
+	Reward selectOneReward(int rewardNo);
 	int insertReward(Reward reward);
 	int updateReward(Reward reward);
 	int deleteReward(int rewardNo);
-	int finalSubmit(Funding funding);
-	int deleteFunding(String fundingNo);
-	FundingExt loadFunding(String fundingNo);
+	int finalSubmit(int fundingNo);
+	int finalNSubmit(int fundingNo);
+	int deleteFunding(int fundingNo);
+	FundingExt loadFunding(int fundingNo);
+	
 	
 	//박요한
 	List<Funding> fundingNews(int funding_no);

@@ -404,12 +404,19 @@
 
 
         <br><br>
-        <button type="button" class="btn btn-primary btn-lg" style="width: 200px;">저장하기</button>
+        <button type="button" class="btn btn-primary btn-lg" style="width: 200px;" onclick="rewardSave()">저장하기</button>
         
         
     </div>
 </section> 
 <script>
+
+	function rewardSave(){
+
+		const msg = "리워드를 저장했습니다.";
+		location.href = `${pageContext.request.contextPath}/funding/ready1Funding/\${msg}`;
+		
+	}
 
 	var fundingNo;
 	var price;
