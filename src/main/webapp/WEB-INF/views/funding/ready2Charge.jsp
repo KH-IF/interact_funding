@@ -55,7 +55,8 @@
 
             <div class="p-4 border" style="width: 45rem;">
                 <span class="h6 mb-2 text-muted">가볍게 펀딩을 시작하고 싶다면</span>
-                <input id="LightCharge" value ="P1" type="radio" name="choiceCharge" class="makeLikebutton" />
+                <input id="LightCharge" value ="P1" type="radio" name="choiceCharge" class="makeLikebutton"
+                ${funding.ratePlanCode=='P1'? 'checked':''}/>
                 <label class="d-inline-flex float-right btn btn-outline-info " for="LightCharge">선택하기</label>
                 
                 <br><br><br>
@@ -87,7 +88,8 @@
                 
                 <span class="h6 mb-2 text-muted">펀딩을 미리 오픈해서
                         사전에 서포터를 모으고 싶다면</span>
-                <input id="BasicCharge" value ="P2" type="radio" name="choiceCharge" class="makeLikebutton" />
+                <input id="BasicCharge" value ="P2" type="radio" name="choiceCharge" class="makeLikebutton" 
+                ${funding.ratePlanCode=='P2'? 'checked':''}/>
                 <label class="d-inline-flex float-right btn btn-outline-info " for="BasicCharge">선택하기</label>
                 
                 <br><br><br>
@@ -114,7 +116,8 @@
             <div class="p-4 border" style="width: 45rem;">
                 <span class="h6 mb-2 text-muted">온・오프라인에서
                         동시에 서포터를 모으고 싶다면</span>
-                <input id="ProCharge" value ="P3" type="radio" name="choiceCharge" class="makeLikebutton" />
+                <input id="ProCharge" value ="P3" type="radio" name="choiceCharge" class="makeLikebutton" 
+                ${funding.ratePlanCode=='P3'? 'checked':''}/>
                 <label class="d-inline-flex float-right btn btn-outline-info " for="ProCharge">선택하기</label>
                 
                 <br><br><br>
@@ -145,7 +148,8 @@
                     와디즈 담당자의 도움을 받고싶다면
                 </span>
 
-                <input id="ExpertCharge" value ="P4" type="radio" name="choiceCharge" class="makeLikebutton" />
+                <input id="ExpertCharge" value ="P4" type="radio" name="choiceCharge" class="makeLikebutton" 
+                ${funding.ratePlanCode=='P4'? 'checked':''}/>
                 <label class="d-inline-flex float-right btn btn-outline-info " for="ExpertCharge">선택하기</label>
                 
                 <br><br><br>

@@ -415,11 +415,19 @@ end;
 --관리자 테이블
 
 
+select * from attachment;
 
 
 
-
-
+select rownum, f.*
+			from (
+			        select funding.* 
+		        	from funding  
+		        	where start_date < sysdate and d_day > sysdate
+		        		  and status ='Y'
+		       		order by reg_date  desc
+		        ) f
+		where rownum between 1 and 6;
 
 
 
@@ -955,6 +963,13 @@ select * from funding_board;
 
 -----------------------
 select * from tab;
+
+select * 
+from funding
+where
+    start_date < sysdate
+    and d_day > sysdate;
+
 
 
 commit;

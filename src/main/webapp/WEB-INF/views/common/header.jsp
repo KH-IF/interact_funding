@@ -105,13 +105,9 @@
 	        }
 		}
 		function openProject(){
-			if(${empty loginMember.phone}){
-				//핸드폰등록(메이커등록) 안되어있는 경우
-				location.href='${pageContext.request.contextPath}/funding/fundingStart1';
-			}else{
-				//메이커 등록이 되어있는 경우
-				location.href='${pageContext.request.contextPath}/funding/fundingStart2';
-			}
+			//무조건 fundingStart1을 거치게 변경하였습니다. 인증은 번호 변경을 원하는 경우도 있음으로 분기처리 하지 않습니다.
+			location.href='${pageContext.request.contextPath}/funding/fundingStart1';
+			
 		}
 		//모달을 사용할수있게 해주는 함수
 		$('#myModal').on('shown.bs.modal', function () {

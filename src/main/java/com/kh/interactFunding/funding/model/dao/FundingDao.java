@@ -22,22 +22,27 @@ public interface FundingDao {
 	//김경태
 	
 	//김주연
-	List<FundingExt> statusYList(Member loginMember);
-	List<FundingExt> statusNList(Member loginMember);
-	FundingExt loadFunding(String fundingNo);
+	List<FundingExt> statusYList(int memberNo);
+	List<FundingExt> statusNList(int memberNo);
+	List<FundingExt> nowList(int memberNo);
+	List<FundingExt> finishList(int memberNo);
+	FundingExt loadFunding(int fundingNo);
 	int ready1FundingInsertNo(Funding funding);
-	FundingExt selectCheckFunding(String fundingNo);
+	FundingExt selectCheckFunding(int fundingNo);
 	int saveCharge(Map<String, Object> param);
 	int saveBasicInfo(FundingExt funding);
 	int insertAttachment(Attachment attach);
-	List<Reward> loadReward(String fundingNo);
-	Reward selectOneReward(String rewardNo);
+	int updateAttachment(int fundingNo);	
+	List<Reward> loadReward(int fundingNo);
+	Reward selectOneReward(int rewardNo);
 	int insertReward(Reward reward);
 	int updateReward(Reward reward);
 	int deleteReward(int rewardNo);
-	int saveStory(Funding funding);
-	int finalSubmit(Funding funding);
-	int deleteFunding(String fundingNo);
+	int saveStory(FundingExt funding);
+	int finalSubmit(int fundingNo);
+	int finalNSubmit(int fundingNo);
+	int deleteFunding(int fundingNo);
+	
 	
 	//박요한
 	

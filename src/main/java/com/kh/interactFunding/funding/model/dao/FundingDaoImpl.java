@@ -50,15 +50,23 @@ public class FundingDaoImpl implements FundingDao{
 	
 	//김주연
 	@Override
-	public List<FundingExt> statusYList(Member loginMember) {
-		return session.selectList("funding.statusYList",loginMember);
+	public List<FundingExt> statusYList(int memberNo) {
+		return session.selectList("funding.statusYList",memberNo);
 	}
 	@Override
-	public List<FundingExt> statusNList(Member loginMember) {
-		return session.selectList("funding.statusNList",loginMember);
+	public List<FundingExt> statusNList(int memberNo) {
+		return session.selectList("funding.statusNList",memberNo);
 	}
 	@Override
-	public FundingExt loadFunding(String fundingNo) {
+	public List<FundingExt> nowList(int memberNo) {
+		return session.selectList("funding.nowList",memberNo);
+	}
+	@Override
+	public List<FundingExt> finishList(int memberNo) {
+		return session.selectList("funding.finishList",memberNo);
+	}
+	@Override
+	public FundingExt loadFunding(int fundingNo) {
 		return session.selectOne("funding.loadFunding",fundingNo);
 	}
 
@@ -67,7 +75,7 @@ public class FundingDaoImpl implements FundingDao{
 		return session.insert("funding.ready1FundingInsertNo",funding);
 	}
 	@Override
-	public FundingExt selectCheckFunding(String fundingNo) {
+	public FundingExt selectCheckFunding(int fundingNo) {
 		return session.selectOne("funding.selectCheckFunding",fundingNo);
 	}
 	@Override
@@ -82,17 +90,22 @@ public class FundingDaoImpl implements FundingDao{
 	public int insertAttachment(Attachment attach) {
 		return session.insert("funding.insertAttachment",attach);
 	}
+	
 	@Override
-	public int saveStory(Funding funding) {
+	public int updateAttachment(int fundingNo) {
+		return session.update("funding.updateAttachment",fundingNo);
+	}
+	@Override
+	public int saveStory(FundingExt funding) {
 		return session.update("funding.saveStory",funding);
 	}
 	@Override
-	public List<Reward> loadReward(String fundingNo) {
+	public List<Reward> loadReward(int fundingNo) {
 		return session.selectList("funding.loadReward",fundingNo);
 	}
 	
 	@Override
-	public Reward selectOneReward(String rewardNo) {
+	public Reward selectOneReward(int rewardNo) {
 		return session.selectOne("funding.selectOneReward",rewardNo);
 	}
 	@Override
@@ -108,16 +121,19 @@ public class FundingDaoImpl implements FundingDao{
 		return session.delete("funding.deleteReward",rewardNo);
 	}
 	@Override
-	public int finalSubmit(Funding funding) {
-		return session.update("funding.finalSubmit",funding);
+	public int finalSubmit(int fundingNo) {
+		return session.update("funding.finalSubmit",fundingNo);
 	}
 	@Override
-	public int deleteFunding(String fundingNo) {
+	public int finalNSubmit(int fundingNo) {
+		return session.update("funding.finalNSubmit",fundingNo);
+	}
+	@Override
+	public int deleteFunding(int fundingNo) {
 		return session.delete("funding.deleteFunding",fundingNo);
 	}
 
 	
-
 	//박요한
 	@Override
 	public List<Funding> fundingNews(int funding_no) {

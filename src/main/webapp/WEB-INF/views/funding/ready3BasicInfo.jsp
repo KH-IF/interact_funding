@@ -41,7 +41,7 @@
         <p class="text-muted" style="font-size:13px">최소 50만 원 ~ 최대 1억 원으로 설정하세요.</p>
         <div class="input-group">
          <c:if test="${funding.goalAmount != null}">
-            <input value="${funding.goalAmount}" name="goalAmount" type="number" min="500000" max="100000000" class="form-control" placeholder="목표 금액 입력" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <input value="${funding.goalAmount< 500000? 500000:funding.goalAmount}" name="goalAmount" type="number" min="500000" max="100000000" class="form-control" placeholder="목표 금액 입력" aria-label="Recipient's username" aria-describedby="basic-addon2">
             <span class="p-1">원</span>
          </c:if>
          <c:if test="${funding.goalAmount == null}">
@@ -56,7 +56,7 @@
         <h6>대표 이미지</h6>
 	   	
         <div class="custom-file">
-	        <label for="upFile" class="custom-file-label" for="upFile">등록하기</label>
+	        <label for="upFile" class="custom-file-label" for="upFile" onclick="updateImage();">등록하기</label>
 	        <input name="upFile"class="custom-file-input" id="upFile" type="file"  accept=".jpg, .jpeg, .png" style="display:none"/>
         </div>
         <p class="text-muted">
@@ -66,19 +66,18 @@
         </p>
         
      
-	    <c:if test="${funding.attachList != null}">
-	    <c:forEach items="${funding.attachList}" var="attach">
-	    	<div style="margin-top:10px;">
-	    		<img src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}" style="width:20vw; height:20vh;" onerror="imgAreaError()"/>
+	    <c:if test="${funding.attachment != null}">
+	    <c:set var="attach" value="${funding.attachment}" scope="page"/>
+	    	<div id="existImg" style="margin-top:10px;">
+	    		<img src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}" style="width:20vw;" onerror="imgAreaError()"/>
 	    	</div>
-	    </c:forEach>
+	
 	    </c:if>
 	    <!-- 업로드 했을 때 미리보기 이미지 -->
-	    <c:if test="${funding.attachList == null}">
-	    	<div id="imgViewArea" style="margin-top:10px; display:none;">
-	    		<img id="imgArea" style="width:20vw; height:20vh;" onerror="imgAreaError()"/>
-	    	</div>
-	    </c:if>
+    	<div id="imgViewArea" style="margin-top:10px; display:none;">
+    		<img id="imgArea" style="width:20vw;" onerror="imgAreaError()"/>
+    	</div>
+	
 	
 		 
 
@@ -88,11 +87,11 @@
             <select class="custom-select" name="categoryCode">
 <!-- : 테크가전, 푸드, 여행, 스포츠, 게임취미, 모임, 반려동물, 기부후원-->
               <option selected disabled>카테고리 선택</option>
-              <option value="C1" ${funding.categoryCode eq 'C1'? "selected":""}>테크가전</option>
+              <option value="C1" ${funding.categoryCode eq 'C1'? "selected":""}>테크·가전</option>
               <option value="C2" ${funding.categoryCode eq 'C2'? "selected":""}>푸드</option>
               <option value="C3" ${funding.categoryCode eq 'C3'? "selected":""}>여행</option>
               <option value="C4" ${funding.categoryCode eq 'C4'? "selected":""}>스포츠</option>
-              <option value="C5" ${funding.categoryCode eq 'C5'? "selected":""}>게임취미</option>
+              <option value="C5" ${funding.categoryCode eq 'C5'? "selected":""}>게임·취미</option>
               <option value="C6" ${funding.categoryCode eq 'C6'? "selected":""}>모임</option>
               <option value="C7" ${funding.categoryCode eq 'C7'? "selected":""}>반려동물</option>
               <option value="C8" ${funding.categoryCode eq 'C8'? "selected":""}>기부후원</option>
@@ -121,7 +120,7 @@
    
         
         <br><br>
-        <input type="submit" class="btn btn-primary btn-lg" style="width: 200px;" value="시작하기"/>
+        <input type="submit" class="btn btn-primary btn-lg" style="width: 200px;" value="저장하기"/>
 
     </div>
 	</form>
@@ -141,25 +140,9 @@ $(() =>{
 });
 
 
-/* function basicInfoValidate(){
-	var $projectTitle = $("[name=title]");
-	if(/^(.|\n)+$/.test($title.val()) == false){
-		alert("제목을 입력하세요");
-		return false;
-	}
-	var $goal_amount = $("[name=goal_amount]");
-	if(/^(.|\n)+$/.test($goal_amount.val()) == false){
-		alert("목표금액을 입력하세요");
-		return false;
-	}
-	var $projectTitle = $("[name=projectTitle]");
-	if(/^(.|\n)+$/.test($projectTitle.val()) == false){
-		alert("제목을 입력하세요");
-		return false;
-	}
-	return true;
-}; */
-
+function updateImage(){
+	$("#existImg").hide()
+}
 
 //이미지 미리보기
 //콘텐츠 수정 :: 사진 수정 시 이미지 미리보기
