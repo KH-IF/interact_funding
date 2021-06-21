@@ -145,22 +145,12 @@ public class FundingDaoImpl implements FundingDao{
 	public List<Funding> indexfundingList() {
 		return session.selectList("funding.indexfundingList");
 	}
-	@Override
-	public List<Funding> indexfundinglike() {
-		return session.selectList("funding.indexfundinglike");
-	}
+
 	@Override
 	public List<Funding> indexviewlist() {
 		return session.selectList("funding.indexviewlist");
 	}
-	@Override
-	public int indexTotalContents() {
-		return session.selectOne("funding.indexTotalContents");
-	}
-//	@Override
-//	public List<Funding> indexEarlyList() {
-//		return session.selectList("funding.indexEarlyList");
-//	}
+	
 	@Override
 	public List<Funding> indexlikelist() {
 		return session.selectList("funding.indexlikelist");
@@ -169,6 +159,11 @@ public class FundingDaoImpl implements FundingDao{
 	@Override
 	public List<Funding> indexfundingRefresh() {
 		return session.selectList("funding.indexfundingRefresh");
+	}
+	
+	@Override
+	public List<Funding> indexRankingviewlist() {
+		return session.selectList("funding.indexRankingviewlist");
 	}
 	//이승우
 	@Override

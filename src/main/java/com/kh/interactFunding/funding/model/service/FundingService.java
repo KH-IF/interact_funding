@@ -49,12 +49,10 @@ public interface FundingService {
 	
 	//배기원
 	public List<Funding> indexfundingList();
-	public List<Funding> indexfundinglike();
-	//List<Funding> indexEarlyList();
 	List<Funding> indexviewlist();
 	List<Funding> indexlikelist();
 	List<Funding> indexfundingRefresh();
-	int indexTotalContents();
+	List<Funding> indexRankingviewlist();
 	
 		
 	//이승우

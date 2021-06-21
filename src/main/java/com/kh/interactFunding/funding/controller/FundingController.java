@@ -1,24 +1,28 @@
 package com.kh.interactFunding.funding.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
+
 import java.beans.PropertyEditor;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,7 +41,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
-
 import com.kh.interactFunding.common.util.HelloSpringUtils;
 import com.kh.interactFunding.common.util.PageBarUtils;
 import com.kh.interactFunding.funding.model.service.FundingService;
@@ -47,7 +50,6 @@ import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.service.MemberService;
 import com.kh.interactFunding.member.model.vo.Member;
-
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -646,36 +648,58 @@ public class FundingController {
 		PropertyEditor editor = new CustomDateEditor(sdf, true);
 		binder.registerCustomEditor(java.sql.Date.class, editor);
 	}
-	
-	
-	
-	//배기원(test 해보겠습니다)
-	@ResponseBody
-	@GetMapping("fundinglike")
-	public List<Funding> indexfundinglike(Model model ,HttpSession session){
-		log.debug("1111");
-		List<Funding> likeList=null;
-		try {
-			likeList =fundingService.indexfundinglike();
-		}catch (Exception e) {
-			log.error("좋아요 페이지가 안됩니다.",e);
-			throw e;
-		}
-		return likeList;
-	}
+
+	// 배기원
+	/**
+	 * 최근 생성된 페이지를 ajax를 통해 비동기식으로 실시간 html변경입니다. 새로고침 list 입니다.
+	 */
 	@ResponseBody
 	@GetMapping("fundingRefresh")
-	public  List<Funding>indexfundingRefresh(Model model,HttpSession session){
-			List<Funding>Refreshlist=null;
-			try {
-				Refreshlist=fundingService.indexfundingRefresh();
-				log.info("Refreshlist={}",Refreshlist);
-			}catch (Exception e) {
-				log.error("새로고침 예제",e);
-				throw e;
+	public List<Funding> indexfundingRefresh(Model model, HttpSession session,HttpServletRequest request) {
+		List<Funding> Refreshlist = new ArrayList<Funding>();
+		request.getAttribute("Refreshlist");
+		try {
+			Refreshlist = fundingService.indexfundingRefresh();
+			for(Funding funding:Refreshlist) {
+				String cCode=funding.getCategoryCode();
+				switch (cCode) {
+				case "C1":
+					funding.setCategoryCode("테크·가전");
+					break;
+				case "C2":
+					funding.setCategoryCode("푸드");
+					break;
+				case "C3":
+					funding.setCategoryCode("여행");
+					break;
+				case "C4":
+					funding.setCategoryCode("스포츠");
+					break;
+				case "C5":
+					funding.setCategoryCode("게임·취미");
+					break;
+				case "C6":
+					funding.setCategoryCode("모임");
+					break;
+				case "C7":
+					funding.setCategoryCode("반려동물");
+					break;
+				case "C8":
+					funding.setCategoryCode("기부·후원");
+					break;
+				default:
+					funding.setCategoryCode("잘못된 카테고리");
+					break;
+				}
 			}
+			
+		} catch (Exception e) {
+			log.error("새로고침 예제", e);
+			throw e;
+		}
 		return Refreshlist;
-	}	
+	}
+
 	//이승우
 	//흠흠
 	@GetMapping("/fundingList")

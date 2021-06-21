@@ -50,12 +50,11 @@ public interface FundingDao {
 	
 	//배기원
 	public List<Funding> indexfundingList();
-	public List<Funding> indexfundinglike();
-	int indexTotalContents();
-	//List<Funding> indexEarlyList();
 	List<Funding> indexviewlist();
 	List<Funding> indexlikelist();
 	List<Funding> indexfundingRefresh();
+	List<Funding> indexRankingviewlist();
+
 	
 
 	//이승우
@@ -72,6 +71,5 @@ public interface FundingDao {
 	int likeCount(Map<String, Object> map);
 	int likeStatusCheck(int memberNo);
 	List<Reward> selectRewardList(int fundingNo);
-
 
 }
