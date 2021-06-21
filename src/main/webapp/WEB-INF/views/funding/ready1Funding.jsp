@@ -1,7 +1,7 @@
 <%@page import="com.kh.interactFunding.funding.model.vo.FundingExt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/common/makerNav.jsp" flush="false">
     <jsp:param value="IF Maker Studio" name="title"/>
 </jsp:include>
@@ -21,13 +21,15 @@
     height: 80vh;
     overflow-y: auto;
 }
+
+div.leftB{
+	border: 1px solid;
+	border-left: 20px solid blue;
+}
+
 </style>
 
-<%
 
-	FundingExt funding = (FundingExt)session.getAttribute("funding");
-
-%>
 
 <!-- Modal 처리 -->
     <div id="makerGuide" class="modal" tabindex="-1" role="dialog">
@@ -110,12 +112,17 @@
                 </p>
             </div>
             <br>
-            
-            <div class="border rounded p-3 ">
+    
+            <div class="leftB rounded p-3 ">
                 <br>
                 <p class="h3 d-inline"> 요금제 선택 </p> &nbsp;&nbsp; 
                 <!-- 작성 완료하면 작성 완료로 변경 -->
-                <span id="chargeWrite" class="d-inline">작성 전</span> 
+                <c:if test="${writeMap.ratePlanCode == 'OK'}" >
+                	<span class="d-inline">작성완료</span> 
+                </c:if>
+                <c:if test="${writeMap.ratePlanCode != 'OK'}" >
+                	<span class="d-inline">작성 중</span> 
+                </c:if>
                 <button type="button" class=" btn btn-outline-secondary btn-lg float-right" onclick="makerMovePage('2Charge')">
                     작성하기
                 </button>
@@ -127,7 +134,12 @@
             <div class="border rounded p-3">
                 <br>
                 <p class="h3 d-inline">기본 정보</p> &nbsp;&nbsp; 
-                <span id="InfoWrite" class="d-inline">작성 전</span> 
+                <c:if test="${writeMap.basicInfo == 'OK'}" >
+                	<span class="d-inline">작성완료</span> 
+                </c:if>
+                <c:if test="${writeMap.basicInfo != 'OK'}" >
+                	<span class="d-inline">작성 중</span> 
+                </c:if>
                 <button type="button" class=" btn btn-outline-secondary btn-lg float-right" onclick="makerMovePage('3BasicInfo')">
                     작성하기
                 </button>
@@ -139,7 +151,12 @@
             <div class="border rounded p-3">
                 <br>
                 <p class="h3 d-inline">스토리 작성</p> &nbsp;&nbsp; 
-                <span id="storyWrite" class="d-inline">작성 전</span> 
+               	<c:if test="${writeMap.story == 'OK'}" >
+                	<span class="d-inline">작성완료</span> 
+                </c:if>
+                <c:if test="${writeMap.story != 'OK'}" >
+                	<span class="d-inline">작성 중</span> 
+                </c:if> 
                 <button type="button" class=" btn btn-outline-secondary btn-lg float-right" onclick="makerMovePage('4Story')">
                     작성하기
                 </button>
@@ -151,7 +168,12 @@
             <div class="border rounded p-3">
                 <br>
                 <p class="h3 d-inline">리워드 설계</p> &nbsp;&nbsp; 
-                <span id="rewardWrite" class="d-inline">작성 전</span> 
+                <c:if test="${writeMap.reward == 'OK'}" >
+                	<span class="d-inline">작성완료</span> 
+                </c:if>
+                <c:if test="${writeMap.reward != 'OK'}" >
+                	<span class="d-inline">작성 중</span> 
+                </c:if>
                 <button type="button" class=" btn btn-outline-secondary btn-lg float-right" onclick="makerMovePage('5Reward')">
                     작성하기
                 </button>
@@ -160,10 +182,11 @@
             </div>
             <br>
 
+			 <!-- 차후 추가여부 결정 -->
 			 <div class="border rounded p-3">
                 <br>
                 <p class="h3 d-inline">관리</p> &nbsp;&nbsp; 
-                <span  class="d-inline">작성 전</span> 
+                <span  class="d-inline">작성 중</span> 
                 <button type="button" class=" btn btn-outline-secondary btn-lg float-right" onclick="makerMovePage('6Reward')">
                     작성하기
                 </button>
@@ -171,32 +194,154 @@
                 <br>
             </div>
             <br>
-
-			<button id="checkSMSPhone" class="btn btn-primary btn-lg" role="button" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/funding/checkSMS';">제출하기</button>
-			<br />
+			
 			<!-- 최종 제출했을 시 펀딩 삭제가 불가능하다. -->
-			<c:if test="${funding.status != 'Y'}">
-			<form id="fundingDeleteFrm" method="POST" action="${pageContext.request.contextPath}/funding/deleteFunding">
-				<input type="hidden" name="fundingNo">
-				<button type="button" id="deleteFunding" class="btn btn-primary btn-lg" style="width: 200px;" onclick="deletefunding()">펀딩 삭제하기</button>
-			</form>
+			<!-- 최종 제출이 안되었을 때 전화번호 인증안했을 때 -->
+			<c:if test="${funding.status != true && loginMember.phone == null}">
+				<div class="d-flex flex-row  pb-5">
+					<button id="checkSMSPhone" class="btn btn-primary btn-lg " role="button" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/funding/checkSMS';" >제출하기</button>
+					<br />
+				</div>
+				<form id="fundingDeleteFrm" method="POST" action="${pageContext.request.contextPath}/funding/deleteFunding">
+					<input type="hidden" name="fundingNo">
+					<button type="button" id="deleteFunding" class="btn btn-outline-danger btn-lg " style="width: 200px;" onclick="deletefunding()">펀딩 삭제하기</button>
+				</form>
+			</c:if>
+			
+			<!-- 최종 제출이 안되었을 때 전화번호는 인증한 상태  -->
+			<c:if test="${funding.status != true && loginMember.phone != null}">
+				<div class="d-flex flex-row  pb-4">
+					<button name="disabledFT" id="checkSMSPhone" class="btn btn-primary btn-lg mr-4 " role="button" style="width: 200px;" onclick="finalSubmit()" >제출하기</button>
+					<button name="disabledFT" id="REcheckSMSPhone" class="btn btn-primary btn-lg" role="button" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/funding/checkSMS';" >번호인증 다시하기</button>
+					<p class="text-muted">(사용자 전화번호가 변경되고 제출됩니다.)</p>
+					<br />
+				</div>
+					<form id="fundingDeleteFrm" method="POST" action="${pageContext.request.contextPath}/funding/deleteFunding">
+						<input type="hidden" name="fundingNo">
+						<button type="button" id="deleteFunding" class="btn btn-outline-danger btn-lg " style="width: 200px;" onclick="deletefunding()">펀딩 삭제하기</button>
+					</form>
+			</c:if>
+				
+			<!-- 최종 제출이 되었을 때 -->
+			<c:if test="${funding.status == true}">
+				<div class="d-flex flex-row align-items-center">
+					<c:if test="${writeMap.ratePlanCode == 'OK' && writeMap.basicInfo == 'OK'&& writeMap.story == 'OK' && writeMap.reward == 'OK'}">
+						<button name="disabledFT" id="finalYSubmit" class="btn btn-primary btn-lg mr-4" role="button" style="width: 200px;" onclick="finalYSubmit()" >수정하기</button>			
+						<button name="disabledFT" id="REcheckSMSPhone" class="btn btn-primary btn-lg" role="button" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/funding/checkSMS';" >번호인증 다시하기</button>	
+						<p class="text-muted">(사용자 전화번호가 변경되고 제출됩니다.)</p>
+					</c:if>
+				<!-- 최종 제출이 되었는데 수정해서 미완성일때  -->
+					<c:if test="${writeMap.ratePlanCode != 'OK' || writeMap.basicInfo != 'OK' || writeMap.story != 'OK' || writeMap.reward != 'OK'}">
+						<button id="finalNSubmit" class="btn btn-primary btn-lg " role="button" style="width: 200px;" onclick="finalNSubmit()">수정하기</button>
+					</c:if>
+				</div>
 			</c:if>
 			
         </div>
+        
+        <input type="hidden" id="ratePlanCode" value="${writeMap.ratePlanCode}" />
+        <input type="hidden" id="basicInfo" value="${writeMap.basicInfo}"/>
+        <input type="hidden" id="story"  value="${writeMap.story}"/>
+        <input type="hidden" id="reward" value="${writeMap.reward}"/>
+        
         </section>
 <script>
+
+	$(document).ready(function(){
+		const ratePlanCode = $("#ratePlanCode").val();
+		const basicInfo = $("#basicInfo").val();
+		const story = $("#story").val();
+		const reward = $("#reward").val();
+
+		if(ratePlanCode == "OK" && basicInfo == "OK" && story == "OK"  && reward == "OK"){
+			$("[name=disabledFT]").attr("disabled",false);
+		}else{
+			$("[name=disabledFT]").attr("disabled",true);
+		}
+		
+	});
+
+	function finalSubmit(){
+		swal({
+			  title: "최종제출하면 펀딩 삭제가 불가합니다. 최종제출하겠습니까?",
+			  text: "펀딩수정은 가능합니다.",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then(function(){
+				$.ajax({
+					url:`${pageContext.request.contextPath}/funding/finalSubmit`,
+					method: "PUT",
+					success(data){
+						console.log(data);
+						const {msg} = data;
+						window.location.href = `${pageContext.request.contextPath}/funding/fundingStart1/\${msg}`;
+					},
+					error: console.log
+					});
+		});
+	}
+	
+
+	function finalYSubmit(){
+
+		$.ajax({
+			url:`${pageContext.request.contextPath}/funding/finalYSubmit`,
+			method: "GET",
+			success(data){
+				console.log(data);
+				const {msg} = data;
+				window.location.href = `${pageContext.request.contextPath}/funding/fundingStart1/\${msg}`;
+			},
+			error: console.log
+			});
+	}
+	
+	function finalNSubmit(){
+		swal({
+  		  title: "펀딩이 미완성된 상태입니다.",
+  		  text: "작성완료에서 작성중인 펀딩으로 바뀝니다.",
+  		  icon: "warning",
+  		  buttons: true,
+  		  dangerMode: true,
+  		})
+  		.then(function(){
+  			$.ajax({
+  				url:`${pageContext.request.contextPath}/funding/finalNSubmit`,
+  				method: "PUT",
+  				success(data){
+  					console.log(data);
+  					const {msg} = data;
+  					window.location.href = `${pageContext.request.contextPath}/funding/fundingStart1/\${msg}`;
+  				},
+  				error: console.log
+  				});
+          
+  	});
+		
+		
+	}
+
+
 	//펀딩 삭제하기 버튼 
 	function deletefunding(){
 
 		const fundingNo = ${funding.fundingNo};
-	
-		if(confirm("프로젝트"+fundingNo+"번 펀딩을 삭제하시겠습니까?")){
-			const $frm = $('#fundingDeleteFrm');
-			$frm.find("[name = fundingNo]").val(fundingNo);
-			$frm.submit();
-			
-		
-		}
+
+    	swal({
+    		  title: "프로젝트"+fundingNo+"번 펀딩을 삭제하시겠습니까?",
+    		  text: "",
+    		  icon: "warning",
+    		  buttons: true,
+    		  dangerMode: true,
+    		})
+    		.then(function(){
+    			const $frm = $('#fundingDeleteFrm');
+    			$frm.find("[name = fundingNo]").val(fundingNo);
+    			$frm.submit();
+            
+    	});
 
 	}
 

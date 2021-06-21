@@ -69,7 +69,7 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
 		<br>
 		<button type="submit" onclick="storyFrmSubmit()" class="btn btn-primary btn-lg"
-			style="width: 200px;">시작하기</button>
+			style="width: 200px;">저장하기</button>
 		<!-- <button type="button" onclick="check()" class="btn btn-primary btn-lg" style="width: 200px;">체크</button> -->
 	</div>
 </form>
@@ -98,7 +98,10 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
     
     $(document).ready(function () {
-
+        
+    	  $("#showStart_day").hide();
+          $('#showScheduledOpen').hide();
+		
     	 $.ajax({
    			url:"${pageContext.request.contextPath}/funding/ready4StoryLoad",
    			contentType: "application/json; charset=utf-8",
@@ -109,11 +112,15 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
                   console.log(funding);
                   console.log(funding.content);
                   console.log(funding.earlyContent);
-                  
-                  innerText = funding.content;
-                  earlyinnerText = funding.earlyContent;
-                  startDate = funding.startDate;
-                  if(startDate != null){
+
+                  if(funding.content != null){
+	                  innerText = funding.content;
+                  }
+                  if(funding.earlyContent != null){
+                  	  earlyinnerText = funding.earlyContent;
+                  }
+                  earlyContent = funding.earlyContent;
+                  if(earlyContent != null){
 				  	$('#showScheduledOpen').show();
 			    	$('#showStart_day').show();
 				  	$("[id=scheduled]").prop("checked",true);
