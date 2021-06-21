@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.interactFunding.funding.model.vo.Attachment;
+import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
+import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Member;
@@ -36,8 +38,13 @@ public interface FundingService {
 	int deleteFunding(String fundingNo);
 	FundingExt loadFunding(String fundingNo);
 	
+	
 	//박요한
-	List<Funding> fundingNews(int funding_no);
+	List<FundingBoard> selectNewsList(int fundingNo);
+	FundingBoard selectOneNews(int no);
+	List<Comment> selectCommentList(int fundingNo);
+	int insertComment(Comment comment);
+//	int selectWriterNo(int fundingNo);
 	
 	
 	//배기원
@@ -67,5 +74,10 @@ public interface FundingService {
 	int likeCount(Map<String, Object> map);
 	int likeStatusCheck(int membeNo);
 	List<Reward> selectRewardList(int fundingNo);
+	///////////////////////////////////////////
+	
+	
+	
+	
 
 }

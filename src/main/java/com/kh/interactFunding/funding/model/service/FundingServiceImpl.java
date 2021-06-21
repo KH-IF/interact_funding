@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.kh.interactFunding.funding.model.dao.FundingDao;
 import com.kh.interactFunding.funding.model.vo.Attachment;
+import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
+import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Member;
@@ -132,12 +134,32 @@ public class FundingServiceImpl implements FundingService{
 	}
 	
 	
+	
 	//박요한
+	@Override
+	public List<FundingBoard> selectNewsList(int fundingNo){
+		return fundingDao.selectNewsList(fundingNo);
+	}
 	
 	@Override
-	public List<Funding> fundingNews(int funding_no) {
-		return fundingDao.fundingNews(funding_no);
+	public FundingBoard selectOneNews(int no) {
+		return fundingDao.selectOneNews(no);
 	}
+	
+	@Override
+	public List<Comment> selectCommentList(int fundingNo) {
+		return fundingDao.selectCommentList(fundingNo);
+	}
+	
+	@Override
+	public int insertComment(Comment comment) {
+		return fundingDao.insertComment(comment);
+	}
+	
+//	@Override
+//	public int selectWriterNo(int fundingNo) {
+//		return fundingDao.selectWriterNo(fundingNo);
+//	}
 	
 	
 	//배기원
