@@ -803,8 +803,15 @@ select * from funding_reward;
 			funding_no =9;
             
 select * from member;
+
 insert into funding_reward
 values(2, 99, 2000, '옵션1', '옵션1의 content부분', 2000, 10, '2021/07/01');
+
+insert into funding_reward
+values(3, 99, 2000, '옵션2', '옵션2의 content부분', 8000, 99, '2021/07/03');
+
+insert into funding_reward
+values(5, 99, 6000, '옵션3', '옵션3의 content부분', 6000, 60, '2021/07/03');
 
 
 
@@ -959,6 +966,14 @@ insert into funding_board values(1,99, '박요한테스트', 21, '내용입니�
 insert into funding_board values(2,99, '천호현테스트', 21, '내용22', default, 0 );
 
 select * from funding_board;
+
+
+		select
+			*
+		from
+			funding_reward
+		where
+			funding_no = 99;
 
 
 -----------------------

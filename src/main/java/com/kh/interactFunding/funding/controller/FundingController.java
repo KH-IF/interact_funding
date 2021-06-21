@@ -769,7 +769,6 @@ public class FundingController {
 	
 	@GetMapping("/fundingDetail") 
 	public void fundingDetail(@RequestParam int	fundingNo, Model model) { //1. 업무로직 
-		
 		FundingExt funding = fundingService.selectOneFunding(fundingNo);
 		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);
@@ -786,17 +785,29 @@ public class FundingController {
 	
 	@GetMapping("/fundingReward")
 	public void fundingReward(@RequestParam int	fundingNo, Model model) {
-		Funding funding = fundingService.selectOneFunding(fundingNo);
+		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+		List<Reward> reward = fundingService.selectRewardList(fundingNo);
+		
 		//2. 위임 
 		model.addAttribute("funding", funding);
+		model.addAttribute("reward", reward);
 		
 	}
 	@GetMapping("/fundingChatMaker")
 	public void fundingChatMaker() {
 	}
+	
 	@GetMapping("/fundingPayment")
-	public void fundingPayment() {
+	public void fundingPayment(@RequestParam int fundingNo, Model model) {
+		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+		List<Reward> reward = fundingService.selectRewardList(fundingNo);
+		
+		//2. 위임 
+		model.addAttribute("funding", funding);
+		model.addAttribute("reward", reward);
 	}
+	
+	
 	@GetMapping("/fundingFindAddress")
 	public void fundingFindAddress() {
 	}

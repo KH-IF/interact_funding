@@ -13,20 +13,13 @@ $(() => {
 	$('#funding_reward_modal').modal("show");
 }); 
 </script> 
-		${funding.ratePlanCode}
-		${funding.readCount}
-		${funding.rewardNo}
-		${funding.price}
-		${funding.rewardTitle}
-		${funding.rewardContent}
-		${funding.shippingPrice}
-		${funding.limitAmount}
-		${funding.shippingDate}
-		${funding.status}
+
+
 
 	<div id="funding_reward_top_tap">
-	<span>스토리로돌아가기</span>
-			<span>${funding.title}</span>
+	<span id="go_back">스토리로돌아가기</span>
+			<div id="fuding_reward_title_div">${funding.title}</div>
+			
 	</div>
 		
 	<div id="funding_purchase_step">
@@ -45,8 +38,42 @@ $(() => {
 		
 		
 		<div id="funding_reward_option">
-			리워드 옵션 가격들어가야할 부분(가변적으로 크기변함)
 		
+			 <c:forEach var="reward" items="${reward}">
+			 	 <div class="reward_select_div_wrapper">
+			 		<div class="reward_select_checkbox_div">
+			 			<input type="checkbox" class="reward_select_checkbox" value="${rewardNO}">
+			 		</div>
+			 		<div>
+					 	<h3>${reward.price}원 펀딩합니다</h3>
+			           	<br />
+			           	${reward.title}!!
+			           	<br />
+			           	${reward.content} 혜택
+			           	<br />
+			           	배송비 
+			           	<br />
+			           	${reward.shippingPrice}
+			           	<br />
+			           	리워드 발송 시작일
+			           	<br />
+			           	${reward.rewardNo} 예정
+			           	<br />
+			           	${reward.limitAmount} 개 남음!!
+			           	
+			           	<br />
+			           		<div>
+				           	   <fieldset class="rewardCount">
+					                <legend >수량선택</legend>
+					                <button class="decreaseButton">-</button>
+					                <input type="text" value="1" class="countReward">
+					                <button class="increaseButton">+</button>
+				            	</fieldset>
+			            	</div>
+			           	</div>
+		           	</div>
+	           	
+           	 </c:forEach>
 		</div>
 		
 		<div id="funding_reward_support_div">
@@ -78,9 +105,9 @@ $(() => {
 		</div>
 		
 		<div id="funding_reward_bottom_div">
-			ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ(제목) 에  ㅁㅁㅁㅁㅁ(선택한리워드가격) 원을 펀딩합니다.
+			${funding.title}에  <span id="funding_reward_choice">0</span> 원을 펀딩합니다.
 			<br />
-			<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.href='${pageContext.request.contextPath}/funding/fundingPayment';">다음단계로</button>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.href='${pageContext.request.contextPath}/funding/fundingPayment?fundingNo=${funding.fundingNo}';">다음단계로</button>
 		</div>
 	</div>
 	
@@ -91,7 +118,7 @@ $(() => {
 
 
 	<!-- 리워드 모달부분  -->
-    <div id="funding_reward_modal" class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+<!--     <div id="funding_reward_modal" class="modal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -132,21 +159,30 @@ $(() => {
 	      </div>
 	    </div>
 	  </div>
-	</div>
+	</div> -->
 	
 	
 	<style>
 	
+	#funding_reward_top_tap{
+   	display: flex;
+	}
 	
-	
-	
-	
-	
-	div, span{
-	
-	
+	#fuding_reward_title_div{
+    margin: auto;
+    font-size: 24px;
+    font-weight: 900;
 	
 	}
+	
+	#go_back{
+	font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+	}
+	
+	
+	
 	.form-check-input{
     border: 1px solid rgba(0,0,0,.15);
     background-color: #fff;
@@ -155,7 +191,6 @@ $(() => {
 	}
 	
 	#funding_reward_check_div {
-	
 	/* 기존의 bootstrap 설정변경을 위함 */
 	display:block; 
 	
@@ -164,6 +199,7 @@ $(() => {
 	#funding_reward_wrapper{
 	margin: auto;
     width: 800px;
+    font-weight: bold;
 	}
 
 
@@ -209,12 +245,15 @@ $(() => {
 	
 	#funding_reward_option{
 	height: 500px;
+    display: unset;
 	
 	}
 	
 	
 	#funding_reward_support_div{
 	height: 119px;
+	display: flex;
+	margin-top: 87px;
 	
 	}
 	
@@ -234,10 +273,6 @@ $(() => {
 	
 	}
 	
-	#funding_reward_support_div{
-	display: flex;
-	
-	}
 	
 	#funding_reward_name_div{
 	display: flex;
@@ -299,9 +334,33 @@ $(() => {
 	}
 	
 	
+	
+	.reward_select_div_wrapper{
+	display: flex;
+	font-size: 16px;
+	margin-bottom: 28px;
+	padding-top: 29px;
+    padding-left: 41px;
+	}
+	
+	.reward_select_checkbox_div{
+    margin-top: 10px;
+    margin-right: 31px;
+	
+	
+	}
+	
+	.rewardCount{
+	display: none;
+	}
+	
 	</style>
 	
 	<script>
+
+	$("#go_back").click(function() {
+		location.href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}";
+		});
 
 	/*체크되어야 모달hide*/
 	$( '#button_modal_footer' ).click( function() {
@@ -323,7 +382,57 @@ $(() => {
 		} 
 	});
 
-<!-- 	</script> -->
+
+
+	
+	//수량선택 + - 
+	$(function(){
+		$('.decreaseButton').click(function(e){
+			e.preventDefault();
+			var start = $('.countReward').val();
+			var num  = parseInt(start,10);
+			num--;
+			if(num<=0){
+				alert('더이상 줄일수 없습니다.');
+				num =1;
+				}
+			
+		$('.countReward').val(num);
+		});
+		
+		$('.increaseButton').click(function(e){
+			e.preventDefault();
+			var start = $('.countReward').val();
+			var num = parseInt(start,10);
+			num++;
+		
+			if(num>5){
+			alert('더이상 늘릴수 없습니다.');
+			num=5;
+			}
+			$('.countReward').val(num);
+
+		});
+
+	    
+	    //클릭할시(선택)
+		$('.reward_select_div_wrapper').on("click", function(){
+			if($(this).children().children("input").is(":checked") == false){
+				$(this).children().children("input").attr("checked", true);
+				$(this).css("background-color","pink")
+				$(this).children().children().children().css("display","block")
+				
+			}
+			else{
+				$(this).children().children("input").attr("checked", false);
+				$(this).css("background-color","white")
+				$(this).children().children().children().css("display","none")
+				}
+		});
+	});
+	
+
+</script> 
 	
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>	
