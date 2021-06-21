@@ -69,7 +69,11 @@ public class FundingController {
 	@Autowired
 	private ServletContext application;
 	
-	//김윤수(test)
+	//김윤수
+	@GetMapping("myParticiFunding")
+	public void myParticiFunding() {
+		
+	}
 	
 	//김경태 졸리다
 	

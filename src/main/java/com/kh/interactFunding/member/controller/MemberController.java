@@ -45,6 +45,7 @@ import com.kh.interactFunding.member.model.service.MemberService;
 import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
 import com.kh.interactFunding.member.model.vo.Msg;
+import com.kh.interactFunding.member.model.vo.Point;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -254,6 +255,11 @@ public class MemberController {
 		int createCnt = fundingService.selectMyCreateCnt(loginMember.getMemberNo());
 		log.debug("내가 생성한 펀딩의 갯수 : {}", createCnt);
 		model.addAttribute("createCnt",createCnt);
+		
+		//포인트 충전 내역
+		List<Point> pList = fundingService.selectMyPointList(loginMember.getMemberNo());
+		log.debug("pList = {}",pList);
+		model.addAttribute("pList", pList);
 	}
 	
 	//마이페이지 포인트충전

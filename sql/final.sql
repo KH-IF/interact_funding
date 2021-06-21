@@ -534,6 +534,11 @@ update funding_participation
 set member_no = 2
 where no=3;
 
+select * from point;
+
+select * from message order by no desc;
+select * from member;
+
 --김경태 테스트영역
 
 --김주연 테스트영역

@@ -14,6 +14,7 @@ import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Member;
+import com.kh.interactFunding.member.model.vo.Point;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,6 +45,10 @@ public class FundingDaoImpl implements FundingDao{
 	@Override
 	public int selectMyCreateCnt(int memberNo) {
 		return session.selectOne("funding.selectMyCreateCnt",memberNo);
+	}
+	@Override
+	public List<Point> selectMyPointList(int memberNo) {
+		return session.selectList("funding.selectMyPointList",memberNo);
 	}
 	
 	//김경태
