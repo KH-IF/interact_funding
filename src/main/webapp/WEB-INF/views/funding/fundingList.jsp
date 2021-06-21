@@ -11,24 +11,15 @@
 	$(function(){
 	    //이미지 불러오기
 	    $("img[alt=image1]").attr("src","${pageContext.request.contextPath }/resources/image/food3.jpg");
-	    /* $("img[alt=image2]").attr("src","${pageContext.request.contextPath }/resources/image/food2.jpg");
+	    $("img[alt=image2]").attr("src","${pageContext.request.contextPath }/resources/image/food2.jpg");
 	    $("img[alt=image3]").attr("src","${pageContext.request.contextPath }/resources/image/food1.jpg");
 	    $("img[alt=image4]").attr("src","${pageContext.request.contextPath }/resources/image/trip.jpg");
-	    $("img[alt=image5]").attr("src","${pageContext.request.contextPath }/resources/image/game.jpg"); */
+	    $("img[alt=image5]").attr("src","${pageContext.request.contextPath }/resources/image/game.jpg");
 	
 		//페이드인 효과
 	    $('.fundingProjectCardItemImage').animate({'opacity':'1'},500);
 	});
-	
-	//자동페이징
-	/* var page = 2;
 
-	$(window).scroll(function(){
-		if($(window).scrollTop() == $(document).height() - $(window).height()){
-			console.log(++page);
-			$(".FundingProjectCardItem").append();
-		}
-	}); */
 </script>
 <style>
 .slide-title{
@@ -78,18 +69,7 @@
                     </div>
                 </a>
             </div>
-            <c:forEach items="${list}" var="funding" begin="0" end="3">
-			   	<div class="carousel-item">
-                   <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}">
-                   <img src="${pageContext.request.contextPath}/resources/upload/${funding.attachment.renamedFilename}" style="width: 1300px; height: 400px;">
-	                    <div class="slide-title">
-	                     <span>${funding.title}</span>
-	                     <p></p>
-	                    </div>
-	                </a>
-	            </div>
-		   </c:forEach>
-            <!-- <div class="carousel-item">
+            <div class="carousel-item">
                 <a href="#">
                     <img alt="image2" style="width: 1300px; height: 400px;">
                     <div class="slide-title">
@@ -112,7 +92,7 @@
                 <a href="#">
                     <img alt="image5" style="width: 1300px; height: 400px;">
                 </a>
-            </div> -->
+            </div>
         </div>
         <a class="carousel-control-prev" href="#demo" data-slide="prev">
             <span class="carousel-control-prev-icon"></span>
@@ -264,7 +244,7 @@
                                     </span>
                                     <span class="line"></span>
                                     <span class="rewordProjectCardMakerName">
-                                        ${funding.writerNo}
+                                        <%-- ${memberName} --%>
                                     </span>
                                 </div>
                             </div>

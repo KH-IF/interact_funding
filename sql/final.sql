@@ -711,6 +711,8 @@ values (28, '펀딩', 'C1', 30000, 500000,'P1' ,21, 0,0,'[피부]  피부가맑�
 select * from funding order by funding_no desc;
 select count(*) from funding;
 
+select nvl(writer_no, 0) '탈퇴회원' from funding;
+
 select
 			f.*
 		from
@@ -786,6 +788,12 @@ select
 where start_date < sysdate;
 
 select * from funding where status = 'Y';
+
+select
+* 
+from 
+member 
+where member_no = 0;
 --천호현 테스트영역
 select * from funding;
 select * from funding_reward;

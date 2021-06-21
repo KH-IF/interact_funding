@@ -17,16 +17,7 @@
 		  //페이드인 효과
         $('.fundingProjectCardItemImage').animate({'opacity':'1'},500);
 	});
-	$(function(){
-        $(".fundingProjectCardItem").slice(0,9).show();
-        $("#moreBtn").click(function(e){
-			e.preventDefault();
-			$(".fundingProjectCardItem:hidden").slice(0,9).show();
-			if($(".fundingProjectCardItem:hidden").length == 0){
-				console.log("더이상 항목이 없습니다.");
-			}
-        })
-    });
+	
 </script>
 <style>
 .slide-title{
@@ -48,9 +39,9 @@
    	overflow: hidden;
    	text-overflow: ellipsis;
 }
-.fundingProjectCardItem{
+/* .fundingProjectCardItem{
 	display:none;
-}
+} */
 .fundingProjectCardItemImage{
 	opacity: 0;
 }
@@ -117,8 +108,8 @@
 	                <!-- 목록 제목 -->
 	                <c:forEach items="${list}" var="funding">
 	                <div class="fundingProjectCardItem">
-	                    <a href="#" class="fundingProjectCardItemImageArea">
-	                        <div class="fundingProjectCardItemImage" style="background-image:url('${pageContext.request.contextPath}/resources/upload/${funding.attachment.renamedFilename}');"></div>
+	                    <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}" class="fundingProjectCardItemImageArea">
+	                    	<div class="fundingProjectCardItemImage" style="background=image:url('${pageContext.request.contextPath}/resource/upload/${funding.attachment.renamedFilename}');"></div>
 	                    </a>
 	                    <div class="fundingProjectCardListInfo">
 	                        <div class="fundingProjectCardItemTitle">
@@ -140,36 +131,14 @@
 	                </div>
 	                </c:forEach>
 	                
-	                <div class="fundingProjectCardItem">
-	                    <a href="#" class="fundingProjectCardItemImageArea">
-	                        <div class="fundingProjectCardItemImage"></div>
-	                    </a>
-	                    <div class="fundingProjectCardListInfo">
-	                        <div class="fundingProjectCardItemTitle">
-	                            <div class="fundingProjectCardItemTitleBox">
-	                                <a class="earlyProjectCardItemTitleLinkArea" href="#">
-                                        <span class="earlyProjectCardItemTitleLink"><strong>세상에 없던 초간편 미래형 제품 등장!</strong></span>
-                                        <span class="earlyProjectCardDay">
-                                        6/11(금) 14시00분 오픈예정
-                                        </span>
-                                    </a>
-	                            </div>
-	                            <div>
-                                	<span class="rewordProjectCardMakerName">
-                                	주연테크
-                                	</span>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	                
 	            </div>
 	        </div>
-            <div>
+	        ${pageBar}
+            <!-- <div>
                 <div class="moreFunding">
                     <button id="moreBtn">더보기↓</button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

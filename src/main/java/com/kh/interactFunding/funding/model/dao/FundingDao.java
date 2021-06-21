@@ -56,7 +56,8 @@ public interface FundingDao {
 	//이승우
 	public List<Funding> fundingList(Map<String, Object> map);
 	public int selectFundingListTotalContents(Map<String, Object> map);
-	public List<Funding> earlyList();
+	public List<Funding> earlyList(Map<String, Object> map);
+	public int selectEarlyListTotalContents();
 
 	//천호현
 	public FundingExt selectOneFunding(int fundingNo);

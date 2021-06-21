@@ -453,6 +453,14 @@
 			and start_date <![CDATA[>]]> sysdate
 		</where>
 	</select>
+	<select id="selectEarlyListTotalContents" resultType="_int">
+		select count(*)
+		from funding
+		<where>
+			status = 'Y'
+			and start_date <![CDATA[>]]> sysdate
+		</where>
+	</select>
 	<!-- 천호현 -->
     
     <select id="selectOneFunding" resultMap="fundingExtMap">

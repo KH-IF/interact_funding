@@ -640,6 +640,10 @@ public class FundingController {
 			List<Funding> list = fundingService.fundingList(map);
 			int totalContents = fundingService.selectFundingListTotalContents(map);
 			String url = request.getRequestURI() + "?category=" + category + "&searchSelect1=" + searchSelect1 + "&searchSelect2=" + searchSelect2 + "&searchKeyword=" + searchKeyword;
+//			String memberName = "비회원";
+//			for(Funding funding : list) {
+//				memberName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
+//			}
 			
 //			log.debug("totalContents = {}, url = {}", totalContents, url);
 			String pageBar = PageBarUtils.getPageBar(totalContents, cPage, limit, url);
@@ -648,9 +652,11 @@ public class FundingController {
 			mav.addObject("list", list); 
 			mav.addObject("pageBar", pageBar); // 페이지
 			mav.addObject("map", map);
+//			mav.addObject("memberName", memberName);
 			
 //			log.debug("searchTitle = {}", searchKeyword);
 			log.debug("list = {}", list);
+//			log.debug("memberName = {}", memberName);
 			return mav;
 			}
 		
@@ -663,13 +669,29 @@ public class FundingController {
 	@GetMapping("/earlyList")
 	public ModelAndView earlyList(
 			ModelAndView mav,
-			@RequestParam(defaultValue="") String early
+			@RequestParam(required = false, defaultValue = "1") int cPage,
+			HttpServletRequest request
 			) {
-		
-		List<Funding> list = fundingService.earlyList();
-		
-		mav.addObject("list", list);
-		return mav;
+		try {
+			final int limit = 6; // 최대생성수
+			final int offset = (cPage - 1) * limit;
+			Map<String, Object> map = new HashMap<>();
+			map.put("limit", limit);
+			map.put("offset", offset);
+			
+			List<Funding> list = fundingService.earlyList(map);
+			int totalContents = fundingService.selectEarlyListTotalContents();
+			String url = request.getRequestURI();
+			
+			String pageBar = PageBarUtils.getPageBar(totalContents, cPage, limit, url);
+			
+			mav.addObject("pageBar", pageBar);
+			mav.addObject("list", list);
+			return mav;
+		} catch(Exception e) {
+			log.error("earlyList 조회 오류");
+			throw e;
+		}
 	}
 	
 	//천호현
