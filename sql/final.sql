@@ -520,7 +520,7 @@ desc message;
 select * from message where from_member_no = 2 order by no desc;
 
 select * from like_record;
-insert into like_record values(seq_like_record_no.nextval, 15, 2, 'Y');
+insert into like_record values(seq_like_record_no.nextval, 99, 2, 'Y');
 commit;
 select * from funding;
 
@@ -530,6 +530,17 @@ where funding_no=15;
 
 commit;
 
+select * from attachment where status='Y';
+
+select* from funding where writer_no=2;
+
+insert into attachment values(seq_attachment_no.nextval, 14, 'dddfsfasfasz', '20210616_221024660_219.png', 'Y');
+commit;
+
+select * from funding_participation;
+update funding_participation
+set member_no = 2
+where no=3;
 
 --김경태 테스트영역
 

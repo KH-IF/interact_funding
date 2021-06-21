@@ -1,5 +1,4 @@
 <%@page import="com.kh.interactFunding.member.model.vo.Member"%>
-<%@page import="com.kh.interactFunding.funding.model.vo.FundingDetailVo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -35,7 +34,6 @@
 		},
 		error: console.log
 		,
-		
 		})
 	};
 
@@ -55,10 +53,16 @@
 			<div id="funding_top_title">
 				<img src="${pageContext.request.contextPath }/resources/images/city1.PNG" id="funding_top_title_image">
 				
-			
 			</div>
 			<div id="funding_top_title_div">
-			  ${funding.categoryCode}
+			    <c:if test="${funding.categoryCode == 'C1'}"><span class="category_code_span">테크·가전</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C2'}"><span class="category_code_span">푸드</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C3'}"><span class="category_code_span">여행</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C4'}"><span class="category_code_span">스포츠</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C5'}"><span class="category_code_span">게임·취미</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C6'}"><span class="category_code_span">모임</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C7'}"><span class="category_code_span">반려동물</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C8'}"><span class="category_code_span">기부·후원</span></c:if>
 			  <br />
 			  ${funding.title}
 			</div>
@@ -97,13 +101,14 @@
               		
               		${funding.content}
            		    ${funding.earlyContent}
+           		    
+           		    ${funding.attachment.renamedFilename}
                 </div>
             </div>
 
 			<!-- 남은날계산용 -->
 			<fmt:parseNumber value="${funding.startDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
 			<fmt:parseNumber value="${funding.DDay.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
-			
 
             <div id="funing_main_right_div">
                 <div id="funing_main_right_div_1">
@@ -118,7 +123,7 @@
                     <div id="funding_detail_goal_percent_div"> <fmt:formatNumber value="${funding.nowAmount / funding.goalAmount}" type="percent"/>달성</div><!-- 8500% 달성 -->
                    
                     <div id="funding_detail_now_amount_div">현재 ${funding.nowAmount}원 펀딩중</div><!-- 444444 원 펀딩 -->
-                    <div id="funding_detail_supporter_div"> 현재 ${funding2}명의 서포터</div> <!-- 3333명의 서포터funding_participation -->
+                    <div id="funding_detail_supporter_div"> 현재 ${fundingParticipationCount}명의 서포터</div> <!-- 3333명의 서포터funding_participation -->
                     <input id="funding_button" type="button" value="펀딩하기" onclick="location.href='${pageContext.request.contextPath}/funding/fundingReward?fundingNo=	${funding.fundingNo}';" class="btn btn-info"/>
                     <button type="button" id="funding_detail_like_button" class="btn btn-outline-secondary" onclick="like_controll()">
                     <!--하트  -->
@@ -136,29 +141,25 @@
                 <div id="funing_main_right_div_2">
             		 
                 	<div id="funding_detail_maker_logo_name_div">
-                		<div id="funding_detail_maker_name">${funding.name}</div>
+                		<div id="funding_detail_maker_name">${wirterName}</div>
                 	</div>
                 		<div id="funding_detail_maker_phone">메이커 연락처 <br/>${funding.phone}</div>
                     <input type="button" value="메이커에게 문의하기" id="funding_detail_maker_chat_button" class="btn btn-info"
                     onclick="maker_chat_function()"/>
-
-
                 </div>
 
 
 
                 <span id="reward_span">리워드 선택</span>
                 <div id="funing_main_right_div_3">
-                    
-
+				
+				
                 </div>
 
 				<span id="ranking_span">인기게시글</span>
                 <div id="funing_main_right_div_4">
                     
-
                 </div>
-
             </div>
 
         </div>
@@ -172,7 +173,7 @@
     }
      
     #funding_top_title_wrapper{
-     }
+    }
       
     #funding_top_title{
     }
@@ -220,9 +221,6 @@
     font-weight: 800;
     }
 
-
-
-
     /* 펀딩 메인 전체 div */
     #funding_main{
     width: 1000px;
@@ -232,68 +230,50 @@
 
 
     #funding_main_image_and_content{
-    
     width: 800px;
     overflow: hidden;
-
-
     }
-
 
     /* 펀딩 메인 이미지 */
     #funding_main_image{
     height: 500px;
     width: 95%;
-    
-
     }
-
 
     /* 펀딩 메인 내용 */
     #funding_main_content{
     width: 97%;
     height: 2000px;
-
     }
-
 
     /* 펀딩 메인 오른쪽 펀딩하기 div*/
     #funing_main_right_div{
     font-size: 20px;
     font-weight: 600;
-
-
     }
     #funing_main_right_div_2, #funing_main_right_div_3, #funing_main_right_div_4{
 	border: 2px solid #cccccc;
     border-radius: 6px;
-
     }
     
     /* 펀딩 메인 오른쪽 펀딩하기 div1 > div*/
     #funing_main_right_div_1 > div{
     height: 41px;
     margin-top: 6px;
-    
     }
-    
 
     #funing_main_right_div > div{
     width: 200px;
     height: 400px;
     padding-left: 10px;
     padding-top: 9px;
-    
-
     }
-    
     
     /* 펀딩하기버튼 */
     #funding_button {
     width: 96%;
     height: 50px;
     margin-top: 25px;
-    
     }
     
     /* 좋아요 1:1채팅 공유하기 버튼 */
@@ -301,7 +281,6 @@
 	width:47.8%;
     height: 33px;
     margin-top: 8px;
-	
 	}
 	
 	/* 메이커 로고 + name */
@@ -315,13 +294,11 @@
 
 	#funding_detail_dday_bar_wrapper{
 	height: 2px;
-	
 	}
 	
 	#funding_detail_dday_div{
 	font-size: 24px;
 	font-weight: 700;
-	
 	}
 	
 	#funding_detail_dday_bar{
@@ -345,7 +322,9 @@
     color: gray;
 	}
 	
-	
+	.category_code_span{
+	font-size: 21px;
+	}
 	
     </style>
     
@@ -377,7 +356,6 @@
 			} 
 		})
 	}
-	
 	</script>	
 
 

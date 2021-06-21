@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class FundingServiceImpl implements FundingService{
 	
+	
 	@Autowired
 	private FundingDao fundingDao;
 	
@@ -32,6 +33,14 @@ public class FundingServiceImpl implements FundingService{
 		Funding funding = fundingDao.selectOneFundingKYS(no);
 		funding.setAttachment(fundingDao.selectOneAttach(no));
 		return funding;
+	}
+	@Override
+	public int selectMyPartiCnt(int memberNo) {
+		return fundingDao.selectMyPartiCnt(memberNo);
+	}
+	@Override
+	public int selectMyCreateCnt(int memberNo) {
+		return fundingDao.selectMyCreateCnt(memberNo);
 	}
 	//김경태
 	
@@ -258,13 +267,21 @@ public class FundingServiceImpl implements FundingService{
 	}
 
 	//천호현
+	/*
+	 * @Override public FundingExt selectOneFunding(int fundingNo) { return
+	 * fundingDao.selectOneFunding(fundingNo); }
+	 */
+	
 	@Override
-	public Funding selectOneFunding(int fundingNo) {
-		return fundingDao.selectOneFunding(fundingNo);
+	public FundingExt selectOneFunding(int fundingNo) {
+		FundingExt funding = fundingDao.selectOneFunding(fundingNo);
+		funding.setAttachment(fundingDao.selectOneAttach(fundingNo));
+		return funding;
 	}
+	
 	@Override
-	public int selectOneFunding2(int fundingNo) {
-		return fundingDao.selectOneFunding2(fundingNo);
+	public int fundingParticipationCount(int fundingNo) {
+		return fundingDao.fundingParticipationCount(fundingNo);
 	}
 	@Override
 	public Map<String, Object> likeCheck(Map<String, Object> map) {
@@ -286,9 +303,10 @@ public class FundingServiceImpl implements FundingService{
 	public int likeStatusCheck(int memberNo) {
 		return fundingDao.likeStatusCheck(memberNo);
 	}
-	
-	
-
+	@Override
+	public List<Reward> selectRewardList(int fundingNo) {
+		return fundingDao.selectRewardList(fundingNo);
+	}
 	
 
 	

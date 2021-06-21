@@ -48,7 +48,7 @@
 			<div id="login_container">
 				<div id="login_relative">
 					<%-- 읽지않은 메시지가 없는 경우 --%>
-					<c:if test="true">
+					<c:if test="${newMsg}">
 						<svg 
 						id="msgIcon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 						xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
@@ -56,7 +56,7 @@
 						</svg>
 					</c:if>
 					<%-- 읽지않은 메시지가 있을 경우 --%>
-					<c:if test="false">
+					<c:if test="${newMsg}">
 						<svg 
 						id="msgIcon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 						xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
@@ -271,9 +271,9 @@
 					      	</div>
 					      </div>
 					      <div class="modal-footer">
-					      	<button type="button" id="msgSendBtn2" class="hide btn btn-success" onclick="sendMsg()">전송</button>
-					        <button type="button" id="msgSendBtn" class="hide btn btn-success" data-tono="" onclick="reMsg(this)">답장하기</button>
-					        <button type="button" id="msgBackBtn" class="hide btn btn-secondary" onclick="msgList()">뒤로</button>
+					      	<button type="button" id="msgSendBtn2" class="hide btn btn-success" onclick="sendMsg()" style="display: none;">전송</button>
+					        <button type="button" id="msgSendBtn" class="hide btn btn-success" data-tono="" onclick="reMsg(this)" style="display: none;">답장하기</button>
+					        <button type="button" id="msgBackBtn" class="hide btn btn-secondary" onclick="msgList()" style="display: none;">뒤로</button>
 					      </div>
 					    </div>
 					  </div>
@@ -311,7 +311,7 @@
 					      	</c:forEach>
 					      </div>
 					      <div class="modal-footer">
-					        <button id="msgBackBtn2" type="button" class="hide btn btn-secondary" onclick="msgList2()">뒤로</button>
+					        <button id="msgBackBtn2" type="button" class="hide btn btn-secondary" onclick="msgList2()" style="display: none;">뒤로</button>
 					      </div>
 					    </div>
 					  </div>

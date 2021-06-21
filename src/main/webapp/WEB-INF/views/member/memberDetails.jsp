@@ -10,7 +10,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/memberEnroll.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/memberDetails.css" />
 	<div id="detailsContainer">
 		<div id="detailsLeft">
 			<div id="imgbox">
@@ -32,11 +32,11 @@
 				</div>
 				<div id="box2">
 					<h4>내가 참여한 펀딩</h4>
-					<h5><fmt:formatNumber value="${loginMember.point!=null ? loginMember.point : 0}" pattern="#,##0"/></h5>
+					<h5><fmt:formatNumber value="${particiCnt!=null ? particiCnt : 0}" pattern="#,##0"/></h5>
 				</div>
-				<div id="box3">
+				<div id="box3" onclick="location.href='${pageContext.request.contextPath}/funding/fundingStart1'">
 					<h4>내가 생성한 펀딩</h4>
-					<h5><fmt:formatNumber value="${loginMember.point!=null ? loginMember.point : 0}" pattern="#,##0"/></h5>
+					<h5><fmt:formatNumber value="${createCnt!=null ? createCnt : 0}" pattern="#,##0"/></h5>
 				</div>
 				<h4 id="chgBox1" onclick="change1();">포인트 충전</h4>
 				<div id="chgBox2" class="hide">
@@ -69,7 +69,23 @@
 					</svg><span>쿠폰</span>
 				</div>
 			</div>
-				<hr />
+			<hr />
+			<br />
+			<hr />
+			<h5><strong>좋아요 누른 펀딩</strong></h5>
+			<c:if test="${empty list}">
+				<div class="likedFunding">
+					<div class="likedTitle">좋아요를 누른 펀딩이 없습니다.</div>
+				</div>
+			</c:if>
+			<c:if test="${not empty list}">
+			<c:forEach items="${list}" var="funding" varStatus="var">
+			<div class="likedFunding alert alert-info" onclick="location.href='${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}'">
+					<div class="likedTitle">${var.count}. ${funding.title} </div><%-- <div class="likedWriter">작성자:${funding.writerNo }</div> --%><div class="likedDDay">종료일자: ${funding.DDay}</div>
+			</div>
+			</c:forEach>
+			</c:if>
+			<hr />
 		</div>
 	</div>
 	
@@ -307,6 +323,34 @@
 			position:absolute;
 			left:0px;
 			top:0px;
+		}
+		/* likedFunding likedFunding likedDDay */
+		.likedFunding{
+			width:780px;
+			height:45px;
+			position:relative;
+			cursor:pointer;
+		}
+		.likedTitle{
+			width:500px;
+			height:30px;
+			overflow:hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-weight: bold;
+		}
+		.likedWriter{
+			position:absolute;
+			top:0px;
+			right:200px;
+		}
+		.likedDDay{
+			position:absolute;
+			top:10px;
+			right:10px;
+		}
+		#box3{
+			cursor:pointer;
 		}
 		
 }
