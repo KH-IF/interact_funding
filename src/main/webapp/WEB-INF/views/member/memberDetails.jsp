@@ -30,7 +30,7 @@
 					<h4>포인트</h4>
 					<h5><fmt:formatNumber value="${loginMember.point!=null ? loginMember.point : 0}" pattern="#,##0"/></h5>
 				</div>
-				<div id="box2">
+				<div id="box2" onclick="location.href='${pageContext.request.contextPath}/funding/myParticiFunding'">
 					<h4>내가 참여한 펀딩</h4>
 					<h5><fmt:formatNumber value="${particiCnt!=null ? particiCnt : 0}" pattern="#,##0"/></h5>
 				</div>

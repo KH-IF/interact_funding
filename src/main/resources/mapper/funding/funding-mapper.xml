@@ -27,7 +27,7 @@
 	<select id="selectMyPartiCnt" resultType="_int">
 		select count(*)
 		from funding_participation
-		where member_no = #{memberNo}
+		where member_no = #{memberNo} and status='Y'
 	</select>
 	
 	<select id="selectMyCreateCnt" resultType="_int">
@@ -43,8 +43,49 @@
 		order by no desc
 	</select>
 	
+	<select id="selectMyParticiFunding" resultType="_int">
+		select distinct(funding_no)
+		from funding_participation
+		where member_no = #{memberNo} and status='Y'
+	</select>
+	
+	<select id="selectOneFundingParticipationCollection" resultMap="selectOneFundingParticipationCollectionMap">
+		select p.*, r.price, r.title, r.content, r.shipping_price, r.limit_amount, r.shipping_date
+		from funding_participation p left join funding_reward r on p.reward_no = r.reward_no
+		where p.funding_no=#{fundingNo} and p.member_no=#{memberNo} and status='Y'
+		order by p.no desc
+	</select>
+	
+	<update id="cancelReward">
+		update funding_participation
+		set status = 'N'
+		where no = ${no}
+	</update>
+	
 	<resultMap type="funding" id="fundingVoMap">
 		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
+	</resultMap>
+	
+	<resultMap type="fundingParticipationCollection" id="selectOneFundingParticipationCollectionMap">
+		<result column="funding_no" property="fundingNo"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
+		<result column="point" property="point"/>
+		<result column="address" property="address"/>
+		<result column="name" property="name"/>
+		<result column="phone" property="phone"/>
+		<result column="etc" property="etc"/>
+		<collection property="rewardList" ofType="rewardCollection">
+			<id column="no" property="no"/>
+			<result column="reward_no" property="rewardNo"/>
+			<result column="price" property="price"/>
+			<result column="title" property="title"/>
+			<result column="content" property="content"/>
+			<result column="shipping_price" property="shippingPrice"/>
+			<result column="limit_amount" property="limitAmount"/>
+			<result column="shipping_date" property="shippingDate"/>
+		</collection>
 	</resultMap>
 	
 	<!-- 김경태 -->
