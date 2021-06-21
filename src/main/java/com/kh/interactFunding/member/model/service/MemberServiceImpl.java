@@ -84,7 +84,10 @@ public class MemberServiceImpl implements MemberService {
 	// 김경태
 
 	// 김주연
-
+	@Override
+	public int savePhone(Map<String, Object> map) {
+		return memberDao.savePhone(map);
+	}
 	// 박요한
 
 	// 배기원
