@@ -42,7 +42,7 @@
 
 /*펀딩 참여 레이아웃  start*/
 .card-project-h1{
-	font-size: 32px;
+	font-size: 28px;
 	padding-left: 2vw;
     padding-bottom: 1vw;
 	line-height: 34px;
@@ -211,13 +211,14 @@
 }
 /*여러줄 자르기 */
 .Ranking_class-span{
-	width: 218px;
+	width: 200px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 40px;
+    height: 45px;
+    font-weight: 500;
 }
 
 .kiwon_Ranking h1 {
@@ -317,7 +318,6 @@
 	height: 1px;
 	content: "";
 }
-
 .kiwonRanking_percent {
 	color: #00a2a2;
 	font-weight: 700;
@@ -338,13 +338,15 @@
 .orderText-span {
 	font-size: 30px;
 	position: absolute;
+	    margin-top: -9px;
+    margin-left: 16px;
 }
 /* 실시간 랭킹  end*/
 
 /* 얼리버드 start*/
 .Ealrybird_Paging {
 	float: right;
-	margin-top: -3vw;
+	margin-top: -3.5vw;
 	margin-right: 32px;
 }
 
@@ -382,11 +384,15 @@
 }
 
 .EalrybirdCard_Type_h1 {
-	font-size: 12px;
-	white-space: nowrap;
-	/*     margin: 0 auto; */
-	font-weight: 800;
-	margin-bottom: 8px;
+	    font-size: 12px;
+    white-space: nowrap;
+    font-weight: 800;
+    margin-bottom: 8px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 350px;
 }
 
 .EalrybirdCard_percent-span {
@@ -438,7 +444,6 @@
 .card-text-p{
 	 font-size: 15px;
    font-weight: 400;
-   margin: 0 auto;
 }
 .card-text-p1{
 	 color: #00a2a2;

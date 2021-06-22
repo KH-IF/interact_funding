@@ -154,7 +154,6 @@ List<Funding> likelist = (List) request.getAttribute("likelist");
 	}  	
 %>
 <script>
-// 실시간랭킹  버튼 
 function showForI(){
 		 if($('input:radio[name=ranking-btn]').is(':checked')){
 			$("#fundingZone").hide();
@@ -165,21 +164,21 @@ function showForI(){
 			$("#likeZone").css('display','none');
 			 }
 	} 
-	//새로고침 버튼
 function Refresh(){
 $.ajax({
 	url:"${pageContext.request.contextPath}/funding/fundingRefresh",
 	success:function(json) {
 		 $('#kiwonfunding').empty();
 		$(json).each(function(index,item){
-		 var html = '';		 
-		 html = $('<div class="card" style="border: none">'+'<div class="card-body">'+' <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo='+item.fundingNo+'" style="color: #000000;">'
-			      +'<img class="card-img-top"src="${pageContext.request.contextPath}/resources/'+item.renamedFilename+'"width="240px" height="134px" >'+'</a>'+' <h5 class="card-title">'+item.title+'</h5>'+'<div id="funding_detail_dday_bar" class="progress">'+
+			console.log(item);
+		  var html = '';		 
+		 html = $('<div class="card" style="border: none; width:240px;">'+'<a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo='+item.fundingNo+'" style="color: #000000;">' 
+			      +'<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/'+item.attachment.renamedFilename+'" style="width: 240px; height:134px;">'+'</a>'+' <h5 class="card-title">'+item.title+'</h5>'+'<div id="funding_detail_dday_bar" class="progress">'+
 			      '<div id="funding_detail_dday_bar_div"class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="'+item.nowAmount+'"aria-valuemin="0" aria-valuemax="'+item.goalAmount+'"style="width:'
 			      +item.nowAmount /item.goalAmount * 100+'%">'+'</div>'+'</div>'+'<p class="kiwonfunding-percent">'
 			      +item.nowAmount/item.goalAmount*100+'%'+'<span class="kiwonfunding-percent-after">'+item.categoryCode+'</span>'+'</p>'+'</div>'+'</div>')
 		        $('#kiwonfunding').append(html);
-			});       
+			});        
 	},
 	error: (xhr, statusText, err) => {
 		console.log(xhr, statusText, err);
@@ -189,16 +188,15 @@ $.ajax({
 </script>
 
 <script>
-	//3개씩 이동
- var move=3;
+ var move=1;
  function right(){
-	if(move >= 3 && move <=6){
-		$("#loctionList").attr("style","transform:translateX("+(-240)*(move++)+"px);")
+	if(move>=1 && 3>=move){
+		$("#locationlist").find("ul").css("transform","translateX("+((-435)*(move++))+"px)")
 		}
 	 }
  function left(){
- 	if(move >=4 && move <=5){
- 		$("#loctionList").attr("style","transform:translateX("+(-240)*(--move-1)+"px);")
+ 	if(move>=2 && 4>=move){
+ 		$("#locationlist").find("ul").css("transform","translateX("+(-435)*(--move-1)+"px)")
  	 	}
 	 } 
 </script>
@@ -300,7 +298,7 @@ $.ajax({
 							${funding.categoryCode} </span>
 					</p>
 				</c:if>
-			</c:forEach> </a></li>
+			</c:forEach></li>
 		<li style="font-weight: 700;">
 			<!--  클릭시 세부페이지이동  --> <c:forEach items="${Rankinglist}"
 				varStatus="vs" var="funding">
@@ -313,7 +311,7 @@ $.ajax({
 							style="color: #000000; display: flex;"> <span
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							style="width: 75px; height: 63px" />
 						</a>
 					</p>
@@ -338,7 +336,7 @@ $.ajax({
 							style="color: #000000; display: flex;"> <span
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							style="width: 75px; height: 63px" />
 						</a>
 					</p>
@@ -362,7 +360,7 @@ $.ajax({
 							style="color: #000000; display: flex;"> <span
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							style="width: 75px; height: 63px" />
 						</a>
 					</p>
@@ -386,7 +384,7 @@ $.ajax({
 							style="color: #000000; display: flex;"> <span
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							style="width: 75px; height: 63px" />
 						</a>
 					</p>
@@ -413,7 +411,7 @@ $.ajax({
 							style="color: #000000; display: flex;"> <span
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							style="width: 75px; height: 63px" />
 						</a>
 					</p>
@@ -437,7 +435,7 @@ $.ajax({
 							style="color: #000000; display: flex;"> <span
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							style="width: 75px; height: 63px" />
 						</a>
 					</p>
@@ -461,7 +459,7 @@ $.ajax({
 							style="color: #000000; display: flex;"> <span
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							style="width: 75px; height: 63px" />
 						</a>
 					</p>
@@ -485,7 +483,7 @@ $.ajax({
 							style="color: #000000; display: flex;"> <span
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							style="width: 75px; height: 63px" />
 						</a>
 					</p>
@@ -509,7 +507,7 @@ $.ajax({
 							style="color: #000000; display: flex;"> <span
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							style="width: 75px; height: 63px" />
 						</a>
 					</p>
@@ -544,7 +542,7 @@ $.ajax({
 					<a
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
-						src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 						width="240px" height="134px">
 					</a>
 					<h5 class="card-title">${funding.title}</h5>
@@ -575,7 +573,7 @@ $.ajax({
 					<a
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
-						src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 						width="240px" height="134px">
 					</a>
 					<h5 class="card-title">${funding.title}</h5>
@@ -606,8 +604,8 @@ $.ajax({
 					<a
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
-						src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
-						width="240px" height="134px">
+						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
+						style="width: 240px; height:134px;">
 					</a>
 					<h5 class="card-title">${funding.title}</h5>
 					<div id="funding_detail_dday_bar" class="progress">
@@ -637,8 +635,8 @@ $.ajax({
 					<a
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
-						src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
-						width="240px" height="134px">
+						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
+						style="width: 240px; height:134px;">
 					</a>
 					<h5 class="card-title">${funding.title}</h5>
 					<div id="funding_detail_dday_bar" class="progress">
@@ -668,8 +666,8 @@ $.ajax({
 					<a
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
-						src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
-						width="240px" height="134px">
+						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
+						style="width: 240px; height:134px;">
 					</a>
 					<h5 class="card-title">${funding.title}</h5>
 					<div id="funding_detail_dday_bar" class="progress">
@@ -699,8 +697,8 @@ $.ajax({
 					<a
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
-						src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
-						width="240px" height="134px">
+						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
+						style="width: 240px; height:134px;">
 					</a>
 					<h5 class="card-title">${funding.title}</h5>
 					<div id="funding_detail_dday_bar" class="progress">
@@ -744,7 +742,7 @@ $.ajax({
 						<a
 							href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 							style="color: #000000;"> <img class="card-img-top"
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							width="284px;" height="157px;">
 						</a>
 						<p class="card-text-p">${funding.title}</p>
@@ -777,7 +775,7 @@ $.ajax({
 						<a
 							href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 							style="color: #000000;"> <img class="card-img-top"
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							width="284px;" height="157px;">
 						</a>
 						<p class="card-text-p">${funding.title}</p>
@@ -810,7 +808,7 @@ $.ajax({
 						<a
 							href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 							style="color: #000000;"> <img class="card-img-top"
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							width="284px;" height="157px;">
 						</a>
 						<p class="card-text-p">${funding.title}</p>
@@ -843,7 +841,7 @@ $.ajax({
 						<a
 							href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 							style="color: #000000;"> <img class="card-img-top"
-							src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
+							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 							width="284px;" height="157px;">
 						</a>
 						<p class="card-text-p">${funding.title}</p>
@@ -875,27 +873,28 @@ $.ajax({
 </div>
 <!--  구현예정중  -->
 <div class="Ealrybird_Paging">
-	<div class="btn-group" role="group" aria-label="Third group" onclick="left()">
-		<button type="button" class="btn btn-secondary">
+	<div class="btn-group" role="group" aria-label="Third group">
+		<button type="button" class="btn btn-secondary"  onclick="left()">
 			&lt</button>
 	</div>
-	<div class="btn-group" role="group" aria-label="Third group" onclick="right()">
-		<button type="button" class="btn btn-secondary">
+	<div class="btn-group" role="group" aria-label="Third group">
+		<button type="button" class="btn btn-secondary"  onclick="right()">
 			&gt</button>
 	</div>
 </div>
 <!--  얼리버드 -->
-<div class="EalrybirdTag_Container"  id="locationlist"style="padding-top: 20px;">
-	<ul style="list-style: none; display: flex;">
+<div class="EalrybirdTag_Container"style="padding-top: 20px; overflow: hidden; width: 100%;" id="locationlist" >
+	<ul style="list-style: none; display: flex; transition-duration:0.5s; ">
 		<!--  얼리버드 1번 li -->
-		<li><c:forEach items="${list}" varStatus="vs" var="funding">
+		<li style="padding-top: 25px;"><c:forEach items="${list}" varStatus="vs" var="funding">
 				<c:set var="attach" value="${funding.attachment}" scope="page" />
 				<c:if test="${vs.count eq 1}">
 					<a
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
-						src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
-						width="390px;" height="229px;">
+						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
+						style="width: 385px; height:229px; ">
+
 					</a>
 					<div class="EarlybirdCard_Type">
 						<p class="EarlybirdCard_Type-p">펀딩</p>
@@ -925,15 +924,15 @@ $.ajax({
 				</c:if>
 			</c:forEach></li>
 		<!--  중간 padding  -->
-		<li style="padding: 0px 33px;"><c:forEach items="${list}"
+		<li style="padding: 25px;"><c:forEach items="${list}"
 				varStatus="vs" var="funding">
 				<c:set var="attach" value="${funding.attachment}" scope="page" />
 				<c:if test="${vs.count eq 2}">
 					<a
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
-						src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
-						width="390px;" height="229px;">
+						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
+						style="width: 385px; height:229px; ">
 					</a>
 					<div class="EarlybirdCard_Type">
 						<p class="EarlybirdCard_Type-p">펀딩</p>
@@ -962,14 +961,125 @@ $.ajax({
 					</div>
 				</c:if>
 			</c:forEach></li>
-		<li><c:forEach items="${list}" varStatus="vs" var="funding">
+		<li style="padding: 25px;"><c:forEach items="${list}" varStatus="vs" var="funding">
 				<c:set var="attach" value="${funding.attachment}" scope="page" />
 				<c:if test="${vs.count eq 3}">
 					<a
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
-						src="${pageContext.request.contextPath}/resources/${attach.renamedFilename}"
-						width="390px;" height="229px;">
+						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
+						style="width: 385px; height:229px; ">
+					</a>
+					<div class="EarlybirdCard_Type">
+						<p class="EarlybirdCard_Type-p">펀딩</p>
+						<h1 class="EalrybirdCard_Type_h1">${funding.title}</h1>
+						<div id="funding_detail_dday_bar" class="progress">
+							<div id="funding_detail_dday_bar_div"
+								class="progress-bar progress-bar-success progress-bar-striped"
+								role="progressbar" aria-valuenow="${funding.nowAmount}"
+								aria-valuemin="0" aria-valuemax="${funding.goalAmount}"
+								style="width:${funding.nowAmount / funding.goalAmount * 100}%">
+							</div>
+						</div>
+						<p class="EalrybirdCard_percent">
+							<!--DB 사용예제! -->
+							<span class="EalrybirdCard_percent-span"> <fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" /> % <span class="kiwonfunding-percent-after">
+									${funding.categoryCode}</span>
+							</span>
+							<!-- after  -->
+						</p>
+						<p class="cardType_earlybordContent-p">
+							지금 참여하기
+							<ion-icon name="chevron-forward-outline"></ion-icon>
+						</p>
+					</div>
+				</c:if>
+			</c:forEach></li>
+			<li style="padding: 25px;"><c:forEach items="${list}"
+				varStatus="vs" var="funding">
+				<c:set var="attach" value="${funding.attachment}" scope="page" />
+				<c:if test="${vs.count eq 4}">
+					<a
+						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
+						style="color: #000000;"> <img class="card-img-top"
+						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
+						style="width: 385px; height:229px; ">
+					</a>
+					<div class="EarlybirdCard_Type">
+						<p class="EarlybirdCard_Type-p">펀딩</p>
+						<h1 class="EalrybirdCard_Type_h1">${funding.title}</h1>
+						<div id="funding_detail_dday_bar" class="progress">
+							<div id="funding_detail_dday_bar_div"
+								class="progress-bar progress-bar-success progress-bar-striped"
+								role="progressbar" aria-valuenow="${funding.nowAmount}"
+								aria-valuemin="0" aria-valuemax="${funding.goalAmount}"
+								style="width:${funding.nowAmount / funding.goalAmount * 100}%">
+							</div>
+						</div>
+						<p class="EalrybirdCard_percent">
+							<!--DB 사용예제! -->
+							<span class="EalrybirdCard_percent-span"> <fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" /> % <span class="kiwonfunding-percent-after">
+									${funding.categoryCode}</span>
+							</span>
+							<!-- after  -->
+						</p>
+						<p class="cardType_earlybordContent-p">
+							지금 참여하기
+							<ion-icon name="chevron-forward-outline"></ion-icon>
+						</p>
+					</div>
+				</c:if>
+			</c:forEach></li>
+			<li style="padding: 25px;"><c:forEach items="${list}" varStatus="vs" var="funding">
+				<c:set var="attach" value="${funding.attachment}" scope="page" />
+				<c:if test="${vs.count eq 5}">
+					<a
+						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
+						style="color: #000000;"> <img class="card-img-top"
+						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
+						style="width: 385px; height:229px; "
+					>
+					</a>
+					<div class="EarlybirdCard_Type">
+						<p class="EarlybirdCard_Type-p">펀딩</p>
+						<h1 class="EalrybirdCard_Type_h1">${funding.title}</h1>
+						<div id="funding_detail_dday_bar" class="progress">
+							<div id="funding_detail_dday_bar_div"
+								class="progress-bar progress-bar-success progress-bar-striped"
+								role="progressbar" aria-valuenow="${funding.nowAmount}"
+								aria-valuemin="0" aria-valuemax="${funding.goalAmount}"
+								style="width:${funding.nowAmount / funding.goalAmount * 100}%">
+							</div>
+						</div>
+						<p class="EalrybirdCard_percent">
+							<!--DB 사용예제! -->
+							<span class="EalrybirdCard_percent-span"> <fmt:formatNumber
+									value="${funding.nowAmount/funding.goalAmount*100}"
+									pattern="##.###" /> % <span class="kiwonfunding-percent-after">
+									${funding.categoryCode}</span>
+							</span>
+							<!-- after  -->
+						</p>
+						<p class="cardType_earlybordContent-p">
+							지금 참여하기
+							<ion-icon name="chevron-forward-outline"></ion-icon>
+						</p>
+					</div>
+				</c:if>
+			</c:forEach></li>
+			<li style="padding: 25px;"><c:forEach items="${list}" varStatus="vs" var="funding">
+				<c:set var="attach" value="${funding.attachment}" scope="page" />
+				<c:if test="${vs.count eq 6}">
+					<a
+						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
+						style="color: #000000;"> <img class="card-img-top"
+						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
+						style="width: 385px; height:229px; "
+					>
 					</a>
 					<div class="EarlybirdCard_Type">
 						<p class="EarlybirdCard_Type-p">펀딩</p>
