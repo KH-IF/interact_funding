@@ -43,8 +43,11 @@ import com.kh.interactFunding.common.util.HelloSpringUtils;
 import com.kh.interactFunding.common.util.PageBarUtils;
 import com.kh.interactFunding.funding.model.service.FundingService;
 import com.kh.interactFunding.funding.model.vo.Attachment;
+import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
+import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
+import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.service.MemberService;
 import com.kh.interactFunding.member.model.vo.Member;
@@ -73,8 +76,56 @@ public class FundingController {
 	
 	//김윤수
 	@GetMapping("myParticiFunding")
-	public void myParticiFunding() {
+	public void myParticiFunding(@SessionAttribute Member loginMember, Model model) {
 		
+		//내가 참여한 펀딩의 번호를 가져옴
+		List<Integer> myParticiList = fundingService.selectMyParticiFunding(loginMember.getMemberNo());
+//		log.debug("내가참여한 펀딩 번호 = {}",myParticiList);
+		if(myParticiList==null) return;
+		
+		//위의 것으로 참여한 펀딩을 나열함
+		List<Funding> list = new ArrayList<>();
+		for(int x : myParticiList) {
+			list.add(fundingService.selectOneFundingKYS(x));
+		}
+//		log.debug("내가 참여한 펀딩들 = {}", list);
+		//클릭시 해당 펀딩에 대한 참여내역을 보여줌
+		
+		//Map<Funding, FundingParticipation>
+		Map<Integer, FundingParticipationCollection> map = new HashMap<>();
+		for(Funding f : list) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("fundingNo", f.getFundingNo());
+			param.put("memberNo", loginMember.getMemberNo());
+			map.put(f.getFundingNo(), fundingService.selectOneFundingParticipationCollection(param));
+		}
+//		log.debug("내가 참여한 펀딩의 세부 내역 = {}",map);
+		model.addAttribute("list",list);
+		model.addAttribute("map",map);
+	}
+	
+	@ResponseBody
+	@PostMapping("cancelReward")
+	public Map<String, Object> cancelReward(@SessionAttribute Member loginMember, int no, int price){
+		Map<String, Object> map = new HashMap<>();
+		
+		//no = funding_participation 테이블의 pk
+		int result = fundingService.cancelReward(no);
+		if(result>0) {
+			map.put("status",true);
+			map.put("msg", "해당 리워드를 취소하였습니다.");
+			map.put("memberNo", loginMember.getMemberNo());
+			map.put("point", price);
+			map.put("memo", "리워드 취소");
+			//리워드 취소에 따른 환불 조치
+			result=memberService.insertPoint(map);
+			loginMember.setPoint(loginMember.getPoint()+price);
+		}else {
+			map.put("status",false);
+			map.put("msg", "리워드 취소에 실패하였습니다.");
+		}
+		
+		return map;
 	}
 	
 	//김경태 졸리다
@@ -606,28 +657,69 @@ public class FundingController {
 	
 	//박요한 push
 	@GetMapping("/news.do")
-	public void news(@RequestParam int funding_no, Model model) {
-		log.debug("funding_no = {}" , funding_no);
-		//업무로직
-		List<Funding> News = fundingService.fundingNews(funding_no);
-		log.debug("News = {}" , News);
-		model.addAttribute("News", News);
+	public void news(@RequestParam int fundingNo, Model model) {
+		List<FundingBoard> newsList = fundingService.selectNewsList(fundingNo);
+		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
+		List<Reward> reward = fundingService.selectRewardList(fundingNo);
+		int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
+		
+//		log.debug("newsList = {}", newsList);
+		
+		//2. 위임 
+		model.addAttribute("funding", funding);
+		model.addAttribute("wirterName", wirterName);
+		model.addAttribute("reward", reward);
+		model.addAttribute("fundingParticipationCount", fundingParticipationCount);
+		model.addAttribute("newsList", newsList);
 	}
 	
 	@GetMapping("newsView.do")
-	public void newsView() {
+	public void newsView(@RequestParam int fundingNo, Model model, int no) {
+		FundingBoard funboard = fundingService.selectOneNews(no);
+		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
+		List<Reward> reward = fundingService.selectRewardList(fundingNo);
+		int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
 		
+//		log.debug("funboard = {}", funboard);
+		
+		//2. 위임 
+		model.addAttribute("funding", funding);
+		model.addAttribute("wirterName", wirterName);
+		model.addAttribute("reward", reward);
+		model.addAttribute("fundingParticipationCount", fundingParticipationCount);
+		model.addAttribute("funboard", funboard);
 	}
 	
 	@GetMapping("/community.do")
-	public void community() {
+	public void community(@RequestParam int fundingNo, Model model) {
+		List<Comment> list = fundingService.selectCommentList(fundingNo);
+		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
+		List<Reward> reward = fundingService.selectRewardList(fundingNo);
+		int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
 		
+//		log.debug("funboard = {}", funboard);
+		
+		//2. 위임 
+		model.addAttribute("funding", funding);
+		model.addAttribute("wirterName", wirterName);
+		model.addAttribute("reward", reward);
+		model.addAttribute("fundingParticipationCount", fundingParticipationCount);
+		model.addAttribute("list", list);
+		model.addAttribute("list", list);
 	}
 	
 	@PostMapping("/communityEnroll.do")
-	public String communityEnroll() { 
-		
-		return "";
+	public String communityEnroll(Comment comment , RedirectAttributes redirectAttr, Model model
+		) throws Exception { 
+			log.debug("comment = {}", comment);
+			//2. 업무로직 : db저장 board, attachment
+//			int result = fundingService.insertComment(comment);
+			
+			log.debug("fundingNo = {}", comment);
+		return "redirect:/funding/community.do?no=" + comment.getFundingNo();
 	}
 	
 	@GetMapping("/supporter.do")
@@ -795,6 +887,8 @@ public class FundingController {
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);
 
 		int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
+		log.debug("funding = {}", funding);
+		log.debug("reward = {}", reward);
 		
 		//2. 위임 
 		model.addAttribute("funding", funding);
@@ -805,14 +899,14 @@ public class FundingController {
 
 	
 	@GetMapping("/fundingReward")
-	public void fundingReward(@RequestParam int	fundingNo, Model model) {
+	public void fundingReward(@RequestParam int	fundingNo,@RequestParam(required = false) int choice, Model model) {
 		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);
 		
 		//2. 위임 
 		model.addAttribute("funding", funding);
 		model.addAttribute("reward", reward);
-		
+		model.addAttribute("choice", choice);
 	}
 	@GetMapping("/fundingChatMaker")
 	public void fundingChatMaker() {

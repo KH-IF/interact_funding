@@ -138,6 +138,11 @@
 			//새로고침 안한경우를 대비 현재 색을 읽음으로 변경
 			$("[data-number="+msgno+"]")[0].classList.remove("alert-warning");
 			$("[data-number="+msgno+"]")[0].classList.add("alert-secondary");
+			//뱃지 아이콘도 변경
+			$("[data-number="+msgno+"]").find("span")[0].classList.remove("badge-success");
+			$("[data-number="+msgno+"]").find("span")[0].classList.add("badge-light");
+			$("[data-number="+msgno+"]").find("span").text("읽음");
+			
 
 			//읽음표시를 디비까지 전송
 			
