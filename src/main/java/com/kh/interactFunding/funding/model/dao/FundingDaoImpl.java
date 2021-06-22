@@ -162,10 +162,6 @@ public class FundingDaoImpl implements FundingDao{
 		return session.insert("funding.insertComment", comment);
 	}
 	
-//	@Override
-//	public int selectWriterNo(int fundingNo) {
-//		return session.selectOne("funding.selectWriterNo", fundingNo);
-//	}
 	
 	
 	//배기원

@@ -53,7 +53,6 @@ public interface FundingService {
 	FundingBoard selectOneNews(int no);
 	List<Comment> selectCommentList(int fundingNo);
 	int insertComment(Comment comment);
-//	int selectWriterNo(int fundingNo);
 	
 	
 	//배기원

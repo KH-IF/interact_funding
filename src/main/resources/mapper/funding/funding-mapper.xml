@@ -311,15 +311,6 @@
 			funding_no = #{fundingNo}
 	</select>
 	
-	<select id="selectWriterNo" resultType="comment">
-		select
-			writer_no
-		from
-			funding_comment
-		where
-			funding_no = #{fundingNo}
-	</select>
-	
 	<insert id="insertComment">
 		insert into
 			funding_comment(

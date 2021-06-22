@@ -646,7 +646,6 @@ public class FundingController {
 	@GetMapping("/community.do")
 	public void community(@RequestParam int fundingNo, Model model) {
 		List<Comment> list = fundingService.selectCommentList(fundingNo);
-//		int writerNo = fundingService.selectWriterNo(fundingNo);
 		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
 		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);
@@ -659,6 +658,7 @@ public class FundingController {
 		model.addAttribute("wirterName", wirterName);
 		model.addAttribute("reward", reward);
 		model.addAttribute("fundingParticipationCount", fundingParticipationCount);
+		model.addAttribute("list", list);
 		model.addAttribute("list", list);
 	}
 	

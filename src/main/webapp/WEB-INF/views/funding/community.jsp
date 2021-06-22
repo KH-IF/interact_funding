@@ -251,7 +251,7 @@
 			<div class="yh-comment" id="yh_comment">
 			<c:forEach items="${list}" var="comment">
 				<div>
-					<strong>${member.name}</strong> <span>펀딩 참여자</span> <span><small>응원 · <fmt:formatDate value="${comment.regDate}" pattern="yy-MM-dd"/></small></span>
+					<strong>${comment.writerNo}</strong> <span>펀딩 참여자</span> <span><small>응원 · <fmt:formatDate value="${comment.regDate}" pattern="yy-MM-dd"/></small></span>
 				</div>
 				<div>
 					<p>${comment.content}</p>

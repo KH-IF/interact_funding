@@ -211,10 +211,6 @@ public class FundingServiceImpl implements FundingService{
 		return fundingDao.insertComment(comment);
 	}
 	
-//	@Override
-//	public int selectWriterNo(int fundingNo) {
-//		return fundingDao.selectWriterNo(fundingNo);
-//	}
 	
 	
 	// 배기원
