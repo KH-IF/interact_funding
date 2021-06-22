@@ -8,8 +8,8 @@ import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
+import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
-import com.kh.interactFunding.member.model.vo.Member;
 import com.kh.interactFunding.member.model.vo.Point;
 
 
@@ -22,6 +22,9 @@ public interface FundingDao {
 	int selectMyPartiCnt(int memberNo);
 	int selectMyCreateCnt(int memberNo);
 	List<Point> selectMyPointList(int memberNo);
+	List<Integer> selectMyParticiFunding(int memberNo);
+	FundingParticipationCollection selectOneFundingParticipationCollection(Map<String, Object> param);
+	int cancelReward(int no);
 	
 	//김경태
 	

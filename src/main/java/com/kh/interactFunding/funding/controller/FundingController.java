@@ -47,6 +47,7 @@ import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
+import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.service.MemberService;
 import com.kh.interactFunding.member.model.vo.Member;
@@ -75,8 +76,56 @@ public class FundingController {
 	
 	//김윤수
 	@GetMapping("myParticiFunding")
-	public void myParticiFunding() {
+	public void myParticiFunding(@SessionAttribute Member loginMember, Model model) {
 		
+		//내가 참여한 펀딩의 번호를 가져옴
+		List<Integer> myParticiList = fundingService.selectMyParticiFunding(loginMember.getMemberNo());
+//		log.debug("내가참여한 펀딩 번호 = {}",myParticiList);
+		if(myParticiList==null) return;
+		
+		//위의 것으로 참여한 펀딩을 나열함
+		List<Funding> list = new ArrayList<>();
+		for(int x : myParticiList) {
+			list.add(fundingService.selectOneFundingKYS(x));
+		}
+//		log.debug("내가 참여한 펀딩들 = {}", list);
+		//클릭시 해당 펀딩에 대한 참여내역을 보여줌
+		
+		//Map<Funding, FundingParticipation>
+		Map<Integer, FundingParticipationCollection> map = new HashMap<>();
+		for(Funding f : list) {
+			Map<String, Object> param = new HashMap<>();
+			param.put("fundingNo", f.getFundingNo());
+			param.put("memberNo", loginMember.getMemberNo());
+			map.put(f.getFundingNo(), fundingService.selectOneFundingParticipationCollection(param));
+		}
+//		log.debug("내가 참여한 펀딩의 세부 내역 = {}",map);
+		model.addAttribute("list",list);
+		model.addAttribute("map",map);
+	}
+	
+	@ResponseBody
+	@PostMapping("cancelReward")
+	public Map<String, Object> cancelReward(@SessionAttribute Member loginMember, int no, int price){
+		Map<String, Object> map = new HashMap<>();
+		
+		//no = funding_participation 테이블의 pk
+		int result = fundingService.cancelReward(no);
+		if(result>0) {
+			map.put("status",true);
+			map.put("msg", "해당 리워드를 취소하였습니다.");
+			map.put("memberNo", loginMember.getMemberNo());
+			map.put("point", price);
+			map.put("memo", "리워드 취소");
+			//리워드 취소에 따른 환불 조치
+			result=memberService.insertPoint(map);
+			loginMember.setPoint(loginMember.getPoint()+price);
+		}else {
+			map.put("status",false);
+			map.put("msg", "리워드 취소에 실패하였습니다.");
+		}
+		
+		return map;
 	}
 	
 	//김경태 졸리다
