@@ -11,63 +11,8 @@
 
 
 
-<script>
-
-	//창 가운데 띄우기위함
-	function maker_chat_function(){
-	var popupWidth = 200;
-	var popupHeight = 300;
-	var popupX = (document.body.offsetWidth / 2) - (200 / 2);
-	var popupY= (window.screen.height / 2) - (600 / 2);
-	window.open('fundingFindAddress', '', 'status=no, height=600, width=500, left='+ popupX + ', top='+ popupY);
-		}
 
 
-	/*카카오 우편번호검색  */
-	function find_address(){
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('fundingPayment_newaddress').innerHTML = data.zonecode + addr + extraAddr;
-
-	                // 커서를 상세주소 필드로 이동한다.
-              /*   document.getElementById("sample6_detailAddress").focus(); */
-            }
-        }).open();
-    };
-	
-</script>
 	
 	<div id="funding_payment_top_tap">
 		<span id="go_back">스토리로돌아가기</span>
@@ -142,11 +87,11 @@
 		<div id="fundingPayment_div5">
 			 <div id="fundingPayment_div_div1">
 			 	<h1>펀딩서포터</h1>
-			 	이름 :00
+			 	이름 : ${loginMember.name}
 			 	<br />
-			 	이메일 :00
+			 	이메일 :${loginMember.email}
 			 	<br />
-			 	휴대폰번호 : 00
+			 	휴대폰번호 : ${loginMember.phone}
 			 
 			 </div>
 		
@@ -156,22 +101,24 @@
 			    <!--회원에 기존주소지가 있고 기존주소지를 눌렀을때 -->
 			    <input type="checkbox" name="hobby" id="hobby-game" value="기존주소지" />
 			    
-			    
-			    
 			    <!--새로입력을 눌렀을때  -->
 		        <input type="checkbox" name="hobby" id="hobby-game" value="새로입력" />
 		        <br />
 		        이름
+		         <br />
 		        <input type="text" name="fundingPayment_div_div2_name" id="fundingPayment_div_div2_name" placeholder="이름"/>
 		        <br />
 		        휴대폰번호
+		         <br />
 		        <input type="text" name="fundingPayment_div_div2_phone" id="fundingPayment_div_div2_phone" placeholder="휴대폰번호"/>
 		        <br />
+		         <br />
 		        주소 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="find_address()">우편번호 검색</button>
 		        <br />
 		        <div> <p id="fundingPayment_newaddress"></p></div>
 		        <input type="text" name="fundingPayment_div_div2_address" id="fundingPayment_div_div2_address" placeholder="상세주소"/>
 		        <br />
+	         	<br />
 			 
 			 	배송시 요청사항(선택)
 			 	<br />
@@ -211,18 +158,12 @@
 		    	<label	for="ho_agreement_input4">서비스이용 약관에 동의</label>
 		    	<br>
 			</fieldset>
-			
-			<input type="submit" id="fundingPayment_div6_checkbox_submit" value="결제예약하기">
+			<div id="payment_submit_div">
+				<input type="submit" id="fundingPayment_div6_checkbox_submit" class="btn btn-info" value="결제예약하기">
+			</div>
 		
 		</div>
-		
-		
-		
 	</div>
-		
-
-
-
 	
 	
 	<style>
@@ -238,28 +179,32 @@
 	}
 	
 	#go_back{
-	font-size: 17px;
-    font-weight: 700;
-    cursor: pointer;
+	 font-size: 17px;
+     font-weight: 700;
+     cursor: pointer;
 	}
 	
 	
 	#fundingPayment_all_wrapper{
-    margin: auto;
-    width: 800px;
-    height: 2000px;
+     margin: auto;
+     width: 800px;
+     height: 2000px;
+     font-weight: 700;
+	}
 	
+	#fundingPayment_all_wrapper > div{
+	 border: 2px solid black;		
 	}
 	
 	
 	#go_back{
-	font-size: 17px;
-    font-weight: 700;
-    cursor: pointer;
+	 font-size: 17px;
+     font-weight: 700;
+     cursor: pointer;
 	}
 	
 	#fundingPayment_div1{
-    height: 130px;
+   	 height: 130px;
 	
 	
 	}
@@ -357,6 +302,16 @@
     background: #00c4c4;
 	}
 	
+	#payment_submit_div{
+	text-align: center;
+	}
+	
+	#fundingPayment_div6_checkbox_submit{
+	width: 162px;
+    height: 60px;
+    margin-top: 20px;
+	}
+	
 	
 	</style>
 	
@@ -387,8 +342,61 @@
 		};
 
 
+	//창 가운데 띄우기위함
+	function maker_chat_function(){
+	var popupWidth = 200;
+	var popupHeight = 300;
+	var popupX = (document.body.offsetWidth / 2) - (200 / 2);
+	var popupY= (window.screen.height / 2) - (600 / 2);
+	window.open('fundingFindAddress', '', 'status=no, height=600, width=500, left='+ popupX + ', top='+ popupY);
+		}
 
-	</script>
+
+	/*카카오 우편번호검색  */
+	function find_address(){
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('fundingPayment_newaddress').innerHTML = data.zonecode + addr + extraAddr;
+
+	                // 커서를 상세주소 필드로 이동한다.
+              /*   document.getElementById("sample6_detailAddress").focus(); */
+            }
+        }).open();
+    };
+	
+</script>
 	
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>	
