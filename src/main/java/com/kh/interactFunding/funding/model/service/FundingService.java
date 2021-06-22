@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.interactFunding.funding.model.vo.Attachment;
+import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
+import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
@@ -49,8 +51,12 @@ public interface FundingService {
 	FundingExt loadFunding(int fundingNo);
 	
 	
+	
 	//박요한
-	List<Funding> fundingNews(int funding_no);
+	List<FundingBoard> selectNewsList(int fundingNo);
+	FundingBoard selectOneNews(int no);
+	List<Comment> selectCommentList(int fundingNo);
+	int insertComment(Comment comment);
 	
 	
 	//배기원
