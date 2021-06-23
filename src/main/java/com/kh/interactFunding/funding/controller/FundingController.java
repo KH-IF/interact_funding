@@ -886,6 +886,8 @@ public class FundingController {
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);
 
 		int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
+		log.debug("funding = {}", funding);
+		log.debug("reward = {}", reward);
 		
 		//2. 위임 
 		model.addAttribute("funding", funding);
@@ -896,14 +898,14 @@ public class FundingController {
 
 	
 	@GetMapping("/fundingReward")
-	public void fundingReward(@RequestParam int	fundingNo, Model model) {
+	public void fundingReward(@RequestParam int	fundingNo,@RequestParam(required = false) int choice, Model model) {
 		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);
 		
 		//2. 위임 
 		model.addAttribute("funding", funding);
 		model.addAttribute("reward", reward);
-		
+		model.addAttribute("choice", choice);
 	}
 	@GetMapping("/fundingChatMaker")
 	public void fundingChatMaker() {
