@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.interactFunding.funding.model.vo.Attachment;
+import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
+import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
@@ -154,9 +156,26 @@ public class FundingDaoImpl implements FundingDao{
 	
 	//박요한
 	@Override
-	public List<Funding> fundingNews(int funding_no) {
-		return session.selectList("funding.fundingNews", funding_no);
+	public List<FundingBoard> selectNewsList(int fundingNo) {
+		return session.selectList("funding.selectNewsList", fundingNo);
 	}
+	
+	@Override
+	public FundingBoard selectOneNews(int no) {
+		return session.selectOne("funding.selectOneNews", no);
+	}
+	
+	@Override
+	public List<Comment> selectCommentList(int fundingNo) {
+		return session.selectList("funding.selectCommentList", fundingNo);
+	}
+	
+	@Override
+	public int insertComment(Comment comment) {
+		return session.insert("funding.insertComment", comment);
+	}
+	
+	
 	
 	//배기원
 	@Override

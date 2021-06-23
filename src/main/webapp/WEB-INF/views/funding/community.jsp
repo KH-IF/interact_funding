@@ -12,15 +12,15 @@
 <div id="funding_tap">
 	<ol>
 		<li><a
-			href="${pageContext.request.contextPath }/funding/funding_detail.do?funding_no=${funding.fundingNo}">스토리</a>
+			href="${pageContext.request.contextPath }/funding/fundingDetail.do?fundingNo=${funding.fundingNo}">스토리</a>
 		</li>
-		<li><a href="${pageContext.request.contextPath }/funding/news.do?funding_no=${funding.fundingNo}">새소식</a>
-		</li>
-		<li><a
-			href="${pageContext.request.contextPath }/funding/community.do?funding_no=${funding.fundingNo}">커뮤니티</a>
+		<li><a href="${pageContext.request.contextPath }/funding/news.do?fundingNo=${funding.fundingNo}">새소식</a>
 		</li>
 		<li><a
-			href="${pageContext.request.contextPath }/funding/supporter.do?funding_no=${funding.fundingNo}">서포터</a>
+			href="${pageContext.request.contextPath }/funding/community.do?fundingNo=${funding.fundingNo}">커뮤니티</a>
+		</li>
+		<li><a
+			href="${pageContext.request.contextPath }/funding/supporter.do?fundingNo=${funding.fundingNo}">서포터</a>
 		</li>
 	</ol>
 </div>
@@ -162,13 +162,14 @@
 					<input type="button" value="글 남기기" id="c-write-btn" />
 				</div>
 				<form 
+					id="commentFrm"
 					name="cc_write_container" 
 					action="${pageContext.request.contextPath}/funding/communityEnroll.do" 
-					method="post"
-					enctype="multipart/form-data" 
-					onsubmit="return boardValidate();">
+					method="post">
+					<input id ="fundingNo" type="hidden" name="fundingNo" value="${funding.fundingNo}" />
+					<input id ="writerNo" type="hidden" name="writerNo" value="${list[0].writerNo}" />
 				<div class="c-write-container" id="c_write_container">
-					<div class="c-write-view" id="c-write-view">
+					<div class="c-write-view" id="c_write_view">
 						<div class="c-write-view-a">
 							<a href="">x</a>
 						</div>
@@ -183,7 +184,7 @@
 								답변을 받을 수 있습니다.
 							</p>
 						</div>
-						<div class="yh-checkbox1" id="yh_checkbox1">
+					<!-- 	<div class="yh-checkbox1" id="yh_checkbox1">
 							<div>
 								<label for="chk-1"><input type="checkbox" name="chk" value="1" class="chk"
 									id="chk-1" onclick='checkOnlyOne(this)' />&nbsp;응원&nbsp; <small>메이커를
@@ -203,7 +204,7 @@
 									id="chk-3" onclick='checkOnlyOne(this)' />&nbsp;체험 리뷰&nbsp; <small>오프라인
 										체험 리뷰를 남기고 싶어요.</small></label>
 							</div>
-						</div>
+						</div> -->
 						<div class="c-write-comment" id="c-write-comment">
 							<textarea class="c-write-comment-textb" name="content"
 								id="c_write_comment_textb"> </textarea>
@@ -248,15 +249,15 @@
 					enctype="multipart/form-data" 
 					onsubmit="return cocoment();">
 			<div class="yh-comment" id="yh_comment">
-			<c:forEach items="${list}" var="funding">
+			<c:forEach items="${list}" var="comment">
 				<div>
-					<strong>id</strong> <span>펀딩 참여자</span> <span><small>응원 · <fmt:formatDate value="${funding.regDate}" pattern="yy-MM-dd"/></small></span>
+					<strong>${comment.writerNo}</strong> <span>펀딩 참여자</span> <span><small>응원 · <fmt:formatDate value="${comment.regDate}" pattern="yy-MM-dd"/></small></span>
 				</div>
 				<div>
-					<p>${funding.content}</p>
+					<p>${comment.content}</p>
 				</div>
-				<div>
-					<input type="button" value="답글" id="c-comment-btn" />
+				<div id="c-comment-btn">
+					<input type="button" value="답글"  />
 				</div>
 				<div class="yh-c-comment" id="yh_c_comment">
 					<textarea class="nv-c-comment" id="nv-c-comment" name="content"></textarea>
@@ -481,7 +482,22 @@ $("#c-comment-btn").click(function(){
 });
 
 $("#c-write-btn").click(function(){
-	location.href="#c-write-view";
+	console.log(111);
+	 if($(c_write_view).css('display') == 'none'){
+
+	       //열어주어라
+
+	       document.getElementById("c_write_view").style.display='block'
+
+	    //그렇지 않은 모든 경우라면??
+
+	    }else{
+
+	       //닫아주어라
+
+	       document.getElementById("c_write_view").style.display='none'
+
+	    }
 });
 
 /* $(".chk").click(function(){
@@ -535,14 +551,39 @@ function handleClick(event) {
 
   init();
 
-  function boardValidate(){
-		var $content = $("[name=content]");
-		if(/^(.|\n)+$/.test($content.val()) == false){
-			alert("내용을 입력하세요");
-			return false;
-		}
-		return true;
-	}
+
+  $("#commentFrm").submit(e =>{
+	  e.preventDefault();
+	  const $frm = $(e.target);
+	  const fundingNo = $('#fundingNo').val();
+	  console.log(fundingNo);
+	  const writerNo = $('#writerNo').val();
+	  console.log(writerNo);
+	  const content = $frm.find("[name=content]").val();
+	  console.log(content);
+
+	  const comment = {
+			  fundingNo,
+			  writerNo,
+			  content
+			};
+	  
+	  $.ajax({
+	      url : "${pageContext.request.contextPath}/funding/communityEnroll.do",
+	      data: JSON.stringify(comment),
+	      contentType: "application/json; charset=utf-8",
+	      method: "POST",
+	      success(data) {
+				console.log(data);
+				const {msg} = data;
+				alert(msg);
+			},
+	      	error: console.log, 
+			complete(){
+				e.target.reset(); // 폼초기화
+			} 
+	  	});
+	});
 	
   function cocoment(){
 		var $content = $("[name=content]");

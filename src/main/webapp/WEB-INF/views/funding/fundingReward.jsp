@@ -40,9 +40,9 @@ $(() => {
 		<div id="funding_reward_option">
 		
 			 <c:forEach var="reward" items="${reward}">
-			 	 <div class="reward_select_div_wrapper">
+			 	 <div class="reward_select_div_wrapper" data-price="${reward.price}" id="rewardNo${reward.rewardNo}">
 			 		<div class="reward_select_checkbox_div">
-			 			<input type="checkbox" class="reward_select_checkbox" value="${rewardNO}">
+			 			<input type="checkbox" class="reward_select_checkbox" value="${reward.rewardNo}">
 			 		</div>
 			 		<div>
 					 	<h3>${reward.price}원 펀딩합니다</h3>
@@ -62,16 +62,16 @@ $(() => {
 			           	${reward.limitAmount} 개 남음!!
 			           	
 			           	<br />
-			           		<div>
-				           	   <fieldset class="rewardCount">
-					                <legend >수량선택</legend>
-					                <button class="decreaseButton">-</button>
-					                <input type="text" value="1" class="countReward">
-					                <button class="increaseButton">+</button>
-				            	</fieldset>
-			            	</div>
 			           	</div>
 		           	</div>
+	           		<div class="rewardCount_div">
+		           	   <fieldset class="rewardCount">
+			                <legend >수량선택</legend>
+			                <button class="decreaseButton">-</button>
+			                <input type="text" value="1" data-countprice="${reward.price}" data-limit="${reward.limitAmount}" class="countReward">
+			                <button class="increaseButton">+</button>
+		            	</fieldset>
+	            	</div>
 	           	
            	 </c:forEach>
 		</div>
@@ -338,7 +338,6 @@ $(() => {
 	.reward_select_div_wrapper{
 	display: flex;
 	font-size: 16px;
-	margin-bottom: 28px;
 	padding-top: 29px;
     padding-left: 41px;
 	}
@@ -346,18 +345,32 @@ $(() => {
 	.reward_select_checkbox_div{
     margin-top: 10px;
     margin-right: 31px;
-	
-	
 	}
 	
-	.rewardCount{
-	display: none;
+	.rewardCount_div{
+    padding-left: 82px;
+    margin-bottom: 43px;
+    display: none;
 	}
+	
 	
 	</style>
 	
 	<script>
 
+	/*이전페이지에서 리워드를 바로 클릭했을 시 상황을 위함*/
+	window.onload = function(){
+		/*get으로 넘어온 choice값*/
+		var choice = ${choice};
+		
+		if(choice != null){
+		$("#rewardNo" + choice).trigger("click");
+		}
+		
+	}
+	
+	
+	
 	$("#go_back").click(function() {
 		location.href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}";
 		});
@@ -387,32 +400,64 @@ $(() => {
 	
 	//수량선택 + - 
 	$(function(){
+	
+		/*마이너스버튼 클릭시*/
 		$('.decreaseButton').click(function(e){
 			e.preventDefault();
-			var start = $('.countReward').val();
-			var num  = parseInt(start,10);
-			num--;
-			if(num<=0){
+			
+			var start = $(e.target).next().val();
+			start--;
+			
+			
+			/*총 가격 계산*/
+			if(start>0){
+			/*클릭시 가격*/
+			var price = Number($(this).next().data("countprice"));
+			/*현재 총가격*/
+			var total = Number($("#funding_reward_choice").text());
+			/*가격더해주기*/
+			var minus = Number((total-price));
+			/*최종결과*/
+			$("#funding_reward_choice").text(minus);
+			}
+			
+			if(start<=0){
 				alert('더이상 줄일수 없습니다.');
-				num =1;
+				start =1;
 				}
 			
-		$('.countReward').val(num);
+			$(e.target).next().val(start);
 		});
 		
+		/*증가버튼 클릭시*/
 		$('.increaseButton').click(function(e){
 			e.preventDefault();
-			var start = $('.countReward').val();
-			var num = parseInt(start,10);
-			num++;
-		
-			if(num>5){
-			alert('더이상 늘릴수 없습니다.');
-			num=5;
+			var start = $(e.target).prev().val();
+			var limit = Number($(e.target).prev().data("limit"));	
+			console.log(start);		
+			console.log(limit);		
+			start++;
+			
+			/*총 가격 계산*/
+			if(start<=limit){
+			/*클릭시 가격*/
+			var price = Number($(this).prev().data("countprice"));
+			/*현재 총가격*/
+			var total = Number($("#funding_reward_choice").text());
+			/*가격더해주기*/
+			var plus = Number((total+price));
+			/*최종결과*/
+			$("#funding_reward_choice").text(plus);
 			}
-			$('.countReward').val(num);
+		
+			if(start>limit){
+				alert('더이상 늘릴수 없습니다.');
+				start=limit;
+			}
+			$(e.target).prev().val(start);
 
 		});
+		
 
 	    
 	    //클릭할시(선택)
@@ -420,13 +465,38 @@ $(() => {
 			if($(this).children().children("input").is(":checked") == false){
 				$(this).children().children("input").attr("checked", true);
 				$(this).css("background-color","pink")
-				$(this).children().children().children().css("display","block")
+				$(this).next().css("background-color","pink")
+				$(this).next().css("display","block")
+				
+				
+				/*총 가격 계산*/
+				/*클릭시 가격*/
+				var price = Number($(this).data("price"));
+				/*현재 총가격*/
+				var total = Number($("#funding_reward_choice").text());
+				/*가격더해주기*/
+				var plus = Number((total+price));
+				/*최종결과*/
+				$("#funding_reward_choice").text(plus);
+				
 				
 			}
 			else{
 				$(this).children().children("input").attr("checked", false);
 				$(this).css("background-color","white")
-				$(this).children().children().children().css("display","none")
+				$(this).next().css("background-color","white")
+				$(this).next().css("display","none")
+				
+				/*총 가격 계산*/
+				/*클릭시 가격*/
+				var price = Number($(this).data("price"));
+				/*현재 총가격*/
+				var total = Number($("#funding_reward_choice").text());
+				/*가격더해주기*/
+				var minus = Number((total-price));
+				/*최종결과*/
+				$("#funding_reward_choice").text(minus);
+				
 				}
 		});
 	});
