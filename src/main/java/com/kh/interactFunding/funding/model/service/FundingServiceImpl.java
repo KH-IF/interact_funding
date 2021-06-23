@@ -63,10 +63,16 @@ public class FundingServiceImpl implements FundingService{
 	//김주연
 	@Override
 	public List<FundingExt> statusYList(int memberNo) {
+		
 		List<FundingExt> fundingList = fundingDao.statusYList(memberNo);
 		
 		for(FundingExt funding: fundingList) {
-			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+			Attachment attach = fundingDao.selectOneAttach(funding.getFundingNo());
+			if(attach == null) {				
+				attach = new Attachment();
+				attach.setRenamedFilename("image-not-found.jpg");					
+			}
+			funding.setAttachment(attach);
 		}
 		
 		return fundingList;
@@ -76,7 +82,12 @@ public class FundingServiceImpl implements FundingService{
 		List<FundingExt> fundingList = fundingDao.statusNList(memberNo);
 		
 		for(FundingExt funding: fundingList) {
-			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+			Attachment attach = fundingDao.selectOneAttach(funding.getFundingNo());
+			if(attach == null) {				
+				attach = new Attachment();
+				attach.setRenamedFilename("image-not-found.jpg");					
+			}
+			funding.setAttachment(attach);
 		}
 		
 		return fundingList;
@@ -86,7 +97,12 @@ public class FundingServiceImpl implements FundingService{
 		List<FundingExt> fundingList = fundingDao.nowList(memberNo);
 		
 		for(FundingExt funding: fundingList) {
-			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+			Attachment attach = fundingDao.selectOneAttach(funding.getFundingNo());
+			if(attach == null) {				
+				attach = new Attachment();
+				attach.setRenamedFilename("image-not-found.jpg");					
+			}
+			funding.setAttachment(attach);
 		}
 		
 		return fundingList;
@@ -94,9 +110,13 @@ public class FundingServiceImpl implements FundingService{
 	@Override
 	public List<FundingExt> finishList(int memberNo) {
 		List<FundingExt> fundingList = fundingDao.finishList(memberNo);
-		
 		for(FundingExt funding: fundingList) {
-			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));	
+			Attachment attach = fundingDao.selectOneAttach(funding.getFundingNo());
+			if(attach == null) {				
+				attach = new Attachment();
+				attach.setRenamedFilename("image-not-found.jpg");					
+			}
+			funding.setAttachment(attach);
 		}
 		
 		return fundingList;

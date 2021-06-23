@@ -5,7 +5,6 @@
     <jsp:param value="Start3 | IF Maker Studio" name="title"/>
 </jsp:include>
 
-
     <div class="container p-5">
         <div class="btn-block progress">
             <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -33,13 +32,8 @@
             <button type="button" class="btn btn-secondary btn-lg" onclick ="location.href='${pageContext.request.contextPath}/funding/fundingStart2'"> &lt; 이전 </button> 
             <a class="btn btn-primary btn-lg" href="#" role="button" style="width: 200px;"  onclick="location.href='${pageContext.request.contextPath}/funding/fundingStart4';">다음</a>
         </p>
-
-
-
-
-
-
     </div>
-    </section>
+    
+</section>
 </body>
 </html>

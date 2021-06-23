@@ -59,6 +59,10 @@ window.setTimeout(function() {
 	color: black;
 	text-decoration-line: none;
 }
+div.navBoxUser{
+	height:180px; 
+	background-image: url("../resources/image/painting-divBackground.png");
+}
 
 </style>
  
@@ -69,16 +73,19 @@ window.setTimeout(function() {
     <!-- 상단 바 -->
     <nav class="navbar sticky-top navbar-light bg-light border-bottom">
         <!-- 클릭할 시 펀딩 시작 화면으로 넘어간다. -->
-        <a class="navbar-brand" href="#">
-            <img src="${pageContext.request.contextPath}/funding/ready1Funding" width="30" height="30" alt="">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/funding/ready1Funding">
+            <img src="${pageContext.request.contextPath}/resources/image/makerstudiologo.png" width="150" height="40" alt="">
         </a>
         <!-- 이름 여기에 불러올것 -->
-        <a class="aTag" href="${pageContext.request.contextPath}/funding/fundingStart1"><div class="makerName">
-        	<img src="${pageContext.request.contextPath}/resources/image/skycraper.png" style="width: 25px">
-        	${loginMember.name}</div></a>
+        <a class="aTag" href="${pageContext.request.contextPath}/funding/fundingStart1">
+        	<div class="makerName">
+        		<img src="${pageContext.request.contextPath}/resources/image/skycraper.png" style="width: 30px">
+        		<span class="font-weight-bold">${loginMember.name}</span>
+        	</div>
+        </a>
         
         <div>
-            <button type="button" class="border-0" onclick ="location.href='${pageContext.request.contextPath}'">나가기</button>
+            <button type="button" class="border-0 aTag bg-light font-weight-bold" onclick ="location.href='${pageContext.request.contextPath}'">나가기</button>
         </div>
     </nav>
 
@@ -89,19 +96,20 @@ window.setTimeout(function() {
     <!-- 좌측 바 -->
     <div style="width: 280px;">
     
-        <div class="border">
-            <div style="height:200px;">
-                <h3>
-                    <!-- 프로젝트 진행명 가져오기 -->
-                    ${loginMember.name}의 
-                    <br>
-                    멋진 프로젝트
-                </h3>
-                <br>
-                프로젝트 번호 
-                <!-- 프로젝트 번호 불러오기 -->
-                <p id="funding_no">${funding.fundingNo}</p>
-            </div>
+        <div class="border p-4 navBoxUser">
+	     	  
+   			<p class="text-white font-weight-bold" style="font-size: 20px;">
+	               ${loginMember.name}의 
+	               <br>
+	               ${funding.title != null? funding.title:'멋진 프로젝트'}
+        	</p>
+	            <br>
+	        <p class="text-white">
+	            프로젝트 번호 
+	            ${funding.fundingNo}
+      		</p>
+	            <br>
+	       
         </div>
 
 
@@ -109,11 +117,12 @@ window.setTimeout(function() {
         <div class="navbar-header">
             <li class=" list-group-item d-flex justify-content-between"> 
             	<a class="hoveref" href="${pageContext.request.contextPath}/funding/ready1Funding"><strong>펀딩준비</strong></a>
-            	<button class="navbar-toggle " data-toggle="collapse" data-target="#fundingReady">*</button>
+            	<button class="navbar-toggle border-0" data-toggle="collapse" data-target="#fundingReady">
+            	
+            	</button>
            	</li>
-            
         </div>
-        <div class="collapse navbar-collapse border" id="fundingReady">
+        <div class="collapse border" id="fundingReady">
             <ul class="nav navbar-nav">
                 <li class="hoveref p-3"><a class="hoveref" href="${pageContext.request.contextPath}/funding/ready2Charge">요금제 선택</a></li>
                 <li class="hoveref p-3"><a class="hoveref" href="${pageContext.request.contextPath}/funding/ready3BasicInfo">기본 정보</a></li> 
@@ -181,7 +190,11 @@ window.setTimeout(function() {
         </div>
 
         <div class="navbar-header">
-            <li class="hoveref navbar-toggle list-group-item font-weight-bold" data-toggle="collapse" data-target="#myNavbar">자료 및 도움말</li>
+            <li class="hoveref navbar-toggle list-group-item font-weight-bold">
+	            <a class="aTag" href="https://www.notion.so/a933461f78f949dc9dd11f17e7d35e36">
+	            자료 및 도움말
+	            </a>
+            </li>
         </div>
         <div class="collapse navbar-collapse border" id="myNavbar">
             <ul class="nav navbar-nav">
