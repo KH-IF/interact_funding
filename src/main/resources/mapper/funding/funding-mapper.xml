@@ -347,7 +347,7 @@
 		select
 			*
 		from
-			funding_comment
+			funding_comment f join member m on f.writer_no = m.member_no
 		where
 			funding_no = #{fundingNo}
 	</select>

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.member.model.dao.MemberDao;
 import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
@@ -89,6 +90,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.savePhone(map);
 	}
 	// 박요한
+	@Override
+	public String selectWriterName(int writerNo) {
+		return memberDao.selectWriterName(writerNo);
+	}
 
 	// 배기원
 

@@ -24,7 +24,6 @@
 		</li>
 	</ol>
 </div>
-
 <div id="funding_main">
 	<div id="funding_main_image_and_content">
 		<div class="yh-c-view">
@@ -167,7 +166,6 @@
 					action="${pageContext.request.contextPath}/funding/communityEnroll.do" 
 					method="post">
 					<input id ="fundingNo" type="hidden" name="fundingNo" value="${funding.fundingNo}" />
-					<input id ="writerNo" type="hidden" name="writerNo" value="${list[0].writerNo}" />
 				<div class="c-write-container" id="c_write_container">
 					<div class="c-write-view" id="c_write_view">
 						<div class="c-write-view-a">
@@ -246,12 +244,12 @@
 			<form name="yh-cocomment" 
 					action="${pageContext.request.contextPath}/funding/communityEnroll.do" 
 					method="post"
-					enctype="multipart/form-data" 
 					onsubmit="return cocoment();">
-			<div class="yh-comment" id="yh_comment">
 			<c:forEach items="${list}" var="comment">
+			<div class="yh-comment" id="yh_comment">
+			
 				<div>
-					<strong>${comment.writerNo}</strong> <span>펀딩 참여자</span> <span><small>응원 · <fmt:formatDate value="${comment.regDate}" pattern="yy-MM-dd"/></small></span>
+					<strong>${comment.name}</strong><span><small><fmt:formatDate value="${comment.regDate}" pattern="yy-MM-dd"/></small></span>
 				</div>
 				<div>
 					<p>${comment.content}</p>
@@ -261,18 +259,11 @@
 				</div>
 				<div class="yh-c-comment" id="yh_c_comment">
 					<textarea class="nv-c-comment" id="nv-c-comment" name="content"></textarea>
-					<input type="submit" value="등록" id="nv-c-comment-btn" />
+					<input type="submit" value="등록" id="nv-c-comment-btn"  data-memberno="${comment.writerNo}"/>
 				</div>
-				<div class="yh-maker-comment">
-					<div>
-						<strong>id</strong> <span>메이커</span> <span>시간</span>
-					</div>
-					<div>
-						<p>ㄴㅇㄹㅇㄹ</p>
-					</div>
-				</div>
-			</c:forEach>
 			</div>
+			</c:forEach>
+			
 			</form>
 		</div>
 	</div>
@@ -296,7 +287,6 @@
 
 	</div>
 </div>
-
 <script>
 $("#FAQ-btn1").click(function(){
 	//만일 Pop라는 녀석이 닫혀있다면??
@@ -576,11 +566,27 @@ function handleClick(event) {
 	      success(data) {
 				console.log(data);
 				const {msg} = data;
-				alert(msg);
+				swal("성공",msg,"success").then(function(){
+					//location.href=window.location.href;
+					$("[name=yh-cocomment]").append("<h5>sssssss</h5>");
+				});
 			},
 	      	error: console.log, 
 			complete(){
 				e.target.reset(); // 폼초기화
+				$("[name=yh-cocomment]").append('<div>'+
+						'<strong>'+'박요한ㄴㄴㄴ'+'</strong><span><small>"'+"날짱ㅇ"+'"</small></span>'+
+						'</div>'+
+						'<div>'+
+							'<p>'+comment.content+'</p>'+
+						'</div>'+
+						'<div id="c-comment-btn">'+
+							'<input type="button" value="답글"  />'+
+						'</div>'+
+						'<div class="yh-c-comment" id="yh_c_comment">'+
+							'<textarea class="nv-c-comment" id="nv-c-comment" name="content"></textarea>'+
+							'<input type="submit" value="등록" id="nv-c-comment-btn" />'+
+						'</div>');
 			} 
 	  	});
 	});

@@ -3,6 +3,7 @@ package com.kh.interactFunding.member.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
 import com.kh.interactFunding.member.model.vo.Msg;
@@ -40,6 +41,8 @@ public interface MemberDao {
 	//김주연
 	int savePhone(Map<String, Object> map);
 	//박요한
+	String selectWriterName(int writerNo);
+
 	
 	//배기원
 	

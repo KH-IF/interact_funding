@@ -694,20 +694,19 @@ public class FundingController {
 	
 	@GetMapping("/community.do")
 	public void community(@RequestParam int fundingNo, Model model) {
+		//selectWriterName 나중에 지워
 		List<Comment> list = fundingService.selectCommentList(fundingNo);
 		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
 		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);
 		int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
 		
-//		log.debug("funboard = {}", funboard);
 		
 		//2. 위임 
 		model.addAttribute("funding", funding);
 		model.addAttribute("wirterName", wirterName);
 		model.addAttribute("reward", reward);
 		model.addAttribute("fundingParticipationCount", fundingParticipationCount);
-		model.addAttribute("list", list);
 		model.addAttribute("list", list);
 	}
 	

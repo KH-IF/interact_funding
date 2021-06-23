@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.member.model.vo.Coupon;
 import com.kh.interactFunding.member.model.vo.Member;
 import com.kh.interactFunding.member.model.vo.Msg;
@@ -93,6 +94,10 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.savePhone",map);
 	}
 	// 박요한
+	@Override
+	public String selectWriterName(int writerNo) {
+		return session.selectOne("member.selectWriterName", writerNo);
+	}
 
 	// 배기원
 

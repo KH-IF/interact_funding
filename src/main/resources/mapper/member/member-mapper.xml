@@ -88,6 +88,16 @@
 			member_no = #{memberNo}
 	</update>
 	<!-- 박요한 -->
+	<select id="selectWriterName" resultType="member">
+		select 
+    		m.name
+		from
+    		member m
+    		join funding_comment f
+    		on m.member_no = f.writer_no
+    	where
+    		m.member_no = #{writerNo}
+	</select>
 	<!-- 배기원 -->
 	<!-- 이승우 -->
 	<!-- 천호현 -->
