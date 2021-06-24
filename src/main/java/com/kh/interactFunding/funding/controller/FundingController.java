@@ -779,6 +779,7 @@ public class FundingController {
 			
 			// 검색 업무로직
 			List<Funding> list = fundingService.fundingList(map);
+			List<Funding> bannerList = fundingService.fundingListBanner();
 			int totalContents = fundingService.selectFundingListTotalContents(map);
 			String url = request.getRequestURI() + "?category=" + category + "&searchSelect1=" + searchSelect1 + "&searchSelect2=" + searchSelect2 + "&searchKeyword=" + searchKeyword;
 //			String memberName = "비회원";
@@ -786,18 +787,18 @@ public class FundingController {
 //				memberName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
 //			}
 			
-//			log.debug("totalContents = {}, url = {}", totalContents, url);
+			log.debug("totalContents = {}, url = {}", totalContents, url);
 			String pageBar = PageBarUtils.getPageBar(totalContents, cPage, limit, url);
 			
 			//jsp에 위임
 			mav.addObject("list", list); 
+			mav.addObject("bannerList", bannerList); 
 			mav.addObject("pageBar", pageBar); // 페이지
 			mav.addObject("map", map);
-//			mav.addObject("memberName", memberName);
+			mav.addObject("totalContents", totalContents);
 			
 //			log.debug("searchTitle = {}", searchKeyword);
-			log.debug("list = {}", list);
-//			log.debug("memberName = {}", memberName);
+//			log.debug("list = {}", list);
 			return mav;
 			}
 		
@@ -821,13 +822,16 @@ public class FundingController {
 			map.put("offset", offset);
 			
 			List<Funding> list = fundingService.earlyList(map);
+			List<Funding> bannerList = fundingService.earlyListBanner();
 			int totalContents = fundingService.selectEarlyListTotalContents();
 			String url = request.getRequestURI();
 			
 			String pageBar = PageBarUtils.getPageBar(totalContents, cPage, limit, url);
 			
+			mav.addObject("totalContents", totalContents);
 			mav.addObject("pageBar", pageBar);
 			mav.addObject("list", list);
+			mav.addObject("bannerList", bannerList);
 			return mav;
 		} catch(Exception e) {
 			log.error("earlyList 조회 오류");

@@ -277,13 +277,39 @@ public class FundingServiceImpl implements FundingService{
 	}
 
 	@Override
+	public List<Funding> fundingListBanner() {
+		List<Funding> fundingListBanner = fundingDao.fundingListBanner();
+		
+		for(Funding funding: fundingListBanner) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));
+		}
+		
+		return fundingListBanner;
+	}
+	
+	@Override
+	public List<Funding> earlyListBanner() {
+		List<Funding> earlyListBanner = fundingDao.earlyListBanner();
+		
+		for(Funding funding: earlyListBanner) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));
+		}
+		return earlyListBanner;
+	}
+	
+	@Override
 	public int selectFundingListTotalContents(Map<String, Object> map) {
 		return fundingDao.selectFundingListTotalContents(map);
 	}
 	
 	@Override
 	public List<Funding> earlyList(Map<String, Object> map) {
-		return fundingDao.earlyList(map);
+		List<Funding> earlyList = fundingDao.earlyList(map);
+		
+		for(Funding funding: earlyList) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));
+		}
+		return earlyList;
 	}
 
 	@Override

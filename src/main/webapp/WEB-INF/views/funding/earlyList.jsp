@@ -60,6 +60,30 @@
            </ul>
 
            <div class="carousel-inner">
+		   <c:forEach items="${bannerList}" var="banner" end="0">
+		   		<div class="carousel-item active">
+                   <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${banner.fundingNo}">
+                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width: 1300px; height: 400px;">
+                    <div class="slide-title">
+                     <span>${banner.title}</span>
+                     <p></p>
+                    </div>
+                	</a>
+            	</div>
+		   </c:forEach>
+		   <c:forEach items="${bannerList}" var="banner" begin="1">
+		   		<div class="carousel-item">
+                   <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${banner.fundingNo}">
+                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width: 1300px; height: 400px;">
+                    <div class="slide-title">
+                     <span>${banner.title}</span>
+                     <p></p>
+                    </div>
+                	</a>
+            	</div>
+		   </c:forEach>
+          </div>
+           <!-- <div class="carousel-inner">
                <div class="carousel-item active">
                    <a href="#">
                        <img alt="image1" style="width: 1300px; height: 400px;">
@@ -93,13 +117,13 @@
                     <img alt="image5" style="width: 1300px; height: 400px;">
                 </a>
             </div>
-	        </div>
-		        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-		            <span class="carousel-control-prev-icon"></span>
-		        </a>
-		        <a class="carousel-control-next" href="#demo" data-slide="next">
-		            <span class="carousel-control-next-icon"></span>
-		        </a>
+	        </div> -->
+	        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+	            <span class="carousel-control-prev-icon"></span>
+	        </a>
+	        <a class="carousel-control-next" href="#demo" data-slide="next">
+	            <span class="carousel-control-next-icon"></span>
+	        </a>
 	</div>
 	<div class="fundingProjectList">
             <!-- 목록 -->
@@ -109,7 +133,7 @@
 	                <c:forEach items="${list}" var="funding">
 	                <div class="fundingProjectCardItem">
 	                    <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}" class="fundingProjectCardItemImageArea">
-	                    	<div class="fundingProjectCardItemImage" style="background=image:url('${pageContext.request.contextPath}/resource/upload/${funding.attachment.renamedFilename}');"></div>
+	                    	<div class="fundingProjectCardItemImage" style="background-image:url('${pageContext.request.contextPath}/resources/upload/${funding.attachment.renamedFilename}');"></div>
 	                    </a>
 	                    <div class="fundingProjectCardListInfo">
 	                        <div class="fundingProjectCardItemTitle">
@@ -123,7 +147,6 @@
 	                            </div>
 	                            <div>
                                 	<span class="rewordProjectCardMakerName">
-                                	${funding.writerNo}
                                 	</span>
 	                            </div>
 	                        </div>
@@ -133,7 +156,9 @@
 	                
 	            </div>
 	        </div>
-	        ${pageBar}
+	        <c:if test="${totalContents > map.limit}">
+	        	${pageBar}
+	        </c:if>
             <!-- <div>
                 <div class="moreFunding">
                     <button id="moreBtn">더보기↓</button>

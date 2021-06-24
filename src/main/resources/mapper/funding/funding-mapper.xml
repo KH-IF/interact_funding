@@ -438,6 +438,7 @@
 	<!-- 이승우 -->
 	<!-- searchKeyword searchSelect1 searchSelect2 category -->
 	<!-- processing selected(진행중 종료) recent recommand (최신순 과거순) -->
+	<select id=""></select>
 	<select id="selectFundingList" resultMap="fundingVoMap">
 		select *
 		from funding
@@ -484,6 +485,23 @@
 			</if>
 		</where>
 	</select>
+	<select id="selectFundingListBanner" resultMap="fundingVoMap">
+		select
+		rownum,
+		f.*
+		from(
+		    select
+		    *
+		    from
+		    funding f
+		    where status = 'Y'
+		    and start_date <![CDATA[<]]> sysdate
+		    and d_day <![CDATA[>]]> sysdate
+		    order by funding_no desc
+		) f
+		where rownum between 1 and 5
+		order by DBMS_RANDOM.RANDOM
+	</select>
 	<select id="selectEarlyList" resultMap="fundingVoMap">
 		select * 
 		from funding
@@ -499,6 +517,22 @@
 			status = 'Y'
 			and start_date <![CDATA[>]]> sysdate
 		</where>
+	</select>
+	<select id="selectEarlyListBanner" resultMap="fundingVoMap">
+		select
+		rownum,
+		f.*
+		from(
+		    select
+		    *
+		    from
+		    funding f
+		    where status = 'Y'
+		    and start_date <![CDATA[>]]> sysdate
+		    order by funding_no desc
+		) f
+		where rownum between 1 and 5
+		order by DBMS_RANDOM.RANDOM
 	</select>
 	<!-- 천호현 -->
     

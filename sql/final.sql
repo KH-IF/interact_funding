@@ -802,11 +802,38 @@ where start_date < sysdate;
 
 select * from funding where status = 'Y';
 
+
 select
-* 
-from 
-member 
-where member_no = 0;
+rownum,
+f.*
+from(
+    select
+    *
+    from
+    funding f
+    where status = 'Y'
+    and start_date < sysdate
+    and d_day > sysdate
+    order by funding_no desc
+) f
+where rownum <= 5
+order by DBMS_RANDOM.RANDOM;
+
+select
+rownum,
+f.*
+from(
+    select
+    *
+    from
+    funding f
+    where status = 'Y'
+    and start_date < sysdate
+    and d_day > sysdate
+    order by funding_no desc
+) f
+where rownum between 1 and 5
+order by DBMS_RANDOM.RANDOM;
 --천호현 테스트영역
 select * from funding;
 select * from funding_reward;

@@ -194,12 +194,22 @@ public class FundingDaoImpl implements FundingDao{
 	}
 	
 	@Override
+	public List<Funding> fundingListBanner() {
+		return session.selectList("funding.selectFundingListBanner");
+	}
+	
+	@Override
 	public List<Funding> earlyList(Map<String, Object> map) {
 		int offset = (int)map.get("offset");
 		int limit = (int)map.get("limit");
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		log.debug("map@dap = {}", map);
 		return session.selectList("funding.selectEarlyList", map, rowBounds);
+	}
+	
+	@Override
+	public List<Funding> earlyListBanner() {
+		return session.selectList("funding.selectEarlyListBanner");
 	}
 	
 	@Override
