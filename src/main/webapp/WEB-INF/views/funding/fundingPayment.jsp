@@ -8,11 +8,6 @@
 </jsp:include>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-
-
-
-
 	
 	<div id="funding_payment_top_tap">
 		<span id="go_back">스토리로돌아가기</span>

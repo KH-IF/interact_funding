@@ -1,3 +1,4 @@
+<!-- 기본정보를 입력하는 페이지 입니다.  -->
 <%@page import="com.kh.interactFunding.funding.model.vo.FundingExt"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -5,7 +6,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/views/common/makerNav.jsp" flush="false">
     <jsp:param value="Basic Info | IF Maker Studio" name="title"/>
 </jsp:include>

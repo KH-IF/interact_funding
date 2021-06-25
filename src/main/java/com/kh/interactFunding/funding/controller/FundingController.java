@@ -140,7 +140,7 @@ public class FundingController {
 		
 		//log.debug("session={}",session.getAttribute("loginMember"));
 		
-		//세션 종료
+		//세션 종료 -> 스튜디오에서 돌아왔을때 스튜디오에서 작업하던 funding을 지워주어야 fundingNo가 클릭한 펀딩의 값으로 바뀝니다.
 		request.getSession().removeAttribute("funding");
 		model.addAttribute("funding",null);
 		
@@ -151,17 +151,21 @@ public class FundingController {
 		log.debug("memberNo={}",memberNo);
 		try {
 			log.debug("fundingStart1");
-			List<FundingExt> statusYList = fundingService.statusYList(memberNo);
+			//작성중인 펀딩 리스트
 			List<FundingExt> statusNList = fundingService.statusNList(memberNo);
+			//작성완료한 펀딩 리스트
+			List<FundingExt> statusYList = fundingService.statusYList(memberNo);
+			//현재 진행중인 펀딩 리스트
 			List<FundingExt> nowList = fundingService.nowList(memberNo);
+			//진행완료한 펀딩 리스트
 			List<FundingExt> finishList = fundingService.finishList(memberNo);
 			//log.debug("statusYList={}",statusYList);
 			//log.debug("statusNList={}",statusNList);
 			//log.debug("loginMember={}",loginMember);
 			log.debug("nowList={}",nowList);
 		
-			model.addAttribute("statusYList", statusYList);
 			model.addAttribute("statusNList", statusNList);
+			model.addAttribute("statusYList", statusYList);
 			model.addAttribute("nowList", nowList);
 			model.addAttribute("finishList", finishList);
 			model.addAttribute("loginMember",loginMember);
@@ -196,7 +200,7 @@ public class FundingController {
 		model.addAttribute("funding",funding);
 	}
 	
-	//기존에 있는 것을 이어서 시작할 경우
+	//스튜디오 바로가기를 클릭했을 경우(기존에 있는 것을 이어서 시작할 경우)
 	@GetMapping("/existFunding")
 	public String existFunding(@RequestParam(value="fundingNo") int fundingNo, Model model, @SessionAttribute(name ="loginMember") Member loginMember) {
 		try {
@@ -212,7 +216,7 @@ public class FundingController {
 		return "redirect:/funding/ready1Funding";
 	}
 
-	//새로 시작하는 경우	
+	//새로 만들기를 클릭했을 경우(새로 시작하는 경우)
 	@PostMapping("/newFunding")
 	public String ready1FundingInsertNo(FundingExt funding, HttpSession session) {
 		try {
@@ -233,19 +237,23 @@ public class FundingController {
 		return "redirect:/funding/fundingStart2";
 	}
 	
+	//jsp로 이동하기 용
 	@GetMapping("/fundingStart3")
 	public void fundingStart3() {
 		//log.debug("fundingStart3");
 	}
+	//jsp로 이동하기 용
 	@GetMapping("/fundingStart4")
 	public void fundingStart4() {
 		//log.debug("fundingStart4");
 	}
+	//jsp로 이동하기 용
 	@GetMapping("/fundingStart5")
 	public void fundingStart5() {
 		//log.debug("fundingStart5");
 	}
 
+	//정보 작성 확인하여 map에 담아서 jsp로 넘겨줌
 	@GetMapping("/ready1Funding")
 	public void ready1Funding(@SessionAttribute(name ="funding") FundingExt funding, Model model) {
 		
@@ -300,6 +308,8 @@ public class FundingController {
 		model.addAttribute("writeMap",writeMap);
 		
 	}
+	
+	//알람 전달을 위해서 만듬
 	@GetMapping("/ready1Funding/{msg}")
 	@ResponseBody
 	public ModelAndView ready1Funding(@PathVariable(name="msg") String msg, ModelAndView mav, HttpServletRequest request) {
@@ -316,11 +326,13 @@ public class FundingController {
 		return mav;
 	}
 	
+	//jsp 보여주기용
 	@GetMapping("/ready2Charge")
 	public void ready2Funding() {
 		//log.debug("ready2Charge");
 	}
 	
+	//요금제 선택 저장하기
 	@PutMapping("/saveCharge/{no}/{charge}")
 	@ResponseBody
 	public Map<String, Object> saveCharge(@PathVariable(name="no") String no ,@PathVariable(name="charge") String charge) {
@@ -339,8 +351,9 @@ public class FundingController {
 		}
 	}
 	
+	//기본정보 받아와서 보여주기
 	@GetMapping("/ready3BasicInfo")
-	public void ready4Funding(@SessionAttribute(name="funding") FundingExt funding, Model model) {
+	public void ready3BasicInfo(@SessionAttribute(name="funding") FundingExt funding, Model model) {
 		try {
 			int fundingNo = funding.getFundingNo();
 			FundingExt fundingR = fundingService.loadFunding(fundingNo);
@@ -351,6 +364,7 @@ public class FundingController {
 			throw e;
 		}
 	}
+	//기본정보 저장하기
 	@PostMapping("/saveBasicInfo")
 	public String  saveBasicInfo(
 			@ModelAttribute FundingExt funding,
@@ -403,11 +417,14 @@ public class FundingController {
 			}
 			return "redirect:/funding/ready1Funding";
 	}
+	
+	//jsp 보여주기용
 	@GetMapping("/ready4Story")
 	public void ready4Story() {
 		//log.debug("ready4Story");
 	}
 	
+	//스토리 받아와서 보여주기
 	@GetMapping("/ready4StoryLoad")
 	@ResponseBody
 	public Map<String, Object> ready4Story(@SessionAttribute(name="funding") FundingExt funding) {
@@ -425,6 +442,7 @@ public class FundingController {
 		}
 	}
 	
+	//스토리 저장하기
 	@PostMapping("/saveStory")
 	public String saveStory(FundingExt funding, RedirectAttributes redirectAttr){
 		try {
@@ -454,7 +472,7 @@ public class FundingController {
 		return "redirect:/funding/ready1Funding";
 	}
 	
-	//reward 수정에서 값을 뿌려주기 위한 메소드
+	//reward 수정에서 값을 뿌려주기 위한 메소드 -> 리워드 수정한 값을 바로 jsp에 뿌려주기 위함. div id="makerRewardUpdate"처리부분.
 	@GetMapping("/selectOneReward/{rewardNo}")
 	@ResponseBody
 	public Map<String, Object> selectOneReward(@PathVariable(name="rewardNo") int rewardNo) {
@@ -473,7 +491,7 @@ public class FundingController {
 		
 	}
 	
-	
+	//reward 값을 받아와서 보여주기위함
 	@GetMapping("/ready5Reward")
 	public void ready5Reward(@SessionAttribute FundingExt funding, Model model) {
 		try {
@@ -487,6 +505,7 @@ public class FundingController {
 		}
 	}
 	
+	//reward값을 저장하기 위함
 	@PostMapping("/insertReward")
 	public String  insertReward(Reward reward, RedirectAttributes redirectAttr) {
 		log.debug("reward={}",reward);
@@ -499,6 +518,7 @@ public class FundingController {
 		}
 	}
 	
+	//reward값을 수정하기 위함
 	@PostMapping("/updateReward")
 	public String updateReward(Reward reward, RedirectAttributes redirectAttr, Model model) {
 		//log.debug("reward={}",reward);
@@ -513,6 +533,7 @@ public class FundingController {
 		}
 	}
 	
+	//reward값을 삭제하기 위함
 	@PostMapping("/deleteReward")
 	public String deleteReward(Reward reward, RedirectAttributes redirectAttr, Model model) {
 		//log.debug("reward={}",reward.getRewardNo());
@@ -528,6 +549,7 @@ public class FundingController {
 		}
 	}
 	
+	//최종제출하기를 클릭했을시에 status Y로 바꾸어주기 위한 메소드
 	@PutMapping("/finalSubmit")
 	@ResponseBody
 	public Map<String, Object> finalSubmit(@SessionAttribute(name="funding") FundingExt funding){
@@ -544,6 +566,7 @@ public class FundingController {
 		}
 	}
 	
+	//최종제출하기 완료를 한 상태에서 수정하기를 눌렸을 때 -> DB처리가 있지않음. 오직 사용자에게 보여주기 목적.
 	@GetMapping("/finalYSubmit")
 	@ResponseBody
 	public Map<String, Object> finalYSubmit(){
@@ -551,6 +574,8 @@ public class FundingController {
 		map.put("msg","최종 제출된 펀딩을 수정하였습니다.");		
 		return map;	
 	}
+	
+	//최종제출하기 완료를 한 상태에서 수정해서 미완성일때 -> status N으로 바꾸어줌
 	@PutMapping("/finalNSubmit")
 	@ResponseBody
 	public Map<String, Object> finalNSubmit(@SessionAttribute(name="funding") FundingExt funding){
@@ -588,18 +613,20 @@ public class FundingController {
 		return "redirect:/funding/fundingStart1";
 	}
 	
-	
+	//checkSMS.jsp 보여주기 용
 	@GetMapping("/checkSMS")
 	public void checkSMS() {
 		
 	}
 	
+	//SMS인증번호 처리관련 메소드
 	@GetMapping("/checkSMSPhone")
 	@ResponseBody
 	public Map<String, Object> checkSMSPhone(@RequestParam(value="phone") String phone) {
 	    String api_key = "NCSU1PW70UL1PLML";
 	    String api_secret = "BGPK3YEIOVUDDPRLXYM9NWSXIWP5FKZK";
         
+	    //인증번호 만드는 곳
 	    Random rand  = new Random();
         String numStr = "";
         for(int i=0; i<4; i++) {
@@ -630,6 +657,7 @@ public class FundingController {
 		return map;
 	 }
 	
+	//SMS인증 완료시에 휴대폰번호 저장하기 관련 메소드.
 	@PutMapping("/savePhone")
 	@ResponseBody
 	public void savePhone(@RequestBody String phone, @SessionAttribute(name="loginMember") Member loginMember, HttpSession session) {
@@ -637,6 +665,8 @@ public class FundingController {
 		//log.debug("phone={}",phone);
 		log.debug("savePhoneloginMember={}",loginMember);
 	
+		//@RequestParam이 작동하지 않아서 @RequestBody를 사용했는데 
+		//"phone = 010..."이런식으로 String을 받아와서 "phone ="을 자르기 위함 -> 번호만 추출
 		String phoneSub = phone.substring(6);
 		
 		try {
@@ -648,6 +678,7 @@ public class FundingController {
 			loginMember.setPhone(phoneSub);
 			log.debug("savePhoneloginMember={}",loginMember);
 			
+			//session에 휴대전화번호 저장및 변경된 사항을 전달.
 			session.setAttribute("loginMember", loginMember);
 			
 		} catch (Exception e) {
@@ -929,7 +960,7 @@ public class FundingController {
 
 	
 	@GetMapping("/fundingReward")
-	public void fundingReward(@RequestParam int	fundingNo,@RequestParam(required = false) int choice, Model model) {
+	public void fundingReward(@RequestParam int	fundingNo, @RequestParam(value="choice", required = false) int choice, Model model) {
 		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);
 		
@@ -942,14 +973,43 @@ public class FundingController {
 	public void fundingChatMaker() {
 	}
 	
-	@GetMapping("/fundingPayment")
-	public void fundingPayment(@RequestParam int fundingNo, Model model) {
-		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
-		List<Reward> reward = fundingService.selectRewardList(fundingNo);
+	
+	
+	@PostMapping("/fundingPayment")
+	public void fundingPayment(int[] rewardNo, int[] amount,@RequestParam(required = false) int support) {
+		log.debug("rewardNo = {}", rewardNo);
+		log.debug("amount = {}", amount);
 		
-		//2. 위임 
-		model.addAttribute("funding", funding);
-		model.addAttribute("reward", reward);
+		
+		for(int i=0; i<rewardNo.length; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("rewardNo", rewardNo[i]);
+			//amount반복
+		}
+//		public void fundingPayment(@RequestParam int fundingNo,
+//				int support,
+//				int rewardTotalPrice,
+//				String choiceRewardNo,
+//				String choiceRewardCount,
+//				HttpServletRequest request,
+//				
+//				Model model) {
+//		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+//		List<Reward> reward = fundingService.selectRewardList(fundingNo);
+//		
+//		String[] arrName = request.getParameterValues("choiceRewardId");
+//		
+//		
+//		log.debug("support이건 후원금 선택() = {}" , support);
+//		log.debug("rewardTotalPrice = {}" , rewardTotalPrice);
+//		log.debug("arrName = {}" , arrName);
+//		log.debug("arrName = {}" , arrName[1]);
+//		log.debug("choiceRewardNo = {}" , choiceRewardNo);
+//		log.debug("choiceRewardCount = {}" , choiceRewardCount);
+//		
+//		//2. 위임 
+//		model.addAttribute("funding", funding);
+//		model.addAttribute("reward", reward);
 	}
 	
 	
