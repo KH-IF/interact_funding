@@ -382,10 +382,9 @@
 	};
 
 	$(".funding_main_reward_choice_div").click(function(e){
+		
 		var choice = $(e.target).data("choice")
 		location.href="${pageContext.request.contextPath}/funding/fundingReward?fundingNo=${funding.fundingNo}&&choice="+choice;
-		
-		
 	});
 
 		

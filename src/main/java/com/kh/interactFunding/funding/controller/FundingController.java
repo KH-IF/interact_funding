@@ -930,7 +930,7 @@ public class FundingController {
 
 	
 	@GetMapping("/fundingReward")
-	public void fundingReward(@RequestParam int	fundingNo,@RequestParam(required = false) int choice, Model model) {
+	public void fundingReward(@RequestParam int	fundingNo, @RequestParam(value="choice", required = false) int choice, Model model) {
 		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);
 		
@@ -943,14 +943,43 @@ public class FundingController {
 	public void fundingChatMaker() {
 	}
 	
-	@GetMapping("/fundingPayment")
-	public void fundingPayment(@RequestParam int fundingNo, Model model) {
-		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
-		List<Reward> reward = fundingService.selectRewardList(fundingNo);
+	
+	
+	@PostMapping("/fundingPayment")
+	public void fundingPayment(int[] rewardNo, int[] amount,@RequestParam(required = false) int support) {
+		log.debug("rewardNo = {}", rewardNo);
+		log.debug("amount = {}", amount);
 		
-		//2. 위임 
-		model.addAttribute("funding", funding);
-		model.addAttribute("reward", reward);
+		
+		for(int i=0; i<rewardNo.length; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("rewardNo", rewardNo[i]);
+			//amount반복
+		}
+//		public void fundingPayment(@RequestParam int fundingNo,
+//				int support,
+//				int rewardTotalPrice,
+//				String choiceRewardNo,
+//				String choiceRewardCount,
+//				HttpServletRequest request,
+//				
+//				Model model) {
+//		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+//		List<Reward> reward = fundingService.selectRewardList(fundingNo);
+//		
+//		String[] arrName = request.getParameterValues("choiceRewardId");
+//		
+//		
+//		log.debug("support이건 후원금 선택() = {}" , support);
+//		log.debug("rewardTotalPrice = {}" , rewardTotalPrice);
+//		log.debug("arrName = {}" , arrName);
+//		log.debug("arrName = {}" , arrName[1]);
+//		log.debug("choiceRewardNo = {}" , choiceRewardNo);
+//		log.debug("choiceRewardCount = {}" , choiceRewardCount);
+//		
+//		//2. 위임 
+//		model.addAttribute("funding", funding);
+//		model.addAttribute("reward", reward);
 	}
 	
 	
