@@ -1,8 +1,10 @@
+<!-- 리워드를 입력하는 페이지 입니다.  -->
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/views/common/makerNav.jsp" flush="false">
     <jsp:param value="Reward | IF Maker Studio" name="title"/>
 </jsp:include>
@@ -41,7 +43,7 @@
                         <p class="text-muted font-weight-bold">정렬 순서</p>
                     </td>
                     <td class="pl-5">
-                        <p class="text-muted ">
+                        <p class="text-muted">
                             혜택이 높은 순으로 나오도록 정렬 순서를 등록하세요.
                         </p>
                     </td>
@@ -169,8 +171,8 @@
                         <div id="shipPrice" class="input-group">
                             <label class="p-1 ml-4">배송료&nbsp;</label>
                             <div>
-	                            <input name="shippingPrice" type="text" style="width:100px" class="border rounded" value="0" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            	<span class="p-1">원</span>
+	                            <input name="shippingPrice" type="hidden" value="2500">
+                            	<span class="p-1">2500원</span>
                                 <p class="text-muted" style="font-size: 12px">(배송비가 없는 경우,0원 입력)</p>
                             </div>                            
                         </div>
@@ -297,12 +299,11 @@
 						<br>
                         <div id="shipPrice2" class="input-group">
                             <label class="p-1 ml-4">배송료&nbsp;</label>
-                            <div>
-	                            <input name="shippingPrice" type="text" style="width:100px" class="border rounded" value="0" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            	<span class="p-1">원</span>
+                              <div>
+	                            <input name="shippingPrice" type="hidden" value="2500">
+                            	<span class="p-1">2500원</span>
                                 <p class="text-muted" style="font-size: 12px">(배송비가 없는 경우,0원 입력)</p>
-                            </div>                            
-                            
+                            </div>                        
                         </div>
 						<div class="custom-control custom-radio">
 							<input type="radio" name="shipPriceYN" id="noShip2"
@@ -321,16 +322,16 @@
                     <br>
                     <h6 class="font-weight-bold">발송시작일</h6>
                     <div class="input-group-prepend">
-                   <c:if test="${reward.shippingDate == null}">
-				        <div class="form-group row">
-						    <input class="form-control ml-3" type="date" value="<%=sf.format(nowTime) %>" name="shippingDate">
-						</div>
+                   		<c:if test="${reward.shippingDate == null}">
+					        <div class="form-group row">
+							    <input class="form-control ml-3" type="date" value="<%=sf.format(nowTime) %>" name="shippingDate">
+							</div>
 				     	</c:if>
 				 
 				     	<c:if test="${reward.shippingDate != null}">
-				        <div class="form-group row">
-						    <input class="form-control ml-3" type="date" value="" name="shippingDate">
-						</div>
+					        <div class="form-group row">
+							    <input class="form-control ml-3" type="date" value="" name="shippingDate">
+							</div>
 				     	</c:if>
                     </div>
 
@@ -364,7 +365,7 @@
 			<c:forEach items="${rewardList}" var="reward">
 			<form name="rewardUpdateDeleteFrm" method="POST" action="${pageContext.request.contextPath}/funding/deleteReward">
             <input type="hidden" name="rewardNo"/>
-            <div class="card d-inline-flex m-2 mt-4">
+            <div class="card d-inline-flex m-2 mt-4" style="width: 300px">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <!-- 가격 불러오기 -->
@@ -380,12 +381,12 @@
                     <!-- 배송비 불러오기 -->
                     <div class="d-flex justify-content-between mb-2">
                         <p class="font-weight-bold text-muted">배송비</p>
-                        <p class="card-subtitle text-muted">${reward.shippingPrice}원</p>
+                        <p class="card-subtitle text-muted" style="margin-top: unset;">${reward.shippingPrice}원</p>
                     </div>
                     <!-- 리워드 발송 시작일 불러오기 -->
                     <div class="d-flex justify-content-between mb-2">
                         <p class="font-weight-bold text-muted">리워드 발송 시작일</p>
-                        <p class="card-subtitle text-muted">${reward.shippingDate}</p>
+                        <p class="card-subtitle text-muted" style="margin-top: unset;">${reward.shippingDate}</p>
                     </div>
                     
                     <div class="d-flex justify-content-end">
@@ -550,7 +551,7 @@
     	const $price = $frm.find("[name=price]").val();
     	const $title = $frm.find("[name=title]").val();
     	const $content = $frm.find("[name=content]").val();
-    	const $shippingPrice = $frm.find("[name=shippingPrice]").val();
+    	/* const $shippingPrice = $frm.find("[name=shippingPrice]").val(); */
     	const $limitAmount = $frm.find("[name=limitAmount]").val();
     	//배송시작일을 default값이 있으므로 필요가 없음
     	console.log($content);
@@ -567,10 +568,11 @@
     		swal("상세설명을 입력하세요","","warning")
     		return false;
     	}
+    	/* 배송비 fix로 필요 없어짐
     	if(/^(.|\n)+$/.test($shippingPrice) == false){
     		swal("배송비를 입력하세요","","warning")
     		return false;
-    	}
+    	} */
     	if(/^(.|\n)+$/.test($limitAmount) == false){
     		swal("제한수량을 입력하세요","","warning")
     		return false;
@@ -603,7 +605,7 @@
         }
     };
 
-    //옵션 선택시 보이게 안보이게 하기
+    //옵션 선택시 보이게 안보이게 하기 -> 옵션 일단 뺌
     $(document).ready(function() {
        /*      //처음에는 둘 다 안보이게
             $('#optionDirect').hide();

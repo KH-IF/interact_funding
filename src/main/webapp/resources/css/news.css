@@ -299,7 +299,6 @@ yh-c-table{
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	z-index: -1;
 	transform: translate(-50%, -50%);
 	width: 800px;
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -307,8 +306,9 @@ yh-c-table{
 	border-radius: 5px;
 	padding:20px;
 	box-sizing: border-box;
-	opacity: 0;
+	display: none;
 	transition: all 0.5;
+	z-index:1;
 }
 
 .c-write-view a{
@@ -316,7 +316,7 @@ yh-c-table{
 	text-decoration: none;
 }
 
-.c-write-view:target{
+/* .c-write-view:target{
 	opacity: 1;
 	z-index: 3;
 }
@@ -324,17 +324,16 @@ yh-c-table{
 .c-write-view:target + .dim{
 	opacity: 1;
 	z-index: 2;
-}
+} */
 
 .dim{
 	position: absolute;
 	left: 0;
 	top: 0;
-	z-index: -1;
 	width: 100%;
 	height: 100%;
 	background: rgba(0,0,0,0.6);
-	opacity: 0;
+	display: none;
 	transition: all 0.5s;
 }
 
