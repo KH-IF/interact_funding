@@ -6,12 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -39,6 +42,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.google.gson.Gson;
 import com.kh.interactFunding.common.util.HelloSpringUtils;
 import com.kh.interactFunding.common.util.PageBarUtils;
 import com.kh.interactFunding.funding.model.service.FundingService;
@@ -881,7 +885,8 @@ public class FundingController {
 	//천호현
 	
 	@GetMapping("/fundingDetail") 
-	public void fundingDetail(@RequestParam int	fundingNo, Model model) { //1. 업무로직 
+	public void fundingDetail(@RequestParam int	fundingNo, Model model, @SessionAttribute(required = false) Member loginMember) { 
+		//1. 업무로직 
 		FundingExt funding = fundingService.selectOneFunding(fundingNo);
 		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);
@@ -895,6 +900,31 @@ public class FundingController {
 		model.addAttribute("wirterName", wirterName);
 		model.addAttribute("reward", reward);
 		model.addAttribute("fundingParticipationCount", fundingParticipationCount);
+		
+		//3. 기원이추가작업 쿠키 쓰기 
+		List<Funding> myList = null;
+//		List<Funding> -> gson.convert -> List<Object> -> Object.equals,Hashcode -> false
+		if(loginMember !=null) {
+			//Google + Json = gson
+			Gson gson = new Gson();
+			String jsonObject = fundingService.selectMyListJson(loginMember.getMemberNo());
+			myList = gson.fromJson(jsonObject, ArrayList.class);
+			if(myList==null || myList.isEmpty()) {
+				myList=new ArrayList<>();
+			}
+			
+			if(myList.size()==4) {
+				myList.remove(0);
+			}
+			Funding recordFunding = fundingService.selectOneFundingKYS(funding.getFundingNo());
+			myList.add(recordFunding);
+			Map<String, Object> param = new HashMap<>();
+			param.put("memberNo", loginMember.getMemberNo());
+			param.put("json", gson.toJson(myList));
+			int result = fundingService.deleteMyListJson(param);
+			result = fundingService.insertMyListJson(param);
+		}
+
 	}
 
 	

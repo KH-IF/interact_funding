@@ -239,18 +239,6 @@ public class FundingServiceImpl implements FundingService{
 		return fundingList;
 	}
 	/**
-	 * 회원들이 좋아할 프로젝트 (조회순 리스트 1~4)
-	 */
-	@Override
-	public List<Funding> indexviewlist() {
-		List<Funding> fundingList = fundingDao.indexviewlist();
-
-		for (Funding funding : fundingList) {
-			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));
-		}
-		return fundingList;
-	}
-	/**
 	 * 좋아요 많이받은 순객체 입니다.
 	 */
 	@Override
@@ -283,6 +271,19 @@ public class FundingServiceImpl implements FundingService{
 			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));
 		}
 		return fundingList;
+	}
+	@Override
+	public String selectMyListJson(int memberNo) {
+		return fundingDao.selectMyListJson(memberNo);
+	}
+	
+	@Override
+	public int deleteMyListJson(Map<String, Object> param) {
+		return fundingDao.deleteMyListJson(param);
+	}
+	@Override
+	public int insertMyListJson(Map<String, Object> param) {
+		return fundingDao.insertMyListJson(param);
 	}
 	//이승우
 	@Override
