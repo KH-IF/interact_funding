@@ -182,11 +182,6 @@ public class FundingDaoImpl implements FundingDao{
 	public List<Funding> indexfundingList() {
 		return session.selectList("funding.indexfundingList");
 	}
-
-	@Override
-	public List<Funding> indexviewlist() {
-		return session.selectList("funding.indexviewlist");
-	}
 	
 	@Override
 	public List<Funding> indexlikelist() {
@@ -201,6 +196,19 @@ public class FundingDaoImpl implements FundingDao{
 	@Override
 	public List<Funding> indexRankingviewlist() {
 		return session.selectList("funding.indexRankingviewlist");
+	}
+	@Override
+	public String selectMyListJson(int memberNo) {
+		return session.selectOne("funding.selectMyListJson",memberNo);
+	}
+	
+	@Override
+	public int deleteMyListJson(Map<String, Object> param) {
+		return session.insert("funding.deleteMyListJson",param);
+	}
+	@Override
+	public int insertMyListJson(Map<String, Object> param) {
+		return session.insert("funding.insertMyListJson",param);
 	}
 	//이승우
 	@Override

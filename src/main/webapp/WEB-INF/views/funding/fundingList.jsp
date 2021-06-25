@@ -212,9 +212,7 @@
                     <div class="fundingProjectCardListInfo">
                         <div class="fundingProjectCardItemTitle">
                             <div class="fundingProjectCardItemTitleBox">
-<<<<<<< HEAD
                                 <a class="fundingProjectCardItemTitleLink" href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}">
-=======
                                 <a class="fundingProjectCardItemTitleLink" href="${pageContext.request.contextPath}/funding/fundingDetail?funding_no=${funding.fundingNo}">
                                     <p><strong>${funding.content}</strong></p>
 
@@ -222,7 +220,6 @@
                         <div class="FundingProjectCardItemTitle">
                             <div class="FundingProjectCardItemTitleBox">		
                                 <a class="FundingProjectCardItemTitleLink">
->>>>>>> branch 'master' of https://github.com/KH-IF/interact_funding.git
                                     <p><strong>${funding.title}</strong></p>
                                 </a>
                                 <div>
