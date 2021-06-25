@@ -835,6 +835,12 @@ from(
 ) f
 where rownum between 1 and 5
 order by DBMS_RANDOM.RANDOM;
+
+select
+*
+from
+member
+order by member_no desc;
 --천호현 테스트영역
 select * from funding;
 select * from funding_reward;

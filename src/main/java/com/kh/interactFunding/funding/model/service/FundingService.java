@@ -61,10 +61,12 @@ public interface FundingService {
 	
 	//배기원
 	public List<Funding> indexfundingList();
-	List<Funding> indexviewlist();
 	List<Funding> indexlikelist();
 	List<Funding> indexfundingRefresh();
 	List<Funding> indexRankingviewlist();
+	String selectMyListJson(int memberNo);
+	int deleteMyListJson(Map<String, Object> param);
+	int insertMyListJson(Map<String, Object> param);
 	
 		
 	//이승우
