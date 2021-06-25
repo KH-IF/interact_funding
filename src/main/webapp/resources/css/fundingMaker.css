@@ -1,0 +1,177 @@
+/* --------------------------------------------------------------- 
+   Google Fonts
+-----------------------------------------------------------------*/
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,400,500,600,700,800|Nunito:300,400,600,700,800");
+*{
+	font-family: "Poppins", sans-serif;
+	
+}
+
+
+.timeline {
+  list-style-type: none;
+  position: relative;
+}
+.timeline:before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  height: 100%;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  border-left: 3px dashed #e3e6f0;
+}
+.timeline .timeline-item {
+  margin: 3rem 2rem 3rem 5rem;
+}
+.timeline .timeline-item > h4 {
+  margin-bottom: 0;
+}
+.timeline .timeline-item .timeline-item-date {
+  font-size: .9rem;
+  margin-bottom: 30px;
+}
+.timeline .timeline-item .timeline-item-image {
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.timeline .timeline-item .timeline-item-image img {
+  width: 100%;
+  height: auto;
+}
+.timeline .timeline-item .timeline-icon {
+  background-color: #2250fc;
+  position: absolute;
+  border-radius: 50%;
+  left: 0px;
+  width: 34px;
+  height: 34px;
+  z-index: 3;
+  color: #ffffff;
+  text-align: center;
+  padding: 5px;
+  font-size: 18px;
+}
+.timeline .timeline-item .timeline-icon i {
+  margin-top: 1px;
+}
+/* ----------------------------------------------------------------
+	Accordion
+-----------------------------------------------------------------*/
+.group,
+ .box {
+   width: 600px;
+   margin: 0 auto;
+ }
+ 
+ .box .title {
+   display: block;
+ }
+ 
+ .box .title {
+   display: block;
+   padding: 10px;
+   background-color: #EEEEEE;
+   border-bottom: 1px solid #EEEEEE;
+ }
+ 
+ .box .cont {
+   padding: 10px;
+   background-color: #EEEEEE;
+   border-bottom: 1px solid #EEEEEE;
+ }
+
+/*Text Box*/
+.text-box {
+  padding: 20px;
+  transition: background 0.4s ease 0s;
+  cursor: pointer;
+}
+.text-box i {
+  font-size: 42px;
+  margin: 10px 0 ;
+}
+.text-box p {
+  color: #fff;
+  transition: all 0.4s ease 0s;
+}
+.text-box h3{
+  color: #fff;
+  transition: all 0.4s ease 0s;
+}
+.text-box:hover {
+  background: #eeeeee;
+}
+.text-box:hover i,
+.text-box:hover h3,
+.text-box:hover h5,
+.text-box:hover p {
+  color: #333;
+}
+.text-box.text-box-light {
+  border: 1px solid #d9d9d9;
+  background: #ffffff;
+}
+.text-box.text-box-light i,
+.text-box.text-box-light h3,
+.text-box.text-box-light h5,
+.text-box.text-box-light p {
+  color: #1f1f1f;
+}
+.text-box.text-box-light:hover {
+  background: #2250fc;
+}
+.text-box.text-box-light:hover i,
+.text-box.text-box-light:hover h3,
+.text-box.text-box-light:hover h5,
+.text-box.text-box-light:hover p {
+  color: #ffffff;
+}
+.text-box.hover-effect {
+  padding: 30px 30px 10px 30px;
+}
+.text-box.hover-effect i {
+ /*  margin: 90px 0 20px; */
+}
+.text-box.hover-effect p {
+  opacity: 0;
+}
+.text-box.hover-effect:hover p {
+  margin: 50px 0 6px 0;
+}
+.text-box.hover-effect:hover p {
+  opacity: 1;
+}
+.farCostom {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+.icon[data-animate] {
+    opacity: 1;
+}
+.icon-box .icon {
+    height: 64px;
+    position: absolute;
+    width: 64px;
+}
+.animated.infinite {
+    animation-duration: 3s;
+    animation-fill-mode: both;
+}
+.animated.infinite {
+    animation-iteration-count: infinite;
+}
+.bounce {
+    animation-name: bounce;
+    transform-origin: center bottom;
+}
+.visible {
+    visibility: visible!important;
+}
