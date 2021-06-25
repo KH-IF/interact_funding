@@ -500,7 +500,7 @@
 		    order by funding_no desc
 		) f
 		where rownum between 1 and 5
-		order by DBMS_RANDOM.RANDOM
+		order by dbms_random.random
 	</select>
 	<select id="selectEarlyList" resultMap="fundingVoMap">
 		select * 
@@ -532,7 +532,7 @@
 		    order by funding_no desc
 		) f
 		where rownum between 1 and 5
-		order by DBMS_RANDOM.RANDOM
+		order by dbms_random.random
 	</select>
 	<!-- 천호현 -->
     

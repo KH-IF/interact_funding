@@ -779,8 +779,9 @@ public class FundingController {
 			
 			// 검색 업무로직
 			List<Funding> list = fundingService.fundingList(map);
-			List<Funding> bannerList = fundingService.fundingListBanner();
 			int totalContents = fundingService.selectFundingListTotalContents(map);
+			// 페이지 넘길 때 슬라이드 배너에도 같이 적용되기 때문에 DB도 추가함
+			List<Funding> bannerList = fundingService.fundingListBanner();
 			String url = request.getRequestURI() + "?category=" + category + "&searchSelect1=" + searchSelect1 + "&searchSelect2=" + searchSelect2 + "&searchKeyword=" + searchKeyword;
 //			String memberName = "비회원";
 //			for(Funding funding : list) {
@@ -792,7 +793,7 @@ public class FundingController {
 			
 			//jsp에 위임
 			mav.addObject("list", list); 
-			mav.addObject("bannerList", bannerList); 
+			mav.addObject("bannerList", bannerList); //슬라이드 배너
 			mav.addObject("pageBar", pageBar); // 페이지
 			mav.addObject("map", map);
 			mav.addObject("totalContents", totalContents);
@@ -822,8 +823,9 @@ public class FundingController {
 			map.put("offset", offset);
 			
 			List<Funding> list = fundingService.earlyList(map);
-			List<Funding> bannerList = fundingService.earlyListBanner();
 			int totalContents = fundingService.selectEarlyListTotalContents();
+			// 페이지 넘길 때 슬라이드 배너에도 같이 적용되기 때문에 DB도 추가함
+			List<Funding> bannerList = fundingService.earlyListBanner();
 			String url = request.getRequestURI();
 			
 			String pageBar = PageBarUtils.getPageBar(totalContents, cPage, limit, url);
