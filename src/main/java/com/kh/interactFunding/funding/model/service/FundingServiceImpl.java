@@ -62,7 +62,25 @@ public class FundingServiceImpl implements FundingService{
 		return fundingDao.cancelReward(no);
 	}
 	//김경태
+	
 	//김주연
+	// fundingStart1에서 필요. 작성중인 펀딩 리스트를 불러옴
+	@Override
+	public List<FundingExt> statusNList(int memberNo) {
+		List<FundingExt> fundingList = fundingDao.statusNList(memberNo);
+		
+		for(FundingExt funding: fundingList) {
+			Attachment attach = fundingDao.selectOneAttach(funding.getFundingNo());
+			if(attach == null) {				
+				attach = new Attachment();
+				attach.setRenamedFilename("image-not-found.jpg");					
+			}
+			funding.setAttachment(attach);
+		}
+		
+		return fundingList;
+	}
+	// fundingStart1에서 필요. 작성완료한 펀딩리스트를 불러옴
 	@Override
 	public List<FundingExt> statusYList(int memberNo) {
 		
@@ -79,21 +97,7 @@ public class FundingServiceImpl implements FundingService{
 		
 		return fundingList;
 	}
-	@Override
-	public List<FundingExt> statusNList(int memberNo) {
-		List<FundingExt> fundingList = fundingDao.statusNList(memberNo);
-		
-		for(FundingExt funding: fundingList) {
-			Attachment attach = fundingDao.selectOneAttach(funding.getFundingNo());
-			if(attach == null) {				
-				attach = new Attachment();
-				attach.setRenamedFilename("image-not-found.jpg");					
-			}
-			funding.setAttachment(attach);
-		}
-		
-		return fundingList;
-	}
+	//fundingStart1에서 필요. 현재 진행중인 펀딩 리스트
 	@Override
 	public List<FundingExt> nowList(int memberNo) {
 		List<FundingExt> fundingList = fundingDao.nowList(memberNo);
@@ -109,6 +113,7 @@ public class FundingServiceImpl implements FundingService{
 		
 		return fundingList;
 	}
+	//fundingStart1에서 필요. 진행완료한 펀딩 리스트
 	@Override
 	public List<FundingExt> finishList(int memberNo) {
 		List<FundingExt> fundingList = fundingDao.finishList(memberNo);
@@ -123,93 +128,109 @@ public class FundingServiceImpl implements FundingService{
 		
 		return fundingList;
 	}
+	//newFunding에서 필요. 펀딩을 새로만들때 FundingNo만 새로 부여
 	@Override
 	public int ready1FundingInsertNo(Funding funding) {
 		return fundingDao.ready1FundingInsertNo(funding);
 	}
+	//ready1Funding에서 필요. 펀딩 작성이 어디까지 되었는지 확인하기위함.
 	@Override
 	public FundingExt selectCheckFunding(int fundingNo) {
 		FundingExt funding = fundingDao.selectCheckFunding(fundingNo);
 		funding.setAttachment(fundingDao.selectOneAttach(fundingNo));
 		return funding;
 	}
+	//saveCharge에서 필요. 요금제 저장
 	@Override
 	public int saveCharge(Map<String, Object> param) {
 		return fundingDao.saveCharge(param);
 	}
 	
-	
+	//saveBasicInfo에서 필요. 기본정보 저장 
 	@Override
     public int saveBasicInfo(FundingExt funding) {
         int result = 0;
         result = fundingDao.saveBasicInfo(funding);
-        log.debug("funding = {}",funding);
+        //log.debug("funding = {}",funding);
         
-        //attachment 등록
-        if(funding.getAttachment() == null) {
-//            Attachment attach = funding.getAttachment(); 
-//            attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
-//            result = insertAttachment(attach);
-//            log.debug("attach={}",attach);
-        } else {
-        	 Attachment attach =funding.getAttachment();
+        Attachment attach = funding.getAttachment();
+        //attachment 등록 
+        if(attach.getNo() != 0) { 
+        	//attachment를 등록했던적이 있는 경우
              attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
              int fundingNo = attach.getFundingNo();
+             //새로 메인 이미지를 등록했을 이전의 이미지의 status를 N으로 바꿈
              result = updateAttachment(fundingNo);
+             //새로 메인 이미지를 등록함.
              result = insertAttachment(attach);
+        }else {
+        	attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
+        	//등록한 적 없는 경우
+        	result = insertAttachment(attach);        	
         }
         
         return result;
     }
+	//saveBasicInfo에서 사용되는 메서드
 	@Override
 	public int updateAttachment(int fundingNo) {
 		return fundingDao.updateAttachment(fundingNo);		
 	}
+	//saveBasicInfo에서 사용되는 메서드
 	@Override
 	public int insertAttachment(Attachment attach) {
 		return fundingDao.insertAttachment(attach);
 	}
+	//스토리 저장
 	@Override
 	public int saveStory(FundingExt funding) {
 		return fundingDao.saveStory(funding);
 	}
+	//ready1Funding, ready5Reward에서 필요 리워드 리스트 불러오기
 	@Override
 	public List<Reward> loadReward(int fundingNo) {
 		return fundingDao.loadReward(fundingNo);
 	}
-	
+	//selectOneReward에서 필요. reward 수정에서 값을 뿌려주기 위한 메소드
 	@Override
 	public Reward selectOneReward(int rewardNo) {
 		return fundingDao.selectOneReward(rewardNo);
 	}
+	//리워드 값 삽입
 	@Override
 	public int insertReward(Reward reward) {
 		return fundingDao.insertReward(reward);
 	}
+	//리워드 값 수정
 	@Override
 	public int updateReward(Reward reward) {
 		return fundingDao.updateReward(reward);
 	}
+	//리워드 삭제
 	@Override
 	public int deleteReward(int rewardNo) {
 		return fundingDao.deleteReward(rewardNo);
 	}
 
-	
+	//최종제출시에 status컬럼 Y로 바꿈
 	@Override
 	public int finalSubmit(int fundingNo) {
 		return fundingDao.finalSubmit(fundingNo);
 	}
+	//최종제출하기 완료를 한 상태에서 수정해서 미완성일때 -> status N으로 바꾸어줌
 	@Override
 	public int finalNSubmit(int fundingNo) {
 		return fundingDao.finalNSubmit(fundingNo);
 	}
+	//existFunding,ready3BasicInfo,ready4Story에서 필요
+	//fundingNo로 펀딩정보 불러오기
 	@Override
 	public FundingExt loadFunding(int fundingNo) {
 		FundingExt funding = fundingDao.loadFunding(fundingNo);
 		funding.setAttachment(fundingDao.selectOneAttach(fundingNo));
 		return funding;
 	}
+	//펀딩 삭제하기
 	@Override
 	public int deleteFunding(int fundingNo) {
 		return fundingDao.deleteFunding(fundingNo);

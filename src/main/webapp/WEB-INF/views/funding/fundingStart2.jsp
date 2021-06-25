@@ -1,3 +1,5 @@
+<!-- 새로만들기 클릭했을때 넘어오는 페이지 입니다. 
+스튜디오 바로가기 버튼을 눌렀을경우 ready1Funding.jsp으로 가게됩니다.  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 

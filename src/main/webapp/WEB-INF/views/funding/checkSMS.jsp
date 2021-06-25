@@ -1,3 +1,4 @@
+<!-- SMS인증 관련 페이지 입니다 번호 인증하기나 제출하기을 누르면 오게 됩니다.  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -115,14 +116,6 @@ function smsSend(btn){
 
 	console.log(phone);
     
-   /*  $.ajax({
-		url:"${pageContext.request.contextPath}/funding/savePhone",
-		method: "PUT",
-		data: {phone : phone},
-		success(data){
-		},
-		error: console.log
-	});	    */
 
      $.ajax({
         type: "GET",

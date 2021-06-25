@@ -1,6 +1,14 @@
+<!--펀딩하기 시작하기를 누르면 오게되는 페이지 입니다.
+여기서는 프로젝트 새로만들기, 작성중인 프로젝트 정보, 작성완료한 프로젝트 정보, 현재 진행중인 프로젝트 정보, 진행완료한 지난 프로젝트 정보를
+리스트로 받아옵니다.
+알람 표시하는 부분이 header.jsp와 곂치는 부분이 있습니다 확인해주세요.
+ -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fundingMaker.css" />
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <jsp:include page="/WEB-INF/views/common/header.jsp" flush="false">
     <jsp:param value="IF Funding Start" name="title"/>
 </jsp:include>
@@ -21,11 +29,16 @@ window.setTimeout(function() {
 }
 .card:hover{
 	 box-shadow: 5px 5px 7px #888888;
+	 background: #EEEEEE;
+     height: 450px;
 }
-#goStudio{
+.card{
+    height: 450px;
+}
+.goStudio{
 	width: 100%;
 }
-#goFunding{
+.goFunding{
 	width: 100%;
 }
 .startEndDate{
@@ -37,6 +50,20 @@ h2.h2Title{
 	margin: 10px 0px 30px 0px;
 	padding: 0px 0px 0px 15px;
 }
+.card-img-top{
+	height: 175px;
+
+}
+.card-title{
+	width: 240px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 45px;
+}
+
 </style>
     <section>
       	<!-- 알람 -->
@@ -53,18 +80,18 @@ h2.h2Title{
           	<form action="${pageContext.request.contextPath}/funding/newFunding" method="POST">
             	<button class="btn btn-outline-info" type="submit" id="sendPhoneNumber" style="width: 20vw;">새로 만들기 </button>
           	</form>
-          
-            
+       
             <br />
            	<hr />
            	<br />
-        	<h2 class="h2Title"><strong>작성중인 프로젝트 정보</strong></h2>
+        	<h2 class="h2Title">
+        		<strong>작성중인 프로젝트 정보</strong></h2>
            	<c:if test="${not empty statusNList}">
 	            <c:forEach var="funding" items="${statusNList}" varStatus="vs">
-					<div id="funding" class="card d-inline-flex m-2" style="width: 18rem;">
-					<form  action="${pageContext.request.contextPath}/funding/existFunding" id="existFundingFrm">
+					<div  class="card d-inline-flex m-2" style="width: 18rem;">
+					<form  action="${pageContext.request.contextPath}/funding/existFunding" >
 			           	<div class="cardProjectNo"><span>Project No.${funding.fundingNo}</span></div>
-			           	<input id="fundingNo" name="fundingNo" type="hidden" value="${funding.fundingNo}"/>
+			           	<input  name="fundingNo" type="hidden" value="${funding.fundingNo}"/>
 						<c:set value="${funding.attachment}" var="attach" scope="page" />
 						<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"  alt="파일을 찾을 수 없습니다."> 
 							  
@@ -75,7 +102,7 @@ h2.h2Title{
 							    <p class="card-text">${loginMember.name}</p>
 						    </div>
 							<br>
-							<button class="btn btn-outline-info " type="submit" id="goStudio">스튜디오 바로가기 </button>
+							<button class="btn btn-outline-info goStudio" type="submit" >스튜디오 바로가기 </button>
 						</div>
 					</form>
 					</div>
@@ -94,7 +121,7 @@ h2.h2Title{
         	<c:if test="${not empty statusYList}">
 				<c:forEach var="funding" items="${statusYList}">
 					<div class="card d-inline-flex m-2" style="width: 18rem;">
-					<form  action="${pageContext.request.contextPath}/funding/existFunding" id="existFundingFrm">
+					<form  action="${pageContext.request.contextPath}/funding/existFunding" >
 						<div class="cardProjectNo"><span>Project No.${funding.fundingNo}</span></div>
 						<input name="fundingNo" type="hidden" value="${funding.fundingNo}"/>
 					  	<c:set value="${funding.attachment}" var="attach" scope="page" />
@@ -108,8 +135,7 @@ h2.h2Title{
 							    					  종료일 : ${funding.DDay}
 							    </p>
 					    	</div>
-					    	<br>
-						    <button class="btn btn-outline-info " type="submit" id="goStudio">스튜디오 바로가기 </button>
+						    <button class="btn btn-outline-info goStudio" type="submit" >스튜디오 바로가기 </button>
 					 	</div>
 					</form>
 					</div>
@@ -144,7 +170,7 @@ h2.h2Title{
 							</div>
 						    <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 		                        style="color: #000000;">
-						    	<button class="btn btn-outline-info" type="button" id="goFunding">펀딩페이지 바로가기 </button>
+						    	<button class="btn btn-outline-info goFunding" type="button">펀딩페이지 바로가기 </button>
 		                    </a>
 						</div>
 					</div>
@@ -179,7 +205,7 @@ h2.h2Title{
 							</div>
 						    <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 		                        style="color: #000000;">
-						    	<button class="btn btn-outline-info" type="button" id="goFunding">펀딩페이지 바로가기 </button>
+						    	<button class="btn btn-outline-info goFunding" type="button">펀딩페이지 바로가기 </button>
 		                    </a>
 						</div>
 					</div>
