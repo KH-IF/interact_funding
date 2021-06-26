@@ -1,7 +1,9 @@
+<!-- 스튜디오 바로가기 했을 때 보여지는 페이지 입니다. 펀딩을 등록할때 필요한 정보를 체크하며 제출, 번호인증할 수 있는 버튼이 여기 있습니다. -->
 <%@page import="com.kh.interactFunding.funding.model.vo.FundingExt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/views/common/makerNav.jsp" flush="false">
     <jsp:param value="IF Maker Studio" name="title"/>
 </jsp:include>
@@ -22,16 +24,24 @@
     overflow-y: auto;
 }
 
-div.leftB{
-	border: 1px solid #E6EAED;
+/* div.leftB:hover{
+	border: 1px dot #E6EAED;
 	border-left: 15px solid #17A2B8;
-}
+} */
 p.modelPTage{
 	font-size: 18px; 
 	font-weight:bold;
 }
 .colorTurquoise{
 	color: #17A2B8;
+}
+.col-lg-4{
+	border: 5px double white; height: auto; padding: 10px;
+}
+.writeTextColor{
+	color: #BC6023 !important;
+	font-size: 20px;
+	display: inline!important;
 }
 </style>
 
@@ -112,85 +122,114 @@ p.modelPTage{
                 <div class="p-3 mb-2 bg-info text-white rounded">리워드 펀딩을 준비하는 메이커님을 위한 <h3>필수 가이드</h3></div>
             </a>
 
-            <div class="border border-secondary">
-                프로젝트 준비 상태
-                <p class="text-right">
-                    지금 나의 단계는?
-                </p> 
-                <p>
-                    펀딩 준비 작성 중
-                    필수 항목을 모두 작성 후 저장하기 버튼을 클릭해주세요. 작성 중 > 작성 완료 상태로 변경되어야 최종 제출이 가능합니다.
+            <div class="border border-secondary rounded" style="padding:20px;">
+                <p class="d-flex justify-content-between">
+	                <span>프로젝트 준비 상태</span>
+                	<c:if test="${writeMap.ratePlanCode != 'OK' || writeMap.basicInfo != 'OK' || writeMap.story != 'OK' || writeMap.reward != 'OK'}">
+		            	<span><div class="spinner-grow text-warning" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>펀딩 준비 작성 중</span>
+		            </c:if>
+					<c:if test="${writeMap.ratePlanCode == 'OK' && writeMap.basicInfo == 'OK'&& writeMap.story == 'OK' && writeMap.reward == 'OK'}">
+		           		<span>펀딩 작성 완료</span>
+		            </c:if>
                 </p>
+				<div class="text-muted">
+				
+	                <span>필수 항목을 모두 작성 후 저장하기 버튼을 클릭해주세요. 작성 중 > 작성 완료 상태로 변경되어야 최종 제출이 가능합니다.</span>
+				</div>
+                
             </div>
             <br>
     
-            <div class="leftB rounded p-3 ">
-                <br>
-                <p class="h3 d-inline font-weight-bold"> 요금제 선택 </p> &nbsp;&nbsp; 
-                <!-- 작성 완료하면 작성 완료로 변경 -->
-                <c:if test="${writeMap.ratePlanCode == 'OK'}" >
-                	<span class="d-inline colorTurquoise">작성완료</span> 
-                </c:if>
-                <c:if test="${writeMap.ratePlanCode != 'OK'}" >
-                	<span class="d-inline colorTurquoise">작성 중</span> 
-                </c:if>
-                <button type="button" class=" btn btn-outline-info btn-lg float-right" onclick="makerMovePage('2Charge')">
-                    작성하기
-                </button>
-                <br>
-                <br>
+    		
+   		<div class="row equalize" data-equalize-item=".text-box">
+           
+    	<div class="col-lg-4" style="background-color: #247FBC;margin: 50px;height:220px">
+            <div class="leftB rounded p-3 text-box hover-effect "style="height: 220px !important;" >
+                <p class="farCostom">
+	                <h3 class="h3 d-inline font-weight-bold"> 요금제 선택 </h3> &nbsp;&nbsp; 
+	                <br />
+	                <!-- 작성 완료하면 작성 완료로 변경 -->
+	                <c:if test="${writeMap.ratePlanCode == 'OK'}" >
+	                	<p class="writeTextColor" style="font-size: 20px">작성완료</p> 
+	                </c:if>
+	                <c:if test="${writeMap.ratePlanCode != 'OK'}" >
+	                	<p class="writeTextColor" style="font-size: 20px">작성 중</p> 
+	                </c:if>
+	                <br />
+	                <button type="button" class=" btn btn-light btn-lg float-right" onclick="makerMovePage('2Charge')" margin: 50px; style="margin-left: 175px;">
+	                    작성하기
+	                </button>
+                </p>
             </div>
+    	</div>
             <br>
-
-            <div class="leftB rounded p-3">
-                <br>
-                <p class="h3 d-inline font-weight-bold">기본 정보</p> &nbsp;&nbsp; 
+		<div class="col-lg-4" style="background-color: #5CA1D0;margin: 50px; height:220px">
+            <div class="leftB rounded p-3 text-box hover-effect "style="height: 220px !important;">
+                <p class="farCostom">
+                <h3 class="h3 d-inline font-weight-bold">기본 정보</h3> &nbsp;&nbsp; 
+                <br />
                 <c:if test="${writeMap.basicInfo == 'OK'}" >
-                	<span class="d-inline colorTurquoise">작성완료</span> 
+                	<p class="writeTextColor" style="font-size: 20px">작성완료</p> 
                 </c:if>
                 <c:if test="${writeMap.basicInfo != 'OK'}" >
-                	<span class="d-inline colorTurquoise">작성 중</span> 
+                	<p class="writeTextColor" style="font-size: 20px">작성 중</p> 
                 </c:if>
-                <button type="button" class=" btn btn-outline-info btn-lg float-right" onclick="makerMovePage('3BasicInfo')">
+                <br />
+                <button type="button" class=" btn btn-light btn-lg float-right" onclick="makerMovePage('3BasicInfo')" margin: 50px; style="margin-left: 175px;">
                     작성하기
                 </button>
                 <br>
                 <br>
+                </p>
             </div>
+    	</div>
             <br>
 
-            <div class="leftB rounded p-3">
-                <br>
-                <p class="h3 d-inline font-weight-bold">스토리 작성</p> &nbsp;&nbsp; 
+                
+    	<div class="col-lg-4" style="background-color: #68A9D4;margin: 50px; height:220px">
+            <div class="leftB rounded p-3 text-box hover-effect" style="height: 220px !important;">
+                <p class="farCostom">
+                <h3 class="h3 d-inline font-weight-bold">스토리 작성</h3> &nbsp;&nbsp; 
+               	<br />
                	<c:if test="${writeMap.story == 'OK'}" >
-                	<span class="d-inline colorTurquoise ">작성완료</span> 
+                	<p class="writeTextColor" style="font-size: 20px">작성완료</p> 
                 </c:if>
                 <c:if test="${writeMap.story != 'OK'}" >
-                	<span class="d-inline colorTurquoise">작성 중</span> 
-                </c:if> 
-                <button type="button" class=" btn btn-outline-info btn-lg float-right" onclick="makerMovePage('4Story')">
+                	<p class="writeTextColor" style="font-size: 20px">작성 중</p> 
+                </c:if>
+                <br /> 
+                <button type="button" class=" btn btn-light btn-lg float-right" onclick="makerMovePage('4Story')" margin: 50px; style="margin-left: 175px;">
                     작성하기
                 </button>
                 <br>
                 <br>
+               </p>
             </div>
+    	</div>
             <br>
             
-            <div class="leftB rounded p-3">
-                <br>
-                <p class="h3 d-inline font-weight-bold">리워드 설계</p> &nbsp;&nbsp; 
+       <div class="col-lg-4" style="background-color: #247FBC;margin: 50px; height:220px">
+            <div class="leftB rounded p-3 text-box hover-effect " style="height: 220px !important;">
+                <p class="farCostom">
+                <h3 class="h3 d-inline font-weight-bold">리워드 설계</h3> &nbsp;&nbsp; 
+                <br />
                 <c:if test="${writeMap.reward == 'OK'}" >
-                	<span class="d-inline colorTurquoise">작성완료</span> 
+                	<p class="writeTextColor" style="font-size: 20px">작성완료</p> 
                 </c:if>
                 <c:if test="${writeMap.reward != 'OK'}" >
-                	<span class="d-inline colorTurquoise">작성 중</span> 
+                	<p class="writeTextColor" style="font-size: 20px">작성 중</p> 
                 </c:if>
-                <button type="button" class=" btn btn-outline-info btn-lg float-right" onclick="makerMovePage('5Reward')">
+                <br />
+                <button type="button" class=" btn btn-light btn-lg float-right" onclick="makerMovePage('5Reward')" margin: 50px; style="margin-left: 175px;">
                     작성하기
                 </button>
                 <br>
                 <br>
+              </p>
             </div>
+    	</div>
             <br>
 
 			 <!-- 차후 추가여부 결정 -->
@@ -198,14 +237,16 @@ p.modelPTage{
                 <br>
                 <p class="h3 d-inline">관리</p> &nbsp;&nbsp; 
                 <span  class="d-inline">작성 중</span> 
-                <button type="button" class=" btn btn-outline-info btn-lg float-right" onclick="makerMovePage('6Reward')">
+                <button type="button" class=" btn btn-light btn-lg float-right" onclick="makerMovePage('6Reward')">
                     작성하기
                 </button>
                 <br>
                 <br>
             </div>
             <br> -->
-			
+		</div>
+    
+			<br /><br />
 			<!-- 최종 제출했을 시 펀딩 삭제가 불가능하다. -->
 			<!-- 최종 제출이 안되었을 때 전화번호 인증안했을 때 -->
 			<c:if test="${funding.status != true && loginMember.phone == null}">
@@ -216,7 +257,7 @@ p.modelPTage{
 				<form id="fundingDeleteFrm" method="POST" action="${pageContext.request.contextPath}/funding/deleteFunding">
 					<input type="hidden" name="fundingNo">
 					<button type="button" id="deleteFunding" class="btn btn-outline-danger btn-lg " style="width: 200px;" onclick="deletefunding()">펀딩 삭제하기</button>
-				</form>
+				<form>
 			</c:if>
 			
 			<!-- 최종 제출이 안되었을 때 전화번호는 인증한 상태  -->
@@ -230,7 +271,7 @@ p.modelPTage{
 					<form id="fundingDeleteFrm" method="POST" action="${pageContext.request.contextPath}/funding/deleteFunding">
 						<input type="hidden" name="fundingNo">
 						<button type="button" id="deleteFunding" class="btn btn-outline-danger btn-lg " style="width: 200px;" onclick="deletefunding()">펀딩 삭제하기</button>
-					</form>
+					<form>
 			</c:if>
 				
 			<!-- 최종 제출이 되었을 때 -->
@@ -256,6 +297,7 @@ p.modelPTage{
         <input type="hidden" id="reward" value="${writeMap.reward}"/>
         
         </section>
+</div>
 <script>
 
 	$(document).ready(function(){

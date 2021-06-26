@@ -71,7 +71,6 @@
 		<result column="member_no" property="memberNo"/>
 		<result column="reg_date" property="regDate"/>
 		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
-		<result column="point" property="point"/>
 		<result column="address" property="address"/>
 		<result column="name" property="name"/>
 		<result column="phone" property="phone"/>
@@ -79,6 +78,7 @@
 		<collection property="rewardList" ofType="rewardCollection">
 			<id column="no" property="no"/>
 			<result column="reward_no" property="rewardNo"/>
+			<result column="point" property="point"/>
 			<result column="price" property="price"/>
 			<result column="title" property="title"/>
 			<result column="content" property="content"/>
@@ -271,7 +271,13 @@
 				#{limitAmount},
 				#{shippingDate}		
 			)
-		
+		<!-- 천호현이 추가함 -->
+		<selectKey keyProperty="rewardNo" resultType="_int" order="AFTER">
+			select
+				seq_funding_reward_no.currval
+			from 
+				dual
+		</selectKey>
 	</insert>
 	
 	<update id="updateReward">
@@ -449,18 +455,6 @@
 		) f
 		where rownum between 1 and 6
 	</select>
-	<!-- 회원들이 좋아할 프로젝트 받아오는(조회순) 객체입니다. -->
-	<select id="indexviewlist" resultMap="fundingVoMap">
-		select rownum, f.*
-		from (
-		select funding.*
-		from funding
-		where <![CDATA[start_date < sysdate and d_day > sysdate]]>
-		and status ='Y'
-		order by readcount desc
-		) f
-		where rownum between 1 and 4
-	</select>
 	<!-- 실시간랭킹 리스트입니다. -->
 	<select id="indexlikelist" resultMap="fundingVoMap">
 		select rownum, f.*
@@ -497,11 +491,26 @@
 		) f
 		where rownum between 1 and 6
    	</select>
-    
+   	
+   	<select id="selectMyListJson" resultType="string">
+   		select my_list from funding_mylist where member_no = #{memberNo}
+   	</select>
+   	
+   	<delete id="deleteMyListJson">
+   		delete from funding_mylist
+   		where member_no = #{memberNo}
+   	</delete>
+   	
+   	<insert id="insertMyListJson">
+   		insert into funding_mylist
+   		values(#{memberNo}, #{json})
+   	</insert>
+   
     
 	<!-- 이승우 -->
 	<!-- searchKeyword searchSelect1 searchSelect2 category -->
 	<!-- processing selected(진행중 종료) recent recommand (최신순 과거순) -->
+	<select id=""></select>
 	<select id="selectFundingList" resultMap="fundingVoMap">
 		select *
 		from funding
@@ -548,6 +557,23 @@
 			</if>
 		</where>
 	</select>
+	<select id="selectFundingListBanner" resultMap="fundingVoMap">
+		select
+		rownum,
+		f.*
+		from(
+		    select
+		    *
+		    from
+		    funding f
+		    where status = 'Y'
+		    and start_date <![CDATA[<]]> sysdate
+		    and d_day <![CDATA[>]]> sysdate
+		    order by funding_no desc
+		) f
+		where rownum between 1 and 5
+		order by dbms_random.random
+	</select>
 	<select id="selectEarlyList" resultMap="fundingVoMap">
 		select * 
 		from funding
@@ -563,6 +589,22 @@
 			status = 'Y'
 			and start_date <![CDATA[>]]> sysdate
 		</where>
+	</select>
+	<select id="selectEarlyListBanner" resultMap="fundingVoMap">
+		select
+		rownum,
+		f.*
+		from(
+		    select
+		    *
+		    from
+		    funding f
+		    where status = 'Y'
+		    and start_date <![CDATA[>]]> sysdate
+		    order by funding_no desc
+		) f
+		where rownum between 1 and 5
+		order by dbms_random.random
 	</select>
 	<!-- 천호현 -->
     
@@ -621,6 +663,23 @@
 		from
 			funding_reward
 		where
-			funding_no = #{fundingNo}
+			funding_no = #{fundingNo} and not shipping_price = 0 and not limit_amount = 0
+		order by funding_no asc
 	</select>
+	
+	
+	<insert id="insertFundingParticipation">
+		insert into funding_participation 
+		values(seq_funding_participation_no.nextval,
+			   #{fundingNo},
+			   #{memberNo},
+			   sysdate,
+			   'Y',
+			   #{rewardNo},
+			   #{point},
+			   #{address},
+			   #{name},
+			   #{phone},
+			   #{etc})
+	</insert>
 </mapper>

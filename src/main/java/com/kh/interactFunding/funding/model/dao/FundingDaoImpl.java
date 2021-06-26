@@ -213,11 +213,6 @@ public class FundingDaoImpl implements FundingDao{
 	public List<Funding> indexfundingList() {
 		return session.selectList("funding.indexfundingList");
 	}
-
-	@Override
-	public List<Funding> indexviewlist() {
-		return session.selectList("funding.indexviewlist");
-	}
 	
 	@Override
 	public List<Funding> indexlikelist() {
@@ -233,6 +228,19 @@ public class FundingDaoImpl implements FundingDao{
 	public List<Funding> indexRankingviewlist() {
 		return session.selectList("funding.indexRankingviewlist");
 	}
+	@Override
+	public String selectMyListJson(int memberNo) {
+		return session.selectOne("funding.selectMyListJson",memberNo);
+	}
+	
+	@Override
+	public int deleteMyListJson(Map<String, Object> param) {
+		return session.insert("funding.deleteMyListJson",param);
+	}
+	@Override
+	public int insertMyListJson(Map<String, Object> param) {
+		return session.insert("funding.insertMyListJson",param);
+	}
 	//이승우
 	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {
@@ -244,12 +252,22 @@ public class FundingDaoImpl implements FundingDao{
 	}
 	
 	@Override
+	public List<Funding> fundingListBanner() {
+		return session.selectList("funding.selectFundingListBanner");
+	}
+	
+	@Override
 	public List<Funding> earlyList(Map<String, Object> map) {
 		int offset = (int)map.get("offset");
 		int limit = (int)map.get("limit");
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		log.debug("map@dap = {}", map);
 		return session.selectList("funding.selectEarlyList", map, rowBounds);
+	}
+	
+	@Override
+	public List<Funding> earlyListBanner() {
+		return session.selectList("funding.selectEarlyListBanner");
 	}
 	
 	@Override
@@ -297,6 +315,11 @@ public class FundingDaoImpl implements FundingDao{
 	public List<Reward> selectRewardList(int fundingNo) {
 		return session.selectList("funding.selectRewardList", fundingNo);
 	}
+	@Override
+	public int insertFundingParticipation(FundingParticipation fp) {
+		return session.insert("funding.insertFundingParticipation", fp);
+	}
+	
 
 	
 	

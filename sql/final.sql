@@ -14,9 +14,11 @@
 
 --select * from ALL_CONS_COLUMNS;
 
+commit;
 --=============================
 -- IF 계정
 --=============================
+drop table persistent_logins;
 drop table coupon_record;
 drop table coupon;
 drop table admin_board;
@@ -32,6 +34,7 @@ drop table category;
 drop table pwd_certification;
 drop table message;
 drop table point;
+drop table authority;
 drop table member;
 
 drop sequence coupon_record_no;
@@ -75,6 +78,25 @@ rollback;
 --회원테이블 seq
 create sequence seq_member_no;
 
+--멤버 권한 테이블
+--drop table authority;
+create table authority(
+    member_no number not null,
+    authority varchar2(20) not null,
+    constraint pk_authority primary key (member_no, authority),
+    constraint fk_authority_member_no foreign key(member_no) references member(member_no)
+);
+
+--멤버권한 트리거
+create or replace trigger trig_insert_member
+    after
+    insert on member
+    for each row
+begin
+    insert into authority
+    values (:new.member_no, 'ROLE_USER');
+end;
+/
 
 --포인트테이블
 create table point(
@@ -350,6 +372,10 @@ create or replace trigger trig_funding_participation
 begin
     insert into point --포인트 내역 테이블 5000원썻어 +5000  -5000
     values (seq_point_no.nextval, sysdate, (-1)*:new.point, :new.member_no, 'reward_no = '||:new.reward_no);
+    
+    update funding_reward
+    set limit_amount = limit_amount-1
+    where reward_no = :new.reward_no;
 end;
 /
 -- 1, -5000, 10번회원, reward no= 1번
@@ -408,26 +434,22 @@ begin
 end;
 /
 
+--spring_security용 로그인 유지 쿠키관리 테이블
+--persistent_logins 테이블 생성
+create table persistent_logins(
+    username varchar2(64) not null,
+    series varchar2(64) primary key,
+    token varchar2(64) not null,
+    last_used timestamp not null
+);
+
+
 --알람테이블
 
 
 
 --관리자 테이블
 
-
-select * from attachment;
-
-
-
-select rownum, f.*
-			from (
-			        select funding.* 
-		        	from funding  
-		        	where start_date < sysdate and d_day > sysdate
-		        		  and status ='Y'
-		       		order by reg_date  desc
-		        ) f
-		where rownum between 1 and 6;
 
 
 
@@ -491,515 +513,14 @@ select rownum, f.*
 
 --김윤수 테스트영역
 --IF20210708
-select * from member; 
-update member set point = 0;
-commit;
-desc member;
-alter table member
-MODIFY point number default 0;
-
-select * from point;
-select * from member;
-
-select * from coupon_record;
-select * from point;
-select * from member;
-delete from coupon_record;
-commit;
-
-update member
-set point = 0
-where not member_no=2;
-commit;
-
-
-insert into message
-values(seq_message_no.nextval, 2, 23, '배기원', '제목제목제목title3', '내용입니다아아아3', 'Y');
-commit;
-desc message;
-select * from message where from_member_no = 2 order by no desc;
-
-select * from like_record;
-insert into like_record values(seq_like_record_no.nextval, 99, 2, 'Y');
-commit;
-select * from funding;
-
-update funding
-set writer_no = 2, status = 'Y'
-where funding_no=15;
-
-commit;
-
-select * from attachment where status='Y';
-
-select* from funding where writer_no=2;
-
-insert into attachment values(seq_attachment_no.nextval, 14, 'dddfsfasfasz', '20210616_221024660_219.png', 'Y');
-commit;
-
-select * from funding_participation;
-update funding_participation
-set member_no = 2
-where no=3;
-
-select * from point;
-
-select * from message order by no desc;
-select * from member;
 
 --김경태 테스트영역
-
---김주연 테스트영역
-
-    select 
-    f.*,
-    (select count(*) from attachment where funding_no= f.funding_no)attach_count
-from 
-    funding f
-where 
-    f.writer_no = 21;
-order by 
-    f.funding_no desc;
-
-select F.*,
-       A.no,
-       A.funding_no,
-       A.originalfilename,
-       A.renamedfilename,
-       A.status Astatus
-from funding F left join attachment A
-on F.funding_no = A.funding_no
-where 
-    writer_no = 41;
-
-
-
-select * from category;
-select * from funding; 
-update
-			funding
-		set
-			category_code = 'C1',
-			title = '안녕하세요',
-			goal_amount = 502000,
-			reg_date = default,
-			d_day = 'Tue Jun 22 00:00:00 KST 2021' 			
-		where
-			funding_no = '21';	
-
-update
-    funding
-    set 
-    status = 'Y'
-    where 
-        writer_no = 21;
-        and funding_no= 99;
-commit;
-
-	select
-			f.*, (select name 
-            from member where member_no = f.writer_no)name
-		from
-			funding f
-        
-		where
-			f.writer_no = 21
-			and f.status = 'Y';
-
-select  
-rownum, f.*
-from (
-        select funding.* ,
-        REPLACE(category_code, 'C1', '테크.가전'),
-        REPLACE(category_code, 'C5', '게임.취미')적용결과
-        from funding  
-        where start_date < sysdate and d_day > sysdate
-        order by reg_date  desc
-        ) f
-where rownum between 1 and 6;
-select  
-rownum,  f.*
-from (
-        select funding.* ,
-        CASE category_code
-                 WHEN 'C1' THEN '테크.가전'
-                 WHEN 'C2' THEN '푸드'
-                 WHEN  'C3' THEN '여행'
-                 WHEN  'C4' THEN '스포츠'
-                 WHEN 'C5' THEN '게임.취미'
-                 WHEN 'C6' THEN '모임'
-                 WHEN  'C7' THEN  '반려동물'
-                 WHEN  'C8' THEN '기부.후원'
-                 END
-        from funding  
-        where start_date < sysdate and d_day > sysdate
-        order by reg_date  desc
-        ) f
-where rownum between 1 and 6;
-
 
 --박요한 테스트영역
 
 --배기원 테스트영역
-select  
-rownum, f.*
-from (
-        select funding.* ,
-         CASE category_code
-         WHEN 'C1' THEN '테크.가전'
-         WHEN 'C2' THEN '푸드'
-         WHEN  'C3' THEN '여행'
-         WHEN  'C4' THEN '스포츠'
-         WHEN 'C5' THEN '게임.취미'
-         WHEN 'C6' THEN '모임'
-         WHEN  'C7' THEN  '반려동물'
-         WHEN  'C8' THEN '기부.후원'
-         END
-        from funding  
-        where start_date < sysdate and d_day > sysdate
-        order by reg_date  desc
-        ) f
-where rownum between 1 and 6;
-
-select rownum, f.*
-from (
-        select *
-        from funding  
-        where start_date <  d_day 
-        order by reg_date  desc
-        ) f
-where rownum between 1 and 5;
-
-select*from funding;
-select*from category;
-SELECT  category_code, 
-       CASE category_code
-         WHEN 'C1' THEN '테크.가전'
-         WHEN 'C2' THEN '푸드'
-         WHEN  'C3' THEN '여행'
-         WHEN  'C4' THEN '스포츠'
-         WHEN 'C5' THEN '게임.취미'
-         WHEN 'C6' THEN '모임'
-         WHEN  'C7' THEN  '반려동물'
-         WHEN  'C8' THEN '기부.후원'
-         END
-  FROM funding;
-  
-  select*from category;
-   
-  select*from funding_reward;
-  
-  select *  from funding;
-  
-select
-    *
-from 
-    funding 
-    where 
-        start_date > sysdate ;
-        
-    select*from funding;
-    
-       update funding  set    goal_amount = 350000  
-    where funding_no  =18;
-    
-  select*from funding where start_date ='2021/06/30';
-  
-insert into funding
-values (25, '펀딩', 'C1', 30000, 500000,'P1' ,21, 0,0,'[향수]냄새는 좋고 너무 행복합니다. ', null, '2021/06/30', '2021/06/11', '2021/06/12', '01012341234');  
-insert into funding
-values (26, '펀딩', 'C1', 30000, 500000,'P1' ,21, 0,0,'[피부]  피부가맑아지는나를 보십쇼 ', null, '2021/06/30', '2021/06/11', '2021/06/12', '01012341234');  
-insert into funding
-values (27, '펀딩', 'C1', 30000, 500000,'P1' ,21, 0,0,'[피부]  피부가맑아지는나를 보십쇼 ', '[피부]  피부가맑아지는나를 보십쇼', '2021/06/30', '2021/06/11', '2021/06/12', '01012341234');
-
-insert into funding
-values (28, '펀딩', 'C1', 30000, 500000,'P1' ,21, 0,0,'[피부]  피부가맑아지는나를 보십쇼 ', ' [피부]  피부가맑아지는나를 보십쇼', '2021/06/30', '2021/06/11', '2021/06/12', '01012341234');
-
-  commit;
-
-
 
 --이승우 테스트영역
 
-select * from funding order by funding_no desc;
-select count(*) from funding;
-
-select nvl(writer_no, 0) '탈퇴회원' from funding;
-
-select
-			f.*
-		from
-			(select
-			f.*,
-			c.category_name categoryName,
-			m.name Name
-			from
-			funding f
-				left join category c
-					on f.category_code = c.category_code
-				left join member m
-                	on f.writer_no = m.member_no
-			order by f.reg_date desc
-		) f
-where start_date < sysdate;
-
-select 
-count(*) 
-from 
-funding f;
-
-select
-			count(*)
-		from
-			(select
-			f.*,
-			c.category_name categoryName,
-			m.name Name
-			from
-			funding f
-				left join category c
-					on f.category_code = c.category_code
-				left join member m
-                	on f.writer_no = m.member_no
-			order by f.reg_date desc
-		) f
-where content like '%코%'
-and start_date < sysdate;
-
-select
-    *
-from
-    attachment;
-
-select
-    f.*,
-    a.renamedfilename
-from
-    funding f
-left join attachment a
-    on f.funding_no = a.funding_no;
-
-select
-			f.*
-		from
-			
- (select
-			f.*,
-			c.category_name categoryName,
-			m.name Name,
-			a.renamedfilename
-			from
-			funding f
-				left join category c
-					on f.category_code = c.category_code
-				left join member m
-                	on f.writer_no = m.member_no
-                left join attachment a
-                	on f.funding_no = a.funding_no
-			order by f.funding_no desc
-		) f
-where start_date < sysdate;
-
-select * from funding where status = 'Y';
-
-select
-* 
-from 
-member 
-where member_no = 0;
 --천호현 테스트영역
-select * from funding;
-select * from funding_reward;
-        select
-			*
-		from
-			funding
-		where
-			funding_no =9;
-            
-select * from member;
-
-insert into funding_reward
-values(2, 99, 2000, '옵션1', '옵션1의 content부분', 2000, 10, '2021/07/01');
-
-insert into funding_reward
-values(3, 99, 2000, '옵션2', '옵션2의 content부분', 8000, 99, '2021/07/03');
-
-insert into funding_reward
-values(5, 99, 6000, '옵션3', '옵션3의 content부분', 6000, 60, '2021/07/03');
-
-
-
-    
-insert into funding
-values (99, '테스트', 'C1', 20000, 100000,'P1' ,21, 0,0,'내용이 엄청길ㅇ', null, '2021/06/10', '2021/06/30', default, '01091342261');
-
-insert into attachment
-values (1,99,'테스트오리지날1','테스트리네임','Y');
-
-insert into like_record
-values (3,99,21,'N');
-
-insert into funding_participation
-values (3,99,21, '2021/06/10', 'Y', 2, 3000, '안양', '김윤수', '0102222261','빨리주세요');
-
-select * from funding_reward;
-
-select * from funding_participation;
-
-select *
-from funding F 
-    join funding_reward R 
-    on F.funding_no = R.funding_no
-    join attachment A
-    on f.funding_no = A.funding_no
-    join like_record L
-    on L.funding_no = F.funding_no
-where f.funding_no =99;
-
-select *
-from funding F 
-    join funding_reward R 
-    on F.funding_no = R.funding_no
-    join attachment A
-    on F.funding_no = A.funding_no
-    join member M
-    on F.writer_no = M.member_no
-where f.funding_no =99;
-
-
-
---alter table funding
---modify readcount number default 0;
-
-select * from funding;
-ALTER TABLE funding ADD status char(1);
-
-ALTER TABLE funding ADD CONSTRAINT ck_funding_status  CHECK (status in ('Y','N'));
-
-desc  funding;
-desc message;
-
-select count(*)
-from funding_participation;
-
-select *
-from funding;
-
-update like_record
-	    <set>
-	        <if test="status == 'Y'">status='N',</if>
-	        <if test="status == 'N'">status='Y',</if>
-    	</set>
-    	where member_no = #{member_no}
-
-select  *
-from member M
-        join like_record L
-        on M.member_no = L.member_no
-where M.member_no = 21;
-
-
-update
-
-select F.FUNDING_NO,
-        F.TITLE,
-        F.CATEGORY_CODE,
-                            (select count(*)
-                            from funding_participation
-                            where F.funding_no = 99) cioo
-    from funding F 
-    join funding_reward R 
-    on F.funding_no = R.funding_no
-    join attachment A
-    on F.funding_no = A.funding_no
-    join member M
-    on F.writer_no = M.member_no
-where f.funding_no =99;
-
-
-select count(*) count
-from funding_participation
-where funding_no = 99;
-
-    	
-update like_record
-set status = 'Y'
-where member_no = 21;
-
-select *
-from funding F 
-    join funding_reward R 
-    on F.funding_no = R.funding_no
-    join attachment A
-    on F.funding_no = A.funding_no
-    join member M
-    on F.writer_no = M.member_no
-where F.funding_no = 99;
-
-select count(*)
-    	from like_record
-    	where member_no = 21 and funding_no = 99;
-        
-delete like_record;
-
-select count(*)
-from like_record
-where funding_no = 99;
-
-
-select * 
-from like_record;
-
-select *
-from funding
-where funding_no = 99;
-
-UPDATE funding  
-SET like_count = 0 
-WHERE funding_no = 99;
-
-select *
-from member;
-
-
-select count(*)
-from like_record
-where member_no = 21 and status = 'Y';
-
-select count(*)
-from like_record
-where funding_no = 99 and status = 'Y';
-
-select *
-from funding F
-    join funding_board R
-    on F.funding_no = R.funding_no
-where F.funding_no = 99;
-
-insert into funding_board values(1,99, '박요한테스트', 21, '내용입니다', default, 0 );
-insert into funding_board values(2,99, '천호현테스트', 21, '내용22', default, 0 );
-
-select * from funding_board;
-
-
-		select
-			*
-		from
-			funding_reward
-		where
-			funding_no = 99;
-
-
 -----------------------
-select * from tab;
-
-select * 
-from funding
-where
-    start_date < sysdate
-    and d_day > sysdate;
-
-
-
-commit;

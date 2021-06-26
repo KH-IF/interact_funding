@@ -1,3 +1,4 @@
+<!-- fundingStart4에서 다음을 누르면 오는 페이지 입니다.  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 

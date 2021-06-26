@@ -1,3 +1,4 @@
+<!-- 펀딩하기에서 요금제를 선택하는 페이지입니다.  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -30,7 +31,6 @@
 </style>
 <!-- 요금제 코드 사용 rate_plan_code -->
     <div class="container p-5">
-    <form action=""></form>
 		<input type="hidden" id="hide_funding_no" value="${funding.fundingNo}">
         <h1 class="font-weight-bold"> 요금제 선택</h1>
         <p class="text-muted">원하는 요금제를 선택해주세요</p>

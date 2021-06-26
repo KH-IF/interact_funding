@@ -90,10 +90,17 @@ public class MemberServiceImpl implements MemberService {
 	}
 	// 박요한
 
+
 	// 배기원
 
 	// 이승우
 
 	// 천호현
+
+	@Override
+	public String selectOneMemberPoint(int memberNo) {
+		return memberDao.selectOneMemberPoint(memberNo);
+	}
+	
 
 }
