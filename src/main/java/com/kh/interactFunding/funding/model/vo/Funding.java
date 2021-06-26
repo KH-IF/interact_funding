@@ -3,6 +3,7 @@ package com.kh.interactFunding.funding.model.vo;
 
 
 import java.sql.Date;
+import java.util.Objects;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,6 +33,28 @@ public class Funding {
 	private Boolean status;
 	
 	private Attachment attachment;
+
 	
-	
+	//Collection 인터페이스에서 contains를 사용하기 위한 equals, hashCode재정의
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + fundingNo;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Funding other = (Funding) obj;
+		if (fundingNo != other.fundingNo)
+			return false;
+		return true;
+	}
 }

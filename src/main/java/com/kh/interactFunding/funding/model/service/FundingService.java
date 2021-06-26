@@ -8,6 +8,7 @@ import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
+import com.kh.interactFunding.funding.model.vo.FundingParticipation;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Point;
@@ -61,17 +62,21 @@ public interface FundingService {
 	
 	//배기원
 	public List<Funding> indexfundingList();
-	List<Funding> indexviewlist();
 	List<Funding> indexlikelist();
 	List<Funding> indexfundingRefresh();
 	List<Funding> indexRankingviewlist();
+	String selectMyListJson(int memberNo);
+	int deleteMyListJson(Map<String, Object> param);
+	int insertMyListJson(Map<String, Object> param);
 	
 		
 	//이승우
 	public List<Funding> fundingList(Map<String, Object> map);
 	public int selectFundingListTotalContents(Map<String, Object> map);
+	public List<Funding> fundingListBanner();
 	public List<Funding> earlyList(Map<String, Object> map);
 	public int selectEarlyListTotalContents();
+	public List<Funding> earlyListBanner();
 
 	
 	//천호현
@@ -85,6 +90,7 @@ public interface FundingService {
 	int likeCount(Map<String, Object> map);
 	int likeStatusCheck(int membeNo);
 	List<Reward> selectRewardList(int fundingNo);
+	int insertFundingParticipation(FundingParticipation fp);
 	
 
 }
