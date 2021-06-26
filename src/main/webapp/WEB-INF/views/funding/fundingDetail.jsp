@@ -453,7 +453,6 @@
 	});
 
 	$('.funding_main_reward_choice_div').hover(function(){
-		$(this).css("background-color","#00c4c4");
 		$(this).css("border","2px solid #00c4c4");
 		$(this).children().first().css("color","#00c4c4");
 	}, function(){

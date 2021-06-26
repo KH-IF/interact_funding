@@ -24,23 +24,23 @@
 	
 	
 	<div id="fundingPayment_all_wrapper">
+		<div id="fundingPayment_all_wrapper_last">
 		<div id="fundingPayment_div1">
 			<div id="fundingPayment_div1_rewardtitle">
 				<br />
 				
 				<c:forEach items="${selectList}" var="selectReaward">
-					<div>
-						title : ${selectReaward.reward.title}
+					<div id="selectReawardDiv">
+						<div id="selectReawardTitle">
+							${selectReaward.reward.title}
+						</div>
+						<div id="selectReawardContent">
+							${selectReaward.reward.content}
+						</div>
+						<div id="selectReawardCount">
+							<span id="selectReawardCount_1">수량 : ${selectReaward.amount} 개</span><span id="selectReawardCount_2">  총 : ${selectReaward.reward.price * selectReaward.amount} 원</span>
+						</div>
 					</div>
-					<div>
-						옵션 : ${selectReaward.reward.content}
-					</div>
-					<div>
-					</div>
-					<div>
-						<span>수량 : ${selectReaward.amount} 개</span><span><span> ${selectReaward.reward.price} * ${selectReaward.amount} =</span> 총 : ${selectReaward.reward.price * selectReaward.amount} 원</span>
-					</div>
-					<hr />
 				</c:forEach>
 
 					
@@ -50,36 +50,54 @@
 		
 		
 		<div id="fundingPayment_div4">
-			<div id="fundingPayment_div4_price">
-				<span class="paymentLeft">펀딩금액 :</span> <span class="paymentRight">${rewardTotalPrice}</span>
-			</div>	
-			<div id="fundingPayment_div4_plus">
-				<span class="paymentLeft">추가후원금 :</span> <span class="paymentRight">${rewardTotalPriceSupport}</span>
-			</div>	
-			<div id="fundingPayment_div4_shippingfee">
-				<span class="paymentLeft">배송비 :</span> <span class="paymentRight">2500</span>
-			</div>	
-			<div id="fundingPayment_div4_total">
-				<span class="paymentLeft">최종결제금액 :</span> <span class="paymentRight">${rewardTotalPrice + rewardTotalPriceSupport + 2500} 원</span>
-				
-			</div>	
-			
-		
+			<div id="fundingPayment_div4_wrapper">
+				<div id="fundingPayment_div4_price">
+					<span class="paymentLeft">펀딩금액</span> <span class="paymentRight">${rewardTotalPrice}</span>
+				</div>	
+				<div id="fundingPayment_div4_plus">
+					<span class="paymentLeft">추가후원금</span> <span class="paymentRight">${rewardTotalPriceSupport}</span>
+				</div>	
+				<div id="fundingPayment_div4_shippingfee">
+					<span class="paymentLeft">배송비</span> <span class="paymentRight">2500</span>
+				</div>	
+				<div id="fundingPayment_div4_total">
+					<span class="paymentLeft">최종결제금액</span> <span class="paymentRight">${rewardTotalPrice + rewardTotalPriceSupport + 2500} 원</span>
+				</div>	
+			</div>
 		</div>	
 		<form id="fundingPaymentForm" name="fundingPaymentForm" action="${pageContext.request.contextPath}/funding/fundingFinalPayment" method="POST">
 				<input type="hidden" name="fundingNo" value="${funding.fundingNo}"/>
 		<div id="fundingPayment_div5">
-			 <div id="fundingPayment_div_div1">
-			 	<h1>펀딩서포터</h1>
-			 	이름 : ${loginMember.name}
-			 	<br />
-			 	이메일 :${loginMember.email}
-			 	<br />
-			 	휴대폰번호 :${loginMember.phone}
-			 
-			 </div>
-		
 			
+			<div id="fundingPayment_div5_wrapper"> 
+			
+				 <div id="fundingPayment_div_div1">
+					 <div id="fundingPayment_div_div1_1">
+					 	<h1>펀딩서포터</h1>
+					 	<div id="fundingPayment_div_div1_1_name">이름 : ${loginMember.name}</div>
+					 	<div id="fundingPayment_div_div1_1_email">이메일 :${loginMember.email}</div>
+					 	<div id="fundingPayment_div_div1_1_phone">휴대폰번호 :${loginMember.phone}</div>
+					 	
+					 	
+					 </div>
+					 <div id="fundingPayment_div_div1_2">
+						 <div id="fundingPayment_div6">
+							<h1> 포인트 현황</h1>
+							<span>현재 포인트 :</span> <span id="paymentNowPoint">${loginMember.point}</span>
+							<br />
+							<span>차감예정 :</span> <span>${rewardTotalPrice + rewardTotalPriceSupport + 2500} 원</span>
+							<br />
+							<span>예상 잔여포인트 :</span> <span id="paymentRemainPoint">${loginMember.point- (rewardTotalPrice + rewardTotalPriceSupport + 2500)}원</span>
+							
+							<c:if test="${loginMember.point < (rewardTotalPrice + rewardTotalPriceSupport + 2500)}">
+								<div>잔액이적습니다. <span onclick="window.open('${pageContext.request.contextPath}/member/memberDetails');">충전하러가기</span></div>
+							</c:if>
+						</div>	
+					 
+					 </div>
+				 </div>
+			
+				
 				 <div id="fundingPayment_div_div2">
 					<h1>리워드배송지</h1>
 			        이름
@@ -90,35 +108,22 @@
 			         <br />
 			        <input type="text" name="phone" id="fundingPayment_div_div2_phone" placeholder="휴대폰번호"/>
 			        <br />
-			         <br />
-			        주소 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="find_address()">우편번호 검색</button>
+			        주소 
+			        <br />
+			        <button id="addressButton" type="button" class="btn btn-secondary" data-dismiss="modal" onclick="find_address()">우편번호 검색</button>
 			        <br />
 			        <div> <p id="fundingPayment_newaddress"></p></div>
 			        <input type="hidden" name="address1" id="hiddenAddress1">
 			        <input type="text" name="address2" id="address2" placeholder="상세주소"/>
-			        <br />
 		         	<br />
 				 	배송시 요청사항(선택)
 				 	<br />
 			        <input type="text" name="etc" id="fundingPayment_div_div2_request" placeholder="ex) 부재시 경비실에 보관해주세요"/>
 				 </div>
-			 
+			 </div>
 		</div>	
 		
-		<div id="fundingPayment_div6">
 		
-			<h1> 포인트 현황</h1>
-			<span>현재 포인트 :</span> <span id="paymentNowPoint">${loginMember.point}</span>
-			<br />
-			<span>차감예정 :</span> <span>${rewardTotalPrice + rewardTotalPriceSupport + 2500} 원</span>
-			<br />
-			
-			<span>예상 잔여포인트 :</span> <span id="paymentRemainPoint">${loginMember.point- (rewardTotalPrice + rewardTotalPriceSupport + 2500)}원</span>
-			
-			<c:if test="${loginMember.point < (rewardTotalPrice + rewardTotalPriceSupport + 2500)}">
-				<div>잔액이적습니다. <span onclick="window.open('${pageContext.request.contextPath}/member/memberDetails');">충전하러가기</span></div>
-			</c:if>
-		</div>
 		
 		<div id="fundingPayment_div7">
 			<h1>약관동의</h1>
@@ -143,7 +148,7 @@
 				<input type="submit" id="fundingPayment_div6_checkbox_submit" class="btn btn-info" value="결제예약하기">
 			</div>
 		</form>
-		
+		</div>
 		</div>
 	</div>
 	
@@ -158,6 +163,7 @@
     margin: auto;
     font-size: 24px;
     font-weight: 900;
+    padding-right: 55px;
 	}
 	
 	#go_back{
@@ -172,10 +178,10 @@
      width: 800px;
      height: 2000px;
      font-weight: 700;
+     border-top: 2px solid #666;	
 	}
 	
 	#fundingPayment_all_wrapper > div{
-	 border: 2px solid black;		
 	}
 	
 	
@@ -201,15 +207,34 @@
 	
 	#fundingPayment_div4{
 	 height: 220px;
+	 background-color: #f9f9f9;
+     padding-top: 17px;
+     border-top: 1px solid #e4e4e4;
+	}
 	
-	
+	#fundingPayment_div4 > div > div{
+	padding-top: 17px;
 	}
 	
 	#fundingPayment_div5{
+	border-top: 1px solid #e4e4e4;
+	}
+	#fundingPayment_div5_wrapper{
+	padding-top: 25px;
 	display: flex;
+	padding-left: 30px;
 	
 	}
 	
+	#fundingPayment_div4_wrapper{
+    padding-left: 30px;
+	
+	}
+	
+	#fundingPayment_div6{
+	padding-top: 84px;
+	
+	}
 	/* 펀딩서포터 */
 	#fundingPayment_div_div1{
 	width: 400px;
@@ -219,6 +244,7 @@
 	/* 리워드배송지 */
 	#fundingPayment_div_div2{
 	width: 400px;
+	padding-left: 51px;
 	
 	}
 	
@@ -235,7 +261,10 @@
 	
 	}
 	
+	#fundingPayment_all_wrapper_last{
+   /*  padding-left: 51px; */
 	
+	}
 	
 	
 	
@@ -290,6 +319,66 @@
     height: 60px;
     margin-top: 20px;
 	}
+	#fundingPayment_div1_rewardtitle{
+	padding-left: 30px;
+	}
+	
+	#fundingPayment_div1 > div{
+	}
+	
+	#fundingPayment_div_div2 > input{
+    width: 281px;
+    height: 44px;
+    padding-left: 14px;
+    margin-top: 5px;
+    margin-bottom: 11px;
+	}
+	
+	#addressButton{
+	height: 44px;
+    width: 144px;
+	
+	}
+	
+	#selectReawardTitle{
+    font-size: 16px;
+	color: #00c4c4;
+	margin-bottom: 8px;
+	}
+	
+	#selectReawardContent{
+ 	font-size: 16px;
+ 	color: #686868;
+	}
+	
+	#selectReawardCount{
+    text-align: right;
+    padding-right: 40px;
+    margin-bottom: 8px;
+	
+	}
+	
+	#selectReawardDiv{
+    border-bottom: 1px solid #e4e4e4;
+	
+	}
+	
+	.paymentRight{
+    text-align: right;
+    right: 293px;
+    position: absolute;
+	
+	}
+	
+	#fundingPayment_div_div1_1_name{
+	
+	}
+	#fundingPayment_div_div1_1_email{
+	
+	}
+	#fundingPayment_div_div1_1_phone{
+	
+	}
 	
 	
 	</style>
@@ -316,7 +405,7 @@
 		        },
 				error: console.log
 		      });
-		 },   1000);
+		 },   100000);
 	}
 
 
