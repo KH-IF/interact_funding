@@ -841,6 +841,12 @@ select
 from
 member
 order by member_no desc;
+
+select
+count(*)
+from
+member;
+
 --천호현 테스트영역
 select * from funding;
 select * from funding_reward;
