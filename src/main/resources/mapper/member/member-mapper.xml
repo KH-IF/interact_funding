@@ -90,36 +90,6 @@
 	<!-- 박요한 -->
 	<!-- 배기원 -->
 	<!-- 이승우 -->
-	<!-- 관리자관련 - 회원조회 -->
-	<select id="selectMemberList" resultType="member">
-		select
-			*
-		from
-			member
-		<where>
-			<if test="searchType == 'email'">
-			email like '%' || #{searchKeyword} || '%'
-			</if>
-			<if test="searchType == 'name'">
-			name like '%' || #{searchKeyword} || '%'
-			</if>
-		</where>
-		order by member_no desc
-	</select>
-	<select id="selectMemberListTotalContents" resultType="_int">
-		select
-			count(*)
-		from
-			member
-		<where>
-			<if test="searchType == 'email'">
-			email like '%' || #{searchKeyword} || '%'
-			</if>
-			<if test="searchType == 'name'">
-			name like '%' || #{searchKeyword} || '%'
-			</if>
-		</where>
-	</select>
 	<!-- 천호현 -->
 	
 	<select id="selectOneMemberPoint" resultType="string">

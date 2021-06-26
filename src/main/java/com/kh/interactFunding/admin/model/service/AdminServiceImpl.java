@@ -34,7 +34,28 @@ public class AdminServiceImpl implements AdminService {
 	public int selectMemberListTotalContents(Map<String, Object> map) {
 		return adminDao.selectMemberListTotalContents(map);
 	}
+
+	@Override
+	public int addAdminRole(int memberNo) {
+		return adminDao.addAdminRole(memberNo);
+	}
+
+	@Override
+	public int removeAdminRole(int memberNo) {
+		return adminDao.removeAdminRole(memberNo);
+	}
+
+	@Override
+	public int selectCheckAdminRole(int memberNo) {
+		return adminDao.selectCheckAdminRole(memberNo);
+	}
+
+	@Override
+	public int memberDel(int memberNo) {
+		return adminDao.memberDel(memberNo);
+	}
 		
+	
 	//천호현
 	
 }

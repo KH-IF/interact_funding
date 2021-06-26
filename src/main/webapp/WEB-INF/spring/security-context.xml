@@ -50,6 +50,8 @@
          <access-denied-handler
          	error-page="/error/accessDenied"
          />
+         
+         <csrf disabled="true"/>
 	</http>
 	
 	<authentication-manager>

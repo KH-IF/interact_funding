@@ -14,11 +14,19 @@ div#search-container{
     border-bottom: 1px solid rgb(225, 225, 225);
 }
 
-input{
-    height:20px;
+#memberSearchKeyword,
+#memberSearchKeyword2{
+	height:23px;
+	outline:0;
 }
 
-button{
+#search-type,
+#memberRole{
+	outline: 0;
+}
+
+#searchButton,
+#searchButton2{
     width: 70px;
     height: 30px;
     background-color: gray;
@@ -28,10 +36,15 @@ button{
     outline: 0;
 }
 
-button:hover{
+#searchButton:hover,
+#searchButton2:hover{
     cursor: pointer;
     background-color: #007bff;
     transition: all ease 0.3s;
+}
+
+#resetArea{
+	margin-top: 20px;
 }
 
 /* 조회, 권한변경, 삭제 */
@@ -83,6 +96,7 @@ table, th, td{
 }
 
 input[value="강제추방"]{
+	height: 23px;
     background-color: rgb(225, 225, 225);
     border: 0;
     border-radius: 10px;

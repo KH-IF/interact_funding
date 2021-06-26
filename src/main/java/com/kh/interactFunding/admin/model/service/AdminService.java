@@ -11,4 +11,12 @@ public interface AdminService {
 
 	public int selectMemberListTotalContents(Map<String, Object> map);
 
+	public int addAdminRole(int memberNo);
+
+	public int removeAdminRole(int memberNo);
+
+	public int selectCheckAdminRole(int memberNo);
+
+	public int memberDel(int memberNo);
+
 }

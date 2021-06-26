@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="회원조회" name="title" 	/>
 </jsp:include>
@@ -30,21 +31,27 @@ $(document).ready(function(){
             <option value="email" ${map.searchType eq 'email' ? 'selected' : ''}>이메일</option>
             <option value="memberName" ${map.searchType eq 'memberName' ? 'selected' : ''}>이름</option>
         </select>
-        <div id="search-email" style="display:${map.searchType != null || map.searchType eq 'email' ? 'inline-block' : 'none'}">
-            <form action="" onsubmit="return false;">
+        <div id="search-email" style="display:${empty map.searchType || map.searchType eq 'email' ? 'inline-block' : 'none'}">
+            <form:form action="" onsubmit="return false;">
                 <input type="hidden" name="searchType" value="email">
-                <input type="search" id="memberSearchKeyword" placeholder="검색할 이메일 입력" value="${map.searchKeyword}">
+                <input type="search" id="memberSearchKeyword" placeholder="검색할 이메일 입력" value="${map.searchType eq 'email' ? map.searchKeyword : ''}">
                 <button type="button" id="searchButton">검색</button>
-            </form>
+            </form:form>
         </div>
         <div id="search-memberName" style="display:${map.searchType eq 'memberName' ? 'inline-block' : 'none'}">
-            <form action="" onsubmit="return false;">
+            <form:form action="" onsubmit="return false;">
                 <input type="hidden" name="searchType" value="memberName">
-                <input type="search" id="memberSearchKeyword" placeholder="검색할 이름 입력" value="${map.searchKeyword}">
-                <button type="button" id="searchButton">검색</button>
-            </form>
+                <input type="search" id="memberSearchKeyword2" placeholder="검색할 이름 입력" value="${map.searchType eq 'memberName' ? map.searchKeyword : ''}">
+                <button type="button" id="searchButton2">검색</button>
+            </form:form>
         </div>
     </div>
+    <c:if test="${not empty map.searchKeyword}">
+	    <div id="resetArea">
+	    	<span id="reset">검색: ${map.searchKeyword}</span>
+	    	<button type="button" class="btn btn-secondary btn-sm" onclick='location.href="${pageContext.request.contextPath}/admin/memberList"'>초기화</button>
+	    </div>
+    </c:if>
 
     <!-- 리스트 -->
     <div id="mebmerTableArea">
@@ -71,25 +78,66 @@ $(document).ready(function(){
 		                    <td>${member.email}</td>
 		                    <td>${member.name}</td>
 		                    <td>
-		                        <select id="memberRole" name="memberRole">
-		                            <option value="admin">관리자</option>
-		                            <option value="user" selected>사용자</option>
+		                        <select id="memberRole" name="memberRole" data-memberno="${member.memberNo}" onchange="updateRole(this);">
+		                            <option value="admin" <c:if test="${fn:contains(member.authorities, 'ROLE_ADMIN')}">selected</c:if> >관리자</option>
+		                            <option value="user" <c:if test="${!fn:contains(member.authorities, 'ROLE_ADMIN')}">selected</c:if> >사용자</option>
 		                        </select>
 		                    </td>
-		                    <td><input type="button" class="delMember" value="강제추방"></td>
+		                    <td><input type="button" class="delMember" value="강제추방" data-memberno="${member.memberNo}" onclick="delMember(this)"></td>
 		                </tr>
 	                </c:forEach>
                 </c:if>
             </tbody>
         </table>
     </div>
+    <form:form id="updateRole" method="post">
+    	<input type="hidden" name="memberNo" />
+    </form:form>
     
+    <form:form id="deleteMember" method="post" action="${pageContext.request.contextPath}/admin/memberDel">
+		<input type="hidden" name="memberNo" />
+    </form:form>
     <!-- 페이지바 -->
     <c:if test="${totalContents > map.limit}">
     	${pageBar}
     </c:if>
     
 <script>
+	function updateRole(select){
+		var memberNo = $(select).data("memberno");
+		console.log("memberNo = "+memberNo);
+		var role = $(select).find(":selected").text();
+		console.log(role);
+		
+		if(!confirm("정말 권한을"+role+"로 변경 하시겠습니까?")){
+			return;
+		}
+		
+		if(role=="관리자"){
+			var $form = $("#updateRole");
+			$form.attr("action","${pageContext.request.contextPath}/admin/addAdminRole");
+			$form.find("[type=hidden]").val(memberNo);
+			$form.submit();
+			return;
+		}else{
+			var $form = $("#updateRole");
+			$form.attr("action","${pageContext.request.contextPath}/admin/removeAdminRole");
+			$form.find("[type=hidden]").val(memberNo);
+			$form.submit();
+			return;
+		}
+	}
+	
+	function delMember(btn){
+		var memberNo = $(btn).data("memberno");
+		if(!confirm("정말 추방시키겠습니까?")){
+			return;
+		}
+		var $form = $("#deleteMember");
+		$form.find("[type=hidden]").val(memberNo);
+		$form.submit();
+	}
+
 	//회원검색
 	$("#searchButton").click(function (){
 		memberSearch();
@@ -115,10 +163,29 @@ $(document).ready(function(){
 		}
 	}
 	
-	$("#searchButton").keyup(function (){
-		if(e.keyCode == 13)
-			memberSearch();
+	$("#searchButton2").click(function (){
+		memberSearch2();
 	});
+	
+	function memberSearch2(){
+		var keyword = $("#memberSearchKeyword2").val();
+		var searchType = $("#search-type").val();
+		console.log(keyword);
+		console.log(searchType);
+		
+		if(keyword.length == 0){
+			swal("검색키워드", "한글자 이상 입력해주세요", "info");
+			return;
+		}
+		
+		else{
+			var url = "${pageContext.request.contextPath}/admin/memberList";
+			url = url + "?searchType=" + searchType;
+			url = url + "&searchKeyword=" + keyword;
+			location.href = url;
+			console.log(url);
+		}
+	}
 	
 </script>
 
