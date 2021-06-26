@@ -64,6 +64,7 @@ public interface FundingDao {
 	int deleteComment(Comment comment);
 	List<FundingParticipation> participationSelectOne(int fundingNo);
 	int fundingParticipationCountOne(int fundingNo);
+	List<FundingParticipation> participationList(int fundingNo);
 	
 	//배기원
 	public List<Funding> indexfundingList();
@@ -93,8 +94,9 @@ public interface FundingDao {
 	int likeCount(Map<String, Object> map);
 	int likeStatusCheck(int memberNo);
 	List<Reward> selectRewardList(int fundingNo);
-	List<FundingParticipation> participationList(int fundingNo);
 	int insertFundingParticipation(FundingParticipation fp);
+	
+	
 
 	
 	

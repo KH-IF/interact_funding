@@ -99,6 +99,5 @@ public interface FundingService {
 	List<Reward> selectRewardList(int fundingNo);
 	int insertFundingParticipation(FundingParticipation fp);
 	
-	
 
 }
