@@ -83,12 +83,12 @@ $(() => {
 				<span class ="funding_reward_name_span">후원금 더하기(선택)</span> 
 				<div>
 					<span>후원금을 더하여 펀딩할 수 있습니다. 추가 후원금을 입력하시겠습니까?</span>
-					<textarea name="support" rows="1" cols="40"></textarea>원을 추가로 후원합니다.
+					<input step="1000" type="number" id="reward_support_textarea" name="support" />원을 추가로 후원합니다.
 				</div>
 			</div>
 			
 			
-			<div id="funding_reward_name_div">
+			<!-- <div id="funding_reward_name_div">
 				<span class ="funding_reward_name_span">공개여부</span> 
 				<div>
 					<div>
@@ -105,12 +105,14 @@ $(() => {
 				
 				</div>
 				
-			</div>
+			</div> -->
 			
 			<div id="funding_reward_bottom_div">
 				<input type="hidden" id="rewardTotalPriceInput" name="rewardTotalPrice" value="0"/><!-- 토탈 전달해줄 input -->
+				<input type="hidden" id="rewardTotalPriceInputSupport" name="rewardTotalPriceSupport" value="0"/><!-- 토탈 전달해줄 input -->
 				<%-- ${funding.title}에  <span id="funding_reward_choice">0</span> 원을 펀딩합니다. --%>
-				${funding.title}에  <label for="rewardTotalPriceInput" id="funding_reward_choice">0</label> 원을 펀딩합니다.
+				${funding.title}에  <label for="rewardTotalPriceInput" id="funding_reward_choice">0</label>
+									<label for="rewardTotalPriceInputSupport" id="funding_reward_choice_support"></label> 원을 펀딩합니다.
 				<br />
 				<input type="submit" value="다음단계" class="d-inline-flex btn btn-primary btn-lg"></input>
 			</div>
@@ -422,6 +424,26 @@ $(() => {
 	});
 
 
+	//후원금 더하기 text area에 들어갈시
+	$("#reward_support_textarea").change(function(){
+		var textarea = $("#reward_support_textarea").val();
+
+		//숫자인지 체크
+		if($.isNumeric(textarea)){
+			//숫자면	
+			var price = Number(textarea);
+			$("#funding_reward_choice_support").text("(+"+price+")");
+			$("#rewardTotalPriceInputSupport").val(price);/*input:hidden에 넣어줌  */
+			
+		}else{
+			$("#reward_support_textarea").val(0);
+			$("#funding_reward_choice_support").text('');
+			$("#rewardTotalPriceInputSupport").val(0);
+			alert("숫자만 입력해주세요");
+			$("#reward_support_textarea").focus();
+			return;
+			}
+		});
 
 	
 	//수량선택 + - 
@@ -498,7 +520,6 @@ $(() => {
 				$(this).next().css("background-color","pink")
 				$(this).next().css("display","block")
 				
-				
 				/*총 가격 계산*/
 				/*클릭시 가격*/
 				var price = Number($(this).data("price"));
@@ -509,8 +530,6 @@ $(() => {
 				/*최종결과*/
 				$("#funding_reward_choice").text(plus);
 				$("#rewardTotalPriceInput").val(plus);/*input:hidden에 넣어줌  */
-				
-				
 			}
 			else{
 				$(this).children().children("input").attr("checked", false);

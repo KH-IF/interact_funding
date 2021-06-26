@@ -13,6 +13,7 @@ public class RewardCollection {
 	private int no; //funding_participation 테이블의 no(pk)임
 	private int rewardNo;
 	private int price;
+	private int point;
 	private String title;
 	private String content;
 	private int shippingPrice;
