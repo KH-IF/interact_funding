@@ -17,7 +17,7 @@ public class FundingParticipationCollection {
 	private Date regDate;
 	private Boolean status;
 //	private int rewardNo; //rewardList에서 처리할것
-	private int point;
+//	private int point; //rewardList에서 처리할것
 	private String address;
 	private String name;
 	private String phone;

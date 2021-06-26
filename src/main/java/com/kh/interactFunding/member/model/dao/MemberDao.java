@@ -40,10 +40,13 @@ public interface MemberDao {
 	//김주연
 	int savePhone(Map<String, Object> map);
 	//박요한
+
 	
 	//배기원
 	
 	//이승우
 	
 	//천호현
+
+	String selectOneMemberPoint(int memberNo);
 }

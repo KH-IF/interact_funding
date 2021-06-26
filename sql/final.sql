@@ -351,6 +351,10 @@ create or replace trigger trig_funding_participation
 begin
     insert into point --포인트 내역 테이블 5000원썻어 +5000  -5000
     values (seq_point_no.nextval, sysdate, (-1)*:new.point, :new.member_no, 'reward_no = '||:new.reward_no);
+    
+    update funding_reward
+    set limit_amount = limit_amount-1
+    where reward_no = :new.reward_no;
 end;
 /
 -- 1, -5000, 10번회원, reward no= 1번
@@ -1016,7 +1020,11 @@ insert into funding_board values(2,99, '천호현테스트', 21, '내용22', def
 
 select * from funding_board;
 
-
+		select
+			*
+		from
+			funding_reward;
+            
 		select
 			*
 		from
@@ -1024,6 +1032,41 @@ select * from funding_board;
 		where
 			funding_no = 99;
 
+select * from funding_participation;
+select * from funding_reward order by reward_no desc;
+
+
+
+
+--1-999 3-5 4-1
+commit;
+insert into funding_reward values(seq_funding_reward_no.nextval, NULL, 999, '추가후원','99번펀딩에 21번멤버가',NULL,NULL,sysdate);
+rollback;
+
+121-1번, 3번 5번, 4번 1번
+insert into funding_participation values(seq_funding_participation_no.nextval, 99, 21, sysdate, 'Y', 121,999,'안양','천호현','01091111111','요청사항');
+insert into funding_participation values(seq_funding_participation_no.nextval, 99, 21, sysdate, 'Y', 3,999,'안양','천호현','01091111111','요청사항');
+insert into funding_participation values(seq_funding_participation_no.nextval, 99, 21, sysdate, 'Y', 3,999,'안양','천호현','01091111111','요청사항');
+insert into funding_participation values(seq_funding_participation_no.nextval, 99, 21, sysdate, 'Y', 3,999,'안양','천호현','01091111111','요청사항');
+insert into funding_participation values(seq_funding_participation_no.nextval, 99, 21, sysdate, 'Y', 3,999,'안양','천호현','01091111111','요청사항');
+insert into funding_participation values(seq_funding_participation_no.nextval, 99, 21, sysdate, 'Y', 3,999,'안양','천호현','01091111111','요청사항');
+insert into funding_participation values(seq_funding_participation_no.nextval, 99, 21, sysdate, 'Y', 4,999,'안양','천호현','01091111111','요청사항');
+
+delete from  funding_participation
+where funding_no = 99;
+
+select
+			*
+		from
+			funding_reward
+		where
+			funding_no = 99 and not limit_amount = 0
+		order by funding_no asc;
+        
+    select point
+    from member
+    where member_no = 21;
+    
 
 -----------------------
 select * from tab;

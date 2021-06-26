@@ -374,4 +374,12 @@ public class MemberController {
 	//이승우
 	
 	//천호현
+	
+	@ResponseBody
+	@GetMapping("selectMemberPoint")
+	public String selectMemberPoint(@RequestParam int memberNo) {
+		String result = memberService.selectOneMemberPoint(memberNo);
+		log.debug("result = {}", result);
+		return result;
+	}
 }

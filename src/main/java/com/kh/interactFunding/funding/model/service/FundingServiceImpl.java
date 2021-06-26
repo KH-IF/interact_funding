@@ -12,6 +12,7 @@ import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
+import com.kh.interactFunding.funding.model.vo.FundingParticipation;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Point;
@@ -419,6 +420,11 @@ public class FundingServiceImpl implements FundingService{
 	public List<Reward> selectRewardList(int fundingNo) {
 		return fundingDao.selectRewardList(fundingNo);
 	}
+	@Override
+	public int insertFundingParticipation(FundingParticipation fp) {
+		return fundingDao.insertFundingParticipation(fp);
+	}
+	
 	
 
 	
