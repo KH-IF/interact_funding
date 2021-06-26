@@ -17,6 +17,7 @@
 --=============================
 -- IF 계정
 --=============================
+drop table persistent_logins;
 drop table coupon_record;
 drop table coupon;
 drop table admin_board;
@@ -32,6 +33,7 @@ drop table category;
 drop table pwd_certification;
 drop table message;
 drop table point;
+drop table authority;
 drop table member;
 
 drop sequence coupon_record_no;
@@ -75,6 +77,25 @@ rollback;
 --회원테이블 seq
 create sequence seq_member_no;
 
+--멤버 권한 테이블
+--drop table authority;
+create table authority(
+    member_no number not null,
+    authority varchar2(20) not null,
+    constraint pk_authority primary key (member_no, authority),
+    constraint fk_authority_member_no foreign key(member_no) references member(member_no)
+);
+
+--멤버권한 트리거
+create or replace trigger trig_insert_member
+    after
+    insert on member
+    for each row
+begin
+    insert into authority
+    values (:new.member_no, 'ROLE_USER');
+end;
+/
 
 --포인트테이블
 create table point(
@@ -408,6 +429,16 @@ begin
 end;
 /
 
+--spring_security용 로그인 유지 쿠키관리 테이블
+--persistent_logins 테이블 생성
+create table persistent_logins(
+    username varchar2(64) not null,
+    series varchar2(64) primary key,
+    token varchar2(64) not null,
+    last_used timestamp not null
+);
+
+
 --알람테이블
 
 
@@ -546,6 +577,43 @@ select * from point;
 
 select * from message order by no desc;
 select * from member;
+
+update funding_participation
+set status = 'Y';
+
+commit;
+
+select * from funding_participation;
+select * from point;
+select * from member;
+select * from point;
+
+
+insert into point
+values (seq_point_no.nextval, sysdate, 5000,21, 'DB추가');
+commit;
+
+
+--bo_no 기본키, 정수
+--
+--bo_title 제목, 30byte, 필수 입력
+--
+--bo_writer 작성자이름, 15byte, 필수 입력
+--
+--bo_content 글내용, 300byte, 필수 입력
+create table board(
+    bo_no number primary key,
+    bo_title varchar2(30) not null,
+    bo_writer varchar2(15) not null,
+    bo_content varchar2(300) not null
+);
+insert into board values(1,'제목1','작성자1', '내용1');
+insert into board values(2,'제목2','작성자2', '내용2');
+insert into board values(3,'제목3','작성자3', '내용3');
+commit;
+select * from board;
+
+select * from funding_participation f join member m on f.member_no = m.member_no;
 
 --김경태 테스트영역
 

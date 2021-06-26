@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="security">
+	<select id="loadUserByUsername" resultMap="memberMap">
+		select * 
+		from member
+		where email = #{email} and platform='IF'
+	</select>
+	<resultMap type="member" id="memberMap">
+		<id column="member_no" property="memberNo"/>
+		<result column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="name" property="name"/>
+		<result column="platform" property="platform"/>
+		<result column="access_token" property="accessToken"/>
+		<result column="point" property="point"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="phone" property="phone"/>
+		<collection property="authorities" 
+					javaType="arraylist"
+					column="member_no"
+					ofType="simpleGrantedAuthority"
+					select="selectAuthorities"/>
+	</resultMap>
+	<select id="selectAuthorities" resultMap="authoritiesMap">
+		select * 
+		from authority
+		where member_no = #{memberNo}
+	</select>
+	<resultMap type="simpleGrantedAuthority" id="authoritiesMap">
+		<constructor>
+			<arg column="authority" javaType="string"/>
+		</constructor>
+	</resultMap>
+</mapper>

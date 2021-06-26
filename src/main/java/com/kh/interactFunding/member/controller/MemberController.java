@@ -76,58 +76,75 @@ public class MemberController {
 		}
 	}
 	
-	@PostMapping("/login_if")
-	public String login_if(
-			Member member, 
-			@RequestParam(required = false) String remember,
-			Model model, 
-			@SessionAttribute(required = false) String next,
-			RedirectAttributes redirectAttr,
-			HttpServletRequest request, 
-			HttpServletResponse response) {
-		
-		log.debug("member = {} ", member);
-		log.debug("remember = {}", remember);
-		log.debug("next = {}",next);
-		
-		//로그인 처리
-		Member login = memberService.selectOneMember(member);
-		
-		if(login != null && bCryptPasswordEncoder.matches(member.getPassword(), login.getPassword())) {
-			model.addAttribute("next",null);
-			request.getSession().removeAttribute("next");
-			model.addAttribute("loginMember",login);
-			redirectAttr.addFlashAttribute("msg","로그인 성공");
-			
-			//이메일 기억하기 처리
-			Cookie c = new Cookie("saveEmail", member.getEmail());
-			c.setPath(request.getContextPath()+"/"); //path 쿠키를 전송할 url
-			
-			if(remember != null) {
-				c.setMaxAge(60 * 60 * 24 * 7); //7일짜리 영속쿠키로 지정 
-			}
-			else {
-				//saveId 체크해제시
-				c.setMaxAge(0); //0으로 지정해서 즉시 삭제, 음수로 지정하면 session종료시 제거 
-			}
-			response.addCookie(c);
+	@ResponseBody
+	@GetMapping("saveEmail")
+	public String saveEmail(@RequestParam Boolean saveEmail, @RequestParam String email, HttpServletResponse response, HttpServletRequest request) {
+		String data;
+		//이메일 기억하기 처리
+		Cookie c = new Cookie("saveEmail", email);
+		c.setPath(request.getContextPath()+"/"); //path 쿠키를 전송할 url
+		if(saveEmail) {
+			c.setMaxAge(60 * 60 * 24 * 7); //7일짜리 영속쿠키로 지정 
+			data = "이메일 기억 성공";
+		}else {
+			c.setMaxAge(0); //0으로 지정해서 즉시 삭제, 음수로 지정하면 session종료시 제거 
+			data = "이메일 기억 실패";
 		}
-		else {
-			redirectAttr.addFlashAttribute("msg","로그인 실패");
-			return "redirect:/member/login";
-		}
-		return "redirect:"+ (next != null ? next : "/");
+		response.addCookie(c);
+		return data;
 	}
 	
-	@GetMapping("/logout")
-	public String logout(
-			HttpServletRequest request,
-			Model model
-			) {
-		request.getSession().removeAttribute("loginMember");
-		model.addAttribute("loginMember",null);
-		return "redirect:/";
-	}
+	//시큐리티로 처리하여 MyCustomLoginSuccessHandler 와 @GetMapping("saveEmail")-ajax로 나누어 처리했음
+//	@PostMapping("/login_if")
+//	public String login_if(
+//			Member member, 
+//			@RequestParam(required = false) String remember,
+//			Model model, 
+//			@SessionAttribute(required = false) String next,
+//			RedirectAttributes redirectAttr,
+//			HttpServletRequest request, 
+//			HttpServletResponse response) {
+//		
+//		log.debug("member = {} ", member);
+//		log.debug("remember = {}", remember);
+//		log.debug("next = {}",next);
+//		
+//		//로그인 처리
+//		Member login = memberService.selectOneMember(member);
+//		
+//		if(login != null && bCryptPasswordEncoder.matches(member.getPassword(), login.getPassword())) {
+//			model.addAttribute("next",null);
+//			model.addAttribute("loginMember",login);
+//			redirectAttr.addFlashAttribute("msg","로그인 성공");
+//			
+//			//이메일 기억하기 처리
+//			Cookie c = new Cookie("saveEmail", member.getEmail());
+//			c.setPath(request.getContextPath()+"/"); //path 쿠키를 전송할 url
+//			
+//			if(remember != null) {
+//				c.setMaxAge(60 * 60 * 24 * 7); //7일짜리 영속쿠키로 지정 
+//			}
+//			else {
+//				//saveId 체크해제시
+//				c.setMaxAge(0); //0으로 지정해서 즉시 삭제, 음수로 지정하면 session종료시 제거 
+//			}
+//			response.addCookie(c);
+//		}
+//		else {
+//			redirectAttr.addFlashAttribute("msg","로그인 실패");
+//			return "redirect:/member/login";
+//		}
+//		return "redirect:"+ (next != null ? next : "/");
+//	}
+	
+	//시큐리티로 전환하여 사용하지 않음
+//	@GetMapping("/logout")
+//	public String logout(
+//			Model model
+//			) {
+//		model.addAttribute("loginMember",null);
+//		return "redirect:/";
+//	}
 	
 	@GetMapping("/memberEnroll")
 	public void memberEnroll() {
