@@ -17,4 +17,6 @@ public class FundingBoard {
 	private String content;
 	private Date regDate;
 	private int readCount;
+	
+	private Attachment attachment;
 }

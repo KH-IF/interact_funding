@@ -12,6 +12,7 @@ import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
+import com.kh.interactFunding.funding.model.vo.FundingParticipation;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Point;
@@ -242,8 +243,39 @@ public class FundingServiceImpl implements FundingService{
 		return fundingDao.insertComment(comment);
 	}
 	
+	@Override
+	public List<FundingParticipation> participationList(int fundingNo) {
+		return fundingDao.participationList(fundingNo);
+	}
 	
+	@Override
+	public int insertNews(FundingBoard fundingBoard) {
+		return fundingDao.insertNews(fundingBoard);
+	}
 	
+	@Override
+	public int updateNews(FundingBoard fundingBoard) {
+		return fundingDao.updateNews(fundingBoard);
+	}
+	
+	@Override
+	public int deleteNews(int no) {
+		return fundingDao.deleteNews(no);
+	}
+	
+	@Override
+	public int deleteComment(Comment comment) {
+		return fundingDao.deleteComment(comment);
+	}
+	
+	@Override
+	public List<FundingParticipation> participationSelectOne(int fundingNo) {
+		return fundingDao.participationSelectOne(fundingNo);
+	}
+	@Override
+	public int fundingParticipationCountOne(int fundingNo) {
+		return fundingDao.fundingParticipationCountOne(fundingNo);
+	}
 	// 배기원
 	/**
 	 * 펀딩 리스트를 받아오는(1~3) 객체입니다.

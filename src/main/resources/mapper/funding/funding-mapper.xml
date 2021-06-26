@@ -343,13 +343,50 @@
 			no = #{no}
 	</select>
 	
+	<insert id="insertNews">
+		insert into
+			funding_board(
+				no,
+				funding_no,
+				writer_no,
+				title,
+				content
+			)
+		values (
+			seq_funding_board_no.nextval,
+			#{fundingNo},
+			#{writerNo},
+			#{title},
+			#{content}
+		)
+	</insert>
+	
+	<delete id="deleteNews">
+		delete
+			funding_board
+		where
+			no = #{no}
+	</delete>
+	
+	<update id="updateNews">
+		update
+			funding_board
+		<set>
+			title = #{title},
+			content = #{content},
+		</set>
+		where 
+			no = #{no}
+	</update>
+	
 	<select id="selectCommentList" resultType="comment">
 		select
 			*
 		from
-			funding_comment
+			funding_comment f join member m on f.writer_no = m.member_no
 		where
 			funding_no = #{fundingNo}
+		order by comment_no desc
 	</select>
 	
 	<insert id="insertComment">
@@ -367,14 +404,36 @@
 			#{fundingNo}
 		)
 	</insert>
-	<select id="newsView" resultMap="fundingExtMap">
-		select *
-        from funding F 
-            join funding_board R 
-            on F.funding_no = R.funding_no
-            join member M
-            on F.writer_no = M.member_no
-        where F.funding_no = #{funding_no}
+	
+	<delete id="deleteComment">
+		delete
+			funding_comment
+		where
+			comment_no = #{commentNo}
+	</delete>
+	
+	<select id="participationList" resultType="fundingParticipation">
+		select
+			*
+		from
+			funding_participation
+		where funding_no = #{fundingNo}
+		order by no
+	</select>
+	
+	<select id="participationSelectOne" resultType="fundingParticipation">
+		select distinct
+			name
+		from
+			funding_participation
+		where
+			funding_no = #{fundingNo}
+	</select>
+	
+	<select  id="fundingParticipationCountOne" resultType="_int">
+        select distinct count(*) count
+        from funding_participation
+        where funding_no = #{fundingNo}
 	</select>
 
 	<!-- 배기원 -->

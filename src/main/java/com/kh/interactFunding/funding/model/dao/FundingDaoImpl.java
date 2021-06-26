@@ -15,6 +15,7 @@ import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
+import com.kh.interactFunding.funding.model.vo.FundingParticipation;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Point;
@@ -175,8 +176,38 @@ public class FundingDaoImpl implements FundingDao{
 		return session.insert("funding.insertComment", comment);
 	}
 	
+	@Override
+	public List<FundingParticipation> participationList(int fundingNo) {
+		return session.selectList("funding.participationList", fundingNo);
+	}
 	
+	@Override
+	public int insertNews(FundingBoard fundingBoard) {
+		return session.insert("funding.insertNews", fundingBoard);
+	}
 	
+	@Override
+	public int updateNews(FundingBoard fundingBoard) {
+		return session.update("funding.updateNews", fundingBoard);
+	}
+	
+	@Override
+	public int deleteNews(int no) {
+		return session.delete("funding.deleteNews", no);
+	}
+	
+	@Override
+	public int deleteComment(Comment comment) {
+		return session.delete("funding.deleteComment", comment);
+	}
+	@Override
+	public List<FundingParticipation> participationSelectOne(int fundingNo) {
+		return session.selectList("funding.participationSelectOne", fundingNo);
+	}
+	@Override
+	public int fundingParticipationCountOne(int fundingNo) {
+		return session.selectOne("funding.fundingParticipationCountOne", fundingNo);
+	}
 	//배기원
 	@Override
 	public List<Funding> indexfundingList() {

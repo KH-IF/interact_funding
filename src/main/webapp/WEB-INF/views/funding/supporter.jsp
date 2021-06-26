@@ -1,84 +1,236 @@
+<%@page import="com.kh.interactFunding.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param value="funding_detail" name="title" />
+	<jsp:param value="funding_detail" name="title" 	/>
 </jsp:include>
-<link rel="stylesheet"
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/index.css" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+ <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/css/news.css" />
+	<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript"
+	src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60be12d9983015a6"></script>
 
-<div id="funding_tap">
-	<ol>
-		<li><a
-			href="${pageContext.request.contextPath }/funding/fundingDetail.do?fundingNo=${funding.fundingNo}">스토리</a>
-		</li>
-		<li><a href="${pageContext.request.contextPath }/funding/news.do?fundingNo=${funding.fundingNo}">새소식</a>
-		</li>
-		<li><a
-			href="${pageContext.request.contextPath }/funding/community.do?fundingNo=${funding.fundingNo}">커뮤니티</a>
-		</li>
-		<li><a
-			href="${pageContext.request.contextPath }/funding/supporter.do?fundingNo=${funding.fundingNo}">서포터</a>
-		</li>
-	</ol>
-</div>
+<script>
 
-<div id="funding_main">
-	<div id="funding_main_image_and_content">
-		<div class="yh-s-view">
+	//좋아요 버튼 클릭여부
+	window.onload = function(){
+		console.log("온로드함수")
+
+	$.ajax({
+		url:"${pageContext.request.contextPath}/funding/likeStatusCheck",
+		data: {
+			memberNo : ${loginMember.memberNo},
+		},
+		success(data){
+			console.log(data)
+			/* 좋아요를 누른상황 */
+			if(data == 1){
+				$("#icon_heart").html('<i class="fas fa-heart"></i>');
+			
+			}else{
+			/* 좋아요 안누른상황 */
+				$("#icon_heart").html('<i class="far fa-heart"></i>');
+			}
+		},
+		error: console.log
+		,
+		})
+	};
+
+
+	//창 가운데 띄우기위함
+	function maker_chat_function(){
+	var popupWidth = 200;
+	var popupHeight = 300;
+	var popupX = (document.body.offsetWidth / 2) - (200 / 2);
+	var popupY= (window.screen.height / 2) - (600 / 2);
+	window.open('fundingChatMaker', '', 'status=no, height=600, width=500, left='+ popupX + ', top='+ popupY);
+		}
+</script>
+
+	<div id="funding_top_title_wrapper_wrapper">
+		<div id="funding_top_title_wrapper">
+			<div id="funding_top_title">
+				<img src="${pageContext.request.contextPath }/resources/upload/${funding.attachment.renamedFilename}" id="funding_top_title_image">
+			</div>
+			<div id="funding_top_title_div">
+			    <c:if test="${funding.categoryCode == 'C1'}"><span class="category_code_span">테크·가전</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C2'}"><span class="category_code_span">푸드</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C3'}"><span class="category_code_span">여행</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C4'}"><span class="category_code_span">스포츠</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C5'}"><span class="category_code_span">게임·취미</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C6'}"><span class="category_code_span">모임</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C7'}"><span class="category_code_span">반려동물</span></c:if>
+			    <c:if test="${funding.categoryCode == 'C8'}"><span class="category_code_span">기부·후원</span></c:if>
+			  <br />
+			  ${funding.title}
+			</div>
+		</div>
+	</div>
+	
+	<div id="funding_tap_wrapper">
+		<div id="funding_tap">
+	            <ol>
+	                <li>
+	                    <a href="${pageContext.request.contextPath }/funding/fundingDetail?fundingNo=${funding.fundingNo}">스토리</a>
+	                </li>
+	                <li>
+	                    <a href="${pageContext.request.contextPath }/funding/news.do?fundingNo=${funding.fundingNo}">새소식</a>
+	                </li>
+	                <li>
+	                    <a href="${pageContext.request.contextPath }/funding/community.do?fundingNo=${funding.fundingNo}">커뮤니티</a>
+	                </li>
+	                <li>
+	                    <a href="${pageContext.request.contextPath }/funding/supporter.do?fundingNo=${funding.fundingNo}">서포터</a>
+	                </li>
+	            </ol>
+	        </div>
+       </div>
+
+        <div id="funding_main">
+            <div id="funding_main_image_and_content">
+                <div class="yh-s-view">
 			<h2>
-				현재 이 프로젝트에 <br /> 298명의 참여가 이루어졌습니다.
+				현재 이 프로젝트에 <br /> ${fundingParticipationOneCount}명의 참여가 이루어졌습니다.
 			</h2>
 		</div>
 		<div class="yh-containertable">
 			<table class="yh-s-table">
+			<c:forEach items="${participationOne}" var="participation">
 				<tr>
 					<td>
-						<p>id님이 펀딩으로 참여 하셨습니다.</p>
-						<p>7시간전</p>
+						<p>${participation.name}님이 펀딩에 참여 하셨습니다.</p>
+						<p><fmt:formatDate value="${participation.regDate}" pattern="yyyy-MM-dd" /></p>
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<p>id님이 펀딩으로 참여 하셨습니다.</p>
-						<p>7시간전</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>id님이 펀딩으로 참여 하셨습니다.</p>
-						<p>7시간전</p>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>id님이 펀딩으로 참여 하셨습니다.</p>
-						<p>7시간전</p>
-					</td>
-				</tr>
+			</c:forEach>	
 			</table>
 		</div>
-	</div>
-	<div id="funing_main_right_div">
-		<div id="funing_main_right_div_1">
-			<h2>10일 남음</h2>
-			<h4>20% 달성</h4>
-			<h4>100000000</h4>
-			<h4>50</h4>
-			<input id="funding_button" type="button" value="펀딩하기"
-				onclick="location.href='${pageContext.request.contextPath}/funding/funding_reward';" />
-			<input type="button" value="좋아요" /> <input type="button"
-				value="1:1 채팅" /> <input type="button" value="공유하기" />
-		</div>
+            </div>
 
-		<div id="funing_main_right_div_2"></div>
+			<!-- 남은날계산용 -->
+			<fmt:parseNumber value="${funding.startDate.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
+			<fmt:parseNumber value="${funding.DDay.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
 
-		<div id="funing_main_right_div_3"></div>
+            <div id="funing_main_right_div">
+                <div id="funing_main_right_div_1">
+                    <div id="funding_detail_dday_div">${endDate - strDate}일 남았습니다</div>
+                    <div id="funding_detail_dday_bar_wrapper">
+	                    <div id="funding_detail_dday_bar" class="progress">
+		                      <div id="funding_detail_dday_bar_div" class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+							  aria-valuenow="${funding.nowAmount}" aria-valuemin="0" aria-valuemax="${funding.goalAmount}" style="width:${funding.nowAmount / funding.goalAmount * 100}%">
+		 					 </div>
+						</div>
+					</div>
+                    <div id="funding_detail_goal_percent_div"> <fmt:formatNumber value="${funding.nowAmount / funding.goalAmount}" type="percent"/>달성</div><!-- 8500% 달성 -->
+                   
+                    <div id="funding_detail_now_amount_div">현재 ${funding.nowAmount}원 펀딩중</div><!-- 444444 원 펀딩 -->
+                    <div id="funding_detail_supporter_div"> 현재 ${fundingParticipationCount}명의 서포터</div> <!-- 3333명의 서포터funding_participation -->
+                    <input id="funding_button" type="button" value="펀딩하기" onclick="location.href='${pageContext.request.contextPath}/funding/fundingReward?fundingNo=	${funding.fundingNo}';" class="btn btn-info"/>
+                    <button type="button" id="funding_detail_like_button" class="btn btn-outline-secondary" onclick="like_controll()">
+                    <!--하트  -->
+                    <span id="icon_heart" style="color:red;"><i class="far fa-heart"></i></span>
+                    <!--좋아요숫자  -->
+                    <span id="funding_detail_like_count">${funding.likeCount}</span></button>
+                    <button type="button" value="1:1 채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary"><span>1:1 채팅</span></button>
+                    <!-- <input type="button" value="1:1 채팅" id="funding_detail_chat_button"/> -->
+                </div>
+                
+                <span id="funding_detail_like_count"></span>
 
-		<div id="funing_main_right_div_4"></div>
-	</div>
-</div>
+			 	<span id="maker_span">메이커 정보</span>
+				<!--메이커정보 (해당 펀딩의 작성자정보) -->
+                <div id="funing_main_right_div_2">
+            		 
+                	<div id="funding_detail_maker_logo_name_div">
+                		<div id="funding_detail_maker_name" data-toggle="modal" data-target="#modalSendMsg" data-tomemberno="${funding.writerNo}" onclick="msgSetting(this)">${wirterName}</div>
+                	</div>
+                		<div id="funding_detail_maker_phone">메이커 연락처 <br/>${funding.phone}</div>
+                    <input type="button" value="메이커에게 문의하기" id="funding_detail_maker_chat_button" class="btn btn-info"
+                    onclick="maker_chat_function()"/>
+                </div>
+
+
+
+                <span id="reward_span">리워드 선택</span>
+                
+                <c:forEach var="reward" items="${reward}">
+	                <div id="funing_main_right_div_3" class="funding_main_reward_choice_div" data-choice="${reward.rewardNo}">
+	                	${reward.price}원 펀딩
+	                	<br />
+	                	${reward.title}!!
+	                	<br />
+	                	${reward.content} 혜택
+	                	<br />
+	                	배송비 
+	                	<br />
+	                	${reward.shippingPrice}
+	                	<br />
+	                	리워드 발송 시작일
+	                	<br />
+	                	${reward.rewardNo} 리워드넘버
+	                	<br />
+	                	${reward.limitAmount} 개 남음!!
+	                	<br/>
+	                	ㅁㅁㅁㅁ 펀딩완료
+				   </div>
+                </c:forEach>
+				
+				
+
+				<span id="ranking_span">인기게시글</span>
+                <div id="funing_main_right_div_4">
+                    
+                </div>
+            </div>
+
+        </div>
+
+
+	<script>
+
+    //좋아요 누를시
+	function like_controll(){
+		$("#funding_detail_like_button").attr("onclick","");
+		$.ajax({
+			url: "${pageContext.request.contextPath}/funding/loginMemberClickLike",
+			data: {
+				memberNo : ${loginMember.memberNo},
+				fundingNo : ${funding.fundingNo},
+			},
+			method: "POST",
+			success(data){
+				console.log(data);
+				$('#funding_detail_like_count').text(data.likeCount);
+				if(data.heart == "on"){
+					$("#icon_heart").html('<i class="fas fa-heart"></i>');
+				}else{
+					$("#icon_heart").html('<i class="far fa-heart"></i>');
+					}
+			},
+			error: console.log
+			,
+			complete(){
+				$("#funding_detail_like_button").attr("onclick","like_controll();");
+			} 
+		})
+	};
+
+	$(".funding_main_reward_choice_div").click(function(e){
+		var choice = $(e.target).data("choice")
+		location.href="${pageContext.request.contextPath}/funding/fundingReward?fundingNo=${funding.fundingNo}&&choice="+choice;
+		
+		
+	});
+
+	</script>	
+
+
+
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
