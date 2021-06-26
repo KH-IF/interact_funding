@@ -121,4 +121,12 @@
 		</where>
 	</select>
 	<!-- 천호현 -->
+	
+	<select id="selectOneMemberPoint" resultType="string">
+	    select point
+	    from member
+	    where member_no = #{memberNo}
+	</select>
+	
+	
 </mapper>

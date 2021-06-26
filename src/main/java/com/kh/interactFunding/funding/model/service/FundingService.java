@@ -8,6 +8,7 @@ import com.kh.interactFunding.funding.model.vo.Comment;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.funding.model.vo.FundingBoard;
 import com.kh.interactFunding.funding.model.vo.FundingExt;
+import com.kh.interactFunding.funding.model.vo.FundingParticipation;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Point;
@@ -89,6 +90,7 @@ public interface FundingService {
 	int likeCount(Map<String, Object> map);
 	int likeStatusCheck(int membeNo);
 	List<Reward> selectRewardList(int fundingNo);
+	int insertFundingParticipation(FundingParticipation fp);
 	
 
 }

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="이프" name="title" 	/>
 </jsp:include>
@@ -22,7 +23,7 @@
 
 	<div id="loginContainer">
 		<h1>Login</h1>
-		<form action="${pageContext.request.contextPath}/member/login_if" method="post">
+		<form:form id="loginFrm" action="${pageContext.request.contextPath}/member/login_if" method="post">
 			<input type="email" name="email" onchange=color(this) placeholder="이메일을 입력해주세요" value='<%=saveEmail != null ? saveEmail : ""%>'/>
 			<br />
 			<input type="password" name="password" onchange=color(this) placeholder="비밀번호를 입력해주세요"/>
@@ -31,11 +32,13 @@
 				<div>
 					<input type="checkbox" name="remember" id="remember" <%= saveEmail != null ? "checked" : "" %>/>
 					<label for="remember">이메일 저장</label>
+					<input type="checkbox" name="remember-me" id="remember-me"/>
+					<label for="remember-me">로그인유지</label>
 				</div>
 				<a href="${pageContext.request.contextPath}/member/findid">아이디·비밀번호 찾기</a>
 			</div>
 			<input type="submit" class="btn btn-info" value="로그인" />
-		</form>
+		</form:form>
 		<hr />
 		<img src="${pageContext.request.contextPath}/resources/images/socialTemp.png"/>
 		<div id="loginDesc">아직 이프 계정이 없나요??   <a href="${pageContext.request.contextPath}/member/memberEnroll"><strong>회원가입</strong></a></div>
@@ -91,6 +94,27 @@
 				$(tag).css('background-color','');
 			}
 		}
+
+		$("#loginFrm").submit(function(){
+			var value;
+			var email = $("#loginFrm").find("input[type=email]").val();
+			if($("#loginFrm").find("input[type=checkbox]:checked")[0]){
+				value = true;
+			}else{
+				value = false;
+			}
+			$.ajax({
+				url:"${pageContext.request.contextPath}/member/saveEmail",
+				method:"get",
+				data:{
+					saveEmail : value,
+					email : email,
+				},
+				success:function(data){
+				},
+				error:console.log
+			});
+		});
 	</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

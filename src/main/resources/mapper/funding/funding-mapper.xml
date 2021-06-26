@@ -71,7 +71,6 @@
 		<result column="member_no" property="memberNo"/>
 		<result column="reg_date" property="regDate"/>
 		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
-		<result column="point" property="point"/>
 		<result column="address" property="address"/>
 		<result column="name" property="name"/>
 		<result column="phone" property="phone"/>
@@ -79,6 +78,7 @@
 		<collection property="rewardList" ofType="rewardCollection">
 			<id column="no" property="no"/>
 			<result column="reward_no" property="rewardNo"/>
+			<result column="point" property="point"/>
 			<result column="price" property="price"/>
 			<result column="title" property="title"/>
 			<result column="content" property="content"/>
@@ -271,7 +271,13 @@
 				#{limitAmount},
 				#{shippingDate}		
 			)
-		
+		<!-- 천호현이 추가함 -->
+		<selectKey keyProperty="rewardNo" resultType="_int" order="AFTER">
+			select
+				seq_funding_reward_no.currval
+			from 
+				dual
+		</selectKey>
 	</insert>
 	
 	<update id="updateReward">
@@ -598,6 +604,23 @@
 		from
 			funding_reward
 		where
-			funding_no = #{fundingNo}
+			funding_no = #{fundingNo} and not shipping_price = 0 and not limit_amount = 0
+		order by funding_no asc
 	</select>
+	
+	
+	<insert id="insertFundingParticipation">
+		insert into funding_participation 
+		values(seq_funding_participation_no.nextval,
+			   #{fundingNo},
+			   #{memberNo},
+			   sysdate,
+			   'Y',
+			   #{rewardNo},
+			   #{point},
+			   #{address},
+			   #{name},
+			   #{phone},
+			   #{etc})
+	</insert>
 </mapper>
