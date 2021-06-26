@@ -513,6 +513,17 @@ create table persistent_logins(
 
 --김윤수 테스트영역
 --IF20210708
+select * from member;
+
+select * from authority;
+
+select * from persistent_logins;
+
+delete from authority;
+
+insert into authority
+values( 61, 'ROLE_USER');
+commit;
 
 --김경태 테스트영역
 

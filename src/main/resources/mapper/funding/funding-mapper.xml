@@ -25,7 +25,7 @@
 	</select>
 	
 	<select id="selectMyPartiCnt" resultType="_int">
-		select count(*)
+		select count(distinct(funding_no))
 		from funding_participation
 		where member_no = #{memberNo} and status='Y'
 	</select>
