@@ -1,8 +1,9 @@
+<!-- 스토리를 입력하는 페이지 입니다. -->
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/views/common/makerNav.jsp" flush="false">
 	<jsp:param value="Story | IF Maker Studio" name="title" />
 </jsp:include>

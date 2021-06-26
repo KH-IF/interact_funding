@@ -14,6 +14,7 @@
 
 --select * from ALL_CONS_COLUMNS;
 
+commit;
 --=============================
 -- IF 계정
 --=============================
@@ -806,11 +807,44 @@ where start_date < sysdate;
 
 select * from funding where status = 'Y';
 
+
 select
-* 
-from 
-member 
-where member_no = 0;
+rownum,
+f.*
+from(
+    select
+    *
+    from
+    funding f
+    where status = 'Y'
+    and start_date < sysdate
+    and d_day > sysdate
+    order by funding_no desc
+) f
+where rownum <= 5
+order by DBMS_RANDOM.RANDOM;
+
+select
+rownum,
+f.*
+from(
+    select
+    *
+    from
+    funding f
+    where status = 'Y'
+    and start_date < sysdate
+    and d_day > sysdate
+    order by funding_no desc
+) f
+where rownum between 1 and 5
+order by DBMS_RANDOM.RANDOM;
+
+select
+*
+from
+member
+order by member_no desc;
 --천호현 테스트영역
 select * from funding;
 select * from funding_reward;

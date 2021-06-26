@@ -61,18 +61,22 @@ public interface FundingDao {
 	
 	//배기원
 	public List<Funding> indexfundingList();
-	List<Funding> indexviewlist();
 	List<Funding> indexlikelist();
 	List<Funding> indexfundingRefresh();
 	List<Funding> indexRankingviewlist();
+	String selectMyListJson(int memberNo);
+	int deleteMyListJson(Map<String, Object> param);
+	int insertMyListJson(Map<String, Object> param);
 
 	
 
 	//이승우
 	public List<Funding> fundingList(Map<String, Object> map);
 	public int selectFundingListTotalContents(Map<String, Object> map);
+	public List<Funding> fundingListBanner();
 	public List<Funding> earlyList(Map<String, Object> map);
 	public int selectEarlyListTotalContents();
+	public List<Funding> earlyListBanner();
 
 	//천호현
 	public FundingExt selectOneFunding(int fundingNo);

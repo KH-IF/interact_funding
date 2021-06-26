@@ -43,6 +43,32 @@
 					</svg>
 			</div>
 		</div>
+		<script>
+		function focus_searchInput(){
+			$("#searchKeyword").focus();
+		}
+		function searchStart(input){
+			//엔터키가 입력받을때만 실행
+			if (window.event.keyCode == 13) {
+				const searchKeyword=$(input).val();
+				console.log(searchKeyword);
+				//입력받은 글자가 공백이면 안내문 작성후 실행되지 않음
+				if(searchKeyword.length ==0){
+					swal("검색키워드","한글자 이상 입력해주세요","info");
+					return;
+				}
+				else{
+					var url = "${pageContext.request.contextPath}/funding/fundingList";
+					url = url + "?searchKeyword="+$('#searchKeyword').val();
+					location.href = url;
+				}
+
+				//입력받은 글자가 이상이없을때 검색기능 실행
+				//검색키워드를 바탕으로 리스트페이지로 이동하는 주소를 입력하면됨
+				
+	        }
+		}
+		</script>
 		<%-- 로그인 되었을때 --%>
 		<c:if test="${not empty loginMember}">
 			<div id="login_container">
@@ -80,30 +106,6 @@
 		<button type="button" class="btn btn-outline-success" id="project_open" onclick="openProject();">프로젝트 오픈 신청</button>
 	</header>
 	<script>
-		function focus_searchInput(){
-			$("#searchKeyword").focus();
-		}
-		function searchStart(input){
-			//엔터키가 입력받을때만 실행
-			if (window.event.keyCode == 13) {
-				const searchKeyword=$(input).val();
-				console.log(searchKeyword);
-				//입력받은 글자가 공백이면 안내문 작성후 실행되지 않음
-				if(searchKeyword.length ==0){
-					swal("검색키워드","한글자 이상 입력해주세요","info");
-					return;
-				}
-				else{
-					var url = "${pageContext.request.contextPath}/funding/fundingList";
-					url = url + "?searchKeyword="+$('#searchKeyword').val();
-					location.href = url;
-				}
-
-				//입력받은 글자가 이상이없을때 검색기능 실행
-				//검색키워드를 바탕으로 리스트페이지로 이동하는 주소를 입력하면됨
-				
-	        }
-		}
 		function openProject(){
 			//무조건 fundingStart1을 거치게 변경하였습니다. 인증은 번호 변경을 원하는 경우도 있음으로 분기처리 하지 않습니다.
 			location.href='${pageContext.request.contextPath}/funding/fundingStart1';

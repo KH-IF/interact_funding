@@ -396,18 +396,6 @@
 		) f
 		where rownum between 1 and 6
 	</select>
-	<!-- 회원들이 좋아할 프로젝트 받아오는(조회순) 객체입니다. -->
-	<select id="indexviewlist" resultMap="fundingVoMap">
-		select rownum, f.*
-		from (
-		select funding.*
-		from funding
-		where <![CDATA[start_date < sysdate and d_day > sysdate]]>
-		and status ='Y'
-		order by readcount desc
-		) f
-		where rownum between 1 and 4
-	</select>
 	<!-- 실시간랭킹 리스트입니다. -->
 	<select id="indexlikelist" resultMap="fundingVoMap">
 		select rownum, f.*
@@ -444,11 +432,26 @@
 		) f
 		where rownum between 1 and 6
    	</select>
-    
+   	
+   	<select id="selectMyListJson" resultType="string">
+   		select my_list from funding_mylist where member_no = #{memberNo}
+   	</select>
+   	
+   	<delete id="deleteMyListJson">
+   		delete from funding_mylist
+   		where member_no = #{memberNo}
+   	</delete>
+   	
+   	<insert id="insertMyListJson">
+   		insert into funding_mylist
+   		values(#{memberNo}, #{json})
+   	</insert>
+   
     
 	<!-- 이승우 -->
 	<!-- searchKeyword searchSelect1 searchSelect2 category -->
 	<!-- processing selected(진행중 종료) recent recommand (최신순 과거순) -->
+	<select id=""></select>
 	<select id="selectFundingList" resultMap="fundingVoMap">
 		select *
 		from funding
@@ -495,6 +498,23 @@
 			</if>
 		</where>
 	</select>
+	<select id="selectFundingListBanner" resultMap="fundingVoMap">
+		select
+		rownum,
+		f.*
+		from(
+		    select
+		    *
+		    from
+		    funding f
+		    where status = 'Y'
+		    and start_date <![CDATA[<]]> sysdate
+		    and d_day <![CDATA[>]]> sysdate
+		    order by funding_no desc
+		) f
+		where rownum between 1 and 5
+		order by dbms_random.random
+	</select>
 	<select id="selectEarlyList" resultMap="fundingVoMap">
 		select * 
 		from funding
@@ -510,6 +530,22 @@
 			status = 'Y'
 			and start_date <![CDATA[>]]> sysdate
 		</where>
+	</select>
+	<select id="selectEarlyListBanner" resultMap="fundingVoMap">
+		select
+		rownum,
+		f.*
+		from(
+		    select
+		    *
+		    from
+		    funding f
+		    where status = 'Y'
+		    and start_date <![CDATA[>]]> sysdate
+		    order by funding_no desc
+		) f
+		where rownum between 1 and 5
+		order by dbms_random.random
 	</select>
 	<!-- 천호현 -->
     
