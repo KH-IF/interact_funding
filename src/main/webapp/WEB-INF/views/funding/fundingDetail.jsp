@@ -149,7 +149,11 @@
 
                 <span id="reward_span">리워드 선택</span>
                 
+                
                 <c:forEach var="reward" items="${reward}">
+	                <!-- 발송시작일 계산을 위함 -->
+	                <fmt:formatDate var="shippingDate" value="${reward.shippingDate}" type="DATE" pattern="yyyy년 MM월 초 (1~10일) 예정"/>
+	                
 	                <div id="funing_main_right_div_3" class="funding_main_reward_choice_div" data-choice="${reward.rewardNo}">
 	                	<div id="fundingReward_price">${reward.price}원 펀딩</div>
 	                	<div id="fundingReward_title">${reward.title}!!</div>
@@ -157,7 +161,7 @@
 	                	<div id="fundingReward_shipping_title">배송비 </div>
 	                	<div id="fundingReward_shippint_price">${reward.shippingPrice}</div>
 	                	<div id="fundingReward_shipping_date_title">리워드 발송 시작일</div>
-	                	<div id="fundingReward_shipping_date_number">${reward.shippingDate}</div>
+	                	<div id="fundingReward_shipping_date_number">${shippingDate}</div>
 	                	<div id="fundingReward_limit">남은수량 ${reward.limitAmount}개</div>
 	                	<div id="fundingReward_reward_ing">몇개 펀딩완료</div>
 	                	
@@ -281,7 +285,7 @@
 	
 	
     #funing_main_right_div > div{
-    width: 200px;
+    width: 220px;
     height: 400px;
     padding-left: 10px;
     padding-top: 9px;
@@ -289,6 +293,7 @@
     
     #funing_main_right_div_3{
     margin-bottom: 13px;
+    cursor: pointer;
     
     }
     
@@ -351,11 +356,13 @@
 	
 	#fundingReward_title{
 	font-size: 17px;
+	padding-bottom: 9px;
 	
 	}
 	#fundingReward_content{
 	color: #929292;
     font-size: 14px;
+    padding-bottom: 9px;
 	}
 	#fundingReward_shipping_title{
     color: #929292;
@@ -363,6 +370,7 @@
 	}
 	#fundingReward_shippint_price{
     font-size: 17px;
+    padding-bottom: 9px;
 	}
 	
 	#fundingReward_shipping_date_title{
@@ -370,14 +378,26 @@
     font-size: 14px;
 	}
 	#fundingReward_shipping_date_number{
-	font-size: 17px;	
+	font-size: 15px;
+	padding-bottom: 9px;	
 	}
 	#fundingReward_limit{
     color: #00a2a2;
     font-size: 14px;
+    background-color: #E7F9F9;
+    display: inline;
 	}
 	#fundingReward_reward_ing{
     font-size: 14px;
+	}
+	#fundingReward_price{
+	padding-bottom: 10px;
+	
+	}
+	
+	#fundingReward_hoverdiv{
+	background-color: pink;
+	
 	}
 
 	
@@ -432,7 +452,15 @@
 			}
 	});
 
-		/* $("#funding_top_title_image").css("width" , screen.availHeight); */
+	$('.funding_main_reward_choice_div').hover(function(){
+		$(this).css("background-color","#00c4c4");
+		$(this).css("border","2px solid #00c4c4");
+		$(this).children().first().css("color","#00c4c4");
+	}, function(){
+        $(this).css("border","2px solid #cccccc");
+        $(this).children().first().css("color","black");
+    });
+
 		
 	</script>	
 

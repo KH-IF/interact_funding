@@ -26,13 +26,12 @@ $(() => {
           <ol>
             <li class="active"><em>리워드<br />선택</em></li>
             <li ><em>결제 예약</em></li>
-            <li><em>소문내기</em></li>
           </ol>
      </div>
 		
 	<div id="funding_reward_wrapper">
 		<div id="funding_reward_step">
-			<span>리워드 선택결제 </span><span>펀딩해주시는 금액에 따라 감사의 의미로 리워드를 제공해 드립니다.</span>
+			<span id="step_span1">리워드 선택결제 </span><span id="step_span2">펀딩해주시는 금액에 따라 감사의 의미로 리워드를 제공해 드립니다.</span>
 			<br />
 		</div>
 		
@@ -42,33 +41,20 @@ $(() => {
 			
 				 <c:forEach var="reward" items="${reward}">
 				 	 <div class="reward_select_div_wrapper" data-price="${reward.price}" id="rewardNo${reward.rewardNo}">
-				 		<div class="reward_select_checkbox_div">
-				 			<input type="checkbox" id="rewardNoCheckBox${reward.rewardNo}" class="reward_select_checkbox" value="${reward.rewardNo}" data-amount="1">
+				 		<div class="custom-control custom-checkbox">
+				 			<input type="checkbox" id="rewardNoCheckBox${reward.rewardNo}" class="custom-control-input" value="${reward.rewardNo}" data-amount="1">
+				 			<label class="custom-control-label" for="customCheck1"></label>
 				 		</div>
-				 		<div>
-						 	<h3>${reward.price}원 펀딩합니다</h3>
-				           	<br />
-				           	${reward.title}!!
-				           	<br />
-				           	${reward.content} 혜택
-				           	<br />
-				           	배송비 
-				           	<br />
-				           	${reward.shippingPrice}
-				           	<br />
-				           	리워드 발송 시작일
-				           	<br />
-				           	${reward.rewardNo} 예정
-				           	<br />
-				           	${reward.limitAmount} 개 남음!!
-				           	
-				           	
-				           	<br />
-				           	</div>
+				 		<div class="funding_reward_option_content_div">
+						 	<h3 id="funding_reward_content_price">${reward.price}원 펀딩합니다</h3>
+				           	<p id="funding_reward_content_title">${reward.title}(${reward.limitAmount}개 남음)</p>
+				           	<p id="funding_reward_content_content">${reward.content} 혜택</p>
+				           	<p id="funding_reward_content_shipping_date">배송비 ${reward.shippingPrice} | 리워드 발송 시작일 : ${reward.rewardNo} 예정</p>
 			           	</div>
+		           	</div>
 		           		<div class="rewardCount_div">
 			           	   <fieldset class="rewardCount">
-				                <legend >수량선택</legend>
+				                <legend class="rewardCountLegend">수량선택</legend>
 				                <button class="decreaseButton">-</button>
 				                <input name="choiceRewardCount" type="text" value="1" data-countprice="${reward.price}" data-limit="${reward.limitAmount}" class="countReward">
 				                <button class="increaseButton">+</button>
@@ -82,8 +68,8 @@ $(() => {
 			<div id="funding_reward_support_div">
 				<span class ="funding_reward_name_span">후원금 더하기(선택)</span> 
 				<div>
-					<span>후원금을 더하여 펀딩할 수 있습니다. 추가 후원금을 입력하시겠습니까?</span>
-					<input step="1000" type="number" id="reward_support_textarea" name="support" />원을 추가로 후원합니다.
+					<span id="support_content_span">후원금을 더하여 펀딩할 수 있습니다. 추가 후원금을 입력하시겠습니까?</span>
+					<input type="number" id="reward_support_textarea" name="support" placeholder="0"/><span id="support_content_content_span">원을 추가로 후원합니다.</span>
 				</div>
 			</div>
 			
@@ -114,7 +100,7 @@ $(() => {
 				${funding.title}에  <label for="rewardTotalPriceInput" id="funding_reward_choice">0</label>
 									<label for="rewardTotalPriceInputSupport" id="funding_reward_choice_support"></label> 원을 펀딩합니다.
 				<br />
-				<input type="submit" value="다음단계" class="d-inline-flex btn btn-primary btn-lg"></input>
+				<input id="nextButtonReward" type="submit" value="다음단계로 >"  class="btn btn-info"></input>
 			</div>
 		</form>
 	</div>
@@ -292,7 +278,7 @@ $(() => {
 	
 	#funding_reward_bottom_div{
 	height: 119px;
-	
+	text-align: center;
 	}
 	
 	.funding_reward_check_div_class{
@@ -366,21 +352,114 @@ $(() => {
 	.reward_select_div_wrapper{
 	display: flex;
 	font-size: 16px;
-	padding-top: 29px;
+	padding-top: 31px;
+	padding-bottom: 31px;
     padding-left: 41px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    margin-top: 12px;
 	}
 	
-	.reward_select_checkbox_div{
+	.custom-control custom-checkbox{
     margin-top: 10px;
     margin-right: 31px;
 	}
 	
 	.rewardCount_div{
-    padding-left: 82px;
-    margin-bottom: 43px;
+    padding-left: 94px;
+    padding-bottom: 26px;
     display: none;
 	}
+	.rewardCount{
+	font-size:12px;
+	}
+	.rewardCountLegend{
+	font-size:12px;
 	
+	}
+	
+	.funding_reward_option_content_div{
+    padding-left: 31px;
+	}
+	
+	.funding_reward_option_content_div > p{
+	font-size:16px;
+    display: table-header-group;
+	}
+	
+	
+	.custom-checkbox .custom-control-input:checked~.custom-control-label::after {
+    background-color: #00c4c4;
+	}	
+	
+	.countReward{
+	width:41px;
+    text-align: center;
+	}
+	
+	#funding_reward_content_price{
+	font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 13px;
+	
+	}
+	#funding_reward_content_title{
+	font-size: 14px;
+	}
+	#funding_reward_content_content{
+	font-size: 12px;
+	color: #686868;
+	
+	}
+	#funding_reward_content_shipping_date{
+	font-size: 12px;
+	}
+	
+	#reward_support_textarea{
+	order: 1px solid rgba(0,0,0,.15);
+    text-align: right;
+    height: 40px;
+    padding-right: 13px;
+    margin-top: 10px;
+	}
+	#reward_support_textarea::-webkit-outer-spin-button,
+	#reward_support_textarea::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+	}
+
+
+	#step_span1{
+	font-size :18px;
+	}
+	#step_span2{
+	font-size :14px;
+	color: #4a4a4a;
+	
+	}
+	#support_content_span{
+	color: #4a4a4a;
+	font-size : 14px;
+	}
+	#support_content_content_span{
+	color: #4a4a4a;
+	font-size : 14px;
+	margin-left: 10px;
+	}
+	
+	#funding_reward_choice, #funding_reward_choice_support{
+	text-decoration: underline;
+    color: #00c4c4;
+	}
+	
+	#nextButtonReward{
+    height: 49px;
+    width: 141px;
+	
+	}
+
+
+
 	
 	</style>
 	
@@ -444,6 +523,14 @@ $(() => {
 			return;
 			}
 		});
+
+	$('.reward_select_div_wrapper').hover(function(){
+		$(this).css("border-top","1px solid #00c4c4");
+		$(this).children().children("h3").css("color","#00c4c4");
+	}, function(){
+        $(this).css('border','1px solid #E7F9F9');
+        $(this).children().children("h3").css("color","black");
+    });
 
 	
 	//수량선택 + - 
@@ -516,8 +603,10 @@ $(() => {
 		$('.reward_select_div_wrapper').on("click", function(){
 			if($(this).children().children("input").is(":checked") == false){
 				$(this).children().children("input").attr("checked", true);
-				$(this).css("background-color","pink")
-				$(this).next().css("background-color","pink")
+				$(this).css("background-color","#E7F9F9")
+				$(this).css("border","1px solid #E7F9F9")
+				$(this).next().css("background-color","#E7F9F9")
+				$(this).next().css("border","1px solid #E7F9F9")
 				$(this).next().css("display","block")
 				
 				/*총 가격 계산*/
@@ -533,8 +622,8 @@ $(() => {
 			}
 			else{
 				$(this).children().children("input").attr("checked", false);
-				$(this).css("background-color","white")
-				$(this).next().css("background-color","white")
+				$(this).css("background-color","#f9f9f9")
+				$(this).next().css("background-color","#f9f9f9")
 				$(this).next().css("display","none")
 				
 				/*총 가격 계산*/
