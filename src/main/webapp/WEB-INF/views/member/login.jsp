@@ -32,10 +32,10 @@
 				<div>
 					<input type="checkbox" name="remember" id="remember" <%= saveEmail != null ? "checked" : "" %>/>
 					<label for="remember">이메일 저장</label>
-					<input type="checkbox" name="remember-me" id="remember-me"/>
+					<input type="checkbox" name="remember-me" id="remember-me" onchange="alertMsg(this);"/>
 					<label for="remember-me">로그인유지</label>
 				</div>
-				<a href="${pageContext.request.contextPath}/member/findid">아이디·비밀번호 찾기</a>
+				<a href="${pageContext.request.contextPath}/member/findid">비밀번호 찾기</a>
 			</div>
 			<input type="submit" class="btn btn-info" value="로그인" />
 		</form:form>
@@ -115,6 +115,13 @@
 				error:console.log
 			});
 		});
+
+		function alertMsg(box){
+			var chk = $(box).prop("checked");
+			if(chk){
+				swal("로그인유지","체크시 2주간 로그인이 유지됩니다","info");
+			}
+		}
 	</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

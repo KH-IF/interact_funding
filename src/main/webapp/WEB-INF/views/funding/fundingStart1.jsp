@@ -187,7 +187,7 @@ h2.h2Title{
            	<hr />
            	<br />
         	<h2 class="h2Title"><strong>진행완료한 지난 프로젝트 정보</strong></h2>
-        	<c:if test="${not empty finishList} ">
+        	<c:if test="${not empty finishList}">
 				<c:forEach var="funding" items="${finishList}">
 					<div class="card d-inline-flex m-2" style="width: 18rem;">
 						<div class="cardProjectNo"><span>Project No.${funding.fundingNo}</span></div>

@@ -83,7 +83,25 @@ public class MemberDaoImpl implements MemberDao {
 		return session.update("member.msgReadStatusChg",no);
 	}
 	
+	@Override
+	public int insertCertificationCode(Map<String, Object> param) {
+		return session.insert("member.insertCertificationCode", param);
+	}
 	
+	@Override
+	public Map<String, String> selectOneCertification(Member member) {
+		return session.selectOne("member.selectOneCertification", member);
+	}
+
+	@Override
+	public int changePassword(Map<String, Object> map) {
+		return session.update("member.changePassword",map);
+	}
+
+	@Override
+	public int deleteCertificationCode(Map<String, Object> map) {
+		return session.delete("member.deleteCertificationCode",map);
+	}
 
 	// 김경태
 

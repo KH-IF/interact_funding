@@ -17,7 +17,11 @@ public class RememberMeSuccessHandler implements AuthenticationSuccessHandler{
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 		request.getSession().setAttribute("loginMember", (Member)(authentication.getPrincipal()));
-		response.sendRedirect(request.getContextPath()+"/");
+		String next = request.getHeader("Referer");
+		if(next==null) {
+			next = request.getContextPath()+"/";
+		}
+		response.sendRedirect(next);
 	}
 	
 

@@ -19,4 +19,11 @@ public class RewardCollection {
 	private int shippingPrice;
 	private int limitAmount;
 	private Date shippingDate;
+	
+	private Date regDate;
+	private Boolean status;
+	private String address;
+	private String name;
+	private String phone;
+	private String etc;
 }
