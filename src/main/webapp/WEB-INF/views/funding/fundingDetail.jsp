@@ -119,7 +119,7 @@
 					</div>
                     <div id="funding_detail_goal_percent_div"> <fmt:formatNumber value="${funding.nowAmount / funding.goalAmount}" type="percent"/>달성</div><!-- 8500% 달성 -->
                    
-                    <div id="funding_detail_now_amount_div">현재 ${funding.nowAmount}원 펀딩중</div><!-- 444444 원 펀딩 -->
+                    <div id="funding_detail_now_amount_div">현재 <fmt:formatNumber value="${funding.nowAmount}" pattern="#,###" />원 펀딩중</div><!-- 444444 원 펀딩 -->
                     <div id="funding_detail_supporter_div"> 현재 ${fundingParticipationCount}명의 서포터</div> <!-- 3333명의 서포터funding_participation -->
                     <input id="funding_button" type="button" value="펀딩하기" onclick="location.href='${pageContext.request.contextPath}/funding/fundingReward?fundingNo=	${funding.fundingNo}';" class="btn btn-info"/>
                     <button type="button" id="funding_detail_like_button" class="btn btn-outline-secondary" onclick="like_controll()">
@@ -152,30 +152,24 @@
                 
                 <c:forEach var="reward" items="${reward}">
 	                <!-- 발송시작일 계산을 위함 -->
-	                <fmt:formatDate var="shippingDate" value="${reward.shippingDate}" type="DATE" pattern="yyyy년 MM월 초 (1~10일) 예정"/>
-	                
 	                <div id="funing_main_right_div_3" class="funding_main_reward_choice_div" data-choice="${reward.rewardNo}">
-	                	<div id="fundingReward_price">${reward.price}원 펀딩</div>
+		                <fmt:formatDate var="shippingDate" value="${reward.shippingDate}" type="DATE" pattern="yyyy년 MM월 초 (1~10일) 예정"/>
+	                	<div id="fundingReward_price"><fmt:formatNumber value="${reward.price}" pattern="#,###" />원 펀딩</div>
 	                	<div id="fundingReward_title">${reward.title}!!</div>
 	                	<div id="fundingReward_content">${reward.content} 혜택</div>
+	                	
 	                	<div id="fundingReward_shipping_title">배송비 </div>
-	                	<div id="fundingReward_shippint_price">${reward.shippingPrice}</div>
+	                	<div id="fundingReward_shippint_price"><fmt:formatNumber value="${reward.shippingPrice}" pattern="#,###" /></div>
 	                	<div id="fundingReward_shipping_date_title">리워드 발송 시작일</div>
 	                	<div id="fundingReward_shipping_date_number">${shippingDate}</div>
 	                	<div id="fundingReward_limit">남은수량 ${reward.limitAmount}개</div>
-	                	<div id="fundingReward_reward_ing">몇개 펀딩완료</div>
-	                	
 				   </div>
                 </c:forEach>
-				
-				
-
 				<span id="ranking_span">인기게시글</span>
                 <div id="funing_main_right_div_4">
-                    
+                
                 </div>
             </div>
-
         </div>
 
 
@@ -286,7 +280,6 @@
 	
     #funing_main_right_div > div{
     width: 220px;
-    height: 400px;
     padding-left: 10px;
     padding-top: 9px;
     }
@@ -294,9 +287,13 @@
     #funing_main_right_div_3{
     margin-bottom: 13px;
     cursor: pointer;
-    
+    min-height: 300px;
     }
     
+    #funing_main_right_div_4{
+    min-height: 300px;
+    
+    }
     /* 펀딩하기버튼 */
     #funding_button {
     width: 96%;
@@ -435,25 +432,27 @@
 
 	
 	$(".funding_main_reward_choice_div").click(function(e){
-		
+
+		/* 수정필요 */
 		if(${not empty loginMember}){
 			var $target;
-	        if($(e.target)==$(".funding_main_reward_choice_div")){
+			var choice;
+	        if($(e.target).hasClass("funding_main_reward_choice_div")){
             	$target = $(e.target);
 	        }
 	        else{
 		        $target = $(e.target).parent();
 	        }
-	        var choice = $target.data("choice");
+	        choice = $target.data("choice");
+			console.log(choice);
 			location.href="${pageContext.request.contextPath}/funding/fundingReward?fundingNo=${funding.fundingNo}&choice="+choice;
 		}else{
 			alert("로그인 회원만 가능합니다.");
 			return;
-			}
+		}
 	});
 
 	$('.funding_main_reward_choice_div').hover(function(){
-		$(this).css("background-color","#00c4c4");
 		$(this).css("border","2px solid #00c4c4");
 		$(this).children().first().css("color","#00c4c4");
 	}, function(){
@@ -463,8 +462,6 @@
 
 		
 	</script>	
-
-
 
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

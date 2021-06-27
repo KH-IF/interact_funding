@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="funding_reward" name="title"/>
 </jsp:include>
@@ -27,124 +28,123 @@
 		<div id="fundingPayment_div1">
 			<div id="fundingPayment_div1_rewardtitle">
 				<br />
-				
 				<c:forEach items="${selectList}" var="selectReaward">
-					<div>
-						title : ${selectReaward.reward.title}
+					<div id="selectReawardDiv">
+						<div id="selectReawardTitle">
+							${selectReaward.reward.title}
+						</div>
+						<div id="selectReawardContent">
+							${selectReaward.reward.content}
+						</div>
+						<div id="selectReawardCount">
+							<span id="selectReawardCount_1">수량 : ${selectReaward.amount} 개</span><span id="selectReawardCount_2">  총 : <fmt:formatNumber value="${selectReaward.reward.price * selectReaward.amount}" pattern="#,###" /> 원</span>
+						</div>
 					</div>
-					<div>
-						옵션 : ${selectReaward.reward.content}
-					</div>
-					<div>
-					</div>
-					<div>
-						<span>수량 : ${selectReaward.amount} 개</span><span><span> ${selectReaward.reward.price} * ${selectReaward.amount} =</span> 총 : ${selectReaward.reward.price * selectReaward.amount} 원</span>
-					</div>
-					<hr />
 				</c:forEach>
-
-					
-
 			</div>
 		</div>	
 		
 		
 		<div id="fundingPayment_div4">
-			<div id="fundingPayment_div4_price">
-				<span class="paymentLeft">펀딩금액 :</span> <span class="paymentRight">${rewardTotalPrice}</span>
-			</div>	
-			<div id="fundingPayment_div4_plus">
-				<span class="paymentLeft">추가후원금 :</span> <span class="paymentRight">${rewardTotalPriceSupport}</span>
-			</div>	
-			<div id="fundingPayment_div4_shippingfee">
-				<span class="paymentLeft">배송비 :</span> <span class="paymentRight">2500</span>
-			</div>	
-			<div id="fundingPayment_div4_total">
-				<span class="paymentLeft">최종결제금액 :</span> <span class="paymentRight">${rewardTotalPrice + rewardTotalPriceSupport + 2500} 원</span>
-				
-			</div>	
-			
-		
-		</div>	
-		<form id="fundingPaymentForm" name="fundingPaymentForm" action="${pageContext.request.contextPath}/funding/fundingFinalPayment" method="POST">
-				<input type="hidden" name="fundingNo" value="${funding.fundingNo}"/>
-		<div id="fundingPayment_div5">
-			 <div id="fundingPayment_div_div1">
-			 	<h1>펀딩서포터</h1>
-			 	이름 : ${loginMember.name}
-			 	<br />
-			 	이메일 :${loginMember.email}
-			 	<br />
-			 	휴대폰번호 :${loginMember.phone}
-			 
-			 </div>
-		
-			
-				 <div id="fundingPayment_div_div2">
-					<h1>리워드배송지</h1>
-			        이름
-			         <br />
-			        <input type="text" name="name" id="fundingPayment_div_div2_name" placeholder="이름"/>
-			        <br />
-			        휴대폰번호
-			         <br />
-			        <input type="text" name="phone" id="fundingPayment_div_div2_phone" placeholder="휴대폰번호"/>
-			        <br />
-			         <br />
-			        주소 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="find_address()">우편번호 검색</button>
-			        <br />
-			        <div> <p id="fundingPayment_newaddress"></p></div>
-			        <input type="hidden" name="address1" id="hiddenAddress1">
-			        <input type="text" name="address2" id="address2" placeholder="상세주소"/>
-			        <br />
-		         	<br />
-				 	배송시 요청사항(선택)
-				 	<br />
-			        <input type="text" name="etc" id="fundingPayment_div_div2_request" placeholder="ex) 부재시 경비실에 보관해주세요"/>
-				 </div>
-			 
-		</div>	
-		
-		<div id="fundingPayment_div6">
-		
-			<h1> 포인트 현황</h1>
-			<span>현재 포인트 :</span> <span id="paymentNowPoint">${loginMember.point}</span>
-			<br />
-			<span>차감예정 :</span> <span>${rewardTotalPrice + rewardTotalPriceSupport + 2500} 원</span>
-			<br />
-			
-			<span>예상 잔여포인트 :</span> <span id="paymentRemainPoint">${loginMember.point- (rewardTotalPrice + rewardTotalPriceSupport + 2500)}원</span>
-			
-			<c:if test="${loginMember.point < (rewardTotalPrice + rewardTotalPriceSupport + 2500)}">
-				<div>잔액이적습니다. <span onclick="window.open('${pageContext.request.contextPath}/member/memberDetails');">충전하러가기</span></div>
-			</c:if>
-		</div>
-		
-		<div id="fundingPayment_div7">
-			<h1>약관동의</h1>
-			
-			
-			<fieldset class="fundingPayment_div6_checkbox">
-				<input type="checkbox" name="fundingPayment_div6_input1"
-					id="ho_agreement_input1" onclick="chkAll()"/> <label for="ho_agreement_input1">모두
-					동의합니다.</label> <br>
-				<hr>
-				<input type="checkbox" class ="checkbox_ho" name="ho_agreement_input2" id="ho_agreement_input2" onclick="chkOne()" required />
-		    	<label	for="ho_agreement_input2">제 3자에 대한 개인정보 제공 동의</label>
-		    	<br>
-				<input type="checkbox" class ="checkbox_ho" name="ho_agreement_input3" id="ho_agreement_input3" onclick="chkOne()" required />
-		    	<label	for="ho_agreement_input3">책임 규정에 대한 동의</label>
-		    	<br>
-				<input type="checkbox" class ="checkbox_ho" name="ho_agreement_input4" id="ho_agreement_input4" onclick="chkOne()" required />
-		    	<label	for="ho_agreement_input4">서비스이용 약관에 동의</label>
-		    	<br>
-			</fieldset>
-			<div id="payment_submit_div">
-				<input type="submit" id="fundingPayment_div6_checkbox_submit" class="btn btn-info" value="결제예약하기">
+			<div id="fundingPayment_div4_wrapper">
+				<div id="fundingPayment_div4_plus">
+					<span class="paymentLeft">추가후원금</span> <span class="paymentRight"><fmt:formatNumber value="${rewardTotalPriceSupport}" pattern="#,###" /></span>
+				</div>	
+				<div id="fundingPayment_div4_price">
+					<span class="paymentLeft">펀딩금액</span> <span class="paymentRight"><fmt:formatNumber value="${rewardTotalPrice}" pattern="#,###" /></span>
+				</div>	
+				<div id="fundingPayment_div4_shippingfee">
+					<span class="paymentLeft">배송비</span> <span class="paymentRight"><fmt:formatNumber value="2500" pattern="#,###" /></span>
+				</div>	
+				<div id="fundingPayment_div4_total_wrapper">
+					<div id="fundingPayment_div4_total">
+						<span class="paymentLeft">최종결제금액</span> <span class="paymentRight"><fmt:formatNumber value="${rewardTotalPrice + rewardTotalPriceSupport + 2500}" pattern="#,###" /> 원</span>
+					</div>
+				</div>	
 			</div>
-		</form>
-		
 		</div>
+		
+		<form:form id="fundingPaymentForm" name="fundingPaymentForm" action="${pageContext.request.contextPath}/funding/fundingFinalPayment" method="POST">
+			<input type="hidden" name="fundingNo" value="${funding.fundingNo}"/>
+			<div id="fundingPayment_div5">
+				<div id="fundingPayment_div5_wrapper"> 
+					 <div id="fundingPayment_div_div1">
+					 
+					 	<h1>펀딩서포터</h1>
+						 <div id="fundingPayment_div_div1_1">
+						 	<div id="fundingPayment_div_div1_1_name">이름 : ${loginMember.name}</div>
+						 	<div id="fundingPayment_div_div1_1_email">이메일 : ${loginMember.email}</div>
+						 	<div id="fundingPayment_div_div1_1_phone">휴대폰번호 : ${loginMember.phone}</div>
+						 </div>
+						 
+						 <div id="fundingPayment_div_div1_2">
+							<h1 id="fundingPayment_div6_h1"> 포인트 현황</h1>
+							 <div id="fundingPayment_div6">
+								<div><span class="div6span1">현재 포인트 :</span> <span id="paymentNowPoint"><%-- <fmt:formatNumber value="${loginMember.point}" pattern="#,###" /> --%></span></div>
+								<div><span class="div6span1">차감예정 :</span> <span><fmt:formatNumber value="${rewardTotalPrice + rewardTotalPriceSupport + 2500}" pattern="#,###" /></span></div>
+								<div><span class="div6span1">예상 잔여포인트 :</span> <span id="paymentRemainPoint"><%-- <fmt:formatNumber value="${loginMember.point-(rewardTotalPrice + rewardTotalPriceSupport + 2500)}" pattern="#,###" /> --%></span>원</div>
+								
+								<c:if test="${loginMember.point < (rewardTotalPrice + rewardTotalPriceSupport + 2500)}">
+									<div id="checkRemainMoneyDiv"><span id="reaminMoney">잔액이적습니다. <span id="charge" onclick="window.open('${pageContext.request.contextPath}/member/memberDetails');">충전하러가기</span></span></div>
+								</c:if>
+							</div>	
+						 </div>
+					 </div>
+			
+				
+					 <div id="fundingPayment_div_div2">
+						<h1>리워드배송지</h1>
+				        이름
+				         <br />
+				        <input type="text" name="name" id="fundingPayment_div_div2_name" placeholder="이름"/>
+				        <br />
+				        휴대폰번호
+				         <br />
+				        <input type="text" name="phone" id="fundingPayment_div_div2_phone" placeholder="휴대폰번호"/>
+				        <br />
+				        주소 
+				        <br />
+				        <button id="addressButton" type="button" class="btn btn-secondary" data-dismiss="modal" onclick="find_address()">우편번호 검색</button>
+				        <br />
+				        <div> <p id="fundingPayment_newaddress"></p></div>
+				        <input id="address1" type="hidden" name="address1" id="hiddenAddress1">
+				        <input id="address2" type="text" name="address2" id="address2" placeholder="상세주소"/>
+			         	<br />
+					 	배송시 요청사항(선택)
+					 	<br />
+				        <input type="text" name="etc" id="fundingPayment_div_div2_request" placeholder="ex) 부재시 경비실에 보관해주세요"/>
+					 </div>
+				 </div>
+			</div>	
+		
+		
+		
+			<div id="fundingPayment_div7">
+				<div id="fundingPayment_div7_wrapper">
+					<h1>약관동의</h1>
+				
+					<fieldset class="fundingPayment_div6_checkbox">
+						<input type="checkbox" name="fundingPayment_div6_input1"
+							id="ho_agreement_input1" onclick="chkAll()"/> <label for="ho_agreement_input1"><strong>전체
+							동의하기</strong></label> <br>
+						<hr>
+						<input type="checkbox" class ="checkbox_ho" name="ho_agreement_input2" id="ho_agreement_input2" onclick="chkOne()" required />
+				    	<label	for="ho_agreement_input2">제 3자에 대한 개인정보 제공 동의</label>
+				    	<br>
+						<input type="checkbox" class ="checkbox_ho" name="ho_agreement_input3" id="ho_agreement_input3" onclick="chkOne()" required />
+				    	<label	for="ho_agreement_input3">책임 규정에 대한 동의</label>
+				    	<br>
+						<input type="checkbox" class ="checkbox_ho" name="ho_agreement_input4" id="ho_agreement_input4" onclick="chkOne()" required />
+				    	<label	for="ho_agreement_input4">서비스이용 약관에 동의</label>
+				    	<br>
+					</fieldset>
+				
+					<div id="payment_submit_div">
+						<input type="submit" id="fundingPayment_div6_checkbox_submit" class="btn btn-info" value="결제예약하기">
+					</div>
+				</div>
+			</div>
+		</form:form>
 	</div>
 	
 	
@@ -158,6 +158,7 @@
     margin: auto;
     font-size: 24px;
     font-weight: 900;
+    padding-right: 55px;
 	}
 	
 	#go_back{
@@ -172,10 +173,10 @@
      width: 800px;
      height: 2000px;
      font-weight: 700;
+     border-top: 2px solid #666;	
 	}
 	
 	#fundingPayment_all_wrapper > div{
-	 border: 2px solid black;		
 	}
 	
 	
@@ -201,12 +202,34 @@
 	
 	#fundingPayment_div4{
 	 height: 220px;
+	 background-color: #f9f9f9;
+     padding-top: 17px;
+     border-top: 1px solid #e4e4e4;
+	}
 	
-	
+	#fundingPayment_div4 > div > div{
+	padding-top: 17px;
+    margin-bottom: 5px;
 	}
 	
 	#fundingPayment_div5{
+	border-top: 1px solid #e4e4e4;
+	}
+	#fundingPayment_div5_wrapper{
+	padding-top: 25px;
 	display: flex;
+	
+	}
+	
+	#fundingPayment_div4_wrapper{
+	}
+	
+	#fundingPayment_div4_plus, #fundingPayment_div4_price, #fundingPayment_div4_shippingfee, #fundingPayment_div4_total{
+	padding-left: 30px;
+	
+	}
+	#fundingPayment_div4_total_wrapper{
+	border-top: 1px solid #e4e4e4;
 	
 	}
 	
@@ -219,27 +242,30 @@
 	/* 리워드배송지 */
 	#fundingPayment_div_div2{
 	width: 400px;
-	
+	padding-left: 51px;
 	}
-	
 	
 	/* 포인트현황 */
 	#fundingPayment_div6{
-	height: 220px;
+	height: 180px;
+	background-color: #EEEDE9;
 	
 	}
 	
 	/* 약관동의 */
 	#fundingPayment_div7{
 	height: 220px;
+	margin-top: 31px;
 	
 	}
 	
+	#fundingPayment_all_wrapper_last{
+   /*  padding-left: 51px; */
 	
+	}
 	
-	
-	
-	
+	#fundingPayment_div6 > span{
+	}
 	
 	/* step 나타는 부분*/
 	#funding_purchase_step{
@@ -290,12 +316,127 @@
     height: 60px;
     margin-top: 20px;
 	}
+	#fundingPayment_div1_rewardtitle{
+	padding-left: 30px;
+	}
+	
+	#fundingPayment_div1 > div{
+	}
+	
+	#fundingPayment_div_div2 > input{
+    width: 281px;
+    height: 44px;
+    padding-left: 14px;
+    margin-top: 5px;
+    margin-bottom: 11px;
+	}
+	
+	#fundingPayment_div6_h1{
+	margin-bottom: 15px;
+	
+	}
+	#addressButton{
+	height: 44px;
+    width: 144px;
+    margin-top: 11px;
+	
+	}
+	
+	#selectReawardTitle{
+    font-size: 16px;
+	color: #00c4c4;
+	margin-bottom: 8px;
+	}
+	
+	#selectReawardContent{
+ 	font-size: 16px;
+ 	color: #686868;
+	}
+	
+	#selectReawardCount{
+    text-align: right;
+    padding-right: 40px;
+    margin-bottom: 8px;
+	
+	}
+	
+	#selectReawardDiv{
+    border-bottom: 1px solid #e4e4e4;
+	
+	}
+	
+	.paymentRight{
+    text-align: right;
+    right: 293px;
+    position: absolute;
+	
+	}
 	
 	
+	#fundingPayment_div_div1_1{
+	height: 36%;
+    margin-top: 9px;
+    background: #EEEDE9;
+	}
+	#fundingPayment_div_div1_2{
+	height: 36%;
+	padding-bottom: 20px;
+	}
+	#fundingPayment_div_div1_1_name{
+	padding-top: 16px;
+	}
+	#fundingPayment_div_div1_1_email{
+	padding-top: 24px;
+	}
+	#fundingPayment_div_div1_1_phone{
+	padding-top: 24px;
+	}
+	#reaminMoney{
+	padding-top: 4px;
+	font-size : 12px;
+	color: red;
+	padding-left: 34px;
+	}
+	#charge{
+    font-weight: 900;
+    font-size: 15px;
+    text-decoration: underline;
+    cursor: pointer;
+	
+	}
+	#fundingPayment_div7_wrapper{
+	padding-left: 30px;
+	}
+	
+	.fundingPayment_div6_checkbox{
+	margin-top: 31px;
+	
+	}
+	
+	#fundingPayment_div_div1_1 > div{
+    padding-left: 30px;
+	}
+	
+	.div6span1{
+    padding-left: 30px;
+	}
+	
+	#fundingPayment_div6 > div{
+	padding-top: 17px;	
+	}
+	
+	#fundingPayment_div4_total_wrapper{
+	}
+	
+	#checkRemainMoneyDiv{
+	display: none;
+	
+	}
 	</style>
 	
 	<script>
 
+	
 	//실시간 금액 변경을 위함
 	var point;
 	window.onload = function (){
@@ -308,17 +449,27 @@
 						return;
 			        	}
 		        	point = data;
-		            $("#paymentNowPoint").text(data);
 					var remainPoint = (data - ${rewardTotalPrice + rewardTotalPriceSupport + 2500});
+
+
 		            
+		            $("#paymentNowPoint").text(data);
 		            $("#paymentRemainPoint").text(remainPoint);
 		            console.log(data);
+		            
+		          	//잔액이적으면
+		        	if(remainPoint < 0){
+		        		$("#checkRemainMoneyDiv").css("display", "block");
+		        		}
+		    		//잔액이많으면
+		    		else if(remainPoint >= 0){
+		        		$("#checkRemainMoneyDiv").css("display", "none");
+		        		}
 		        },
 				error: console.log
 		      });
 		 },   1000);
 	}
-
 
 	
 
@@ -401,6 +552,78 @@
             }
         }).open();
     };
+
+
+    //폼태그 유효성
+    const cmntForm = document.forms['fundingPaymentForm'];
+  	cmntForm.addEventListener('submit', function(event){
+	    event.preventDefault();
+
+
+	    //잔액이 부족할때 유효성 제출시
+	    var reamainMoney = $("#paymentRemainPoint").text();
+ 		if(reamainMoney < 0){
+ 			$("#checkRemainMoneyDiv").css("display", "block");
+			swal("잔액 부족", "충전하러가기 문구를 클릭 후 충전을 완료해주세요 \n 금액은 자동으로 업데이트됩니다.", "error");
+			return;
+			}
+ 		else if(reamainMoney >= 0){
+ 			$("#checkRemainMoneyDiv").css("display", "none");
+			}
+
+
+		//이름 유효성 제출시
+		if($("#fundingPayment_div_div2_name").val() == false){
+			swal("예약 실패", "이름을 입력해주세요", "error");
+			$("#fundingPayment_div_div2_name").focus();
+			return;
+			}
+
+		//휴대폰 유효성 제출시
+		if($("#fundingPayment_div_div2_phone").val() == false){
+			swal("예약 실패", "휴대폰번호를 입력해주세요", "error");
+			$("#fundingPayment_div_div2_phone").focus();
+			return;
+			}
+			
+		//우편번호 검사시
+		if($("#fundingPayment_newaddress").text() == false){
+			swal("예약 실패", "우편번호를 입력해주세요", "error");
+			return;
+			}
+		
+		//상세주소 검사시
+		if($("#address2").val() == false){
+			swal("예약 실패", "상세주소를 입력해주세요", "error");
+			$("#address2").focus();
+			return;
+			}
+
+		
+ 	 });
+    	
+	//이름 유효성검사
+    $("#fundingPayment_div_div2_name").change(function(){
+
+    	var $fundingPayment_div_div2_name = $("#fundingPayment_div_div2_name");
+    	
+    	if(/^[가-힣]{2,}$/.test($fundingPayment_div_div2_name.val()) == false){
+			swal("입력 실패", "이름을 올바르지 않습니다.", "error");
+			$fundingPayment_div_div2_name.val("");
+		}
+	});
+
+	
+	//휴대폰번호 유효성검사
+    $("#fundingPayment_div_div2_phone").change(function(){
+
+    	var $fundingPayment_div_div2_phone = $("#fundingPayment_div_div2_phone");
+    	
+		if(/^010[0-9]{8}$/.test($fundingPayment_div_div2_phone.val()) == false){
+			swal("입력 실패", "휴대폰 번호가 올바르지 않습니다.", "error");
+			$fundingPayment_div_div2_phone.val("");
+		}
+	});
 	
 </script>
 	
