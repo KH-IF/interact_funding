@@ -43,6 +43,12 @@
 .rewordProjectCardMakerName{
 	margin-top: 10px;
 }
+.fundingProjectList-h1{
+	margin-inline: 48px;
+    padding-top: 40px;
+    font-weight: 700;
+    font-size: 32px;
+}
 </style>
 <div class="fundingMainWrapper">
 	<div id="demo" class="carousel slide" data-ride="carousel">
@@ -77,7 +83,7 @@
 		   			<div class="carousel-item">
 		   		</c:if>
                    <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${banner.fundingNo}">
-                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width: 1300px; height: 400px;">
+                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width: 100%; object-fit:cover; height: 400px;">
                     <div class="slide-title">
                      <span>${banner.title}</span>
                      <p></p>
@@ -95,6 +101,7 @@
 	            <span class="carousel-control-next-icon"></span>
 	        </a>
 	</div>
+	<h1  class="fundingProjectList-h1">오픈예정 둘러보기</h1>
 	<div class="fundingProjectList">
             <!-- 목록 -->
 	        <div class="fundingProjectCardList">

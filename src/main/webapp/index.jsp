@@ -675,7 +675,7 @@ $(document).ready(function(){
 	</div>
 </div>
 <button type="button" id="button" class="btn btn-info"
-	onclick="Refresh()" style="position:relative; left: 60%; padding: 12px; font-weight: 500;  color: #ffffff;">
+	onclick="Refresh()" style="position:relative; left: 60%; padding: 12px; font-weight: 500;  color: #ffffff; margin-top: -10px;">
 	<ion-icon name="refresh-outline"></ion-icon>
 	새로고침
 </button>
@@ -1077,7 +1077,7 @@ $(document).ready(function(){
 	<!-- 로그인 안되었을때-->
 	<c:if test="${empty loginMember}">
 	<button type="button" class="btn btn-info"
-		style="position: absolute; z-index:1; left: 42%; top: 60%; padding: 0.9vw; padding-inline: 2vw;"
+		style="position: absolute; z-index:1; left: 46%; top: 60%; padding: 0.9vw; padding-inline: 2vw;"
 		onclick="location.href='${pageContext.request.contextPath}/member/login'">
 		바로가기
 		<ion-icon name="arrow-forward-outline"></ion-icon>
