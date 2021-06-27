@@ -1,3 +1,4 @@
+<%@page import="com.kh.interactFunding.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,6 +9,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title>${param.title}</title>
 
 <!-- header CSS파일 -->
@@ -109,7 +112,12 @@
 	</header>
 	<script>
 		function openProject(){
-			//무조건 fundingStart1을 거치게 변경하였습니다. 인증은 번호 변경을 원하는 경우도 있음으로 분기처리 하지 않습니다.
+			if(${empty loginMember}){
+				swal("프로젝트 생성","로그인이 필요합니다!","info").then(function(){
+					location.href='${pageContext.request.contextPath}/member/login';
+				});
+				return;
+			}
 			location.href='${pageContext.request.contextPath}/funding/fundingStart1';
 			
 		}
@@ -117,7 +125,8 @@
 		$('#myModal').on('shown.bs.modal', function () {
 			  $('#myInput').trigger('focus')
 		});
-
+		<% boolean loginCheck = request.getAttribute("loginMember")!=null; %>
+		<% if(loginCheck){ %>
 		//받은메시지함 - 메시지 세부내용 보기 함수
 		function showMsg(div){
 			var msgno = $(div).data("number");
@@ -208,9 +217,15 @@
 			$("#sendContainer").show();
 			$("[type=hidden][name=sendToMemberNo]").val(tono);
 		}
-
+		<%}%>
 		//받은메시지함 - 메시지 발송 함수
 		function sendMsg(btn){
+			if(${empty loginMember}){
+				swal("로그인 필요","메시지를 보내기위해 로그인이 필요합니다","error").then(function(){
+					location.href="${pageContext.request.contextPath}/member/login";
+						return;
+				});
+			}
 			var title = $(btn).parent().parent().find("[name=sendTitle]").val();
 			var content = $(btn).parent().parent().find("[name=sendContent]").val();
 			var no = $(btn).parent().parent().find("[name=sendToMemberNo]").val();
@@ -219,7 +234,9 @@
 				method:"post",
 				data:{
 					toMemberNo:no,
+					<% if(loginCheck){%>
 					fromMemberNo:${loginMember.memberNo},
+					<%}%>
 					fromMemberName:'${loginMember.name}',
 					title:title,
 					content:content,

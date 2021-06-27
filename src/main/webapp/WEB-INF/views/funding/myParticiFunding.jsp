@@ -3,26 +3,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save | IF Maker Studio</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!-- SweetAlert Ver1 , 2아님 -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<!-- JS -->
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.js"></script>
-</head>
-<body>
-    <section>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fundingMaker.css" />
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<jsp:include page="/WEB-INF/views/common/header.jsp" flush="false">
+    <jsp:param value="IF Funding Start" name="title"/>
+</jsp:include>
       	<!-- 알람 -->
 		<c:if test="${not empty msg}">
 		  <div class="alert alert-success" role="alert">
@@ -31,27 +17,25 @@
 		  </div>
 		</c:if>
         <div class ="container p-5">
-        	<h2><strong>내가 참여한 펀딩</strong></h2>
+        	<h2 class="h2Title"><strong>내가 참여한 펀딩</strong></h2>
        		
         	<c:if test="${not empty list}">
 			<c:forEach var="funding" items="${list}">
 			<div class="card d-inline-flex m-2" style="width: 18rem;">
 			<!-- 진행완료한 펀딩 페이지로 이동하기 -->
-				<p class="card-text">${funding.fundingNo}</p>
+				<div class="cardProjectNo"><span>Project No.${funding.fundingNo}</span></div>
 				<input name="fundingNo" type="hidden" value="${funding.fundingNo}"/>
 				<!-- 메인이미지 넣을 것  -->
-				<c:if test="${funding.attachment == null}">
-				<img class="card-img-top" src="${pageContext.request.contextPath}/resources/image/image-not-found.jpg" alt="대표이미지 등록 필요"> 
-				</c:if>
-				<c:if test="${funding.attachment != null}">
 				<c:set value="${funding.attachment}" var="attach" scope="page" />
-				<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"  alt="파일을 찾을 수 없습니다."> 
-				</c:if>
+			  	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"  alt="파일을 찾을 수 없습니다."> 
+						  
 				  
 				<div class="card-body">
 					<h5 class="card-title">${funding.title == null? '제목 미지정':funding.title}</h5>
 				<!-- 작성자 불러오기  -->
-				    <p class="card-text">${loginMember.name}</p>
+					<p class="startEndDate">시작일 : ${funding.startDate} <br />
+				    					종료일 : ${funding.DDay}
+				    </p>
 			    	<button class="btn btn-outline-info" type="button" data-toggle="modal" data-target="#fundingParticipationDetail${funding.fundingNo}">펀딩상세보기</button>
 				</div>
 			</div>
@@ -105,7 +89,6 @@
            	<div>참여한 펀딩이 존재하지 않습니다.</div>
            	</c:if>
        	</div>
-    </section>
     <script>
 
 	  	//모달을 사용할수있게 해주는 함수
@@ -146,12 +129,56 @@
 			});
 		}
     </script>
-    
-    <style>
-    .rewardContainer tbody tr:first-child{
-    	line-height: 40px;
-    }
-    </style>
-</body>
-</html>
- 
+
+	<style>
+		.cardProjectNo {
+			text-align: center;
+			padding: 5px;
+			font-weight: bold;
+			color: #17A2B8;
+		}
+		
+		.card:hover {
+			box-shadow: 5px 5px 7px #888888;
+			background: #EEEEEE;
+			height: 450px;
+		}
+		
+		.card {
+			height: 450px;
+		}
+		
+		.goStudio {
+			width: 100%;
+		}
+		
+		.goFunding {
+			width: 100%;
+		}
+		
+		.startEndDate {
+			font-size: 12px;
+			text-align: right;
+		}
+		
+		h2.h2Title {
+			border-left: 15px solid #17A2B8;
+			margin: 10px 0px 30px 0px;
+			padding: 0px 0px 0px 15px;
+		}
+		
+		.card-img-top {
+			height: 175px;
+		}
+		
+		.card-title {
+			width: 240px;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			height: 45px;
+		}
+	</style>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include> 

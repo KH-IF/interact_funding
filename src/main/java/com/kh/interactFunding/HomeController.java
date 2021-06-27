@@ -1,6 +1,7 @@
 package com.kh.interactFunding;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,8 +38,15 @@ public class HomeController {
 			if(loginMember !=null) {
 				//Google + Json = gson
 				Gson gson = new Gson();
+				myList=new ArrayList<>();
 				String jsonObject = fundingService.selectMyListJson(loginMember.getMemberNo());
-				myList = gson.fromJson(jsonObject, ArrayList.class);
+				int[] fundingNoArr = gson.fromJson(jsonObject, int[].class);
+				if(fundingNoArr != null) {
+					for(int x : fundingNoArr) {
+						myList.add(fundingService.selectOneFundingKYS(x));
+					}
+				}
+				Collections.reverse(myList);
 				log.debug("myList@HomeController = {}", myList);
 				model.addAttribute("myList",myList);
 			}

@@ -1041,22 +1041,33 @@ public class FundingController {
 		List<Funding> myList = null;
 //		List<Funding> -> gson.convert -> List<Object> -> Object.equals,Hashcode -> false
 		if(loginMember !=null) {
-			//Google + Json = gson
+			//Google + Json = gson, int[] 로관리함
 			Gson gson = new Gson();
+			myList = new ArrayList<>();
 			String jsonObject = fundingService.selectMyListJson(loginMember.getMemberNo());
-			myList = gson.fromJson(jsonObject, ArrayList.class);
-			if(myList==null || myList.isEmpty()) {
-				myList=new ArrayList<>();
-			}
+			int[] fundingNoArr = gson.fromJson(jsonObject, int[].class);
+			log.debug("fundingNoArr = {}",fundingNoArr);
 			
-			if(myList.size()==4) {
-				myList.remove(0);
+			if(fundingNoArr!=null) {
+				for(int x : fundingNoArr) {
+					myList.add(fundingService.selectOneFundingKYS(x));
+				}
 			}
 			Funding recordFunding = fundingService.selectOneFundingKYS(funding.getFundingNo());
+			if(myList.contains(recordFunding)) {
+				myList.remove(recordFunding);
+				log.debug("중복된 리스트 존재함");
+			}else if(myList.size()==4) {
+				myList.remove(0);
+			}
 			myList.add(recordFunding);
+			fundingNoArr = new int[myList.size()];
+			for(int i=0; i<fundingNoArr.length; i++) {
+				fundingNoArr[i] = myList.get(i).getFundingNo();
+			}
 			Map<String, Object> param = new HashMap<>();
 			param.put("memberNo", loginMember.getMemberNo());
-			param.put("json", gson.toJson(myList));
+			param.put("json", gson.toJson(fundingNoArr));
 			int result = fundingService.deleteMyListJson(param);
 			result = fundingService.insertMyListJson(param);
 		}

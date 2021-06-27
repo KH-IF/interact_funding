@@ -94,6 +94,124 @@ public class MemberController {
 		return data;
 	}
 	
+	@GetMapping("findid")
+	public void findid() {
+	}
+	
+	@PostMapping("findid")
+	public String findid(Member member, RedirectAttributes redirectAttr, HttpServletRequest request) {
+		log.debug("member@findid = {}", member);
+		String name = member.getName(); 
+		member = memberService.selectOneMember(member);
+		if(member==null || !member.getName().equals(name)) {
+			redirectAttr.addFlashAttribute("msg","조회된 회원이 없습니다.");
+			return "redirect:/member/findid";
+		}
+		
+		
+		//인증코드 생성
+		int ran = (int)(Math.random()*1000000);
+		DecimalFormat df = new DecimalFormat("000000");
+		String code = df.format(ran);
+		
+		//인증코드를 이전에 발급받은게 있나 확인
+		Map<String, String> check = memberService.selectOneCertification(member);
+		if(check!=null) {
+			code = check.get("certificationCode");
+			log.debug("이미존재해서 기존 코드 보내기로함 = {}",code);
+		}else {
+			//인증코드 db에 저장
+			Map<String, Object> param = new HashMap<>();
+			param.put("member", member);
+			param.put("code", code);
+			int result = memberService.insertCertificationCode(param);
+		}
+		//인증코드 이용한 코드를 담은 email발송
+		String url = "http://localhost:9099/interactFunding";
+		Properties props = new Properties();
+		
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "25");
+		props.put("mail.debug", "true");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.EnableSSL.enable", "true");
+		props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.setProperty("mail.smtp.socketFactory.fallback", "false");
+		props.setProperty("mail.smtp.port", "465");
+		props.setProperty("mail.smtp.socketFactory.port", "465");
+
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("if"));//
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(member.getEmail()));//받는사람이메일 입력받는곳
+			message.setSubject("[이프] 비밀번호 변경링크입니다.","utf-8");//제목
+			message.setContent(new MimeMultipart());
+			Multipart mp = (Multipart) message.getContent();
+			mp.addBodyPart(
+					getContents("<a href='"+url+"/member/newPassword?memberNo="+member.getMemberNo()+"&code="+code+"'>비밀번호 변경하기</a>"));
+			Transport.send(message);
+			log.debug("이메일 발송 성공");
+			redirectAttr.addFlashAttribute("msg","비밀번호 변경 링크가발송되었습니다!");
+
+		} catch (Exception e) {
+			log.error("이메일발송 실패");
+			redirectAttr.addFlashAttribute("msg","링크 발송에 실패 하였습니다");
+			return "redirect:/member/findid";
+		}
+		return "redirect:/member/login";
+	}
+	
+	@GetMapping("/newPassword")
+	public String newPassword(@RequestParam(required = false) String code, @RequestParam(required = false) String memberNo, RedirectAttributes redirect, Model model){
+		log.debug("code = {}", code);
+		log.debug("memberNo = {}", memberNo);
+		if(code==null || memberNo==null) {
+			redirect.addFlashAttribute("msg","유효하지 않은 링크입니다.");
+			return "redirect:/";
+		}
+		Member member = memberService.selectOneMemberUseNo(Integer.parseInt(memberNo));
+		Map<String, String> check = memberService.selectOneCertification(member);
+		if(check==null) {
+			redirect.addFlashAttribute("msg","유효하지 않은 링크입니다.");
+			return "redirect:/";
+		}
+		
+		if(Integer.parseInt(code)!=Integer.parseInt(check.get("certificationCode"))) {
+			redirect.addFlashAttribute("msg","유효하지 않은 링크입니다.");
+			return "redirect:/";
+		}
+		
+		model.addAttribute("code",code);
+		model.addAttribute("memberNo",memberNo);
+		return "/member/newPassword";
+	}
+	
+	@PostMapping("/newPassword")
+	public String newPassword2(String memberNo, String password, RedirectAttributes redirect, Model model) {
+		int memberNoo = Integer.parseInt(memberNo);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberNo", memberNoo);
+		Member member = memberService.selectOneMemberUseNo(memberNoo);
+		member.setPassword(password);
+		map.put("password", bCryptPasswordEncoder.encode(member.getPassword()));
+		
+		//changePassword는 두가지일처리를함 비밀번호 변경, 인증코드 삭제
+		int result = memberService.changePassword(map);
+		if(result==0) {
+			redirect.addFlashAttribute("msg","오류발생");
+			return "redirect:/";
+		}
+		redirect.addFlashAttribute("msg","비밀번호 변경이 완료 되었습니다.");
+		return "redirect:/member/login";
+	}
+	
 	//시큐리티로 처리하여 MyCustomLoginSuccessHandler 와 @GetMapping("saveEmail")-ajax로 나누어 처리했음
 //	@PostMapping("/login_if")
 //	public String login_if(
@@ -159,6 +277,9 @@ public class MemberController {
 	public String memberEnroll_if(Member member, Model model, RedirectAttributes redirectAttr) {
 		//이메일, 비밀번호, 이름 받아옴
 		log.debug("member={}",member);
+		if(member!=null) {
+			return "redirect:/sadsadsadsa";
+		}
 		
 		//비밀번호 암호화
 		member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));

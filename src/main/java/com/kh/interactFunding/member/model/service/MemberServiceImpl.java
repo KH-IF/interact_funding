@@ -79,9 +79,30 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.msgReadStatusChg(no);
 	}
 
+	@Override
+	public int insertCertificationCode(Map<String, Object> param) {
+		return memberDao.insertCertificationCode(param);
+	}
 	
+	@Override
+	public Map<String, String> selectOneCertification(Member member) {
+		return memberDao.selectOneCertification(member);
+	}
+	
+	@Override
+	public int changePassword(Map<String, Object> map) {
+		int result=0;
+		//map에 담긴정보 = (code = int 인증코드 , memberNo = int 멤버넘버, password = 비크립트처리된 비밀번호)
+		//비밀번호 변경처리
+		result = memberDao.changePassword(map);
+		
+		//인증코드 삭제 처리
+		result = memberDao.deleteCertificationCode(map);
+		return result;
+	}
 	
 	// 김경태
+
 
 	// 김주연
 	@Override
