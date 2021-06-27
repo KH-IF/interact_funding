@@ -523,4 +523,19 @@ create table persistent_logins(
 --이승우 테스트영역
 
 --천호현 테스트영역
+select *
+from member
+where member_no = 21;
+
+--10만원으로 늘리기
+update member
+set point =100000
+where member_no = 21;
+
+--0만원으로 줄이기
+update member
+set point = 0
+where member_no = 21;
+
+commit;
 -----------------------
