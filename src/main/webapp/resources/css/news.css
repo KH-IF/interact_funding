@@ -318,6 +318,10 @@ yh-c-table{
 	padding-top: 20px
 }
 
+.yh-s-table strong{
+	font-size: 20px;
+}
+
 /* 새소식 뷰 */
 .yh-nv-view{
 	border-bottom: 1px solid lightgray;
