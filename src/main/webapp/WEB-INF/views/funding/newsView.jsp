@@ -131,7 +131,7 @@
 				</form>
 				</c:if>
 				<br /><br />
-				<h2>${funboard.title}</h2>
+				<h4><strong>${funboard.title}</strong></h4>
 				<p>
 					<fmt:formatDate value="${funboard.regDate}"
 						pattern="yyyy-MM-dd hh:mm" />

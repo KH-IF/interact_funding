@@ -200,9 +200,6 @@
 				</p>
 			</div>
 			<div class="maker">
-				<div class="maker-logo">
-					<a href=""><img class="logoimg" src=""></a>
-				</div>
 				<div>
 					<p>
 						<strong>${wirterName}</strong><br /> 

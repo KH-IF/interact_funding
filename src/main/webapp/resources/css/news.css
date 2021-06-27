@@ -120,6 +120,10 @@ li {
 	display:inline-block;
 }
 
+.yh-c-view strong {
+	font-size: 18px;
+}
+
 .yh-FAQ{
 	margin-top: 40px;
 	margin-bottom: 10px;
@@ -175,30 +179,19 @@ yh-c-table{
 
 .maker p{
 	position: absolute;
-	top: 0;
-	left: 70px;
+	top: 10px;
+	/* left: 70px; */
+	font-size: 20px;
 }
 
 .maker div{
 	display: inline-block;
 }
 
-.maker-logo{
-	height: 50px;
-	width: 50px;
-	border: 1px solid black;
-	display: inline-block;
-}
-
-.logoimg{
-	height: 50px;
-	width: 50px;
-}
-
 .inquire-btn{
 	position: absolute;
 	top: 5px;
-	left: 250px;
+	left: 100px;
 	width: 120px;
 	height: 35px;
 	border-radius: 50px;

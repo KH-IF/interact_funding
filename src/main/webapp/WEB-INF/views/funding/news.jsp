@@ -111,7 +111,7 @@
 					<tr>
 						<td><br /><a
 							href="${pageContext.request.contextPath }/funding/newsView.do?fundingNo=${newsList.fundingNo}&no=${newsList.no}">
-								<p>${newsList.title}</p>
+								<h5>${newsList.title}</h5>
 								<p>
 									<small><fmt:formatDate value="${newsList.regDate}"
 											pattern="yyyy-MM-dd" /></small>
