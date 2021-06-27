@@ -80,9 +80,9 @@
 						 <div id="fundingPayment_div_div1_2">
 							<h1 id="fundingPayment_div6_h1"> 포인트 현황</h1>
 							 <div id="fundingPayment_div6">
-								<div><span class="div6span1">현재 포인트 :</span> <span id="paymentNowPoint"><fmt:formatNumber value="${loginMember.point}" pattern="#,###" /></span></div>
+								<div><span class="div6span1">현재 포인트 :</span> <span id="paymentNowPoint"><%-- <fmt:formatNumber value="${loginMember.point}" pattern="#,###" /> --%></span></div>
 								<div><span class="div6span1">차감예정 :</span> <span><fmt:formatNumber value="${rewardTotalPrice + rewardTotalPriceSupport + 2500}" pattern="#,###" /></span></div>
-								<div><span class="div6span1">예상 잔여포인트 :</span> <span id="paymentRemainPoint"><fmt:formatNumber value="${loginMember.point-(rewardTotalPrice + rewardTotalPriceSupport + 2500)}" pattern="#,###" />원</span></div>
+								<div><span class="div6span1">예상 잔여포인트 :</span> <span id="paymentRemainPoint"><%-- <fmt:formatNumber value="${loginMember.point-(rewardTotalPrice + rewardTotalPriceSupport + 2500)}" pattern="#,###" /> --%></span>원</div>
 								
 								<c:if test="${loginMember.point < (rewardTotalPrice + rewardTotalPriceSupport + 2500)}">
 									<div id="checkRemainMoneyDiv"><span id="reaminMoney">잔액이적습니다. <span id="charge" onclick="window.open('${pageContext.request.contextPath}/member/memberDetails');">충전하러가기</span></span></div>
@@ -107,8 +107,8 @@
 				        <button id="addressButton" type="button" class="btn btn-secondary" data-dismiss="modal" onclick="find_address()">우편번호 검색</button>
 				        <br />
 				        <div> <p id="fundingPayment_newaddress"></p></div>
-				        <input type="hidden" name="address1" id="hiddenAddress1">
-				        <input type="text" name="address2" id="address2" placeholder="상세주소"/>
+				        <input id="address1" type="hidden" name="address1" id="hiddenAddress1">
+				        <input id="address2" type="text" name="address2" id="address2" placeholder="상세주소"/>
 			         	<br />
 					 	배송시 요청사항(선택)
 					 	<br />
@@ -427,6 +427,11 @@
 	
 	#fundingPayment_div4_total_wrapper{
 	}
+	
+	#checkRemainMoneyDiv{
+	display: none;
+	
+	}
 	</style>
 	
 	<script>
@@ -444,27 +449,29 @@
 						return;
 			        	}
 		        	point = data;
-		            $("#paymentNowPoint").text(data);
 					var remainPoint = (data - ${rewardTotalPrice + rewardTotalPriceSupport + 2500});
+
+
 		            
+		            $("#paymentNowPoint").text(data);
 		            $("#paymentRemainPoint").text(remainPoint);
 		            console.log(data);
+		            
+		          	//잔액이적으면
+		        	if(remainPoint < 0){
+		        		$("#checkRemainMoneyDiv").css("display", "block");
+		        		}
+		    		//잔액이많으면
+		    		else if(remainPoint >= 0){
+		        		$("#checkRemainMoneyDiv").css("display", "none");
+		        		}
 		        },
 				error: console.log
 		      });
 		 },   1000);
 	}
 
-	//잔액이적으면
-	if(${loginMember.point < (rewardTotalPrice + rewardTotalPriceSupport + 2500)}){
-		alert("잔액이적으면");
-
-		}
-
-	//잔액이많으면
-	if(${loginMember.point > (rewardTotalPrice + rewardTotalPriceSupport + 2500)}){
-		alert("잔액이많으면");
-	}
+	
 
 	$("#go_back").click(function() {
 		location.href="${pageContext.request.contextPath}/funding/fundingReward?fundingNo=${funding.fundingNo}";
@@ -552,13 +559,47 @@
   	cmntForm.addEventListener('submit', function(event){
 	    event.preventDefault();
 
-	    //잔액이적습니다 문구가 안나타나면
-		if($("#checkRemainMoneyDiv").length > 0 ){
-			alert("돈이많아");
+
+	    //잔액이 부족할때 유효성 제출시
+	    var reamainMoney = $("#paymentRemainPoint").text();
+ 		if(reamainMoney < 0){
+ 			$("#checkRemainMoneyDiv").css("display", "block");
+			swal("잔액 부족", "충전하러가기 문구를 클릭 후 충전을 완료해주세요 \n 금액은 자동으로 업데이트됩니다.", "error");
+			return;
 			}
-		if($("#checkRemainMoneyDiv").length > 1 ){
-			alert("충전하기 떠야함");
+ 		else if(reamainMoney >= 0){
+ 			$("#checkRemainMoneyDiv").css("display", "none");
 			}
+
+
+		//이름 유효성 제출시
+		if($("#fundingPayment_div_div2_name").val() == false){
+			swal("예약 실패", "이름을 입력해주세요", "error");
+			$("#fundingPayment_div_div2_name").focus();
+			return;
+			}
+
+		//휴대폰 유효성 제출시
+		if($("#fundingPayment_div_div2_phone").val() == false){
+			swal("예약 실패", "휴대폰번호를 입력해주세요", "error");
+			$("#fundingPayment_div_div2_phone").focus();
+			return;
+			}
+			
+		//우편번호 검사시
+		if($("#fundingPayment_newaddress").text() == false){
+			swal("예약 실패", "우편번호를 입력해주세요", "error");
+			return;
+			}
+		
+		//상세주소 검사시
+		if($("#address2").val() == false){
+			swal("예약 실패", "상세주소를 입력해주세요", "error");
+			$("#address2").focus();
+			return;
+			}
+
+		
  	 });
     	
 	//이름 유효성검사
