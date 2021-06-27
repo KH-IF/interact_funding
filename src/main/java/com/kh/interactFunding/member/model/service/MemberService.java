@@ -33,6 +33,12 @@ public interface MemberService {
 	int sendMsg(Msg msg);
 
 	int msgReadStatusChg(int no);
+	
+	int insertCertificationCode(Map<String, Object> param);
+	
+	Map<String, String> selectOneCertification(Member member);
+	
+	int changePassword(Map<String, Object> map);
 
 	// 김경태
 

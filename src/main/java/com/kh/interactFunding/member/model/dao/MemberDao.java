@@ -32,6 +32,14 @@ public interface MemberDao {
 	int sendMsg(Msg msg);
 
 	int msgReadStatusChg(int no);
+	
+	int insertCertificationCode(Map<String, Object> param);
+	
+	Map<String, String> selectOneCertification(Member member);
+	
+	int changePassword(Map<String, Object> map);
+
+	int deleteCertificationCode(Map<String, Object> map);
 
 	//김윤수
 	
@@ -49,4 +57,5 @@ public interface MemberDao {
 	//천호현
 
 	String selectOneMemberPoint(int memberNo);
+
 }

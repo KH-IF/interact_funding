@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+	
+	<!-- 어드민 권한 추가할때 -->
+	<insert id="addAdminRole">
+		insert into authority
+		values(#{memberNo}, 'ROLE_ADMIN')
+	</insert>
+	
+	<delete id="removeAdminRole">
+		delete from authority
+		where member_no = #{memberNo} and authority = 'ROLE_ADMIN'		
+	</delete>
+	
+	<!-- 관리자관련 - 회원조회 -->
+	<select id="selectMemberListTotalContents" resultType="_int">
+		select
+			count(*)
+		from
+			member
+		<where>
+			<if test="searchType == 'email'">
+			email like '%' || #{searchKeyword} || '%'
+			</if>
+			<if test="searchType == 'memberName'">
+			name like '%' || #{searchKeyword} || '%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectMemberList" resultMap="memberMap">
+		select
+			*
+		from
+			member
+		<where>
+			<if test="searchType == 'email'">
+			email like '%' || #{searchKeyword} || '%'
+			</if>
+			<if test="searchType == 'memberName'">
+			and name like '%' || #{searchKeyword} || '%'
+			</if>
+		</where>
+		order by member_no desc
+	</select>
+	<resultMap type="member" id="memberMap">
+		<id column="member_no" property="memberNo"/>
+		<result column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="name" property="name"/>
+		<result column="platform" property="platform"/>
+		<result column="access_token" property="accessToken"/>
+		<result column="point" property="point"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="phone" property="phone"/>
+		<collection property="authorities" 
+					javaType="arraylist"
+					column="member_no"
+					ofType="simpleGrantedAuthority"
+					select="selectAuthorities"/>
+	</resultMap>
+	<select id="selectAuthorities" resultMap="authoritiesMap">
+		select * 
+		from authority
+		where member_no = #{memberNo}
+	</select>
+	<resultMap type="simpleGrantedAuthority" id="authoritiesMap">
+		<constructor>
+			<arg column="authority" javaType="string"/>
+		</constructor>
+	</resultMap>
+	
+	<select id="selectCheckAdminRole" resultType="_int">
+		select count(*)
+		from authority
+		where member_no = #{memberNo} and authority = 'ROLE_ADMIN'
+	</select>
+	
+	<delete id="deleteMember">
+		delete from member
+		where member_no = #{memberNo}
+	</delete>
+</mapper>

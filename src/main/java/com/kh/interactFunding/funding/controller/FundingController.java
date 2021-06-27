@@ -12,9 +12,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -595,7 +593,7 @@ public class FundingController {
 	}
 	
 	//펀딩 삭제하기
-	@PostMapping("/deleteFunding")
+	@PostMapping("/deleteFunding.do")
 	public String deleteFunding(
 			@RequestParam(value="fundingNo") int fundingNo,
 			RedirectAttributes redirectAttr){
@@ -694,73 +692,173 @@ public class FundingController {
 	//박요한 push
 	@GetMapping("/news.do")
 	public void news(@RequestParam int fundingNo, Model model) {
-		List<FundingBoard> newsList = fundingService.selectNewsList(fundingNo);
-		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
-		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
-		List<Reward> reward = fundingService.selectRewardList(fundingNo);
-		int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
-		
-//		log.debug("newsList = {}", newsList);
-		
-		//2. 위임 
-		model.addAttribute("funding", funding);
-		model.addAttribute("wirterName", wirterName);
-		model.addAttribute("reward", reward);
-		model.addAttribute("fundingParticipationCount", fundingParticipationCount);
-		model.addAttribute("newsList", newsList);
+		try {
+			List<FundingBoard> newsList = fundingService.selectNewsList(fundingNo);
+			Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+			String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
+			List<Reward> reward = fundingService.selectRewardList(fundingNo);
+			int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
+			
+//			log.debug("newsList = {}", newsList);
+			
+			//2. 위임 
+			model.addAttribute("funding", funding);
+			model.addAttribute("wirterName", wirterName);
+			model.addAttribute("reward", reward);
+			model.addAttribute("fundingParticipationCount", fundingParticipationCount);
+			model.addAttribute("newsList", newsList);
+			
+		} catch(Exception e) {
+			log.error("새소식 불러오기 실패",e);
+			throw e;
+		}
+	}
+	
+	@PostMapping("/newsEnroll.do")
+	@ResponseBody
+	public String newsEnroll(@RequestBody FundingBoard fundingBoard , RedirectAttributes redirectAttr
+			) throws Exception { 
+//		log.debug("fundingBoard = {}", fundingBoard);
+		try {
+			//2. 업무로직 : db저장 board, attachment
+			int result = fundingService.insertNews(fundingBoard);
+			
+//			log.debug("fundingNo = {}", fundingBoard);
+		} catch (Exception e) {
+			log.error("새소식작성실패",e);
+			throw e;
+		}
+		return "redirect:/funding/news.do?no=" + fundingBoard.getFundingNo();
 	}
 	
 	@GetMapping("newsView.do")
 	public void newsView(@RequestParam int fundingNo, Model model, int no) {
-		FundingBoard funboard = fundingService.selectOneNews(no);
-		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
-		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
-		List<Reward> reward = fundingService.selectRewardList(fundingNo);
-		int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
-		
-//		log.debug("funboard = {}", funboard);
-		
-		//2. 위임 
-		model.addAttribute("funding", funding);
-		model.addAttribute("wirterName", wirterName);
-		model.addAttribute("reward", reward);
-		model.addAttribute("fundingParticipationCount", fundingParticipationCount);
-		model.addAttribute("funboard", funboard);
+		try {
+			FundingBoard funboard = fundingService.selectOneNews(no);
+			Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+			String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
+			List<Reward> reward = fundingService.selectRewardList(fundingNo);
+			int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
+			
+//			log.debug("funboard = {}", funboard);
+			
+			//2. 위임 
+			model.addAttribute("funding", funding);
+			model.addAttribute("wirterName", wirterName);
+			model.addAttribute("reward", reward);
+			model.addAttribute("fundingParticipationCount", fundingParticipationCount);
+			model.addAttribute("funboard", funboard);
+			
+		} catch (Exception e) {
+			log.error("새소식 세부보기 불러오기 실패", e);
+			throw e;
+		}
+	}
+	
+	@PostMapping("newsUpdate.do")
+	@ResponseBody
+	public String newsUpdate(@RequestBody FundingBoard fundingBoard) {
+//		log.debug("fundingBoard = {}", fundingBoard);
+		try {
+			int newsUpdate = fundingService.updateNews(fundingBoard);
+		} catch(Exception e) {
+			log.error("새소식 수정 실패", e);
+			throw e;
+		}
+		return "redirect:/funding/newsView.do?fundingNo=" + fundingBoard.getFundingNo() + "&no=" + fundingBoard.getNo();
+	}
+	
+	@PostMapping("newsDelete.do")
+	@ResponseBody
+	public String newsDelete(@RequestBody int no) {
+//		log.debug("fundingBoard = {}", fundingBoard);
+		try {
+			int newsDelete = fundingService.deleteNews(no);
+		} catch(Exception e) {
+			log.error("새소식 삭제 실패", e);
+			throw e;
+		}
+		return "redirect:/funding/newsView.do?fundingNo=";
 	}
 	
 	@GetMapping("/community.do")
 	public void community(@RequestParam int fundingNo, Model model) {
-		List<Comment> list = fundingService.selectCommentList(fundingNo);
-		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
-		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
-		List<Reward> reward = fundingService.selectRewardList(fundingNo);
-		int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
-		
-//		log.debug("funboard = {}", funboard);
-		
-		//2. 위임 
-		model.addAttribute("funding", funding);
-		model.addAttribute("wirterName", wirterName);
-		model.addAttribute("reward", reward);
-		model.addAttribute("fundingParticipationCount", fundingParticipationCount);
-		model.addAttribute("list", list);
-		model.addAttribute("list", list);
+		try {
+			List<Comment> list = fundingService.selectCommentList(fundingNo);
+			Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+			String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
+			List<Reward> reward = fundingService.selectRewardList(fundingNo);
+			int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
+			
+			
+			//2. 위임 
+			model.addAttribute("funding", funding);
+			model.addAttribute("wirterName", wirterName);
+			model.addAttribute("reward", reward);
+			model.addAttribute("fundingParticipationCount", fundingParticipationCount);
+			model.addAttribute("list", list);
+			
+		} catch(Exception e) {
+			log.error("게시판 불러오기 실패", e);
+			throw e;
+		}
 	}
 	
 	@PostMapping("/communityEnroll.do")
-	public String communityEnroll(Comment comment , RedirectAttributes redirectAttr, Model model
+	@ResponseBody
+	public String communityEnroll(@RequestBody Comment comment , RedirectAttributes redirectAttr
 		) throws Exception { 
 			log.debug("comment = {}", comment);
-			//2. 업무로직 : db저장 board, attachment
-//			int result = fundingService.insertComment(comment);
-			
-			log.debug("fundingNo = {}", comment);
-		return "redirect:/funding/community.do?no=" + comment.getFundingNo();
+			try {
+				//2. 업무로직 : db저장 board, attachment
+				int result = fundingService.insertComment(comment);
+				
+//				log.debug("comment = {}", comment);
+			} catch (Exception e) {
+				log.error("댓글작성실패",e);
+				throw e;
+			}
+			return "redirect:/funding/community.do?no=" + comment.getFundingNo();
+	}
+	
+	@PostMapping("commentDelete.do")
+	@ResponseBody
+	public String commentDelete(@RequestBody Comment comment) {
+		log.debug("commentNo = {}", comment);
+		try {
+			int commentDelete = fundingService.deleteComment(comment);
+		} catch(Exception e) {
+			log.error("새소식 삭제 실패", e);
+			throw e;
+		}
+		return "redirect:/funding/community.do?fundingNo=";
 	}
 	
 	@GetMapping("/supporter.do")
-	public void supporter() {
-		
+	public void supporter(@RequestParam int fundingNo, Model model) {
+		try {
+			List<FundingParticipation> participation = fundingService.participationList(fundingNo);
+			List<FundingParticipation> participationOne = fundingService.participationSelectOne(fundingNo);
+			Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+			String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
+			List<Reward> reward = fundingService.selectRewardList(fundingNo);
+			int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
+			int fundingParticipationOneCount = fundingService.fundingParticipationCountOne(fundingNo);//funding_participation
+			
+			
+			//2. 위임 
+			model.addAttribute("participation", participation);
+			model.addAttribute("funding", funding);
+			model.addAttribute("wirterName", wirterName);
+			model.addAttribute("reward", reward);
+			model.addAttribute("fundingParticipationCount", fundingParticipationCount);
+			model.addAttribute("participationOne", participationOne);
+			model.addAttribute("fundingParticipationOneCount", fundingParticipationOneCount);
+			
+		} catch(Exception e) {
+			log.error("서포터 불러오기 실패", e);
+			throw e;
+		}
 	}
 	
 	/**
@@ -943,22 +1041,33 @@ public class FundingController {
 		List<Funding> myList = null;
 //		List<Funding> -> gson.convert -> List<Object> -> Object.equals,Hashcode -> false
 		if(loginMember !=null) {
-			//Google + Json = gson
+			//Google + Json = gson, int[] 로관리함
 			Gson gson = new Gson();
+			myList = new ArrayList<>();
 			String jsonObject = fundingService.selectMyListJson(loginMember.getMemberNo());
-			myList = gson.fromJson(jsonObject, ArrayList.class);
-			if(myList==null || myList.isEmpty()) {
-				myList=new ArrayList<>();
-			}
+			int[] fundingNoArr = gson.fromJson(jsonObject, int[].class);
+			log.debug("fundingNoArr = {}",fundingNoArr);
 			
-			if(myList.size()==4) {
-				myList.remove(0);
+			if(fundingNoArr!=null) {
+				for(int x : fundingNoArr) {
+					myList.add(fundingService.selectOneFundingKYS(x));
+				}
 			}
 			Funding recordFunding = fundingService.selectOneFundingKYS(funding.getFundingNo());
+			if(myList.contains(recordFunding)) {
+				myList.remove(recordFunding);
+				log.debug("중복된 리스트 존재함");
+			}else if(myList.size()==4) {
+				myList.remove(0);
+			}
 			myList.add(recordFunding);
+			fundingNoArr = new int[myList.size()];
+			for(int i=0; i<fundingNoArr.length; i++) {
+				fundingNoArr[i] = myList.get(i).getFundingNo();
+			}
 			Map<String, Object> param = new HashMap<>();
 			param.put("memberNo", loginMember.getMemberNo());
-			param.put("json", gson.toJson(myList));
+			param.put("json", gson.toJson(fundingNoArr));
 			int result = fundingService.deleteMyListJson(param);
 			result = fundingService.insertMyListJson(param);
 		}
