@@ -72,7 +72,8 @@ table, th, td{
 }
 
 #memberListArea th{
-    background-color: #00b2b2;
+    /* background-color: #00b2b2; */
+    background-color: #007bff;
     color:white;
     font-size: 14px;
 }
@@ -93,6 +94,10 @@ table, th, td{
     border-top: 2px solid rgb(225, 225, 225);
     border-bottom: 2px solid rgb(225, 225, 225);
     padding: 5px;
+}
+
+#memberListArea tbody tr:hover{
+	background-color: rgb(240, 240, 240);
 }
 
 input[value="강제추방"]{
