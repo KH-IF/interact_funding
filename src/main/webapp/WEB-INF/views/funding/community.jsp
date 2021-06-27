@@ -205,7 +205,7 @@
 				</div>
 				<div>
 					<p>
-						굿럭<br /> <small>평균 응답 시간 5시간 이내</small>
+						<strong>${wirterName}</strong><br /> 
 					</p>
 				</div>
 				<div>
@@ -311,7 +311,7 @@
 					<div class="yh-comment" id="yh_comment">
 
 							<div>
-								<strong>${comment.name}</strong><span><small><fmt:formatDate
+								<strong>${comment.name}</strong> &nbsp; <span><small><fmt:formatDate
 											value="${comment.regDate}" pattern="yy-MM-dd HH:mm:ss" /></small></span>
 							</div>
 							<div>

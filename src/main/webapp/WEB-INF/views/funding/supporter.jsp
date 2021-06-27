@@ -96,7 +96,7 @@
             <div id="funding_main_image_and_content">
                 <div class="yh-s-view">
 			<h2>
-				현재 이 프로젝트에 <br /> ${fundingParticipationOneCount}명의 참여가 이루어졌습니다.
+				현재 이 프로젝트에 <br /> <strong>${fundingParticipationOneCount}명</strong>의 참여가 이루어졌습니다.
 			</h2>
 		</div>
 		<div class="yh-containertable">
@@ -104,7 +104,7 @@
 			<c:forEach items="${participationOne}" var="participation">
 				<tr>
 					<td>
-						<p>${participation.name}님이 펀딩에 참여 하셨습니다.</p>
+						<p><strong>${participation.name}</strong>님이 펀딩에 참여 하셨습니다.</p>
 						<p><fmt:formatDate value="${participation.regDate}" pattern="yyyy-MM-dd" /></p>
 					</td>
 				</tr>

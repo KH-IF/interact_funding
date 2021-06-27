@@ -437,7 +437,7 @@
 	</select>
 	
 	<select  id="fundingParticipationCountOne" resultType="_int">
-        select distinct count(*) count
+        select count(distinct name) count
         from funding_participation
         where funding_no = #{fundingNo}
 	</select>

@@ -86,6 +86,22 @@ li {
     /* bug fix - no overlay */    
     display: none;    
 }
+
+#nv-view-btn{
+	border: 1px solid#00b2b2; 
+	color:#00b2b2; 
+	background-color: white;
+	cursor: pointer;
+	height: 40px;
+}
+
+#nv-view-btn:hover{
+	background-color: #138496;
+	color:white; 
+	cursor: pointer;
+	height: 40px;
+}
+
 /* 새소식 펀딩 */
 /* .yh-funding {
 	width: 200px;
@@ -186,6 +202,22 @@ yh-c-table{
 	width: 120px;
 	height: 35px;
 	border-radius: 50px;
+	cursor: pointer;
+	border: 1px solid#00b2b2; 
+	color:#00b2b2; 
+	background-color: white;
+}
+
+.inquire-btn:hover{
+	position: absolute;
+	top: 5px;
+	left: 250px;
+	width: 120px;
+	height: 35px;
+	border-radius: 50px;
+	background-color: #138496;
+	color:white; 
+	cursor: pointer;
 }
 
 .review-top{
@@ -211,6 +243,21 @@ yh-c-table{
 	margin-bottom: 20px;
 	width: 400px;
 	height: 50px;
+	border: 0;
+	cursor: pointer;
+	border: 1px solid#00b2b2; 
+	color:#00b2b2; 
+	background-color: white;
+}
+
+#c-write-btn:hover{
+	margin-bottom: 20px;
+	width: 400px;
+	height: 50px;
+	border: 0;
+	cursor: pointer;
+	background-color: #138496;
+	color:white; 
 }
 
 .FAQ-answer{
@@ -235,6 +282,21 @@ yh-c-table{
 
 .commentDeleteBtn{
 	display: none;
+	background-color: white;
+	border: 1px solid red;
+	cursor: pointer;
+	color: red;
+	border-radius: 5px;
+	
+}
+
+.commentDeleteBtn:hover{
+	background-color: darkred;
+	border: 1px solid darkred;
+	cursor: pointer;
+	color: white;
+	border-radius: 5px;
+	
 }
 
 .yh-comment:hover .commentUpdateBtn{
@@ -252,6 +314,11 @@ yh-c-table{
 	width: 700px;
 	display: inline-block;
 }
+
+.yh-s-view strong{
+	color: #00b2b2;
+}
+
 .yh-s-table td{
 	border-bottom: 1px solid lightgray;
 	width: 700px;
@@ -277,6 +344,24 @@ yh-c-table{
 #nv-share-btn{
 	margin-bottom: 50px;
 	margin-top: 30px;
+	border: 0;
+	height: 30px;
+	border-radius: 10px;
+	border: 1px solid#00b2b2; 
+	color:#00b2b2; 
+	cursor: pointer;
+	background-color: white;
+}
+
+#nv-share-btn:hover{
+	margin-bottom: 50px;
+	margin-top: 30px;
+	border: 0;
+	height: 30px;
+	border-radius: 10px;
+	background-color: #138496;
+	color:white; 
+	cursor: pointer;
 }
 
 .nv-comment{
@@ -342,6 +427,7 @@ yh-c-table{
 	height: 100px;
 	position: absolute;
 	right: 0;
+	color:#00b2b2;
 }
 
 .yh-c-comment{

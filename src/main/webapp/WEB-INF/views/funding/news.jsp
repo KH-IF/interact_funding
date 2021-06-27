@@ -109,15 +109,12 @@
 			<table class="yh-table">
 				<c:forEach items="${newsList}" var="newsList">
 					<tr>
-						<td><a
+						<td><br /><a
 							href="${pageContext.request.contextPath }/funding/newsView.do?fundingNo=${newsList.fundingNo}&no=${newsList.no}">
-								<p>
-									<small>이벤트</small>
-								</p>
 								<p>${newsList.title}</p>
 								<p>
 									<small><fmt:formatDate value="${newsList.regDate}"
-											pattern="yy-MM-dd" /></small>
+											pattern="yyyy-MM-dd" /></small>
 								</p>
 
 						</a></td>
