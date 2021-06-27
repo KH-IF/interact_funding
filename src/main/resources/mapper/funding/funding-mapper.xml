@@ -69,12 +69,6 @@
 	<resultMap type="fundingParticipationCollection" id="selectOneFundingParticipationCollectionMap">
 		<result column="funding_no" property="fundingNo"/>
 		<result column="member_no" property="memberNo"/>
-		<result column="reg_date" property="regDate"/>
-		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
-		<result column="address" property="address"/>
-		<result column="name" property="name"/>
-		<result column="phone" property="phone"/>
-		<result column="etc" property="etc"/>
 		<collection property="rewardList" ofType="rewardCollection">
 			<id column="no" property="no"/>
 			<result column="reward_no" property="rewardNo"/>
@@ -85,6 +79,12 @@
 			<result column="shipping_price" property="shippingPrice"/>
 			<result column="limit_amount" property="limitAmount"/>
 			<result column="shipping_date" property="shippingDate"/>
+			<result column="reg_date" property="regDate"/>
+			<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
+			<result column="address" property="address"/>
+			<result column="name" property="name"/>
+			<result column="phone" property="phone"/>
+			<result column="etc" property="etc"/>
 		</collection>
 	</resultMap>
 	

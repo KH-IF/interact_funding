@@ -77,6 +77,32 @@
 	<resultMap type="msg" id="MsgMap">
 		<result column="read" property="read" typeHandler="booleanYnTypeHandler"/>
 	</resultMap>
+	
+	<insert id="insertCertificationCode">
+		insert into pwd_certification
+		values (seq_pwd_certification_no.nextval, #{member.memberNo}, #{code})
+	</insert>
+	
+	<select id="selectOneCertification" resultMap="certificationMap">
+		select * from pwd_certification
+		where member_no = #{memberNo}
+	</select>
+	<resultMap type="map" id="certificationMap">
+		<id column="no" property="no"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="certification_code" property="certificationCode"/>
+	</resultMap>
+	
+	<update id="changePassword">
+		update member
+		set password = #{password}
+		where member_no = #{memberNo}
+	</update>
+	
+	<delete id="deleteCertificationCode">
+		delete from pwd_certification
+		where member_no = #{memberNo}
+	</delete>
 	<!-- 김경태 -->
 	<!-- 김주연 -->
 	<update id="savePhone">

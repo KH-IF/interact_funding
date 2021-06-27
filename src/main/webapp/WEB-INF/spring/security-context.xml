@@ -17,7 +17,13 @@
 		<intercept-url pattern="/" access="permitAll"/>
 		<intercept-url pattern="/**.jsp" access="permitAll"/><!-- forward로 가는거라 등록 -->
 		<intercept-url pattern="/member/login" access="isAnonymous()"/><!-- 로그인화면은 로그인 안됬을때만 -->
-		<intercept-url pattern="/member/login_if" access="isAnonymous()"/><!-- 로그인화면은 로그인 안됬을때만 -->
+		<intercept-url pattern="/member/login_if" access="isAnonymous()"/>
+		<intercept-url pattern="/member/findid" access="isAnonymous()"/>
+		<intercept-url pattern="/member/memberEnroll" access="isAnonymous()"/>
+		<intercept-url pattern="/member/memberEnroll_if" access="isAnonymous()"/>
+		<intercept-url pattern="/member/enrollAuthenticationCode" access="isAnonymous()"/>
+		
+		<intercept-url pattern="/member/newPassword" access="isAnonymous()"/>
 		<intercept-url pattern="/**" access="hasRole('USER')"/>
 		<!-- 
 			login-page : 로그인 폼페이지 요청
