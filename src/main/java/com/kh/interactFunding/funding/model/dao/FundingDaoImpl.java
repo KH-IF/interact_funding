@@ -177,7 +177,6 @@ public class FundingDaoImpl implements FundingDao{
 	}
 
 	@Override
-	@Override
 	public List<FundingParticipation> participationList(int fundingNo) {
 		return session.selectList("funding.participationList", fundingNo);
 	}
