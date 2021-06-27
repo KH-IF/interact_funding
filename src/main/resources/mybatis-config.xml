@@ -9,6 +9,7 @@
   	<!-- JAVA타입 데이터가 NULL일 경우, JDBC타입도 null로 처리한다. insert null이 가능하게 해준다. -->
   </settings>
   <typeAliases>
+  	<typeAlias type="org.springframework.security.core.authority.SimpleGrantedAuthority" alias="simpleGrantedAuthority"/>
   <!-- com.kh.interactFunding하위의 모든 클래스를 소문자로 시작하는 별칭 등록 -->
   	<package name="com.kh.interactFunding"/>
   </typeAliases>

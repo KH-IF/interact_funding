@@ -23,9 +23,6 @@
 		<property name="password" value="${datasource.password}"/>
 	</bean>
 	
-	<!-- #8.2 BCryptPasswordEncoder 빈 등록 -->
-	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
-	
 	<!-- #10.1.log4jdbc-remix 관련 dataSource처리  -->
     <!-- 기존 dataSource빈을 이용해서 proxyDataSource를 만듬 -->
     <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">  

@@ -19,4 +19,6 @@ public class Comment {
 	private int commentRef;
 	private Date regDate;
 	
+	//작성자 이름불러오기(DB에는 없음)
+	private String name;
 }

@@ -94,9 +94,16 @@ public class MemberDaoImpl implements MemberDao {
 	}
 	// 박요한
 
+
 	// 배기원
 
 	// 이승우
 
 	// 천호현
+
+	@Override
+	public String selectOneMemberPoint(int memberNo) {
+		return session.selectOne("member.selectOneMemberPoint",memberNo);
+	}
+	
 }

@@ -19,66 +19,55 @@
          <ol>
            <li><em>리워드<br />선택</em></li>
            <li class="active"><em>결제 예약</em></li>
-           <li><em>소문내기</em></li>
          </ol>
      </div>
 	
 	
 	<div id="fundingPayment_all_wrapper">
-		
-		
 		<div id="fundingPayment_div1">
 			<div id="fundingPayment_div1_rewardtitle">
-				title
+				<br />
+				
+				<c:forEach items="${selectList}" var="selectReaward">
+					<div>
+						title : ${selectReaward.reward.title}
+					</div>
+					<div>
+						옵션 : ${selectReaward.reward.content}
+					</div>
+					<div>
+					</div>
+					<div>
+						<span>수량 : ${selectReaward.amount} 개</span><span><span> ${selectReaward.reward.price} * ${selectReaward.amount} =</span> 총 : ${selectReaward.reward.price * selectReaward.amount} 원</span>
+					</div>
+					<hr />
+				</c:forEach>
 
+					
 
-			</div>
-			<div id="fundingPayment_div1_option_title">
-				옵션:0 수량0개 00원
 			</div>
 		</div>	
 		
-		<div id="fundingPayment_div2">
-			<div id="fundingPayment_div2_plusdonation">
-				추가후원금
-			</div>	
-			<div id="fundingPayment_div2_shippingfee">
-				배송비
-			</div>	
-		</div>	
-		
-		<div id="fundingPayment_div3">
-			<div id="fundingPayment_div3_coupon">
-				쿠폰사용
-			</div>	
-			<div id="fundingPayment_div3_reserve">
-				적립금사용
-			</div>	
-		</div>	
 		
 		<div id="fundingPayment_div4">
 			<div id="fundingPayment_div4_price">
-				펀딩금액
-			</div>	
-			<div id="fundingPayment_div4_minus">
-				포인트차감금액
-			</div>	
-			<div id="fundingPayment_div4_coupon">
-				쿠폰차감금액
+				<span class="paymentLeft">펀딩금액 :</span> <span class="paymentRight">${rewardTotalPrice}</span>
 			</div>	
 			<div id="fundingPayment_div4_plus">
-				추가후원금
+				<span class="paymentLeft">추가후원금 :</span> <span class="paymentRight">${rewardTotalPriceSupport}</span>
 			</div>	
 			<div id="fundingPayment_div4_shippingfee">
-				배송비
+				<span class="paymentLeft">배송비 :</span> <span class="paymentRight">2500</span>
 			</div>	
 			<div id="fundingPayment_div4_total">
-				최종결제금액
+				<span class="paymentLeft">최종결제금액 :</span> <span class="paymentRight">${rewardTotalPrice + rewardTotalPriceSupport + 2500} 원</span>
+				
 			</div>	
 			
 		
 		</div>	
-		
+		<form id="fundingPaymentForm" name="fundingPaymentForm" action="${pageContext.request.contextPath}/funding/fundingFinalPayment" method="POST">
+				<input type="hidden" name="fundingNo" value="${funding.fundingNo}"/>
 		<div id="fundingPayment_div5">
 			 <div id="fundingPayment_div_div1">
 			 	<h1>펀딩서포터</h1>
@@ -86,52 +75,49 @@
 			 	<br />
 			 	이메일 :${loginMember.email}
 			 	<br />
-			 	휴대폰번호 : ${loginMember.phone}
+			 	휴대폰번호 :${loginMember.phone}
 			 
 			 </div>
 		
-			 <div id="fundingPayment_div_div2">
-				<h1>리워드배송지</h1>
-				
-			    <!--회원에 기존주소지가 있고 기존주소지를 눌렀을때 -->
-			    <input type="checkbox" name="hobby" id="hobby-game" value="기존주소지" />
-			    
-			    <!--새로입력을 눌렀을때  -->
-		        <input type="checkbox" name="hobby" id="hobby-game" value="새로입력" />
-		        <br />
-		        이름
-		         <br />
-		        <input type="text" name="fundingPayment_div_div2_name" id="fundingPayment_div_div2_name" placeholder="이름"/>
-		        <br />
-		        휴대폰번호
-		         <br />
-		        <input type="text" name="fundingPayment_div_div2_phone" id="fundingPayment_div_div2_phone" placeholder="휴대폰번호"/>
-		        <br />
-		         <br />
-		        주소 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="find_address()">우편번호 검색</button>
-		        <br />
-		        <div> <p id="fundingPayment_newaddress"></p></div>
-		        <input type="text" name="fundingPayment_div_div2_address" id="fundingPayment_div_div2_address" placeholder="상세주소"/>
-		        <br />
-	         	<br />
+			
+				 <div id="fundingPayment_div_div2">
+					<h1>리워드배송지</h1>
+			        이름
+			         <br />
+			        <input type="text" name="name" id="fundingPayment_div_div2_name" placeholder="이름"/>
+			        <br />
+			        휴대폰번호
+			         <br />
+			        <input type="text" name="phone" id="fundingPayment_div_div2_phone" placeholder="휴대폰번호"/>
+			        <br />
+			         <br />
+			        주소 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="find_address()">우편번호 검색</button>
+			        <br />
+			        <div> <p id="fundingPayment_newaddress"></p></div>
+			        <input type="hidden" name="address1" id="hiddenAddress1">
+			        <input type="text" name="address2" id="address2" placeholder="상세주소"/>
+			        <br />
+		         	<br />
+				 	배송시 요청사항(선택)
+				 	<br />
+			        <input type="text" name="etc" id="fundingPayment_div_div2_request" placeholder="ex) 부재시 경비실에 보관해주세요"/>
+				 </div>
 			 
-			 	배송시 요청사항(선택)
-			 	<br />
-		        <input type="text" name="fundingPayment_div_div2_request" id="fundingPayment_div_div2_request" placeholder="ex) 부재시 경비실에 보관해주세요"/>
-			 </div>
 		</div>	
 		
 		<div id="fundingPayment_div6">
 		
 			<h1> 포인트 현황</h1>
-			현재 포인트 :00원
+			<span>현재 포인트 :</span> <span id="paymentNowPoint">${loginMember.point}</span>
 			<br />
-			차감예정 : 00원
+			<span>차감예정 :</span> <span>${rewardTotalPrice + rewardTotalPriceSupport + 2500} 원</span>
 			<br />
 			
-			예상 잔여포인트 :00원
-		
-		
+			<span>예상 잔여포인트 :</span> <span id="paymentRemainPoint">${loginMember.point- (rewardTotalPrice + rewardTotalPriceSupport + 2500)}원</span>
+			
+			<c:if test="${loginMember.point < (rewardTotalPrice + rewardTotalPriceSupport + 2500)}">
+				<div>잔액이적습니다. <span onclick="window.open('${pageContext.request.contextPath}/member/memberDetails');">충전하러가기</span></div>
+			</c:if>
 		</div>
 		
 		<div id="fundingPayment_div7">
@@ -156,6 +142,7 @@
 			<div id="payment_submit_div">
 				<input type="submit" id="fundingPayment_div6_checkbox_submit" class="btn btn-info" value="결제예약하기">
 			</div>
+		</form>
 		
 		</div>
 	</div>
@@ -199,9 +186,6 @@
 	}
 	
 	#fundingPayment_div1{
-   	 height: 130px;
-	
-	
 	}
 	
 	#fundingPayment_div2{
@@ -310,8 +294,33 @@
 	
 	</style>
 	
-	
 	<script>
+
+	//실시간 금액 변경을 위함
+	var point;
+	window.onload = function (){
+		setInterval(function(){
+		      $.ajax({
+	    	    method: "GET",
+		        url : "${pageContext.request.contextPath}/member/selectMemberPoint?memberNo=${loginMember.memberNo}",
+		        success(data){
+		        	if(point == data){
+						return;
+			        	}
+		        	point = data;
+		            $("#paymentNowPoint").text(data);
+					var remainPoint = (data - ${rewardTotalPrice + rewardTotalPriceSupport + 2500});
+		            
+		            $("#paymentRemainPoint").text(remainPoint);
+		            console.log(data);
+		        },
+				error: console.log
+		      });
+		 },   1000);
+	}
+
+
+	
 
 	$("#go_back").click(function() {
 		location.href="${pageContext.request.contextPath}/funding/fundingReward?fundingNo=${funding.fundingNo}";
@@ -384,9 +393,11 @@
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('fundingPayment_newaddress').innerHTML = data.zonecode + addr + extraAddr;
-
-	                // 커서를 상세주소 필드로 이동한다.
-              /*   document.getElementById("sample6_detailAddress").focus(); */
+                
+                // 커서를 상세주소 필드로 이동한다.
+		        var findAddress = document.getElementById('fundingPayment_newaddress').innerText;
+		     	document.getElementById('hiddenAddress1').value= findAddress;
+        		document.getElementById("address2").focus();
             }
         }).open();
     };
