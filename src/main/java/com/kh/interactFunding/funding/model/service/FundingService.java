@@ -58,6 +58,13 @@ public interface FundingService {
 	FundingBoard selectOneNews(int no);
 	List<Comment> selectCommentList(int fundingNo);
 	int insertComment(Comment comment);
+	int insertNews(FundingBoard fundingBoard);
+	int updateNews(FundingBoard fundingBoard);
+	int deleteNews(int no);
+	int deleteComment(Comment comment);
+	List<FundingParticipation> participationSelectOne(int fundingNo);
+	int fundingParticipationCountOne(int fundingNo);
+	List<FundingParticipation> participationList(int fundingNo);
 	
 	
 	//배기원
