@@ -130,8 +130,8 @@
 					<input type="hidden" name="no" value="${funboard.no}" />
 				</form>
 				</c:if>
-				<p>이벤트 | 오픈예정</p>
-				<h2>${funboard.title}</h2>
+				<br /><br />
+				<h4><strong>${funboard.title}</strong></h4>
 				<p>
 					<fmt:formatDate value="${funboard.regDate}"
 						pattern="yyyy-MM-dd hh:mm" />
