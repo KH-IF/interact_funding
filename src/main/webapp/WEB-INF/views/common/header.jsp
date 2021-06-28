@@ -30,17 +30,29 @@
 </script>
 <c:set var="msg" value="${null}" scope="session"/>
 </c:if>
+<c:set var="URL" value="${fn:replace(pageContext.request.requestURI, pageContext.request.contextPath, '')}" />
+<style>
+.current {color: red !important;}
+</style>
 </head>
 <body>
 	<header>
+	
 		<nav>
 			<ol>
 				<li><a href="${pageContext.request.contextPath}/">이프</a></li>
+				<li><a class="${ URL eq  '/WEB-INF/views/funding/fundingList.jsp' ? 'current' : ''}" href="${pageContext.request.contextPath}/funding/fundingList">펀딩하기</a></li>
+				<%-- <c:if test=" ${URL eq fundingList}">
+				<li><a class="${ URL eq  '/funding/fundingList' ? 'current' : ''}" href="${pageContext.request.contextPath}/funding/fundingList">펀딩하기</a></li>
+				</c:if>
+				<c:if test="${URL ne fundingList}">
 				<li><a href="${pageContext.request.contextPath}/funding/fundingList">펀딩하기</a></li>
+				</c:if> --%>
 				<li><a href="${pageContext.request.contextPath}/funding/earlyList">오픈예정</a></li>
 				<li><a href="#">공지사항</a></li>
 			</ol>
 		</nav>
+		
 		<div id="index_searchBar_container" onclick="focus_searchInput()">
 			<div id="searchBar_relative">
 				<input type="text" name="searchKeyword" id="searchKeyword" placeholder="어떤 프로젝트를 찾고 계신가요?" onkeyup="searchStart(this)"/>
@@ -381,6 +393,9 @@
 	    </div>
 	  </div>
 	</div>
+	${URL}
+	<br />
+	${fundingList}
 	<section>
 	
 	
