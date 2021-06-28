@@ -513,6 +513,40 @@ create table persistent_logins(
 
 --김윤수 테스트영역
 --IF20210708
+select * from member;
+
+select * from authority;
+
+select * from persistent_logins;
+
+delete from authority;
+
+insert into authority
+values( 61, 'ROLE_USER');
+commit;
+
+select * from funding_mylist where member_no = 2;
+desc funding_mylist;
+delete from funding_mylist;
+commit;
+
+select count(distinct(funding_no))
+from funding_participation
+where member_no = 2 and status='Y';
+
+select * from point;
+
+insert into point values(seq_point_no.nextval, sysdate, 100000, 2, '포인트충전');
+commit;
+
+select * from funding;
+
+select * from pwd_certification;
+
+select * from member where member_no = 2;
+--$2a$10$6tj1WbG40pW3s5jzz/5ggeNLT8dE.DG/j5ie8FB060i356UrBZBLO
+--$2a$10$bmykZHtT1QB2uinZgkIlXO.x7yciyA8CPlFJoWeXAfUqv5QTkIga6
+
 
 --김경태 테스트영역
 
@@ -523,4 +557,19 @@ create table persistent_logins(
 --이승우 테스트영역
 
 --천호현 테스트영역
+select *
+from member
+where member_no = 21;
+
+--10만원으로 늘리기
+update member
+set point =100000
+where member_no = 21;
+
+--0만원으로 줄이기
+update member
+set point = 0
+where member_no = 21;
+
+commit;
 -----------------------

@@ -15,9 +15,15 @@
 	<http security="none" pattern="/resources/**"/><!-- 정적파일은 검사를 제외시킨다 -->
 	<http auto-config="true"> <!-- auto-config="true" : 자질구레한 설정 자동으로 해줌 -->
 		<intercept-url pattern="/" access="permitAll"/>
-		<intercept-url pattern="/index.jsp" access="permitAll"/><!-- forward로 가는거라 등록 -->
+		<intercept-url pattern="/**.jsp" access="permitAll"/><!-- forward로 가는거라 등록 -->
 		<intercept-url pattern="/member/login" access="isAnonymous()"/><!-- 로그인화면은 로그인 안됬을때만 -->
-		<intercept-url pattern="/member/login_if" access="isAnonymous()"/><!-- 로그인화면은 로그인 안됬을때만 -->
+		<intercept-url pattern="/member/login_if" access="isAnonymous()"/>
+		<intercept-url pattern="/member/findid" access="isAnonymous()"/>
+		<intercept-url pattern="/member/memberEnroll" access="isAnonymous()"/>
+		<intercept-url pattern="/member/memberEnroll_if" access="isAnonymous()"/>
+		<intercept-url pattern="/member/enrollAuthenticationCode" access="isAnonymous()"/>
+		
+		<intercept-url pattern="/member/newPassword" access="isAnonymous()"/>
 		<intercept-url pattern="/**" access="hasRole('USER')"/>
 		<!-- 
 			login-page : 로그인 폼페이지 요청
@@ -51,7 +57,7 @@
          	error-page="/error/accessDenied"
          />
          
-         <csrf disabled="true"/>
+         <csrf disabled="true"/><!-- true 시 비활성화. 기본값은 false -->
 	</http>
 	
 	<authentication-manager>

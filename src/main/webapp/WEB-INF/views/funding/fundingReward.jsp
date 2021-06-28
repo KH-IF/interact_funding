@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
 	<jsp:param value="funding_reward" name="title"/>
 </jsp:include>
@@ -35,7 +36,7 @@ $(() => {
 			<br />
 		</div>
 		
-		<form id="fundingRewardForm" name="fundingRewardForm" action="${pageContext.request.contextPath}/funding/fundingPayment" method="POST">
+		<form:form id="fundingRewardForm" name="fundingRewardForm" action="${pageContext.request.contextPath}/funding/fundingPayment" method="POST">
 			<input type="hidden" name="fundingNo" value="${funding.fundingNo}"/>
 			<div id="funding_reward_option">
 			
@@ -46,10 +47,12 @@ $(() => {
 				 			<label class="custom-control-label" for="customCheck1"></label>
 				 		</div>
 				 		<div class="funding_reward_option_content_div">
-						 	<h3 id="funding_reward_content_price">${reward.price}원 펀딩합니다</h3>
+				 			 <fmt:formatDate var="shippingDate" value="${reward.shippingDate}" type="DATE" pattern="yyyy년 MM월 초 (1~10일) 예정"/>
+				 			 
+						 	<h3 id="funding_reward_content_price"><fmt:formatNumber value="${reward.price}" pattern="#,###" />원 펀딩합니다</h3>
 				           	<p id="funding_reward_content_title">${reward.title}(${reward.limitAmount}개 남음)</p>
 				           	<p id="funding_reward_content_content">${reward.content} 혜택</p>
-				           	<p id="funding_reward_content_shipping_date">배송비 ${reward.shippingPrice} | 리워드 발송 시작일 : ${reward.rewardNo} 예정</p>
+				           	<p id="funding_reward_content_shipping_date">배송비 <fmt:formatNumber value="${reward.shippingPrice}" pattern="#,###" /> | 리워드 발송 시작일 : ${shippingDate} 예정</p>
 			           	</div>
 		           	</div>
 		           		<div class="rewardCount_div">
@@ -73,36 +76,15 @@ $(() => {
 				</div>
 			</div>
 			
-			
-			<!-- <div id="funding_reward_name_div">
-				<span class ="funding_reward_name_span">공개여부</span> 
-				<div>
-					<div>
-						<span>서포터 목록에 서포터 이름과 펀딩 금액이 공개됩니다. 조용히 펀딩하고 싶으시다면, 비공개로 선택해주세요.
-								커뮤니티, 새소식 댓글 작성 시에는 비공개 여부와 상관없이 펀딩 참여자 표시가 노출됩니다.</span>
-					</div>
-					<div>
-						<input type="checkbox" name="reward_nameon_checkbox" id="reward_nameon_checkbox" value="1">
-						<label for="reward_nameon_checkbox">이름공개</label>
-						
-						<input type="checkbox" name="reward_nameoff_checkbox" id="reward_nameoff_checkbox" value="2">
-						<label for="reward_nameoff_checkbox">이름비공개</label>
-					</div>
-				
-				</div>
-				
-			</div> -->
-			
 			<div id="funding_reward_bottom_div">
 				<input type="hidden" id="rewardTotalPriceInput" name="rewardTotalPrice" value="0"/><!-- 토탈 전달해줄 input -->
 				<input type="hidden" id="rewardTotalPriceInputSupport" name="rewardTotalPriceSupport" value="0"/><!-- 토탈 전달해줄 input -->
-				<%-- ${funding.title}에  <span id="funding_reward_choice">0</span> 원을 펀딩합니다. --%>
 				${funding.title}에  <label for="rewardTotalPriceInput" id="funding_reward_choice">0</label>
 									<label for="rewardTotalPriceInputSupport" id="funding_reward_choice_support"></label> 원을 펀딩합니다.
 				<br />
-				<input id="nextButtonReward" type="submit" value="다음단계로 >"  class="btn btn-info"></input>
+				<input id="nextButtonReward" type="submit" value="다음단계로 >" class="btn btn-info"></input>
 			</div>
-		</form>
+		</form:form>
 	</div>
 	<script>
 
@@ -125,9 +107,6 @@ $(() => {
 		});
 		
 	</script>
-
-
-
 
 
 
@@ -511,6 +490,7 @@ $(() => {
 		if($.isNumeric(textarea)){
 			//숫자면	
 			var price = Number(textarea);
+				
 			$("#funding_reward_choice_support").text("(+"+price+")");
 			$("#rewardTotalPriceInputSupport").val(price);/*input:hidden에 넣어줌  */
 			
@@ -532,7 +512,7 @@ $(() => {
         $(this).children().children("h3").css("color","black");
     });
 
-	
+
 	//수량선택 + - 
 	$(function(){
 	
