@@ -178,6 +178,9 @@ $(document).ready(function(){
 });
 
 </script>
+<!--세션 닫는태그  -->
+</section>
+
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -204,7 +207,8 @@ $(document).ready(function(){
     <span class="sr-only">Next</span>
   </a>
 </div>
-
+<!--  section 여는태그  -->
+<section>
 <div>${likeList}</div>
 <div class="bd-sidebar-body">
 	<h1>실시간 랭킹</h1>
