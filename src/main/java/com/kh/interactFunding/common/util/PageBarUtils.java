@@ -53,51 +53,74 @@ public class PageBarUtils {
 				+ "  <ul class=\"pagination justify-content-center\">");
 
 		//1. 이전영역
-		if(pageNo == 1) {
-			//이전버튼 비활성화
-		}
+		if(pageNo == 1) {}
 		else {
-			//이전버튼 활성화
-			pageBar.append("  <li class=\"page-item\">\r\n"
-					+ "      <a class=\"page-link\" href=\"" + url + (pageNo -1) + "\" aria-label=\"Previous\">\r\n"
-					+ "        <span aria-hidden=\"true\">&laquo;</span>\r\n"
-					+ "        <span class=\"sr-only\">Previous</span>\r\n"
-					+ "      </a>\r\n"
-					+ "    </li>");
+			pageBar.append("<a href='"+url+"cPage="+(pageNo-1)+"'/>prev</a>\n");
 		}
+		
 		//2. pageNo영역
 		while(pageNo <= pageEnd && pageNo <= totalPage) {
+			//현재페이지는 링크를 만들 필요가 없으니까~
 			if(pageNo == cPage) {
-				//현재페이지 - 링크비활성화
-				pageBar.append("<li class=\"page-item active\">\r\n"
-						+ "      <a class=\"page-link\" href=\"#\">" + pageNo + "<span class=\"sr-only\">(current)</span></a>\r\n"
-						+ "    </li>");
+				pageBar.append("<span class='cPage'>"+pageNo+"</span>");
+			}else {
+				pageBar.append("<a href='"+url+"cPage="+pageNo+"'/>"+pageNo+"</a>\n");
 			}
-			else {
-				//현재페이지 아닌 경우 - 링크활성화
-				pageBar.append(" <li class=\"page-item\"><a class=\"page-link\" href=\"" + url + pageNo + "\">" + pageNo + "</a></li>");
-			}
-			
 			pageNo++;
 		}
-		
 		//3. 다음영역
-		if(pageNo > totalPage) {
-			//다음버튼 비활성화
-
-		}
+		if(pageNo > totalPage) {}
 		else {
-			//다음버튼 활성화
-			pageBar.append("<li class=\"page-item\">\r\n"
-					+ "      <a class=\"page-link\" href=\"" + url + pageNo + "\" aria-label=\"Next\">\r\n"
-					+ "        <span aria-hidden=\"true\">&raquo;</span>\r\n"
-					+ "        <span class=\"sr-only\">Next</span>\r\n"
-					+ "      </a>\r\n"
-					+ "    </li>");
+			pageBar.append("<a href='"+url+"cPage="+pageNo+"'/>next</a>\n");
 		}
 		
-		pageBar.append("  </ul>\r\n"
-				+ "</nav>");
+		//기존 HelloSpringUtils 수정판
+//		//1. 이전영역
+//		if(pageNo == 1) {
+//			//이전버튼 비활성화
+//		}
+//		else {
+//			//이전버튼 활성화
+//			pageBar.append("  <li class=\"page-item\">\r\n"
+//					+ "      <a class=\"page-link\" href=\"" + url + (pageNo -1) + "\" aria-label=\"Previous\">\r\n"
+//					+ "        <span aria-hidden=\"true\">&laquo;</span>\r\n"
+//					+ "        <span class=\"sr-only\">Previous</span>\r\n"
+//					+ "      </a>\r\n"
+//					+ "    </li>");
+//		}
+//		//2. pageNo영역
+//		while(pageNo <= pageEnd && pageNo <= totalPage) {
+//			if(pageNo == cPage) {
+//				//현재페이지 - 링크비활성화
+//				pageBar.append("<li class=\"page-item active\">\r\n"
+//						+ "      <a class=\"page-link\" href=\"#\">" + pageNo + "<span class=\"sr-only\">(current)</span></a>\r\n"
+//						+ "    </li>");
+//			}
+//			else {
+//				//현재페이지 아닌 경우 - 링크활성화
+//				pageBar.append(" <li class=\"page-item\"><a class=\"page-link\" href=\"" + url + pageNo + "\">" + pageNo + "</a></li>");
+//			}
+//			
+//			pageNo++;
+//		}
+//		
+//		//3. 다음영역
+//		if(pageNo > totalPage) {
+//			//다음버튼 비활성화
+//
+//		}
+//		else {
+//			//다음버튼 활성화
+//			pageBar.append("<li class=\"page-item\">\r\n"
+//					+ "      <a class=\"page-link\" href=\"" + url + pageNo + "\" aria-label=\"Next\">\r\n"
+//					+ "        <span aria-hidden=\"true\">&raquo;</span>\r\n"
+//					+ "        <span class=\"sr-only\">Next</span>\r\n"
+//					+ "      </a>\r\n"
+//					+ "    </li>");
+//		}
+//		
+//		pageBar.append("  </ul>\r\n"
+//				+ "</nav>");
 		
 		return pageBar.toString();
 	}
