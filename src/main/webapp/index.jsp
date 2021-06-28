@@ -145,9 +145,8 @@ $.ajax({
 	success:function(json) {
 		 $('#kiwonfunding').empty();
 		$(json).each(function(index,item){
-			console.log(item);
 		  var html = '';		 
-		 html = $('<div class="card-columns" id="kiwonfunding" style="padding-top: 12px;" >'+'<div class="card" style="border: none; width:240px;">'+'<a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo='+item.fundingNo+'" style="color: #000000;">' 
+		  html = $('<div class="card-columns" id="kiwonfunding" style="padding-top: 12px; position: relative;" >'+'<div class="card" style="border: none; width:240px;">'+'<a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo='+item.fundingNo+'" style="color: #000000;">' 
 			      +'<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/'+item.attachment.renamedFilename+'" style="width: 240px; height:134px;">'+'</a>'+' <h5 class="card-title">'+item.title+'</h5>'+'<div id="funding_detail_dday_bar" class="progress">'+
 			      '<div id="funding_detail_dday_bar_div"class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="'+item.nowAmount+'"aria-valuemin="0" aria-valuemax="'+item.goalAmount+'"style="width:'
 			      +item.nowAmount /item.goalAmount * 100+'%">'+'</div>'+'</div>'+'<p class="kiwonfunding-percent">'
@@ -675,7 +674,7 @@ $(document).ready(function(){
 	</div>
 </div>
 <button type="button" id="button" class="btn btn-info"
-	onclick="Refresh()" style="position:relative; left: 60%; padding: 12px; font-weight: 500;  color: #ffffff; margin-top: -10px;">
+	onclick="Refresh()" style="position:relative;; left: 60%; padding: 12px; font-weight: 500;  color: #ffffff; margin-top: -25px;">
 	<ion-icon name="refresh-outline"></ion-icon>
 	새로고침
 </button>
@@ -1086,7 +1085,7 @@ $(document).ready(function(){
 	<!--로그인 되었을때 -->
 	<c:if test="${not empty loginMember}">
 	<button type="button" class="btn btn-info"
-		style="position: absolute; z-index:1; left: 42%; top: 60%; padding: 0.9vw; padding-inline: 2vw;"
+		style="position: absolute; z-index:1; left: 46%; top: 60%; padding: 0.9vw; padding-inline: 2vw;"
 		onclick="openProject();">
 		바로가기
 		<ion-icon name="arrow-forward-outline"></ion-icon>
