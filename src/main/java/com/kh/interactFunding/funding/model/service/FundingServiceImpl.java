@@ -435,12 +435,24 @@ public class FundingServiceImpl implements FundingService{
 		return fundingDao.likeCheck(map);
 	}
 	@Override
+	public Map<String, Object> alramCheck(Map<String, Object> map) {
+		return fundingDao.alramCheck(map);
+	}
+	@Override
 	public int insertLike(Map<String, Object> map) {
 		return fundingDao.insertLike(map);
 	}
 	@Override
+	public int insertAlram(Map<String, Object> map) {
+		return fundingDao.insertAlram(map);
+	}
+	@Override
 	public int updateLike(Map<String, Object> map) {
 		return fundingDao.updateLike(map);
+	}
+	@Override
+	public int updateAlram(Map<String, Object> map) {
+		return fundingDao.updateAlram(map);
 	}
 	@Override
 	public int likeCount(Map<String, Object> map) {
@@ -451,6 +463,10 @@ public class FundingServiceImpl implements FundingService{
 		return fundingDao.likeStatusCheck(memberNo);
 	}
 	@Override
+	public int alramStatusCheck(int memberNo) {
+		return fundingDao.alramStatusCheck(memberNo);
+	}
+	@Override
 	public List<Reward> selectRewardList(int fundingNo) {
 		return fundingDao.selectRewardList(fundingNo);
 	}
@@ -458,6 +474,8 @@ public class FundingServiceImpl implements FundingService{
 	public int insertFundingParticipation(FundingParticipation fp) {
 		return fundingDao.insertFundingParticipation(fp);
 	}
+	
+	
 	
 	
 

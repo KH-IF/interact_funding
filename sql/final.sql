@@ -219,6 +219,8 @@ create table funding(
     constraint fk_funding_writer_no foreign key(writer_no) references member(member_no) on delete set null,
     constraint fk_funding_rate_plan_code foreign key(rate_plan_code) references rate_plan(rate_plan_code) on delete set null
 );
+
+
 --펀딩 테이블 seq
 create sequence seq_funding_no;
 
@@ -307,6 +309,8 @@ create table like_record(
 --funding 좋아요 관리 테이블 시퀀스
 create sequence seq_like_record_no;
 
+
+
 create or replace trigger trig_like
     after
     insert on like_record
@@ -340,6 +344,22 @@ begin
 end;
 /
 
+--알람신청 관리 테이블
+create table alram_early_funding(
+    no number,
+    funding_no number,
+    member_no number,
+    status char(1),
+    constraint pk_alram_no primary key(no),
+    constraint fk_alram_funding_no foreign key(funding_no) references funding(funding_no) on delete set null,
+    constraint fk_alram_member_no foreign key(member_no) references member(member_no) on delete set null,
+    constraint ck_alram_status check(status in ('Y','N'))
+);
+
+--alram 좋아요 관리 테이블 시퀀스
+create sequence seq_alram_early_no;
+
+commit;
 
 --펀딩 참여 테이블
 create table funding_participation(
@@ -572,4 +592,11 @@ set point = 0
 where member_no = 21;
 
 commit;
+
+select * from funding_mylist;
+
+select * from alram_early_funding;
+
+
+select * from member;
 -----------------------

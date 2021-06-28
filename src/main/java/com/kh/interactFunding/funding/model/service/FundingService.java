@@ -92,10 +92,14 @@ public interface FundingService {
 	
 	int fundingParticipationCount(int fundinNo);
 	Map<String, Object> likeCheck(Map<String, Object> map);
+	Map<String, Object> alramCheck(Map<String, Object> map);
 	int insertLike(Map<String, Object> map);
+	int insertAlram(Map<String, Object> map);
 	int updateLike(Map<String, Object> result);
+	int updateAlram(Map<String, Object> result);
 	int likeCount(Map<String, Object> map);
 	int likeStatusCheck(int membeNo);
+	int alramStatusCheck(int memberNo);
 	List<Reward> selectRewardList(int fundingNo);
 	int insertFundingParticipation(FundingParticipation fp);
 	
