@@ -121,7 +121,7 @@ for (Funding funding : likelist) {
 	}
 }
 
-List<Funding> myList=(List) request.getAttribute("myList");
+ List<Funding> myList=(List) request.getAttribute("myList");
 for (Funding funding : myList) {
 	String cCode = funding.getCategoryCode();
 	switch (cCode) {
@@ -153,7 +153,7 @@ for (Funding funding : myList) {
 	funding.setCategoryCode("잘못된 카테고리");
 	break;
 	}
-}
+} 
 Cookie cookieview = new Cookie("cookieview", request.getParameter("cookieview"));
 
 cookieview.setMaxAge(60 * 60 * 24 * 7);
