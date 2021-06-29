@@ -42,13 +42,14 @@ $(document).ready(function() {
    	display: block;
    	position: absolute;
    	bottom: 20px;
-   	left: 20px;
+   	left: 200px;
+   	z-index:1;
    	text-decoration: none;
    	overflow: hidden;
 }
 .slide-title span{
-   	color: white;
-   	font-size: 20px;
+   	color: #ffffff;
+   	font-size: 40px;
    	font-weight: 700;
 }
 .slide-title p{
@@ -66,7 +67,14 @@ $(document).ready(function() {
 .rewordProjectCardMakerName{
 	margin-top: 10px;
 }
+.fundingProjectList-h1{
+	margin-inline: 48px;
+    padding-top: 40px;
+    font-weight: 700;
+    font-size: 32px;
+}
 </style>
+</section>
 <div class="fundingMainWrapper">
 	<div id="demo" class="carousel slide" data-ride="carousel">
            <ul class="carousel-indicators">
@@ -118,6 +126,8 @@ $(document).ready(function() {
 	            <span class="carousel-control-next-icon"></span>
 	        </a>
 	</div>
+	<section>
+	<h1  class="fundingProjectList-h1">오픈예정 둘러보기</h1>
 	<div class="fundingProjectList">
             <!-- 목록 -->
 	        <div class="fundingProjectCardList">

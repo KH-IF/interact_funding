@@ -36,20 +36,27 @@ $(document).ready(function() {
 	    $('.fundingProjectCardItemImage').animate({'opacity':'1'},500);
 	}); */
 
-</script>
+</script> 
 <style>
 .slide-title{
-   	display: block;
-   	position: absolute;
-   	bottom: 20px;
-   	left: 20px;
-   	text-decoration: none;
-   	overflow: hidden;
+       position: absolute;
+    z-index: 1;
+    bottom: 15px;
+    left: 160px;
+    text-decoration: none;
+    color: #ffffff;
+    overflow: hidden;
 }
 .slide-title span{
-   	color: white;
-   	font-size: 20px;
-   	font-weight: 700;
+   	  color: white;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: .7px;
+    -webkit-line-clamp: 3;
+    width: 570px;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
 }
 .slide-title p{
    	display: block;
@@ -68,7 +75,8 @@ $(document).ready(function() {
 	height: 400px;
 }
 </style>
-<div class="fundingMainWrapper">
+<!--세션 닫는태그  -->
+</section>
        <div id="demo" class="carousel slide" data-ride="carousel">
            <ul class="carousel-indicators">
                <c:forEach items="${bannerList}" var="banner" varStatus="status">
@@ -101,7 +109,7 @@ $(document).ready(function() {
 		   			<div class="carousel-item">
 		   		</c:if>
                    <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${banner.fundingNo}">
-                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width: 100%; height:400px; object-fit: cover;">
+                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width:100%; object-fit:cover; height: 400px;">
                     <div class="slide-title">
                      <span>${banner.title}</span>
                      <p></p>
@@ -119,6 +127,8 @@ $(document).ready(function() {
             <span class="carousel-control-next-icon"></span>
         </a>
     </div>
+    <!--세션 여는태그  -->
+	<section>
     <div class="fundingCategoryContainer">
         <div class="fundingCategoryList">
             <div class="fundingCategoryListWrap">
@@ -319,7 +329,7 @@ $(document).ready(function() {
                         <div class="fundingProjectCardItemTitle">
                             <div class="fundingProjectCardItemTitleBox">
                                 <a class="fundingProjectCardItemTitleLink" href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}">
-                                    <p><strong>${funding.title}</strong></p>
+                                    <p>${funding.title}</p>
                                 </a>
                                 <div>
                                     <span class="rewordProjectCardCategory">
@@ -419,7 +429,6 @@ $(document).ready(function() {
             </div>
         </div>         -->
     </div>
-</div>
 
 <script>
     
