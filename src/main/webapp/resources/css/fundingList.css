@@ -1,9 +1,3 @@
-/* 펀딩리스트 */
-/* .fundingMainWrapper{
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
- */
 /*슬라이드 이미지*/
 .slide-title span{
 	text-shadow: 1px 1px 1px black;
@@ -326,29 +320,12 @@ input[type=search]{
 .pagination{
     margin-top: 40px;
 }
-.moreFunding{
-    margin-top: 45px;
-    margin-bottom: 45px;
-    text-align: center;
-
-}
-.moreFunding button{
-    width: 100%;
-    font-size: 15px;
-    background-color: white;
-    color: skyblue;
-    padding: 15px 0px;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: inherit;
-    border:0;
-    outline:0;
-}
 /* 페이지바 */
 #pageBar{
 	text-align: center;
 	height:50px;
-	margin-top:30px;
+	margin-top:70px;
+	margin-bottom:40px;
 }
 #pageBar span{
 	margin-right:4px;
@@ -378,6 +355,17 @@ input[type=search]{
     color: gray;
 }
 
+.emptyFundingList{
+	height:309px;
+}
+
+.emptyFundingList h4{
+	line-height:309px;
+	text-align:center;
+}
+#nonePage{
+	height:100px;
+}
 /* 현재페이지바 */
 /* #pageBar{
 	margin-top:30px;
