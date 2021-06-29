@@ -49,29 +49,53 @@ public class PageBarUtils {
 		}
 		int pageNo = pageStart;
 		
-		pageBar.append("<nav aria-label=\"Page navigation example\">\r\n"
-				+ "  <ul class=\"pagination justify-content-center\">");
-
+		
+		//현재페이지바
+//		pageBar.append("<ul>");
+//		//1. 이전영역
+//		if(pageNo == 1) {}
+//		else {
+//			pageBar.append("<li class='cPage'><a href='"+url+(pageNo-1)+"' class='prev'><</a></li>");
+//		}
+//		
+//		//2. pageNo 영역
+//		while(pageNo <= pageEnd && pageNo <= totalPage) {
+//			if(pageNo == cPage) {
+//				pageBar.append("<li class='cPage'><span class='cPageA'>"+pageNo+"</span></li>");
+//			}else {
+//				pageBar.append("<li class='cPage'><a href='"+url+pageNo+"'>"+pageNo+"</a>");
+//			}
+//			pageNo++;
+//		}
+//		
+//		//3. 다음영역
+//		if(pageNo > totalPage) {}
+//		else {
+//			pageBar.append("<li class='cPage'><a href='"+url+pageNo+"' class='next'>></a></li>");
+//		}
+//		
+//		pageBar.append("</ul>");
+		
+		// 페이지바
 		//1. 이전영역
 		if(pageNo == 1) {}
 		else {
-			pageBar.append("<a href='"+url+"cPage="+(pageNo-1)+"'/>prev</a>\n");
+			pageBar.append("<a href='"+url+(pageNo-1)+"'/><</a>\n");
 		}
 		
 		//2. pageNo영역
 		while(pageNo <= pageEnd && pageNo <= totalPage) {
-			//현재페이지는 링크를 만들 필요가 없으니까~
 			if(pageNo == cPage) {
 				pageBar.append("<span class='cPage'>"+pageNo+"</span>");
 			}else {
-				pageBar.append("<a href='"+url+"cPage="+pageNo+"'/>"+pageNo+"</a>\n");
+				pageBar.append("<a href='"+url+pageNo+"'/>"+pageNo+"</a>\n");
 			}
 			pageNo++;
 		}
 		//3. 다음영역
 		if(pageNo > totalPage) {}
 		else {
-			pageBar.append("<a href='"+url+"cPage="+pageNo+"'/>next</a>\n");
+			pageBar.append("<a href='"+url+pageNo+"'/>></a>\n");
 		}
 		
 		//기존 HelloSpringUtils 수정판

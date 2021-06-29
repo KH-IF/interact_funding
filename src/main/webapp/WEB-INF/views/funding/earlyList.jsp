@@ -8,10 +8,33 @@
 </jsp:include>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/fundingList.css" />
 <script>
-	$(function(){
+/* 스크롤 페이드인 효과 */
+$(document).ready(function() {
+   /* 1 */
+   $('.fundingProjectCardItemImage').each( function(i){
+            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+            /* 3 */
+            if( bottom_of_window > bottom_of_object ){
+                $(this).animate({'opacity':'1'},500);
+            }
+   });
+    $(window).scroll( function(){
+        /* 2 */
+        $('.fundingProjectCardItemImage').each( function(i){
+            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+            /* 3 */
+            if( bottom_of_window > bottom_of_object/1.75){
+                $(this).animate({'opacity':'1'},500);
+            }
+        }); 
+    });
+});
+	/* $(function(){
 		//페이드인 효과
         $('.fundingProjectCardItemImage').animate({'opacity':'1'},500);
-	});
+	}); */
 	
 </script>
 <style>
@@ -76,7 +99,7 @@
            		<c:if test="${not status.first}">
 		   			<div class="carousel-item">
 		   		</c:if>
-                   <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${banner.fundingNo}">
+                   <a href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${banner.fundingNo}">
                        <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width: 1300px; height: 400px;">
                     <div class="slide-title">
                      <span>${banner.title}</span>
@@ -102,7 +125,7 @@
 	                <!-- 목록 제목 -->
 	                <c:forEach items="${list}" var="funding">
 	                <div class="fundingProjectCardItem">
-	                    <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}" class="fundingProjectCardItemImageArea">
+	                    <a href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${funding.fundingNo}" class="fundingProjectCardItemImageArea">
 	                    	<div class="fundingProjectCardItemImage" style="background-image:url('${pageContext.request.contextPath}/resources/upload/${funding.attachment.renamedFilename}');"></div>
 	                    </a>
 	                    <div class="fundingProjectCardListInfo">
