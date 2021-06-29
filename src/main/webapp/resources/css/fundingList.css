@@ -5,11 +5,9 @@
 }
  */
 /*슬라이드 이미지*/
-.carousel-item active a img{
-    width: 100%;
-    height: 100%;
+.slide-title span{
+	text-shadow: 1px 1px 1px black;
 }
-
 /*오픈예정 리스트*/
 .earlyProjectListHeadTitle{
 	font-size:24px;
@@ -111,7 +109,7 @@
 .fundingCategoryListCricleImageC6:hover,
 .fundingCategoryListCricleImageC7:hover,
 .fundingCategoryListCricleImageC8:hover{
-    border: 2px skyblue solid;
+    border: 2px #00a2a2 solid;
 }
 
 
@@ -303,7 +301,7 @@ input[type=search]{
 
 .rewordProjectCardBar span{
     display: block;
-    background-color: skyblue;
+    background-color: #00a2a2;
     height: 2px;
     height: 3px;
     margin-top: 10px;
@@ -312,7 +310,7 @@ input[type=search]{
 	height: 5px;
 }
 .rewordProjectCardPercent{
-    color: skyblue;
+    color: #00a2a2;
     font-size: 15px;
     font-weight: 600;
 }
@@ -346,3 +344,102 @@ input[type=search]{
     border:0;
     outline:0;
 }
+/* 페이지바 */
+#pageBar{
+	text-align: center;
+	height:50px;
+	margin-top:30px;
+}
+#pageBar span{
+	margin-right:4px;
+    border-radius: 15%;
+    padding: 9px 15px;
+    border:1px solid #00a2a2;
+    background-color: #00a2a2;
+    text-decoration: none;
+    color: white;
+}
+#pageBar a{
+	border-radius: 15%;
+    padding: 9px 15px;
+    border:1px solid #00a2a2;
+    background-color: white;
+    text-decoration: none;
+    color: black;
+}
+
+#pageBar a:hover{
+    background-color: #00a2a2;
+    color: white;
+    transition: all ease 0.5s;
+}
+
+#pageBar a:active{
+    color: gray;
+}
+
+/* 현재페이지바 */
+/* #pageBar{
+	margin-top:30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#pageBar ul{
+    position:relative;
+    background: #fff;
+    display: flex;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+ul li.cPage
+{
+    list-style: none;
+    line-height: 50px;
+    margin: 0 5px;
+    
+}
+ul li.cPage{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+ul li.cPage a{
+    display: block;
+    text-decoration: none;
+    background: white;
+    border:1px solid #00a2a2;
+    color: #00a2a2;
+    border-radius: 50%;
+}
+ul li .cPageA{
+	display: block;
+	width: 50px;
+    height: 50px;
+	border:1px solid #00a2a2;
+	background-color:#00a2a2;
+	border-radius: 50%;
+	color: white;
+}
+ul li.cPage:hover a,
+ul li.cPage.active a{
+    transition: all ease 0.5s;
+    background-color:#00a2a2;
+    color: white;
+}
+ul li.cPage .prev{
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-weight: 700;
+    font-size: 20px;
+}
+ul li.cPage .next{
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-weight: 700;
+    font-size: 20px;
+}
+ */

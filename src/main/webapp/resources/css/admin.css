@@ -39,7 +39,7 @@ div#search-container{
 #searchButton:hover,
 #searchButton2:hover{
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #00a2a2;
     transition: all ease 0.3s;
 }
 
@@ -95,6 +95,10 @@ table, th, td{
     padding: 5px;
 }
 
+#memberListArea tbody tr:hover{
+	background-color: rgb(240, 240, 240);
+}
+
 input[value="강제추방"]{
 	height: 23px;
     background-color: rgb(225, 225, 225);
@@ -108,3 +112,107 @@ input[value="강제추방"]:hover{
     color: white;
     background-color: red;
 }
+
+/* 페이지바 */
+#pageBar{
+	text-align: center;
+	height:50px;
+	margin-top:30px;
+}
+
+#pageBar span{
+	margin-right:4px;
+    border-radius: 15%;
+    padding: 9px 15px;
+    border:1px solid #00a2a2;
+    background-color: #00a2a2;
+    text-decoration: none;
+    color: white;
+}
+#pageBar a{
+	border-radius: 15%;
+    padding: 9px 15px;
+    border:1px solid #00a2a2;
+    background-color: white;
+    text-decoration: none;
+    color: black;
+}
+
+#pageBar a:hover{
+    background-color: #00a2a2;
+    color: white;
+    transition: all ease 0.5s;
+}
+
+#pageBar a:active{
+    color: gray;
+}
+.searchKeyword{
+	width: 300px;
+}
+
+/* 현재페이지바 */
+/* #pageBar{
+	margin-top:30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#pageBar ul{
+    position:relative;
+    background: #fff;
+    display: flex;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+ul li.cPage
+{
+    list-style: none;
+    line-height: 50px;
+    margin: 0 5px;
+    
+}
+ul li.cPage{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+ul li.cPage a{
+    display: block;
+    text-decoration: none;
+    background: white;
+    border:1px solid #00a2a2;
+    color: #00a2a2;
+    border-radius: 50%;
+}
+ul li .cPageA{
+	display: block;
+	width: 50px;
+    height: 50px;
+	border:1px solid #00a2a2;
+	background-color:#00a2a2;
+	border-radius: 50%;
+	color: white;
+}
+ul li.cPage:hover a,
+ul li.cPage.active a{
+    transition: all ease 0.5s;
+    background-color:#00a2a2;
+    color: white;
+}
+ul li.cPage .prev{
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-weight: 700;
+    font-size: 20px;
+}
+ul li.cPage .next{
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-weight: 700;
+    font-size: 20px;
+}
+ */
