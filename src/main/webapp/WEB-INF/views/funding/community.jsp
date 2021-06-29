@@ -79,7 +79,7 @@
 	                <li>
 	                    <a href="${pageContext.request.contextPath }/funding/news.do?fundingNo=${funding.fundingNo}">새소식</a>
 	                </li>
-	                <li>
+	                <li style="border-bottom: 3px solid #00b2b2;">
 	                    <a href="${pageContext.request.contextPath }/funding/community.do?fundingNo=${funding.fundingNo}">커뮤니티</a>
 	                </li>
 	                <li>
