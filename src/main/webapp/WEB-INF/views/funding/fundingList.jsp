@@ -16,11 +16,13 @@
 </script> 
 <style>
 .slide-title{
-   	position: absolute;
-   	bottom: 50px;
-   	left: 100px;
-   	text-decoration: none;
-   	overflow: hidden;
+       position: absolute;
+    z-index: 1;
+    bottom: 15px;
+    left: 160px;
+    text-decoration: none;
+    color: #ffffff;
+    overflow: hidden;
 }
 .slide-title span{
    	  color: white;
@@ -46,11 +48,12 @@
 	opacity: 0;
 }
 .carousel-inner{
-	width: 1300px;
+	width: auto;
 	height: 400px;
 }
 </style>
-<div class="fundingMainWrapper">
+<!--세션 닫는태그  -->
+</section>
        <div id="demo" class="carousel slide" data-ride="carousel">
            <ul class="carousel-indicators">
                <c:forEach items="${bannerList}" var="banner" varStatus="status">
@@ -101,6 +104,8 @@
             <span class="carousel-control-next-icon"></span>
         </a>
     </div>
+    <!--세션 여는태그  -->
+	<section>
     <div class="fundingCategoryContainer">
         <div class="fundingCategoryList">
             <div class="fundingCategoryListWrap">
@@ -399,7 +404,6 @@
             </div>
         </div>         -->
     </div>
-</div>
 
 <script>
     

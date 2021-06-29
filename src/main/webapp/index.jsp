@@ -121,7 +121,39 @@ for (Funding funding : likelist) {
 	}
 }
 
-
+List<Funding> myList=(List) request.getAttribute("myList");
+for (Funding funding : myList) {
+	String cCode = funding.getCategoryCode();
+	switch (cCode) {
+		case "C1" :
+	funding.setCategoryCode("테크·가전");
+	break;
+		case "C2" :
+	funding.setCategoryCode("푸드");
+	break;
+		case "C3" :
+	funding.setCategoryCode("여행");
+	break;
+		case "C4" :
+	funding.setCategoryCode("스포츠");
+	break;
+		case "C5" :
+	funding.setCategoryCode("게임·취미");
+	break;
+		case "C6" :
+	funding.setCategoryCode("모임");
+	break;
+		case "C7" :
+	funding.setCategoryCode("반려동물");
+	break;
+		case "C8" :
+	funding.setCategoryCode("기부·후원");
+	break;
+		default :
+	funding.setCategoryCode("잘못된 카테고리");
+	break;
+	}
+}
 Cookie cookieview = new Cookie("cookieview", request.getParameter("cookieview"));
 
 cookieview.setMaxAge(60 * 60 * 24 * 7);
@@ -718,7 +750,7 @@ $(document).ready(function(){
 							<fmt:formatNumber
 								value="${funding.nowAmount/funding.goalAmount*100}"
 								pattern="##.###" />
-							%<span class="card-text-span"> 펀딩</span>
+							%<span class="card-text-span">${funding.categoryCode}</span>
 						</p>
 					</c:if>
 				</c:forEach>
@@ -751,7 +783,7 @@ $(document).ready(function(){
 							<fmt:formatNumber
 								value="${funding.nowAmount/funding.goalAmount*100}"
 								pattern="##.###" />
-							%<span class="card-text-span"> 펀딩</span>
+							%<span class="card-text-span">${funding.categoryCode}</span>
 						</p>
 					</c:if>
 				</c:forEach>
@@ -784,7 +816,7 @@ $(document).ready(function(){
 							<fmt:formatNumber
 								value="${funding.nowAmount/funding.goalAmount*100}"
 								pattern="##.###" />
-							%<span class="card-text-span"> 펀딩</span>
+							%<span class="card-text-span">${funding.categoryCode}</span>
 						</p>
 					</c:if>
 				</c:forEach>
