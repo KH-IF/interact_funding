@@ -711,4 +711,15 @@
 			   #{phone},
 			   #{etc})
 	</insert>
+	
+	<insert id="insertChat">
+		insert into funding_chat
+		values(seq_funding_chat_no.nextval, #{fundingNo}, #{content}, #{fromMemberNo}, #{fromMemberName}, sysdate)
+	</insert>
+	
+	<select id="selectChatList" resultType="messageVo">
+		select * from funding_chat
+		where funding_no = #{fundingNo}
+		order by no asc
+	</select>
 </mapper>

@@ -105,4 +105,7 @@
 
 	<!-- #15.1 @Responsebody사용을 위한 의존 : 빈등록 (스프링 5.x => MappingJackson2HttpMessageConverter) -->
 	<beans:bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
-</beans:beans>
+	</beans:beans>
+	
+	
+	

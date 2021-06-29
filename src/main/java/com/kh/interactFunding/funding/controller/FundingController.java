@@ -18,6 +18,9 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -54,6 +57,7 @@ import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.service.MemberService;
 import com.kh.interactFunding.member.model.vo.Member;
+import com.kh.interactFunding.websocket.vo.MessageVo;
 
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
@@ -1071,7 +1075,8 @@ public class FundingController {
 			int result = fundingService.deleteMyListJson(param);
 			result = fundingService.insertMyListJson(param);
 		}
-
+		List<MessageVo> chatList = fundingService.selectChatList(fundingNo);
+		model.addAttribute("chatList", chatList);
 	}
 	
 	
@@ -1140,10 +1145,20 @@ public class FundingController {
 		model.addAttribute("reward", reward);
 		model.addAttribute("choice", choice);
 	}
-	@GetMapping("/fundingChatMaker")
-	public void fundingChatMaker() {
-	}
 	
+	
+	//1:1 채팅 JSP연결
+	@MessageMapping("/chat/{funding}")
+	@SendTo("/chat/{funding}")
+	public MessageVo chat(MessageVo msg, @DestinationVariable String funding) {
+		log.debug("메시지 내용 : {}", msg);
+		//이름 채워주기
+		msg.setFromMemberName(memberService.selectOneMemberUseNo(msg.getFromMemberNo()).getName());
+		msg.setRegDate(new Date());
+		//DB저장
+		int result = fundingService.insertChat(msg);
+		return msg;
+	}
 	
 	@PostMapping("/fundingPayment")
 	public void fundingPayment(@RequestParam int fundingNo,
