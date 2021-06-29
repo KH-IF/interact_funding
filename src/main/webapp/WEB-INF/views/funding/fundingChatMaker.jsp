@@ -41,21 +41,15 @@
 		</div>
 		
 		
-		<div id="fundingChatMaker_bottom_div">
-			<div id="fundingChatMaker_fileup">첨부파일</div>
-			<div id="fundingChatMaker_comment_div">
-		       <input
-		          type="text"
-		          name="fundingChatMaker_comment"
-		          id="fundingChatMaker_comment"
-		          placeholder="메시지를 입력하시오"
-		       	 />
-			</div>
-			<div>
-			<input type="button" value="전송" id="fundingChatMaker_message_submit" onclick=""/>
-	                    </div>
-		</div>
-	
+		<div class="input-group mb-3">
+	    <input type="text" id="message" class="form-control" placeholder="Message">
+	    <div class="input-group-append" style="padding: 0px;">
+	        <button id="sendBtn" class="btn btn-outline-secondary" type="button">Send</button>
+	    </div>
+	    </div>
+	    <div>
+	        <ul class="list-group list-group-flush" id="data"></ul>
+    	</div>
 	
 	</div>
 
@@ -95,9 +89,45 @@
 	height: 41px;
 	
 	}
-
-
 </style>
+
+	<script>
+
+		//페이지 접속 시 서버로 websocket 연결을 시도
+		const ws = new WebSocket(`ws://\${location.host}${pageContext.request.contextPath}/websoooocket`);	
+		const $data = $("#data");
+		ws.onopen = e => {
+			console.log("onopen : ", e);
+			
+		};
+	
+		ws.onmessage = e => {
+			console.log("onmessage : ", e);
+			const {data} = e; //객체 e의 data속성값을 data라는 변수에 담기
+			$data.append("<li class='list-group-item'>" + data + "</li>"); //메세지 표시
+		};
+	
+		ws.onerror = e => {
+			console.log("onerror : ", e);
+		};
+	
+		ws.onclose = e => {
+			console.log("onclose : ", e);
+		};
+	
+		const sendMessage = () => {
+			const $message = $("#message");	
+			
+			if($message.val()){ // 메세지 입력했을 때에만 전송 가능
+				ws.send($message.val());
+				#message.val(""); // 전송 후엔 입력창 초기화
+			}
+		};
+	
+		$("#sendBtn").click(sendMessage);
+		$("#message").keyup(e => e.keyCode == 13 && sendMessage()); //메세지 쓰다 엔터치면 전송
+		
+	</script>
 
 </body>
 </html>

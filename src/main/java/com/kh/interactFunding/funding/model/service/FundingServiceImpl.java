@@ -16,6 +16,7 @@ import com.kh.interactFunding.funding.model.vo.FundingParticipation;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Point;
+import com.kh.interactFunding.websocket.vo.MessageVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -473,6 +474,14 @@ public class FundingServiceImpl implements FundingService{
 	@Override
 	public int insertFundingParticipation(FundingParticipation fp) {
 		return fundingDao.insertFundingParticipation(fp);
+	}
+	@Override
+	public int insertChat(MessageVo msg) {
+		return fundingDao.insertChat(msg);
+	}
+	@Override
+	public List<MessageVo> selectChatList(int fundingNo) {
+		return fundingDao.selectChatList(fundingNo);
 	}
 	
 	
