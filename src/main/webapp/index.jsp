@@ -121,7 +121,7 @@ for (Funding funding : likelist) {
 	}
 }
 
-List<Funding> myList=(List) request.getAttribute("myList");
+ List<Funding> myList=(List) request.getAttribute("myList");
 for (Funding funding : myList) {
 	String cCode = funding.getCategoryCode();
 	switch (cCode) {
@@ -153,7 +153,7 @@ for (Funding funding : myList) {
 	funding.setCategoryCode("잘못된 카테고리");
 	break;
 	}
-}
+} 
 Cookie cookieview = new Cookie("cookieview", request.getParameter("cookieview"));
 
 cookieview.setMaxAge(60 * 60 * 24 * 7);
@@ -1140,56 +1140,35 @@ $(document).ready(function(){
 .card-img-top{
 	opacity: 0;
 }
-.Ranking_class-span img{
+.d-block{
 	opacity: 0;
 }
 </style>
 <script>
 $(document).ready(function() {
+	/* 이미지 슬라이드 */
+	$(".d-block").animate({'opacity':'1'},300);
 	/* 이미지 영역1 */
-   /* 1 */
    $('.card-img-top').each( function(i){
-            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+            var bottom_of_object = $(this).offset().top;
             var bottom_of_window = $(window).scrollTop() + $(window).height();
-            /* 3 */
-            if( bottom_of_window > bottom_of_object ){
+            
+            if( bottom_of_window > bottom_of_object){
                 $(this).animate({'opacity':'1'},500);
             }
    });
     $(window).scroll( function(){
-        /* 2 */
+        
         $('.card-img-top').each( function(i){
-            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+        	var bottom_of_object = $(this).offset().top;
             var bottom_of_window = $(window).scrollTop() + $(window).height();
-            /* 3 */
-            if( bottom_of_window > bottom_of_object/1.25){
+            if( bottom_of_window > bottom_of_object){
                 $(this).animate({'opacity':'1'},500);
             }
         }); 
-    });
-    /* 이미지 영역2 */
-    /* .Ranking_class-span img */
-    /* 1 */
-    $('.Ranking_class-span img').each( function(i){
-             var bottom_of_object = $(this).offset().top + $(this).outerHeight();
-             var bottom_of_window = $(window).scrollTop() + $(window).height();
-             /* 3 */
-             if( bottom_of_window > bottom_of_object ){
-                 $(this).animate({'opacity':'1'},500);
-             }
-    });
-    $(window).scroll( function(){
-        /* 2 */
-        $('.Ranking_class-span img').each( function(i){
-            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
-            var bottom_of_window = $(window).scrollTop() + $(window).height();
-            /* 3 */
-            if( bottom_of_window > bottom_of_object/1.25){
-                $(this).animate({'opacity':'1'},500);
-            }
-        }); 
-    });
+   });
 });
+
 </script>
 <!-- 이미지 페이드인 효과 끝 -->
 

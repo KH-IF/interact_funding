@@ -10,22 +10,24 @@
 <script>
 /* 스크롤 페이드인 효과 */
 $(document).ready(function() {
+	/* 이미지 슬라이드 */
+	$(".carousel-item").animate({'opacity':'1'},300);
    /* 1 */
    $('.fundingProjectCardItemImage').each( function(i){
-            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+            var bottom_of_object = $(this).offset().top;
             var bottom_of_window = $(window).scrollTop() + $(window).height();
             /* 3 */
-            if( bottom_of_window > bottom_of_object ){
+            if( bottom_of_window > bottom_of_object){
                 $(this).animate({'opacity':'1'},500);
             }
    });
     $(window).scroll( function(){
         /* 2 */
         $('.fundingProjectCardItemImage').each( function(i){
-            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+        	var bottom_of_object = $(this).offset().top;
             var bottom_of_window = $(window).scrollTop() + $(window).height();
             /* 3 */
-            if( bottom_of_window > bottom_of_object/1.75){
+            if( bottom_of_window > bottom_of_object){
                 $(this).animate({'opacity':'1'},500);
             }
         }); 
@@ -64,6 +66,9 @@ $(document).ready(function() {
 .fundingProjectCardItemImage{
 	opacity: 0;
 }
+.carousel-item{
+	opacity: 0;
+}
 .rewordProjectCardMakerName{
 	margin-top: 10px;
 }
@@ -86,7 +91,6 @@ $(document).ready(function() {
 }
 </style>
 </section>
-<div class="fundingMainWrapper">
 	<div id="demo" class="carousel slide" data-ride="carousel">
            <ul class="carousel-indicators">
 	           <c:forEach items="${bannerList}" var="banner" varStatus="status">
@@ -119,7 +123,7 @@ $(document).ready(function() {
 		   			<div class="carousel-item">
 		   		</c:if>
                    <a href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${banner.fundingNo}">
-                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width: 1300px; height: 400px;">
+                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width:100%; object-fit:cover; height: 400px;">
                     <div class="slide-title">
                      <span>${banner.title}</span>
                      <p></p>
@@ -145,6 +149,12 @@ $(document).ready(function() {
 	<div class="fundingProjectList-yh">
             <!-- 목록 -->
 	        <div class="fundingProjectCardList">
+	        	<c:if test="${empty list}">
+	                <div class="emptyFundingList">
+	                	<h4>조회결과가 없습니다.</h4>
+	               	</div>
+	            </c:if>
+	            <c:if test="${not empty list}">
 	            <div class="fundingProjectCardListIn">
 	                <!-- 목록 제목 -->
 	                <c:forEach items="${list}" var="funding">
@@ -172,15 +182,17 @@ $(document).ready(function() {
 	                </c:forEach>
 	                
 	            </div>
+	            </c:if>
 	        </div>
-	        <c:if test="${totalContents > map.limit}">
-	        	${pageBar}
+	        
+	        <c:if test="${totalContents <= map.limit}">
+	        	<div id="nonePage"></div>
 	        </c:if>
-            <!-- <div>
-                <div class="moreFunding">
-                    <button id="moreBtn">더보기↓</button>
-                </div>
-            </div> -->
+	        <c:if test="${totalContents > map.limit}">
+	        	<div id="pageBar">
+	        		${pageBar}
+	        	</div>
+	        </c:if>
         </div>
 	</div>
 
