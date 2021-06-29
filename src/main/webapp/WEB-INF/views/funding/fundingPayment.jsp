@@ -66,7 +66,7 @@
 			</div>
 		</div>
 		
-		<form:form id="fundingPaymentForm" name="fundingPaymentForm" action="${pageContext.request.contextPath}/funding/fundingFinalPayment" method="POST">
+		<form id="fundingPaymentForm" name="fundingPaymentForm" action="${pageContext.request.contextPath}/funding/fundingFinalPayment" method="POST">
 			<input type="hidden" name="fundingNo" value="${funding.fundingNo}"/>
 			<div id="fundingPayment_div5">
 				<div id="fundingPayment_div5_wrapper"> 
@@ -146,7 +146,7 @@
 					</div>
 				</div>
 			</div>
-		</form:form>
+		</form>
 	</div>
 	
 	
@@ -579,49 +579,43 @@
     //폼태그 유효성
     const cmntForm = document.forms['fundingPaymentForm'];
   	cmntForm.addEventListener('submit', function(event){
-	    event.preventDefault();
-
-
+  	
 	    //잔액이 부족할때 유효성 제출시
 	    var reamainMoney = $("#paymentRemainPoint").text();
+	    
  		if(reamainMoney < 0){
  			$("#checkRemainMoneyDiv").css("display", "block");
 			swal("잔액 부족", "충전하러가기 문구를 클릭 후 충전을 완료해주세요 \n 금액은 자동으로 업데이트됩니다.", "error");
-			return;
 			}
  		else if(reamainMoney >= 0){
  			$("#checkRemainMoneyDiv").css("display", "none");
 			}
 
-
 		//이름 유효성 제출시
-		if($("#fundingPayment_div_div2_name").val() == false){
+		if($("#fundingPayment_div_div2_name").val() == ''){
 			swal("예약 실패", "이름을 입력해주세요", "error");
 			$("#fundingPayment_div_div2_name").focus();
-			return;
 			}
 
 		//휴대폰 유효성 제출시
 		if($("#fundingPayment_div_div2_phone").val() == false){
 			swal("예약 실패", "휴대폰번호를 입력해주세요", "error");
 			$("#fundingPayment_div_div2_phone").focus();
-			return;
+			return false;
 			}
 			
 		//우편번호 검사시
 		if($("#fundingPayment_newaddress").text() == false){
 			swal("예약 실패", "우편번호를 입력해주세요", "error");
-			return;
+			return false;
 			}
 		
 		//상세주소 검사시
 		if($("#address2").val() == false){
 			swal("예약 실패", "상세주소를 입력해주세요", "error");
 			$("#address2").focus();
-			return;
+			return false;
 			}
-
-		
  	 });
     	
 	//이름 유효성검사

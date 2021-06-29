@@ -89,10 +89,14 @@ public interface FundingDao {
 	public FundingExt selectOneFunding(int fundingNo);
 	public int fundingParticipationCount(int fundingNo);
 	Map<String, Object> likeCheck(Map<String, Object> map);
+	Map<String, Object> alramCheck(Map<String, Object> map);
 	int insertLike(Map<String, Object> map);
+	int insertAlram(Map<String, Object> map);
 	int updateLike(Map<String, Object> map);
+	int updateAlram(Map<String, Object> map);
 	int likeCount(Map<String, Object> map);
 	int likeStatusCheck(int memberNo);
+	int alramStatusCheck(int memberNo);
 	List<Reward> selectRewardList(int fundingNo);
 	int insertFundingParticipation(FundingParticipation fp);
 	

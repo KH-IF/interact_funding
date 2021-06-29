@@ -1073,6 +1073,61 @@ public class FundingController {
 		}
 
 	}
+	
+	
+	@GetMapping("/fundingDetailEarly") 
+	public void fundingDetailEarly(@RequestParam int fundingNo, Model model, @SessionAttribute(required = false) Member loginMember) { 
+		//1. 업무로직 
+		FundingExt funding = fundingService.selectOneFunding(fundingNo);
+		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
+		List<Reward> reward = fundingService.selectRewardList(fundingNo);
+		
+		int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
+		log.debug("funding = {}", funding);
+		log.debug("reward = {}", reward);
+		
+		//2. 위임 
+		model.addAttribute("funding", funding);
+		model.addAttribute("wirterName", wirterName);
+		model.addAttribute("reward", reward);
+		model.addAttribute("fundingParticipationCount", fundingParticipationCount);
+		
+		//3. 기원이추가작업 쿠키 쓰기 
+		List<Funding> myList = null;
+//		List<Funding> -> gson.convert -> List<Object> -> Object.equals,Hashcode -> false
+		if(loginMember !=null) {
+			//Google + Json = gson, int[] 로관리함
+			Gson gson = new Gson();
+			myList = new ArrayList<>();
+			String jsonObject = fundingService.selectMyListJson(loginMember.getMemberNo());
+			int[] fundingNoArr = gson.fromJson(jsonObject, int[].class);
+			log.debug("fundingNoArr = {}",fundingNoArr);
+			
+			if(fundingNoArr!=null) {
+				for(int x : fundingNoArr) {
+					myList.add(fundingService.selectOneFundingKYS(x));
+				}
+			}
+			Funding recordFunding = fundingService.selectOneFundingKYS(funding.getFundingNo());
+			if(myList.contains(recordFunding)) {
+				myList.remove(recordFunding);
+				log.debug("중복된 리스트 존재함");
+			}else if(myList.size()==4) {
+				myList.remove(0);
+			}
+			myList.add(recordFunding);
+			fundingNoArr = new int[myList.size()];
+			for(int i=0; i<fundingNoArr.length; i++) {
+				fundingNoArr[i] = myList.get(i).getFundingNo();
+			}
+			Map<String, Object> param = new HashMap<>();
+			param.put("memberNo", loginMember.getMemberNo());
+			param.put("json", gson.toJson(fundingNoArr));
+			int result = fundingService.deleteMyListJson(param);
+			result = fundingService.insertMyListJson(param);
+		}
+		
+	}
 
 	
 	@GetMapping("/fundingReward")
@@ -1258,6 +1313,58 @@ public class FundingController {
 	@GetMapping("/likeStatusCheck")
 	public int likeStatusCheck(@RequestParam int memberNo) {
 		int result = fundingService.likeStatusCheck(memberNo);
+		return result;
+	}
+	
+	
+	
+	//알람신청 클릭시
+	@ResponseBody
+	@PostMapping("/loginMemberClickAlram")
+	public Map<String, Object> loginMemberClickAlram(@RequestParam int memberNo, @RequestParam int fundingNo) {
+		
+		//0. 값 처리
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberNo", memberNo);
+		map.put("fundingNo", fundingNo);
+		
+		Map<String, Object> returnResult = new HashMap<>();
+		//1. 요청한 사용자가 좋아요를 누른 적이 있는지 확인
+		Map<String, Object> result  = fundingService.alramCheck(map);
+		log.debug("result = {}",result);
+		//2.1 알람신청 누른적이 없음 -> alram테이블에 status Y로 insert
+		if(result==null || result.size()==0) {
+			//인설트
+			fundingService.insertAlram(map); //funding_no, member_no
+			returnResult.put("alram", "on");
+			log.debug("returnResult1 = {}",returnResult);
+			return returnResult;
+		}
+		
+		//둘다 뒤집어서 업데이트 해야되서 위로 뺌
+		result.put("status", !(Boolean)result.get("status"));
+		
+		//2.2 알람신청 누른적이 있음, 현재 status = Y -> status = N  (알람 취소) 
+		//2.3 알람신청 누른적이 있음, 현재 status = N -> status = Y (다시 알람신청)
+		fundingService.updateAlram(result);
+		//성공
+		if((Boolean) result.get("status")) {
+			returnResult.put("alram", "on");
+			log.debug("returnResult2 = {}",returnResult);
+			return returnResult;
+		}
+		//실패
+		returnResult.put("alram", "off");
+		log.debug("returnResult3 = {}",returnResult);
+		return returnResult;
+	}
+	
+	//알람신청 클릭여부확인
+	@ResponseBody
+	@GetMapping("/alramStatusCheck")
+	public int alramStatusCheck(@RequestParam int memberNo) {
+		int result = fundingService.alramStatusCheck(memberNo);
+		log.debug("result = {}",result);
 		return result;
 	}
 	
