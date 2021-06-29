@@ -1,5 +1,18 @@
 @charset "UTF-8";
 
+@font-face{
+	font-family:"NanumGothic";
+	src:url('/font/NanumGothic.eot');
+	src:url('/font/NanumGothic.eot?#iefix') format('embedded-opentype'),
+	url('/font/NanumGothic.woff') format('woff'),
+	url('/font/NanumGothic.svg#NanumGothic') format('svg');
+	src:local(※), url('/font/NanumGothic.woff') format('woff');
+	}
+
+html * {
+	font-family:"NanumGothic";
+}
+
 html, body {
 	margin: 0 auto;
 	padding: 0;
@@ -23,9 +36,9 @@ header nav ol{
 	padding:0;
 }
 header nav ol li{
-	margin-left:10px;
-	margin-right:10px;
-	font-size: 25px;
+	margin-left:20px;
+	margin-right:20px;
+	font-size: 22px;
 	line-height: 60px;
 	font-weight: bold;
 }
@@ -52,15 +65,16 @@ a:focus {
 a:active {
 	color: tomato;
 }
-
 #index_searchBar_container{
 	position:absolute;
 	right:400px;
 	top:10px;
 	width:400px;	
 	height:40px;
-	background-color: rgb(240,242,245);
+	background-color: rgb(255, 255, 255);
 	border-radius: 30px;
+    border: 1px solid #00b2b2;
+    color: #00b2b2;
 }
 #searchBar_relative{
 	position:relative;
@@ -118,13 +132,15 @@ a:active {
 	height:35px;
 	right:0;
 	top:12px;
-	border:1px solid rgb(40,167,69);
+	border:1px solid #00b2b2;
+	color: #00b2b2;
 	font-weight: bold;
 	text-align:center !important;
 	font-size:16px !important;
 }
 #project_open:hover{
 	color:white;
+	background-color: #00b2b2;
 }
 
 #login_container{
@@ -148,8 +164,8 @@ a:active {
 }
 #login_relative span{
 	position:absolute;
-	right:10px;
-	top:12px;
+	right:15px;
+	top:10px;
 	font-size:16px;
 }
 #login_relative span a{
