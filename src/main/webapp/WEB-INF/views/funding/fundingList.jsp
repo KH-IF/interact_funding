@@ -10,26 +10,30 @@
 <script>
 /* 스크롤 페이드인 효과 */
 $(document).ready(function() {
+	/* 이미지 슬라이드 */
+	$(".carousel-item").animate({'opacity':'1'},300);
+	
    /* 1 */
    $('.fundingProjectCardItemImage').each( function(i){
-            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
-            var bottom_of_window = $(window).scrollTop() + $(window).height();
-            /* 3 */
-            if( bottom_of_window > bottom_of_object){
-                $(this).animate({'opacity':'1'},500);
-            }
+       var bottom_of_object = $(this).offset().top;
+       var bottom_of_window = $(window).scrollTop() + $(window).height();
+       /* 3 */
+       if( bottom_of_window > bottom_of_object/1.5){
+           $(this).animate({'opacity':'1'},500);
+       }
+       $(window).scroll( function(){
+           /* 2 */
+           $('.fundingProjectCardItemImage').each( function(i){
+               /* 3 */
+               var bottom_of_object = $(this).offset().top;
+       		   var bottom_of_window = $(window).scrollTop() + $(window).height();
+               if( bottom_of_window > bottom_of_object){
+                   $(this).animate({'opacity':'1'},500);
+               }
+           });
+       });
    });
-    $(window).scroll( function(){
-        /* 2 */
-        $('.fundingProjectCardItemImage').each( function(i){
-            var bottom_of_object = $(this).offset().top + $(this).outerHeight();
-            var bottom_of_window = $(window).scrollTop() + $(window).height();
-            /* 3 */
-            if( bottom_of_window > bottom_of_object/1.75){
-                $(this).animate({'opacity':'1'},500);
-            }
-        }); 
-    });
+    
 });
 	/* $(function(){
 		//페이드인 효과
@@ -68,6 +72,9 @@ $(document).ready(function() {
 	display:none;
 } */
 .fundingProjectCardItemImage{
+	opacity: 0;
+}
+.carousel-item{
 	opacity: 0;
 }
 .carousel-inner{
@@ -317,8 +324,15 @@ $(document).ready(function() {
         </div>
         <!-- 목록 -->
         <div class="fundingProjectCardList">
+        	<c:if test="${empty list}">
+                <div class="emptyFundingList">
+                	<h4>조회결과가 없습니다.</h4>
+               	</div>
+            </c:if>
+            <c:if test="${not empty list}">
             <div class="fundingProjectCardListIn">
                 <!-- 목록 제목 -->
+                
 	        	<c:forEach items="${list}" var="funding">
                 <div class="fundingProjectCardItem">
                     <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}" class="FundingProjectCardItemImageArea">
@@ -409,25 +423,22 @@ $(document).ready(function() {
 								</span>
 	                           		<span class="rewordProjectCardDay" style="color:red;">마감</span>
 	                           	</c:if>
-                           	
                            	</c:if>
-                           		
                         </div>
                     </div>
                 </div>
                 </c:forEach>
             </div>
+            </c:if>
         </div>
+        <c:if test="${totalContents <= map.limit}">
+        	<div id="nonePage"></div>
+        </c:if>
         <c:if test="${totalContents > map.limit}">
         	<div id="pageBar">
         		${pageBar}
         	</div>
         </c:if>
-<!--         <div>
-            <div class="moreFunding">
-                <button id="moreBtn">더보기↓</button>
-            </div>
-        </div>         -->
     </div>
 
 <script>
