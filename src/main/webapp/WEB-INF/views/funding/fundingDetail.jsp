@@ -17,7 +17,7 @@
 	$.ajax({
 		url:"${pageContext.request.contextPath}/funding/likeStatusCheck",
 		data: {
-			memberNo : ${loginMember.memberNo},
+			memberNo : '${loginMember.memberNo}',
 		},
 		success(data){
 			console.log(data)
@@ -40,7 +40,7 @@
 	var popupHeight = 300;
 	var popupX = (document.body.offsetWidth / 2) - (200 / 2);
 	var popupY= (window.screen.height / 2) - (600 / 2);
-	window.open('fundingChatMaker', '', 'status=no, height=600, width=500, left='+ popupX + ', top='+ popupY);
+	window.open('stomp', '', 'status=no, height=600, width=500, left='+ popupX + ', top='+ popupY);
 		}
 </script>
 	</section>
@@ -123,8 +123,8 @@
                     <span id="icon_heart" style="color:red;"><i class="far fa-heart"></i></span>
                     <!--좋아요숫자  -->
                     <span id="funding_detail_like_count">${funding.likeCount}</span></button>
-                    <button type="button" value="1:1 채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary" onclick="maker_chat_function()"><span>1:1 채팅</span></button>
-                    <!-- <input type="button" value="1:1 채팅" id="funding_detail_chat_button"/> -->
+                    <!-- <button type="button" value="1:1 채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary" onclick="maker_chat_function()"><span>1:1 채팅</span></button> -->
+                    <button type="button" value="1:1 채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#chatModal"><span>1:1 채팅</span></button>
                 </div>
                 
                 <span id="funding_detail_like_count"></span>
@@ -406,8 +406,8 @@
 		$.ajax({
 			url: "${pageContext.request.contextPath}/funding/loginMemberClickLike",
 			data: {
-				memberNo : ${loginMember.memberNo},
-				fundingNo : ${funding.fundingNo},
+				memberNo : '${loginMember.memberNo}',
+				fundingNo : '${funding.fundingNo}',
 			},
 			method: "POST",
 			success(data){
@@ -456,5 +456,5 @@
 		
 	</script>	
 
-
+<jsp:include page="/WEB-INF/views/funding/stomp.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

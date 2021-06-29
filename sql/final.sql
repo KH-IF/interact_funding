@@ -18,6 +18,7 @@ commit;
 --=============================
 -- IF 계정
 --=============================
+drop table chat;
 drop table persistent_logins;
 drop table coupon_record;
 drop table coupon;
@@ -463,6 +464,19 @@ create table persistent_logins(
     last_used timestamp not null
 );
 
+--funding chat테이블
+create table funding_chat(
+    no number primary key,
+    funding_no number,
+    content varchar2(2000),
+    from_member_no number,
+    from_member_name  varchar2(100),
+    reg_date date default sysdate,
+    constraint fk_chat_funding_no foreign key(funding_no) references funding(funding_no),
+    constraint fk_chat_from_member_no foreign key(from_member_no) references member(member_no)
+);
+
+create sequence seq_funding_chat_no;
 
 --알람테이블
 
@@ -616,8 +630,13 @@ commit;
 
 select * from funding_mylist;
 
+select * from like_record;
+
+
 select * from alram_early_funding;
 
 
-select * from member;
+select * from funding f join funding_reward r using(funding_no) where f.status = 'Y';
+
+select * from funding_chat;
 -----------------------
