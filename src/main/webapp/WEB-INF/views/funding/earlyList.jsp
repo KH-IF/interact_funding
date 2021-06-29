@@ -73,10 +73,21 @@ $(document).ready(function() {
 	margin-top: 10px;
 }
 .fundingProjectList-h1{
-	margin-inline: 48px;
     padding-top: 40px;
     font-weight: 700;
-    font-size: 32px;
+    line-height: 32px;
+    font-size: 24px;
+}
+.fundingProjectList-h-div{
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.fundingProjectList-container-div{
+	margin: 50px;
+}
+.earlyProjectCardDay-yh{
+	display: block;
+    font-weight: 700;
+    color: #00b2b2;
 }
 </style>
 </section>
@@ -131,8 +142,11 @@ $(document).ready(function() {
 	        </a>
 	</div>
 	<section>
-		<h1 class="fundingProjectList-h1">오픈예정 둘러보기</h1>
-		<div class="fundingProjectList">
+	<div class="fundingProjectList-container-div">
+	<div class="fundingProjectList-h-div">
+	<h3  class="fundingProjectList-h1">오픈예정 둘러보기</h3>
+	</div>
+	<div class="fundingProjectList-yh">
             <!-- 목록 -->
 	        <div class="fundingProjectCardList">
 	        	<c:if test="${empty list}">
@@ -143,31 +157,30 @@ $(document).ready(function() {
 	            <c:if test="${not empty list}">
 	            <div class="fundingProjectCardListIn">
 	                <!-- 목록 제목 -->
-	                <c:if test="${not empty list}">
-		                <c:forEach items="${list}" var="funding">
-			                <div class="fundingProjectCardItem">
-			                    <a href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${funding.fundingNo}" class="fundingProjectCardItemImageArea">
-			                    	<div class="fundingProjectCardItemImage" style="background-image:url('${pageContext.request.contextPath}/resources/upload/${funding.attachment.renamedFilename}');"></div>
-			                    </a>
-			                    <div class="fundingProjectCardListInfo">
-			                        <div class="fundingProjectCardItemTitle">
-			                            <div class="fundingProjectCardItemTitleBox">
-			                                <a class="earlyProjectCardItemTitleLinkArea" href="#">
-		                                        <span class="earlyProjectCardItemTitleLink"><strong>${funding.title}</strong></span>
-		                                        <span class="earlyProjectCardDay">
-		                                        <fmt:formatDate value="${funding.startDate}" pattern="MM/dd(E) HH시mm분 오픈예정"/>
-		                                        </span>
-		                                    </a>
-			                            </div>
-			                            <div>
-		                                	<span class="rewordProjectCardMakerName">
-		                                	</span>
-			                            </div>
-			                        </div>
-			                    </div>
-			                </div>
-		                </c:forEach>
-	                </c:if>
+	                <c:forEach items="${list}" var="funding">
+	                <div class="fundingProjectCardItem">
+	                    <a href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${funding.fundingNo}" class="fundingProjectCardItemImageArea">
+	                    	<div class="fundingProjectCardItemImage" style="background-image:url('${pageContext.request.contextPath}/resources/upload/${funding.attachment.renamedFilename}');"></div>
+	                    </a>
+	                    <div class="fundingProjectCardListInfo">
+	                        <div class="fundingProjectCardItemTitle">
+	                            <div class="fundingProjectCardItemTitleBox">
+	                                <a class="earlyProjectCardItemTitleLinkArea" href="#">
+                                        <span class="earlyProjectCardItemTitleLink">${funding.title}</span>
+                                        <span class="earlyProjectCardDay-yh">
+                                        <fmt:formatDate value="${funding.startDate}" pattern="MM/dd(E) HH시mm분 오픈예정"/>
+                                        </span>
+                                    </a>
+	                            </div>
+	                            <div>
+                                	<span class="rewordProjectCardMakerName">
+                                	</span>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	                </c:forEach>
+	                
 	            </div>
 	            </c:if>
 	        </div>
@@ -181,5 +194,6 @@ $(document).ready(function() {
 	        	</div>
 	        </c:if>
         </div>
+	</div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
