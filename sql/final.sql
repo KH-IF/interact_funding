@@ -590,7 +590,13 @@ rollback;
 --배기원 테스트영역
 
 --이승우 테스트영역
-
+select * from funding_mylist;
+delete from funding_mylist where member_no = ; --오류시 임시 사용하기 그리고 확인 후 커밋
+commit;
+--아이디 
+select*from member;
+select*from member where member_no = 61;
+select*from member where member_no = 22;
 --천호현 테스트영역
 select *
 from member

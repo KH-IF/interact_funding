@@ -26,6 +26,11 @@ header {
     border:1px solid red;
 }
 
+/*(기원) 드래그 selection 추가  (드래그 color적용)했습니다. */
+::selection{
+	background-color:rgba(0, 0, 0, 0.1);
+	color:  #00a2a2;
+}
 header nav ol{
 	position:absolute;
 	left:0;

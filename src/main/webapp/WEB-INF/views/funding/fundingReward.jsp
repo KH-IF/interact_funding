@@ -18,6 +18,7 @@ $(() => {
 
 
 	<div id="funding_reward_top_tap">
+	<ion-icon name="chevron-back-outline" size="large" style="margin:1vw 1.25vw;"></ion-icon>
 	<span id="go_back">스토리로돌아가기</span>
 			<div id="fuding_reward_title_div">${funding.title}</div>
 			
@@ -25,8 +26,10 @@ $(() => {
 		
 	<div id="funding_purchase_step">
           <ol>
-            <li class="active"><em>리워드<br />선택</em></li>
-            <li ><em>결제 예약</em></li>
+          <!-- 기원 작업 공통  css입니다 -->
+            <li class="active" style="margin-top: -1.5vw;"><em>리워드<br />선택</em></li>
+         	<hr  style="border-style: dashed;"/>
+            <li  style="margin-top: -2.3vw; display: block;"><em>결제 예약</em></li>
           </ol>
      </div>
 		
@@ -82,7 +85,7 @@ $(() => {
 				${funding.title}에  <label for="rewardTotalPriceInput" id="funding_reward_choice">0</label>
 									<label for="rewardTotalPriceInputSupport" id="funding_reward_choice_support"></label> 원을 펀딩합니다.
 				<br />
-				<input id="nextButtonReward" type="submit" value="다음단계로 >" class="btn btn-info"></input>
+				<input id="nextButtonReward" type="submit" value="다음단계로" class="btn btn-info"></input>
 			</div>
 		</form:form>
 	</div>
@@ -156,22 +159,28 @@ $(() => {
 	
 	
 	<style>
-	
+	/*공통작업 css 추가하였습니다.(기원)*/
 	#funding_reward_top_tap{
    	display: flex;
+   	background-color: #A29584;
+   	height:70px;
+   	color: #ffffff;
 	}
+
 	
 	#fuding_reward_title_div{
     margin: auto;
-    font-size: 24px;
-    font-weight: 900;
+    font-size: 22px;
+    font-weight: 500;
 	
 	}
-	
+	/*공통작업 css 추가하였습니다.(기원)*/
 	#go_back{
-	font-size: 17px;
-    font-weight: 700;
+	    font-size: 19px;
+    font-weight: 500;
     cursor: pointer;
+    margin-top: 1vw;
+    padding-left: 0.5vw;
 	}
 	
 	
@@ -208,11 +217,12 @@ $(() => {
 	width: 250px;
     margin: 0 auto;
 	}
-	
+	/*margin 추가 하였습니다 기원*/
 	#funding_purchase_step ol li{
 	float: left;
     display: block;
     width: 60px;
+    margin-left: 2vw;
 	}
 	
 	#funding_purchase_step ol li em{

@@ -49,55 +49,102 @@ public class PageBarUtils {
 		}
 		int pageNo = pageStart;
 		
-		pageBar.append("<nav aria-label=\"Page navigation example\">\r\n"
-				+ "  <ul class=\"pagination justify-content-center\">");
-
+		
+		//현재페이지바
+//		pageBar.append("<ul>");
+//		//1. 이전영역
+//		if(pageNo == 1) {}
+//		else {
+//			pageBar.append("<li class='cPage'><a href='"+url+(pageNo-1)+"' class='prev'><</a></li>");
+//		}
+//		
+//		//2. pageNo 영역
+//		while(pageNo <= pageEnd && pageNo <= totalPage) {
+//			if(pageNo == cPage) {
+//				pageBar.append("<li class='cPage'><span class='cPageA'>"+pageNo+"</span></li>");
+//			}else {
+//				pageBar.append("<li class='cPage'><a href='"+url+pageNo+"'>"+pageNo+"</a>");
+//			}
+//			pageNo++;
+//		}
+//		
+//		//3. 다음영역
+//		if(pageNo > totalPage) {}
+//		else {
+//			pageBar.append("<li class='cPage'><a href='"+url+pageNo+"' class='next'>></a></li>");
+//		}
+//		
+//		pageBar.append("</ul>");
+		
+		// 페이지바
 		//1. 이전영역
-		if(pageNo == 1) {
-			//이전버튼 비활성화
-		}
+		if(pageNo == 1) {}
 		else {
-			//이전버튼 활성화
-			pageBar.append("  <li class=\"page-item\">\r\n"
-					+ "      <a class=\"page-link\" href=\"" + url + (pageNo -1) + "\" aria-label=\"Previous\">\r\n"
-					+ "        <span aria-hidden=\"true\">&laquo;</span>\r\n"
-					+ "        <span class=\"sr-only\">Previous</span>\r\n"
-					+ "      </a>\r\n"
-					+ "    </li>");
+			pageBar.append("<a href='"+url+(pageNo-1)+"'/><</a>\n");
 		}
+		
 		//2. pageNo영역
 		while(pageNo <= pageEnd && pageNo <= totalPage) {
 			if(pageNo == cPage) {
-				//현재페이지 - 링크비활성화
-				pageBar.append("<li class=\"page-item active\">\r\n"
-						+ "      <a class=\"page-link\" href=\"#\">" + pageNo + "<span class=\"sr-only\">(current)</span></a>\r\n"
-						+ "    </li>");
+				pageBar.append("<span class='cPage'>"+pageNo+"</span>");
+			}else {
+				pageBar.append("<a href='"+url+pageNo+"'/>"+pageNo+"</a>\n");
 			}
-			else {
-				//현재페이지 아닌 경우 - 링크활성화
-				pageBar.append(" <li class=\"page-item\"><a class=\"page-link\" href=\"" + url + pageNo + "\">" + pageNo + "</a></li>");
-			}
-			
 			pageNo++;
 		}
-		
 		//3. 다음영역
-		if(pageNo > totalPage) {
-			//다음버튼 비활성화
-
-		}
+		if(pageNo > totalPage) {}
 		else {
-			//다음버튼 활성화
-			pageBar.append("<li class=\"page-item\">\r\n"
-					+ "      <a class=\"page-link\" href=\"" + url + pageNo + "\" aria-label=\"Next\">\r\n"
-					+ "        <span aria-hidden=\"true\">&raquo;</span>\r\n"
-					+ "        <span class=\"sr-only\">Next</span>\r\n"
-					+ "      </a>\r\n"
-					+ "    </li>");
+			pageBar.append("<a href='"+url+pageNo+"'/>></a>\n");
 		}
 		
-		pageBar.append("  </ul>\r\n"
-				+ "</nav>");
+		//기존 HelloSpringUtils 수정판
+//		//1. 이전영역
+//		if(pageNo == 1) {
+//			//이전버튼 비활성화
+//		}
+//		else {
+//			//이전버튼 활성화
+//			pageBar.append("  <li class=\"page-item\">\r\n"
+//					+ "      <a class=\"page-link\" href=\"" + url + (pageNo -1) + "\" aria-label=\"Previous\">\r\n"
+//					+ "        <span aria-hidden=\"true\">&laquo;</span>\r\n"
+//					+ "        <span class=\"sr-only\">Previous</span>\r\n"
+//					+ "      </a>\r\n"
+//					+ "    </li>");
+//		}
+//		//2. pageNo영역
+//		while(pageNo <= pageEnd && pageNo <= totalPage) {
+//			if(pageNo == cPage) {
+//				//현재페이지 - 링크비활성화
+//				pageBar.append("<li class=\"page-item active\">\r\n"
+//						+ "      <a class=\"page-link\" href=\"#\">" + pageNo + "<span class=\"sr-only\">(current)</span></a>\r\n"
+//						+ "    </li>");
+//			}
+//			else {
+//				//현재페이지 아닌 경우 - 링크활성화
+//				pageBar.append(" <li class=\"page-item\"><a class=\"page-link\" href=\"" + url + pageNo + "\">" + pageNo + "</a></li>");
+//			}
+//			
+//			pageNo++;
+//		}
+//		
+//		//3. 다음영역
+//		if(pageNo > totalPage) {
+//			//다음버튼 비활성화
+//
+//		}
+//		else {
+//			//다음버튼 활성화
+//			pageBar.append("<li class=\"page-item\">\r\n"
+//					+ "      <a class=\"page-link\" href=\"" + url + pageNo + "\" aria-label=\"Next\">\r\n"
+//					+ "        <span aria-hidden=\"true\">&raquo;</span>\r\n"
+//					+ "        <span class=\"sr-only\">Next</span>\r\n"
+//					+ "      </a>\r\n"
+//					+ "    </li>");
+//		}
+//		
+//		pageBar.append("  </ul>\r\n"
+//				+ "</nav>");
 		
 		return pageBar.toString();
 	}

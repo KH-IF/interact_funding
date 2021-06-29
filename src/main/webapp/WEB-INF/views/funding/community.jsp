@@ -49,7 +49,7 @@
 	window.open('fundingChatMaker', '', 'status=no, height=600, width=500, left='+ popupX + ', top='+ popupY);
 		}
 </script>
-
+</section>
 	<div id="funding_top_title_wrapper_wrapper">
 		<div id="funding_top_title_wrapper">
 			<div id="funding_top_title">
@@ -88,7 +88,7 @@
 	            </ol>
 	        </div>
        </div>
-
+       <section>
         <div id="funding_main">
             <div id="funding_main_image_and_content">
                 <div class="yh-c-view">
