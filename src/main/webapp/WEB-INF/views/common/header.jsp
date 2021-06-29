@@ -35,7 +35,7 @@
 	<header>
 		<nav>
 			<ol>
-				<li><a href="${pageContext.request.contextPath}/">이프</a></li>
+				<li><a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/image/IF_logo.png"alt="logo" style="height: 50px; object-fit: cover; margin-top: -6px; "/></a></li>
 				<li><a href="${pageContext.request.contextPath}/funding/fundingList">펀딩하기</a></li>
 				<li><a href="${pageContext.request.contextPath}/funding/earlyList">오픈예정</a></li>
 				<li><a href="#">공지사항</a></li>

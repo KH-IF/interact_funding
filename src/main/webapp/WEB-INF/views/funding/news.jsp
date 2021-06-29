@@ -56,7 +56,8 @@
 	window.open('fundingChatMaker', '', 'status=no, height=600, width=500, left='+ popupX + ', top='+ popupY);
 		}
 </script>
-
+<!-- section  닫기  (기원) 공통 css 작업 -->
+</section>
 	<div id="funding_top_title_wrapper_wrapper">
 		<div id="funding_top_title_wrapper">
 			<div id="funding_top_title">
@@ -76,8 +77,7 @@
 			</div>
 		</div>
 	</div>
-	
-	<div id="funding_tap_wrapper">
+		<div id="funding_tap_wrapper">
 		<div id="funding_tap">
 	            <ol>
 	                <li>
@@ -95,6 +95,8 @@
 	            </ol>
 	        </div>
        </div>
+<!-- 공통작업 css 작업 열기 -->
+	<section>
 
         <div id="funding_main">
             <div id="funding_main_image_and_content">
