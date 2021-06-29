@@ -1224,7 +1224,8 @@ public class FundingController {
 			//결제할 리워드 가져오기
 			if(key==1) {
 				//추가금액 reward insert
-				reward = new Reward(0, fundingNo, (int)choiceRewardMap.get(key), "추가후원", content, 0, 0, new Date());
+				//기원 변경 하였습니다. 
+				reward = new Reward(0, fundingNo, (int)choiceRewardMap.get(key), "추가후원", content, 0, 0, new java.sql.Date(new Date().getTime()));
 				int result = fundingService.insertReward(reward);
 				int rewardNo = reward.getRewardNo();
 				
