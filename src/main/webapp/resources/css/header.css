@@ -23,7 +23,7 @@ header {
     width: 1300px;
     height: 60px;
     position: relative;
-    border:1px solid red;
+    border-bottom: 1px solid lightgray;
 }
 
 /*(기원) 드래그 selection 추가  (드래그 color적용)했습니다. */
@@ -52,7 +52,6 @@ section {
 	margin: 0 auto;
 	width: 1300px;
 	position:relative;
-	border:1px solid red;
 }
 a:link {
 	color: black;
