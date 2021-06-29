@@ -2,7 +2,12 @@ package com.kh.interactFunding.member.controller;
 
 
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +31,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +47,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.kh.interactFunding.funding.model.service.FundingService;
 import com.kh.interactFunding.funding.model.vo.Funding;
 import com.kh.interactFunding.member.model.service.MemberService;
@@ -59,14 +68,19 @@ public class MemberController {
 	
 	@Autowired
 	private FundingService fundingService;
-	
+
 	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	
 	final String username = "interact.funding";
 	final String password = "if1234!!!";
+	
+	private final String KAKAO_API_KEY = "df9569096cc5618b81581186dfe78bb2";
+	private String KAKAO_REDIRECT_URL = "http://localhost:9090/interactFunding/member/auth/kakao";
 	//김윤수
 	@GetMapping("/login")
-	public void login(@SessionAttribute(required = false) String next , @RequestHeader (name = "Referer", required = false) String referer, Model model) {
+	public void login(@SessionAttribute(required = false) String next ,
+					  @RequestHeader (name = "Referer", required = false) String referer, 
+					  Model model) {
 		log.info("referer@login = {}", referer);
 		log.debug("next@login = {}",next);
 		//나중에 스프링 시큐리티 사용할때 수정바람, 로그인시 로그인 페이지 못들어오게끔
@@ -500,6 +514,130 @@ public class MemberController {
 		return map;
 	}
 	
+	
+	
+	@GetMapping("/auth/kakao")
+	public String kakaoRequest(@RequestParam String code, Model model, RedirectAttributes redirectAttr) throws Exception {
+		try {
+			log.debug("code = {}", code);
+			BufferedReader br = null;
+			//인증코드를 통해 accessToeken가져오기
+			URL url = new URL("https://kauth.kakao.com/oauth/token");
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+			conn.setDoOutput(true);
+			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+			String urlParameters = "grant_type=authorization_code&client_id=" + KAKAO_API_KEY + "&redirect_uri="
+					+ KAKAO_REDIRECT_URL + "&code=" + code;
+			wr.writeBytes(urlParameters);
+			wr.flush();
+			wr.close();
+			int responseCode = conn.getResponseCode();
+			if (responseCode == 200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			} else { // 에러 발생
+				br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			Map<String, String> map = new Gson().fromJson(response.toString(), Map.class);
+			log.debug("map = {}", map);
+			
+			
+			
+			//accessToken을 통해 사용자 정보 가져오기
+			String accessToken = map.get("access_token");
+			String refreshToken = map.get("refresh_token");
+			log.debug("access_token = {}",accessToken);
+			log.debug("refreshToken = {}",refreshToken);
+			
+			url = new URL("https://kapi.kakao.com/v2/user/me");
+			conn = (HttpURLConnection)url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+			conn.setRequestProperty("Authorization", "Bearer "+accessToken);
+			responseCode = conn.getResponseCode();
+			if (responseCode == 200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			} else { // 에러 발생
+				br = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+			}
+			inputLine=null;
+			response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			br.close();
+			log.debug("json={}",response.toString());
+			
+			//값 가져오기
+			Map<String, String> map2 = new Gson().fromJson(response.toString(), Map.class);
+			log.debug("map = {}",map2);
+			
+			String temp = new Gson().toJson(map2.get("properties"));
+			log.debug("temp = {}",temp);
+			
+			String name = (String) new Gson().fromJson(temp, Map.class).get("nickname");
+			log.debug("name = {}", name);
+			
+			
+			temp = new Gson().toJson(map2.get("kakao_account"));
+			String email = (String) new Gson().fromJson(temp, Map.class).get("email");
+			log.debug("email = {}",email);
+			//1. 회원인지 아닌지 확인
+			Member m = new Member();
+			m.setEmail(email);
+			m.setName(name);
+			m.setPlatform("KAKAO");
+			Member tempMember = memberService.selectOneMemberKakao(m);
+			log.debug("입력받은 멤버 = {}",m);
+			log.debug("조회한 멤버 = {}",tempMember);
+			//2. 회원이면 바로 로그인 시켜주기
+			if(tempMember!=null) {
+				//로긴멤버 등록
+				model.addAttribute("loginMember",tempMember);
+				
+				//시큐리티 등록
+				Authentication newAuthentication = 
+						new UsernamePasswordAuthenticationToken(tempMember, null, tempMember.getAuthorities());
+				SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+				return "redirect:/";
+			}
+			//3. 비회원이면 회원가입 페이지로 이동
+			redirectAttr.addFlashAttribute("msg","회원가입 페이지로 이동");
+			redirectAttr.addFlashAttribute("member",m);
+			return "redirect:/member/memberEnroll_kakao";
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
+	@GetMapping("/memberEnroll_kakao")
+	public void memberEnrollKakao() {
+	}
+	
+	@PostMapping("/memberEnroll_kakao")
+	public String memberEnrollKakao(Member member, Model model, RedirectAttributes redirectAttr) {
+		log.debug("member = {}",member);
+		member.setPassword("kakao");
+		int result = memberService.insertMemberKakao(member);
+		
+		member = memberService.selectOneMemberKakao(member);
+		//로긴멤버 등록
+		model.addAttribute("loginMember",member);
+		
+		//시큐리티 등록
+		Authentication newAuthentication = 
+				new UsernamePasswordAuthenticationToken(member, null, member.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(newAuthentication);
+		redirectAttr.addFlashAttribute("msg","회원가입완료");
+		return "redirect:/";
+	}
 	//김경태
 	
 	//김주연

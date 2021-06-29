@@ -39,6 +39,10 @@ public interface MemberService {
 	Map<String, String> selectOneCertification(Member member);
 	
 	int changePassword(Map<String, Object> map);
+	
+	Member selectOneMemberKakao(Member m);
+	
+	int insertMemberKakao(Member member);
 
 	// 김경태
 

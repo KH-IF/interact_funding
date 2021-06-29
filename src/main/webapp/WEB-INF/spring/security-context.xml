@@ -3,7 +3,9 @@
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/security/oauth2 https://www.springframework.org/schema/security/spring-security-oauth2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 		
@@ -14,9 +16,9 @@
 
 	<http security="none" pattern="/resources/**"/><!-- 정적파일은 검사를 제외시킨다 -->
 	<http auto-config="true"> <!-- auto-config="true" : 자질구레한 설정 자동으로 해줌 -->
-		<intercept-url pattern="/" access="permitAll"/>
-		<intercept-url pattern="/**.jsp" access="permitAll"/><!-- forward로 가는거라 등록 -->
-		<intercept-url pattern="/member/login" access="isAnonymous()"/><!-- 로그인화면은 로그인 안됬을때만 -->
+		<!-- <intercept-url pattern="/" access="permitAll"/>
+		<intercept-url pattern="/**.jsp" access="permitAll"/>forward로 가는거라 등록
+		<intercept-url pattern="/member/login" access="isAnonymous()"/>로그인화면은 로그인 안됬을때만
 		<intercept-url pattern="/member/login_if" access="isAnonymous()"/>
 		<intercept-url pattern="/member/findid" access="isAnonymous()"/>
 		<intercept-url pattern="/member/memberEnroll" access="isAnonymous()"/>
@@ -24,7 +26,10 @@
 		<intercept-url pattern="/member/enrollAuthenticationCode" access="isAnonymous()"/>
 		
 		<intercept-url pattern="/member/newPassword" access="isAnonymous()"/>
-		<intercept-url pattern="/**" access="hasRole('USER')"/>
+		<intercept-url pattern="/**" access="hasRole('USER')"/> -->
+		<intercept-url pattern="/**" access="permitAll"/>
+		
+		
 		<!-- 
 			login-page : 로그인 폼페이지 요청
 			login-processing-url : 로그인 폼 제출페이지. 핸들러작성할 필요 없음.
@@ -47,19 +52,21 @@
          	token-validity-seconds : remember-me 토큰 유효시간 60*60*24*14(초단위) 2주로함
          							설정안해주면 기본값 30분
         -->
+        
+        <!--remember-me-parameter :  form에서 name값 -->
+        <!-- remember-me-cookie : 저장할 쿠키명 -->
 		<remember-me
          	data-source-ref="dataSource"
          	token-validity-seconds="1209600"
          	authentication-success-handler-ref="rememberMeSuccessHandler"
+         	remember-me-parameter="remember-me" 
+         	remember-me-cookie="remember-me"
          />
-         
          <access-denied-handler
          	error-page="/error/accessDenied"
          />
-         
          <csrf disabled="true"/><!-- true 시 비활성화. 기본값은 false -->
 	</http>
-	
 	<authentication-manager>
 		<authentication-provider user-service-ref="securityService">
 			<password-encoder ref="bcryptPasswordEncoder"/>
