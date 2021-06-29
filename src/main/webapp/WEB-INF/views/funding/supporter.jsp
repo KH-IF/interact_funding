@@ -85,7 +85,7 @@
 	                <li>
 	                    <a href="${pageContext.request.contextPath }/funding/community.do?fundingNo=${funding.fundingNo}">커뮤니티</a>
 	                </li>
-	                <li>
+	                <li style="border-bottom: 3px solid #00b2b2;">
 	                    <a href="${pageContext.request.contextPath }/funding/supporter.do?fundingNo=${funding.fundingNo}">서포터</a>
 	                </li>
 	            </ol>
