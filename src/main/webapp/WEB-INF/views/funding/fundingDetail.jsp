@@ -11,11 +11,9 @@
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 
 <script>
-
 	//좋아요 버튼 클릭여부
 	window.onload = function(){
 		console.log("온로드함수")
-
 	$.ajax({
 		url:"${pageContext.request.contextPath}/funding/likeStatusCheck",
 		data: {
@@ -36,8 +34,6 @@
 		,
 		})
 	};
-
-
 	//창 가운데 띄우기위함
 	function maker_chat_function(){
 	var popupWidth = 200;
@@ -148,13 +144,12 @@
 
 
                 <span id="reward_span">리워드 선택</span>
-                
-                
+         
                 <c:forEach var="reward" items="${reward}">
 	                <!-- 발송시작일 계산을 위함 -->
 	                <div id="funing_main_right_div_3" class="funding_main_reward_choice_div" data-choice="${reward.rewardNo}">
 		                <fmt:formatDate var="shippingDate" value="${reward.shippingDate}" type="DATE" pattern="yyyy년 MM월 초 (1~10일) 예정"/>
-	                	<div id="fundingReward_price"><fmt:formatNumber value="${reward.price}" pattern="#,###" />원 펀딩</div>
+	                	<div id="fundingReward_price"><fmt:formatNumber value="${reward.price}" pattern="#,###"  />원 펀딩</div>
 	                	<div id="fundingReward_title">${reward.title}!!</div>
 	                	<div id="fundingReward_content">${reward.content} 혜택</div>
 	                	
@@ -176,9 +171,9 @@
       <style>
       
     #funding_top_title_wrapper_wrapper{
-    height: 194px;
+    height: 205px;
     overflow: hidden;
-    width: 100vw;
+    width: auto;
     }
      
     #funding_top_title_wrapper{
@@ -213,48 +208,50 @@
     z-index: 999;
     
     }
-    #funding_tap {
-
-    }    
-
+   	#funding_tap_wrapper{
+   	padding-top: 10px;
+   	}
     #funding_tap > ol {
     height: 50px;
-    border-bottom: 3px solid #c0c2c0;
+    border-bottom: 1px solid #c0c2c0;
     text-align: center;
+    margin-bottom: 45px;
     }
-
     #funding_tap > ol > li{
     display: inline-block; 
     width: 98px;
     padding: 3px 10px;
     font-weight: 800;
+    white-space: nowrap;
     }
-
+    
+     #funding_tap > ol > li >a:hover{
+   	border-bottom:5px solid #00a2a2;
+   	content: " ";
+    display: block;
+    width: 60px;
+     } 
+     
     /* 펀딩 메인 전체 div */
     #funding_main{
     width: 1000px;
     display: flex;
     margin: auto;
     }
-
-
     #funding_main_image_and_content{
     width: 800px;
     overflow: hidden;
     }
-
     /* 펀딩 메인 이미지 */
     #funding_main_image{
     height: 500px;
     width: 95%;
     }
-
     /* 펀딩 메인 내용 */
     #funding_main_content{
     width: 97%;
     height: 2000px;
     }
-
     /* 펀딩 메인 오른쪽 펀딩하기 div*/
     #funing_main_right_div{
     font-size: 20px;
@@ -270,8 +267,6 @@
     height: 41px;
     margin-top: 6px;
     }
-
-
 	
 	#funing_main_right_div_2 {
     height: 229px !important;
@@ -288,8 +283,12 @@
     margin-bottom: 13px;
     cursor: pointer;
     min-height: 300px;
+    opacity: 0.2s;
     }
-    
+   
+   
+     
+  
     #funing_main_right_div_4{
     min-height: 300px;
     
@@ -316,7 +315,6 @@
 	#funding_detail_maker_logo_name_div > div {
 	/* border: 2px solid black; */
 	}
-
 	#funding_detail_dday_bar_wrapper{
 	height: 2px;
 	}
@@ -348,7 +346,10 @@
 	}
 	
 	.category_code_span{
-	font-size: 21px;
+	font-size: 20px;
+	font-weight: 600;
+	text-align: center;
+	color: #00a2a2;
 	}
 	
 	#fundingReward_title{
@@ -381,7 +382,6 @@
 	#fundingReward_limit{
     color: #00a2a2;
     font-size: 14px;
-    background-color: #E7F9F9;
     display: inline;
 	}
 	#fundingReward_reward_ing{
@@ -389,20 +389,17 @@
 	}
 	#fundingReward_price{
 	padding-bottom: 10px;
-	
 	}
 	
 	#fundingReward_hoverdiv{
 	background-color: pink;
 	
 	}
-
 	
 	
     </style>
     
 	<script>
-
     //좋아요 누를시
 	function like_controll(){
 		$("#funding_detail_like_button").attr("onclick","");
@@ -429,10 +426,8 @@
 			} 
 		})
 	};
-
 	
 	$(".funding_main_reward_choice_div").click(function(e){
-
 		/* 수정필요 */
 		if(${not empty loginMember}){
 			var $target;
@@ -451,7 +446,6 @@
 			return;
 		}
 	});
-
 	$('.funding_main_reward_choice_div').hover(function(){
 		$(this).css("border","2px solid #00c4c4");
 		$(this).children().first().css("color","#00c4c4");
@@ -459,7 +453,6 @@
         $(this).css("border","2px solid #cccccc");
         $(this).children().first().css("color","black");
     });
-
 		
 	</script>	
 

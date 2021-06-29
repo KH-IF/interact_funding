@@ -22,6 +22,14 @@ li {
 	padding-left: 100px;
 } */
 
+/*기원 공통 css 작업본입니다. start */
+#funding_tap_wrapper{
+	padding-top: 10px;
+}
+
+
+/*기원 공통 css 작업본입니다. end*/
+
 /* news */
 .yh-view {
 	/* position: absolute;
@@ -204,7 +212,7 @@ yh-c-table{
 .inquire-btn:hover{
 	position: absolute;
 	top: 5px;
-	left: 250px;
+	left: 100px;
 	width: 120px;
 	height: 35px;
 	border-radius: 50px;
@@ -537,9 +545,11 @@ yh-c-table{
 }
 
 /* 호현 */
+/* 공통 css 작업 기원 수정입니다.*/
     #funding_top_title_wrapper_wrapper{
-    height: 194px;
-    overflow: hidden;
+	   height: 205px;
+	    overflow: hidden;
+	    width: auto;
     }
      
     #funding_top_title_wrapper{
@@ -577,19 +587,28 @@ yh-c-table{
     #funding_tap {
 
     }    
-
+	/*공통작업 css 기원 margin-bottom 추가 했습니다.*/
     #funding_tap > ol {
     height: 50px;
-    border-bottom: 3px solid #c0c2c0;
+    border-bottom: 1px solid #c0c2c0;
     text-align: center;
+    margin-bottom: 45px;
     }
 
     #funding_tap > ol > li{
     display: inline-block; 
     width: 98px;
+    white-space:nowrap;
     padding: 3px 10px;
     font-weight: 800;
     }
+	/*공통작업 css 기원 */
+	 #funding_tap > ol > li >a:hover{
+   	border-bottom:5px solid #00a2a2;
+   	content: " ";
+    display: block;
+    width: 60px;
+     } 
 
     /* 펀딩 메인 전체 div */
     #funding_main{
@@ -696,9 +715,12 @@ yh-c-table{
 	font-size: 9px;
     color: gray;
 	}
-	
+	/*공통작업 기원 css 수정*/
 	.category_code_span{
-	font-size: 21px;
+	  font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: #00a2a2;
 	}
 	
 	.funding_main_reward_choice_div:hover{

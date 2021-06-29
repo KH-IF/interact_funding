@@ -585,11 +585,32 @@ select * from member where member_no = 2;
 --김경태 테스트영역
 
 --박요한 테스트영역
+select * from member;
 
+select * from funding_mylist;
+delete from funding_mylist
+where member_no = 42;
+commit;
+
+select * from funding_participation;
+select distinct
+			name
+		from
+			funding_participation
+		where
+			funding_no = 99;
+delete funding_participation where name is NULL;
+rollback;
 --배기원 테스트영역
 
 --이승우 테스트영역
-
+select * from funding_mylist;
+delete from funding_mylist where member_no = ; --오류시 임시 사용하기 그리고 확인 후 커밋
+commit;
+--아이디 
+select*from member;
+select*from member where member_no = 61;
+select*from member where member_no = 22;
 --천호현 테스트영역
 select *
 from member

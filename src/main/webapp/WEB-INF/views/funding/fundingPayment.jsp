@@ -9,8 +9,9 @@
 </jsp:include>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
+	<!-- 공통css작업 기원 -->
 	<div id="funding_payment_top_tap">
+	<ion-icon name="chevron-back-outline" size="large" style="margin:1vw 1.25vw;"></ion-icon>
 		<span id="go_back">스토리로돌아가기</span>
 		<div id="fuding_payment_title_div">${funding.title}</div>
 	</div>
@@ -18,8 +19,9 @@
 	
 	<div id="funding_purchase_step">
          <ol>
-           <li><em>리워드<br />선택</em></li>
-           <li class="active"><em>결제 예약</em></li>
+           <li style="margin-top: -1.5vw;"><em>리워드<br />선택</em></li>
+           <hr style="border-style: dashed; "/>
+           <li class="active" style="margin-top: -2.3vw; display: block;" ><em>결제 예약</em></li>
          </ol>
      </div>
 	
@@ -152,13 +154,32 @@
 	
 	#funding_payment_top_tap{
 	display: flex;
-	
+	background-color: #A29584;
+   	height:70px;
+   	color: #ffffff;
 	}
+	/*공통작업 css 추가하였습니다.(기원)*/
+	#go_back{
+	    font-size: 19px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1vw;
+    padding-left: 0.5vw;
+	}
+	
+	#funding_purchase_step ol li.active em{
+	width: 60px;
+    height: 60px;
+    color: #fff;
+    border: none;
+    background: #00c4c4;
+	}
+	/*기원 css 공통 작업 */
 	#fuding_payment_title_div{
     margin: auto;
-    font-size: 24px;
-    font-weight: 900;
-    padding-right: 55px;
+    font-size: 22px;
+    font-weight: 500;
+    
 	}
 	
 	#go_back{
@@ -279,11 +300,12 @@
 	width: 250px;
     margin: 0 auto;
 	}
-	
+	/*margin 추가 하였습니다 기원*/
 	#funding_purchase_step ol li{
 	float: left;
     display: block;
     width: 60px;
+    margin-left: 2vw;
 	}
 	
 	#funding_purchase_step ol li em{

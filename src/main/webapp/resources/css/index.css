@@ -1,14 +1,13 @@
  @charset "UTF-8"; 
-/*  카드배너 이미지 옆으로 넗이 조정 */
 /* 캐러셀(이미지변경) 이미지 크기 변경 */
 .carousel-inner {
 	width: auto;
-	height: 356px;
+	height: 468px;
 }
 
 .carousel-item img {
 	width: 100%;
-	height: 356px;
+	height: 468px;
 	object-fit:cover;
 }
 /* 글자 보이는 예제*/
