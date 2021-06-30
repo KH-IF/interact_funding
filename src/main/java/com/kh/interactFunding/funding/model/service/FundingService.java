@@ -1,5 +1,6 @@
 package com.kh.interactFunding.funding.model.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import com.kh.interactFunding.funding.model.vo.FundingParticipation;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Point;
+import com.kh.interactFunding.schedule.vo.EarlyStartMessage;
 import com.kh.interactFunding.websocket.vo.MessageVo;
 
 
@@ -105,6 +107,9 @@ public interface FundingService {
 	int insertFundingParticipation(FundingParticipation fp);
 	int insertChat(MessageVo msg);
 	List<MessageVo> selectChatList(int fundingNo);
+	int fundingViewCountUp(int fundingNo);
+	List<EarlyStartMessage> selectEarlyMemberList();
+	int sendAlramMessage(EarlyStartMessage earlyMember);
 	
 
 }
