@@ -83,4 +83,15 @@
 		delete from member
 		where member_no = #{memberNo}
 	</delete>
+	
+	<select id="selectBlackList" resultMap="memberMap">
+		select *
+		from blackList
+		order by no desc
+	</select>
+	
+	<select id="selectBlackListTotalContents" resultType="_int">
+		select count(*)
+		from blackList
+	</select>
 </mapper>

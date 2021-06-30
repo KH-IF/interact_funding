@@ -59,7 +59,19 @@ public class AdminDaoImpl implements AdminDao {
 	public int memberDel(int memberNo) {
 		return session.delete("admin.deleteMember", memberNo);
 	}
-	
+
+	@Override
+	public List<Member> selectBlackList(Map<String, Object> map) {
+		int offset = (int) map.get("offset");
+		int limit = (int) map.get("limit");
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("admin.selectBlackList", map, rowBounds);
+	}
+
+	@Override
+	public int selectBlackListTotalContents() {
+		return session.selectOne("admin.selectBlackListTotalContents");
+	}
 	
 	
 	//천호현

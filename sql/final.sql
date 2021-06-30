@@ -484,9 +484,22 @@ create sequence seq_funding_chat_no;
 
 --관리자 테이블
 
+--블랙리스트 테이블
+create table blackList(
+    no number,
+    email varchar2(100)
+);
+create sequence seq_blackList;
 
-
-
+--블랙리스트 테이블에 추가(insert)시 자동으로 member테이블에서는 제외 할수있도록
+create or replace trigger trig_blackList
+    after
+    insert on blackList
+    for each row
+begin
+    delete member where email = :new.email;
+end;
+/
 
 
 
@@ -604,13 +617,19 @@ rollback;
 --배기원 테스트영역
 
 --이승우 테스트영역
+select * from funding order by funding_no desc;
 select * from funding_mylist;
-delete from funding_mylist where member_no = ; --오류시 임시 사용하기 그리고 확인 후 커밋
+delete from funding_mylist where member_no = 22; --오류시 임시 사용하기 그리고 확인 후 커밋
 commit;
+--블랙리스트
+select * from blackList;
+
 --아이디 
 select*from member;
 select*from member where member_no = 61;
 select*from member where member_no = 22;
+
+
 --천호현 테스트영역
 select *
 from member

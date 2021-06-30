@@ -19,4 +19,8 @@ public interface AdminService {
 
 	public int memberDel(int memberNo);
 
+	public List<Member> selectBlackList(Map<String, Object> map);
+
+	public int selectBlackListTotalContents();
+
 }

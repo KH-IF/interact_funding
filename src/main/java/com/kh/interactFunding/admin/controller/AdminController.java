@@ -159,6 +159,35 @@ public class AdminController {
 		return "redirect:/admin/memberList";
 	}
 
+	@GetMapping("blackList")
+	public ModelAndView blackList(ModelAndView mav,
+			@RequestParam(required = false, defaultValue = "1") int cPage, HttpServletRequest request
+			) {
+		try {
+			final int limit = 5;
+			final int offset = (cPage - 1) * limit;
+			Map<String, Object> map = new HashMap<>();
+			map.put("limit", limit);
+			map.put("offset", offset);
+			// 업무로직
+			List<Member> list = adminService.selectBlackList(map);
+			int totalContents = adminService.selectBlackListTotalContents();
+			String url = request.getRequestURI();
+			
+			String pageBar = PageBarUtils.getPageBar(totalContents, cPage, limit, url);
+			
+			// jsp 위임
+			mav.addObject("totalContents", totalContents);
+			mav.addObject("pageBar", pageBar);
+			mav.addObject("list", list);
+			mav.addObject("map", map);
+			
+			return mav;
+		} catch(Exception e) {
+			log.debug("블랙리스트 조회 오류");
+			throw e;
+		}
+	}
 	// 천호현
 
 }
