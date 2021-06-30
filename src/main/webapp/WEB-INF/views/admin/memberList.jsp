@@ -99,7 +99,9 @@ $(document).ready(function(){
     </form:form>
     <!-- 페이지바 -->
     <c:if test="${totalContents > map.limit}">
-    	${pageBar}
+    	<div id="pageBar">
+        	${pageBar}
+        </div>
     </c:if>
     
 <script>

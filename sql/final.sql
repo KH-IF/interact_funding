@@ -18,6 +18,7 @@ commit;
 --=============================
 -- IF 계정
 --=============================
+drop table chat;
 drop table persistent_logins;
 drop table coupon_record;
 drop table coupon;
@@ -219,6 +220,8 @@ create table funding(
     constraint fk_funding_writer_no foreign key(writer_no) references member(member_no) on delete set null,
     constraint fk_funding_rate_plan_code foreign key(rate_plan_code) references rate_plan(rate_plan_code) on delete set null
 );
+
+
 --펀딩 테이블 seq
 create sequence seq_funding_no;
 
@@ -307,6 +310,8 @@ create table like_record(
 --funding 좋아요 관리 테이블 시퀀스
 create sequence seq_like_record_no;
 
+
+
 create or replace trigger trig_like
     after
     insert on like_record
@@ -340,6 +345,22 @@ begin
 end;
 /
 
+--알람신청 관리 테이블
+create table alram_early_funding(
+    no number,
+    funding_no number,
+    member_no number,
+    status char(1),
+    constraint pk_alram_no primary key(no),
+    constraint fk_alram_funding_no foreign key(funding_no) references funding(funding_no) on delete set null,
+    constraint fk_alram_member_no foreign key(member_no) references member(member_no) on delete set null,
+    constraint ck_alram_status check(status in ('Y','N'))
+);
+
+--alram 좋아요 관리 테이블 시퀀스
+create sequence seq_alram_early_no;
+
+commit;
 
 --펀딩 참여 테이블
 create table funding_participation(
@@ -443,6 +464,19 @@ create table persistent_logins(
     last_used timestamp not null
 );
 
+--funding chat테이블
+create table funding_chat(
+    no number primary key,
+    funding_no number,
+    content varchar2(2000),
+    from_member_no number,
+    from_member_name  varchar2(100),
+    reg_date date default sysdate,
+    constraint fk_chat_funding_no foreign key(funding_no) references funding(funding_no),
+    constraint fk_chat_from_member_no foreign key(from_member_no) references member(member_no)
+);
+
+create sequence seq_funding_chat_no;
 
 --알람테이블
 
@@ -518,11 +552,32 @@ create table persistent_logins(
 --김경태 테스트영역
 
 --박요한 테스트영역
+select * from member;
 
+select * from funding_mylist;
+delete from funding_mylist
+where member_no = 42;
+commit;
+
+select * from funding_participation;
+select distinct
+			name
+		from
+			funding_participation
+		where
+			funding_no = 99;
+delete funding_participation where name is NULL;
+rollback;
 --배기원 테스트영역
 
 --이승우 테스트영역
-
+select * from funding_mylist;
+delete from funding_mylist where member_no = ; --오류시 임시 사용하기 그리고 확인 후 커밋
+commit;
+--아이디 
+select*from member;
+select*from member where member_no = 61;
+select*from member where member_no = 22;
 --천호현 테스트영역
 select *
 from member
@@ -539,4 +594,16 @@ set point = 0
 where member_no = 21;
 
 commit;
+
+select * from funding_mylist;
+
+select * from like_record;
+
+
+select * from alram_early_funding;
+
+
+select * from funding f join funding_reward r using(funding_no) where f.status = 'Y';
+
+select * from funding_chat;
 -----------------------

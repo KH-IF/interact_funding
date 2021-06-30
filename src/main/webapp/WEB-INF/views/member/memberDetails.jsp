@@ -140,7 +140,7 @@
 	      		<c:forEach items="${pList}" var="point" varStatus="var">
 	      			<tr>
 	      				<td scope="row">${var.count}</td>
-	      				<td><fmt:formatDate value="${point.regDate}" pattern="yy/MM/dd hh:mm"/></td>
+	      				<td><fmt:formatDate value="${point.regDate}" pattern="yy/MM/dd HH:mm"/></td>
 	      				<td>${point.point}</td>
 	      				<td>${point.memo}</td>
 	      			</tr>

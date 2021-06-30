@@ -8,10 +8,35 @@
 </jsp:include>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/fundingList.css" />
 <script>
-	$(function(){
+/* 스크롤 페이드인 효과 */
+$(document).ready(function() {
+	/* 이미지 슬라이드 */
+	$(".carousel-item").animate({'opacity':'1'},300);
+   /* 1 */
+   $('.fundingProjectCardItemImage').each( function(i){
+            var bottom_of_object = $(this).offset().top;
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+            /* 3 */
+            if( bottom_of_window > bottom_of_object){
+                $(this).animate({'opacity':'1'},500);
+            }
+   });
+    $(window).scroll( function(){
+        /* 2 */
+        $('.fundingProjectCardItemImage').each( function(i){
+        	var bottom_of_object = $(this).offset().top;
+            var bottom_of_window = $(window).scrollTop() + $(window).height();
+            /* 3 */
+            if( bottom_of_window > bottom_of_object){
+                $(this).animate({'opacity':'1'},500);
+            }
+        }); 
+    });
+});
+	/* $(function(){
 		//페이드인 효과
         $('.fundingProjectCardItemImage').animate({'opacity':'1'},500);
-	});
+	}); */
 	
 </script>
 <style>
@@ -19,13 +44,14 @@
    	display: block;
    	position: absolute;
    	bottom: 20px;
-   	left: 20px;
+   	left: 200px;
+   	z-index:1;
    	text-decoration: none;
    	overflow: hidden;
 }
 .slide-title span{
-   	color: white;
-   	font-size: 20px;
+   	color: #ffffff;
+   	font-size: 40px;
    	font-weight: 700;
 }
 .slide-title p{
@@ -40,11 +66,31 @@
 .fundingProjectCardItemImage{
 	opacity: 0;
 }
+.carousel-item{
+	opacity: 0;
+}
 .rewordProjectCardMakerName{
 	margin-top: 10px;
 }
+.fundingProjectList-h1{
+    padding-top: 40px;
+    font-weight: 700;
+    line-height: 32px;
+    font-size: 24px;
+}
+.fundingProjectList-h-div{
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.fundingProjectList-container-div{
+	margin: 50px;
+}
+.earlyProjectCardDay-yh{
+	display: block;
+    font-weight: 700;
+    color: #00b2b2;
+}
 </style>
-<div class="fundingMainWrapper">
+</section>
 	<div id="demo" class="carousel slide" data-ride="carousel">
            <ul class="carousel-indicators">
 	           <c:forEach items="${bannerList}" var="banner" varStatus="status">
@@ -76,8 +122,8 @@
            		<c:if test="${not status.first}">
 		   			<div class="carousel-item">
 		   		</c:if>
-                   <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${banner.fundingNo}">
-                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width: 1300px; height: 400px;">
+                   <a href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${banner.fundingNo}">
+                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width:100%; object-fit:cover; height: 400px;">
                     <div class="slide-title">
                      <span>${banner.title}</span>
                      <p></p>
@@ -95,22 +141,33 @@
 	            <span class="carousel-control-next-icon"></span>
 	        </a>
 	</div>
-	<div class="fundingProjectList">
+	<section>
+	<div class="fundingProjectList-container-div">
+	<div class="fundingProjectList-h-div">
+	<h3  class="fundingProjectList-h1">오픈예정 둘러보기</h3>
+	</div>
+	<div class="fundingProjectList-yh">
             <!-- 목록 -->
 	        <div class="fundingProjectCardList">
+	        	<c:if test="${empty list}">
+	                <div class="emptyFundingList">
+	                	<h4>조회결과가 없습니다.</h4>
+	               	</div>
+	            </c:if>
+	            <c:if test="${not empty list}">
 	            <div class="fundingProjectCardListIn">
 	                <!-- 목록 제목 -->
 	                <c:forEach items="${list}" var="funding">
 	                <div class="fundingProjectCardItem">
-	                    <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}" class="fundingProjectCardItemImageArea">
+	                    <a href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${funding.fundingNo}" class="fundingProjectCardItemImageArea">
 	                    	<div class="fundingProjectCardItemImage" style="background-image:url('${pageContext.request.contextPath}/resources/upload/${funding.attachment.renamedFilename}');"></div>
 	                    </a>
 	                    <div class="fundingProjectCardListInfo">
 	                        <div class="fundingProjectCardItemTitle">
 	                            <div class="fundingProjectCardItemTitleBox">
 	                                <a class="earlyProjectCardItemTitleLinkArea" href="#">
-                                        <span class="earlyProjectCardItemTitleLink"><strong>${funding.title}</strong></span>
-                                        <span class="earlyProjectCardDay">
+                                        <span class="earlyProjectCardItemTitleLink">${funding.title}</span>
+                                        <span class="earlyProjectCardDay-yh">
                                         <fmt:formatDate value="${funding.startDate}" pattern="MM/dd(E) HH시mm분 오픈예정"/>
                                         </span>
                                     </a>
@@ -125,16 +182,18 @@
 	                </c:forEach>
 	                
 	            </div>
+	            </c:if>
 	        </div>
-	        <c:if test="${totalContents > map.limit}">
-	        	${pageBar}
+	        
+	        <c:if test="${totalContents <= map.limit}">
+	        	<div id="nonePage"></div>
 	        </c:if>
-            <!-- <div>
-                <div class="moreFunding">
-                    <button id="moreBtn">더보기↓</button>
-                </div>
-            </div> -->
+	        <c:if test="${totalContents > map.limit}">
+	        	<div id="pageBar">
+	        		${pageBar}
+	        	</div>
+	        </c:if>
         </div>
-    </div>
+	</div>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

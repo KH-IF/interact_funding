@@ -9,17 +9,16 @@
 </jsp:include>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/index.css" />
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/news.css" />
 <script>
-
 	//좋아요 버튼 클릭여부
 	window.onload = function(){
 		console.log("온로드함수")
-
 	$.ajax({
 		url:"${pageContext.request.contextPath}/funding/likeStatusCheck",
 		data: {
-			memberNo : ${loginMember.memberNo},
+			memberNo : '${loginMember.memberNo}',
 		},
 		success(data){
 			console.log(data)
@@ -36,15 +35,13 @@
 		,
 		})
 	};
-
-
 	//창 가운데 띄우기위함
 	function maker_chat_function(){
 	var popupWidth = 200;
 	var popupHeight = 300;
 	var popupX = (document.body.offsetWidth / 2) - (200 / 2);
 	var popupY= (window.screen.height / 2) - (600 / 2);
-	window.open('fundingChatMaker', '', 'status=no, height=600, width=500, left='+ popupX + ', top='+ popupY);
+	window.open('stomp', '', 'status=no, height=600, width=500, left='+ popupX + ', top='+ popupY);
 		}
 </script>
 	</section>
@@ -73,7 +70,7 @@
 			<div id="funding_tap">
 	            <ol>
 	                <li>
-	                    <a href="${pageContext.request.contextPath }/funding/fundingDetail?fundingNo=${funding.fundingNo}">스토리</a>
+	                    <a style="border-bottom: 5px solid #00a2a2;" href="${pageContext.request.contextPath }/funding/fundingDetail?fundingNo=${funding.fundingNo}">스토리</a>
 	                </li>
 	                <li>
 	                    <a href="${pageContext.request.contextPath }/funding/news.do?fundingNo=${funding.fundingNo}">새소식</a>
@@ -127,8 +124,8 @@
                     <span id="icon_heart" style="color:red;"><i class="far fa-heart"></i></span>
                     <!--좋아요숫자  -->
                     <span id="funding_detail_like_count">${funding.likeCount}</span></button>
-                    <button type="button" value="1:1 채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary" onclick="maker_chat_function()"><span>1:1 채팅</span></button>
-                    <!-- <input type="button" value="1:1 채팅" id="funding_detail_chat_button"/> -->
+                    <!-- <button type="button" value="1:1 채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary" onclick="maker_chat_function()"><span>1:1 채팅</span></button> -->
+                    <button type="button" value="1:1 채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#chatModal"><span>1:1 채팅</span></button>
                 </div>
                 
                 <span id="funding_detail_like_count"></span>
@@ -148,13 +145,12 @@
 
 
                 <span id="reward_span">리워드 선택</span>
-                
-                
+         
                 <c:forEach var="reward" items="${reward}">
 	                <!-- 발송시작일 계산을 위함 -->
 	                <div id="funing_main_right_div_3" class="funding_main_reward_choice_div" data-choice="${reward.rewardNo}">
 		                <fmt:formatDate var="shippingDate" value="${reward.shippingDate}" type="DATE" pattern="yyyy년 MM월 초 (1~10일) 예정"/>
-	                	<div id="fundingReward_price"><fmt:formatNumber value="${reward.price}" pattern="#,###" />원 펀딩</div>
+	                	<div id="fundingReward_price"><fmt:formatNumber value="${reward.price}" pattern="#,###"  />원 펀딩</div>
 	                	<div id="fundingReward_title">${reward.title}!!</div>
 	                	<div id="fundingReward_content">${reward.content} 혜택</div>
 	                	
@@ -171,246 +167,16 @@
                 </div>
             </div>
         </div>
-
-
-      <style>
-      
-    #funding_top_title_wrapper_wrapper{
-    height: 194px;
-    overflow: hidden;
-    width: 100vw;
-    }
-     
-    #funding_top_title_wrapper{
-    }
-      
-    #funding_top_title{
-    }
-    
-    #funding_top_title_image{
-   	width: 100%;
-    height: 197px;
-    filter: blur(5px);
-    transform: scale(1.8);
-    
-    }
-    
-    #funding_top_title_div{
-    margin-top: -159px;
-    text-align: center;
-    font-size: 40px;
-    font-weight: 900;
-    z-index: 999;
-    position: relative;
-    color: #fff;
-    }
-    
-    #funding_top_p{
-    margin-top: -62px;
-    text-align: center;
-    font-size: 40px;
-    font-weight: 900;
-    z-index: 999;
-    
-    }
-    #funding_tap {
-
-    }    
-
-    #funding_tap > ol {
-    height: 50px;
-    border-bottom: 3px solid #c0c2c0;
-    text-align: center;
-    }
-
-    #funding_tap > ol > li{
-    display: inline-block; 
-    width: 98px;
-    padding: 3px 10px;
-    font-weight: 800;
-    }
-
-    /* 펀딩 메인 전체 div */
-    #funding_main{
-    width: 1000px;
-    display: flex;
-    margin: auto;
-    }
-
-
-    #funding_main_image_and_content{
-    width: 800px;
-    overflow: hidden;
-    }
-
-    /* 펀딩 메인 이미지 */
-    #funding_main_image{
-    height: 500px;
-    width: 95%;
-    }
-
-    /* 펀딩 메인 내용 */
-    #funding_main_content{
-    width: 97%;
-    height: 2000px;
-    }
-
-    /* 펀딩 메인 오른쪽 펀딩하기 div*/
-    #funing_main_right_div{
-    font-size: 20px;
-    font-weight: 600;
-    }
-    #funing_main_right_div_2, #funing_main_right_div_3, #funing_main_right_div_4{
-	border: 2px solid #cccccc;
-    border-radius: 6px;
-    }
-    
-    /* 펀딩 메인 오른쪽 펀딩하기 div1 > div*/
-    #funing_main_right_div_1 > div{
-    height: 41px;
-    margin-top: 6px;
-    }
-
-
-	
-	#funing_main_right_div_2 {
-    height: 229px !important;
-	}
-	
-	
-    #funing_main_right_div > div{
-    width: 220px;
-    padding-left: 10px;
-    padding-top: 9px;
-    }
-    
-    #funing_main_right_div_3{
-    margin-bottom: 13px;
-    cursor: pointer;
-    min-height: 300px;
-    }
-    
-    #funing_main_right_div_4{
-    min-height: 300px;
-    
-    }
-    /* 펀딩하기버튼 */
-    #funding_button {
-    width: 96%;
-    height: 50px;
-    margin-top: 25px;
-    }
-    
-    /* 좋아요 1:1채팅 공유하기 버튼 */
-	#funding_detail_like_button, #funding_detail_chat_button{
-	width:47.8%;
-    height: 33px;
-    margin-top: 8px;
-	}
-	
-	/* 메이커 로고 + name */
-	#funding_detail_maker_logo_name_div {
-	display: flex;
-	}
-	
-	#funding_detail_maker_logo_name_div > div {
-	/* border: 2px solid black; */
-	}
-
-	#funding_detail_dday_bar_wrapper{
-	height: 2px;
-	}
-	
-	#funding_detail_dday_div{
-	font-size: 24px;
-	font-weight: 700;
-	}
-	
-	#funding_detail_dday_bar{
-	height: 10px;
-	margin-top: 14px;
-	}
-	
-	#funding_detail_maker_chat_button{
-	margin-top: 13px;
-    width: 96%;
-    height: 50px;
-	}
-	
-	#funding_detail_maker_name{
-	margin-bottom: 11px;
-	font-size : 25px;
-	}
-	
-	#maker_span, #reward_span, #ranking_span{
-	font-size: 9px;
-    color: gray;
-	}
-	
-	.category_code_span{
-	font-size: 21px;
-	}
-	
-	#fundingReward_title{
-	font-size: 17px;
-	padding-bottom: 9px;
-	
-	}
-	#fundingReward_content{
-	color: #929292;
-    font-size: 14px;
-    padding-bottom: 9px;
-	}
-	#fundingReward_shipping_title{
-    color: #929292;
-    font-size: 14px;
-	}
-	#fundingReward_shippint_price{
-    font-size: 17px;
-    padding-bottom: 9px;
-	}
-	
-	#fundingReward_shipping_date_title{
-    color: #929292;
-    font-size: 14px;
-	}
-	#fundingReward_shipping_date_number{
-	font-size: 15px;
-	padding-bottom: 9px;	
-	}
-	#fundingReward_limit{
-    color: #00a2a2;
-    font-size: 14px;
-    background-color: #E7F9F9;
-    display: inline;
-	}
-	#fundingReward_reward_ing{
-    font-size: 14px;
-	}
-	#fundingReward_price{
-	padding-bottom: 10px;
-	
-	}
-	
-	#fundingReward_hoverdiv{
-	background-color: pink;
-	
-	}
-
-	
-	
-    </style>
     
 	<script>
-
     //좋아요 누를시
 	function like_controll(){
 		$("#funding_detail_like_button").attr("onclick","");
 		$.ajax({
 			url: "${pageContext.request.contextPath}/funding/loginMemberClickLike",
 			data: {
-				memberNo : ${loginMember.memberNo},
-				fundingNo : ${funding.fundingNo},
+				memberNo : '${loginMember.memberNo}',
+				fundingNo : '${funding.fundingNo}',
 			},
 			method: "POST",
 			success(data){
@@ -429,10 +195,8 @@
 			} 
 		})
 	};
-
 	
 	$(".funding_main_reward_choice_div").click(function(e){
-
 		/* 수정필요 */
 		if(${not empty loginMember}){
 			var $target;
@@ -451,7 +215,6 @@
 			return;
 		}
 	});
-
 	$('.funding_main_reward_choice_div').hover(function(){
 		$(this).css("border","2px solid #00c4c4");
 		$(this).children().first().css("color","#00c4c4");
@@ -459,9 +222,8 @@
         $(this).css("border","2px solid #cccccc");
         $(this).children().first().css("color","black");
     });
-
 		
 	</script>	
 
-
+<jsp:include page="/WEB-INF/views/funding/stomp.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

@@ -19,6 +19,7 @@ import com.kh.interactFunding.funding.model.vo.FundingParticipation;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Point;
+import com.kh.interactFunding.websocket.vo.MessageVo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -300,12 +301,24 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectOne("funding.likeCheck",map);
 	}
 	@Override
+	public Map<String, Object> alramCheck(Map<String, Object> map) {
+		return session.selectOne("funding.alramCheck",map);
+	}
+	@Override
 	public int insertLike(Map<String, Object> map) {
 		return session.insert("funding.insertLike",map);
 	}
 	@Override
+	public int insertAlram(Map<String, Object> map) {
+		return session.insert("funding.insertAlram",map);
+	}
+	@Override
 	public int updateLike(Map<String, Object> map) {
 		return session.update("funding.updateLike",map);
+	}
+	@Override
+	public int updateAlram(Map<String, Object> map) {
+		return session.update("funding.updateAlram",map);
 	}
 	@Override
 	public int likeCount(Map<String, Object> map) {
@@ -316,6 +329,10 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectOne("funding.likeStatusCheck", memberNo);
 	}
 	@Override
+	public int alramStatusCheck(int memberNo) {
+		return session.selectOne("funding.alramStatusCheck", memberNo);
+	}
+	@Override
 	public List<Reward> selectRewardList(int fundingNo) {
 		return session.selectList("funding.selectRewardList", fundingNo);
 	}
@@ -323,6 +340,17 @@ public class FundingDaoImpl implements FundingDao{
 	public int insertFundingParticipation(FundingParticipation fp) {
 		return session.insert("funding.insertFundingParticipation", fp);
 	}
+	@Override
+	public int insertChat(MessageVo msg) {
+		return session.insert("funding.insertChat",msg);
+	}
+	@Override
+	public List<MessageVo> selectChatList(int fundingNo) {
+		return session.selectList("funding.selectChatList",fundingNo);
+	}
+
+	
+	
 	
 
 	

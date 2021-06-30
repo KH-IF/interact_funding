@@ -28,8 +28,6 @@
 		<intercept-url pattern="/member/newPassword" access="isAnonymous()"/>
 		<intercept-url pattern="/**" access="hasRole('USER')"/> -->
 		<intercept-url pattern="/**" access="permitAll"/>
-		
-		
 		<!-- 
 			login-page : 로그인 폼페이지 요청
 			login-processing-url : 로그인 폼 제출페이지. 핸들러작성할 필요 없음.

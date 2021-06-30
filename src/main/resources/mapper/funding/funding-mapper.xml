@@ -625,10 +625,21 @@
     	from like_record
     	where member_no = #{memberNo} and funding_no = #{fundingNo}
     </select>
+    
+    <select id="alramCheck" resultMap="alramMap">
+    	select *
+    	from alram_early_funding
+    	where member_no = #{memberNo} and funding_no = #{fundingNo}
+    </select>
 	   
 	<insert id="insertLike">
 		insert into like_record
 		values (seq_like_record_no.nextval, #{fundingNo}, #{memberNo}, 'Y')
+	</insert>
+	
+	<insert id="insertAlram">
+		insert into alram_early_funding
+		values (seq_alram_early_no.nextval, #{fundingNo}, #{memberNo}, 'Y')
 	</insert>
 	
 	<resultMap type="map" id="likeMap">
@@ -638,8 +649,20 @@
 		<result column="member_no" property="memberNo"/>
 	</resultMap>
 	
+	<resultMap type="map" id="alramMap">
+		<id column="no" property="no"/>
+		<result column="status" property="status" typeHandler="booleanYnTypeHandler"/>
+		<result column="funding_no" property="fundingNo"/>
+		<result column="member_no" property="memberNo"/>
+	</resultMap>
+	
 	<update id="updateLike">
 		update like_record
+		set status = #{status, typeHandler=booleanYnTypeHandler}
+		where no = #{no}
+	</update>
+	<update id="updateAlram">
+		update alram_early_funding
 		set status = #{status, typeHandler=booleanYnTypeHandler}
 		where no = #{no}
 	</update>
@@ -654,6 +677,12 @@
 	<select id="likeStatusCheck" resultType="_int">
 		select count(*)
 		from like_record
+		where member_no = #{memberNo} and status = 'Y'
+	</select>
+	
+	<select id="alramStatusCheck" resultType="_int">
+		select count(*)
+		from alram_early_funding
 		where member_no = #{memberNo} and status = 'Y'
 	</select>
 	
@@ -682,4 +711,15 @@
 			   #{phone},
 			   #{etc})
 	</insert>
+	
+	<insert id="insertChat">
+		insert into funding_chat
+		values(seq_funding_chat_no.nextval, #{fundingNo}, #{content}, #{fromMemberNo}, #{fromMemberName}, sysdate)
+	</insert>
+	
+	<select id="selectChatList" resultType="messageVo">
+		select * from funding_chat
+		where funding_no = #{fundingNo}
+		order by no asc
+	</select>
 </mapper>

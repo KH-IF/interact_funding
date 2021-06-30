@@ -12,6 +12,7 @@ import com.kh.interactFunding.funding.model.vo.FundingParticipation;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Point;
+import com.kh.interactFunding.websocket.vo.MessageVo;
 
 
 public interface FundingService {
@@ -92,12 +93,18 @@ public interface FundingService {
 	
 	int fundingParticipationCount(int fundinNo);
 	Map<String, Object> likeCheck(Map<String, Object> map);
+	Map<String, Object> alramCheck(Map<String, Object> map);
 	int insertLike(Map<String, Object> map);
+	int insertAlram(Map<String, Object> map);
 	int updateLike(Map<String, Object> result);
+	int updateAlram(Map<String, Object> result);
 	int likeCount(Map<String, Object> map);
 	int likeStatusCheck(int membeNo);
+	int alramStatusCheck(int memberNo);
 	List<Reward> selectRewardList(int fundingNo);
 	int insertFundingParticipation(FundingParticipation fp);
+	int insertChat(MessageVo msg);
+	List<MessageVo> selectChatList(int fundingNo);
 	
 
 }
