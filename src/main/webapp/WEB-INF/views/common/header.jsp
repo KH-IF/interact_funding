@@ -26,7 +26,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <c:if test="${not empty msg}">
 <script>
-	alert("${msg}");
+	swal("알림","${msg}","info");
 </script>
 <c:set var="msg" value="${null}" scope="session"/>
 </c:if>
