@@ -101,6 +101,15 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 	
+	@Override
+	public Member selectOneMemberKakao(Member m) {
+		return memberDao.selectOneMemberKakao(m);
+	}
+	
+	@Override
+	public int insertMemberKakao(Member member) {
+		return memberDao.inserMemberKakao(member);
+	}
 	// 김경태
 
 
