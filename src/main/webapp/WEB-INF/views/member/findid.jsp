@@ -22,7 +22,7 @@
 			<input type="submit" class="btn btn-info" value="비밀번호 찾기" />
 		</form:form>
 		<hr />
-		<div id="loginDesc">이프 계정을 갖고계시나요?!   <a href="${pageContext.request.contextPath}/member/login"><strong>로그인</strong></a></div>
+		<div id="loginDesc">이프 계정을 갖고계시나요?<a href="${pageContext.request.contextPath}/member/login"><strong>로그인</strong></a></div>
 	</div>
 	<style>
 		#loginFrm{
@@ -71,9 +71,11 @@
 		}
 		#loginDesc{
 			text-align: center;
+			font-weight: 600;
 		}
 		#loginDesc strong{
 			color:#17A2B8;
+			margin-left: 10px;
 		}
 	</style>
 	<script>

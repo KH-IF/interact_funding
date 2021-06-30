@@ -14,8 +14,6 @@
 			<!-- 기원 p -> span 으로 변경하였습니다. -->
 			<span class="leftContainer-span">이프 신규가입 하고
 			다양한 혜택을 받아보세요!</span>
-			<br />
-			<img src="${pageContext.request.contextPath}/resources/images/socialTemp.png"/>
 			<hr  /> 
 			<!-- 아이콘 추가 하였습니다. -->
 			<div style="position: relative;">
@@ -65,7 +63,6 @@
 		    letter-spacing: 0.3px;
 		    height: 50px;
 		    font-weight: 300;
-		    padding-top: 5px;
 		}
 		/*css 기원 추가 하였습니다.*/
 		.descCenter-span{

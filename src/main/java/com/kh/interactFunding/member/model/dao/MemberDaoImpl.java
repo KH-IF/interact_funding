@@ -102,6 +102,17 @@ public class MemberDaoImpl implements MemberDao {
 	public int deleteCertificationCode(Map<String, Object> map) {
 		return session.delete("member.deleteCertificationCode",map);
 	}
+	
+	@Override
+	public Member selectOneMemberKakao(Member m) {
+		return session.selectOne("member.selectOneMemberKakao",m);
+	}
+	
+	@Override
+	public int inserMemberKakao(Member member) {
+		return session.insert("member.insertMemberKakao",member);
+	}
+	
 
 	// 김경태
 

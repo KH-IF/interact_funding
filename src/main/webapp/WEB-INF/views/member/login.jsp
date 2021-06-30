@@ -19,6 +19,7 @@
 		}
 	}
 %>
+<p id="token-result"></p>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/login.css" />
 
 	<div id="loginContainer">
@@ -39,8 +40,11 @@
 			</div>
 			<input type="submit" class="btn btn-info" value="로그인" />
 		</form:form>
+		<div id="kakaoContainer" onclick="loginWithKakao();">
+			<img src="${pageContext.request.contextPath}/resources/images/kakao_login.png"/>
+			<input id="kakaoBtn" class="btn btn-warning" type="button"value="카카오 로그인"/>
+		</div>
 		<hr />
-		<img src="${pageContext.request.contextPath}/resources/images/socialTemp.png"/>
 		<div id="loginDesc"><span style="padding-right: 5px; letter-spacing: -0.5px; font-weight: 600;">아직 이프 계정이 없나요?</span>   
 		<a href="${pageContext.request.contextPath}/member/memberEnroll"><strong>회원가입</strong></a></div>
 	</div>
@@ -98,49 +102,80 @@
 		}
 		#loginDesc{
 			text-align: center;
-			  padding-top: 13px;
 		}
 		#loginDesc strong{
 			color:#17A2B8;
 		}
+		#kakaoContainer{
+			position: relative;
+			margin-top: 0.5vw;
+		}
+		#kakaoContainer img{
+		    position: absolute;
+		    left: 87px;
+		    top: 1px;
+		    width: 48px;
+		    height: 48px;
+		    cursor:pointer;
+		}
+		#kakaoBtn{
+			background: rgb(254,229,0);
+		    border-color: rgb(254,229,0);
+		    width: 100%;
+		    height: 50px;
+		    font-weight: bold;
+		}
 	</style>
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script>
-		function color(tag){
-			const length = $(tag).val().length;
-			if(length>0){
-				$(tag).css('background-color','#E8F0FE');
-			}else{
-				$(tag).css('background-color','');
-			}
-		}
+	//카카오 로그인 테스트 start
+	Kakao.init('015826e38a56efc422e6f1ebfd6acb27');
+	Kakao.isInitialized();
+	console.log(Kakao.isInitialized());
 
-		$("#loginFrm").submit(function(){
-			var value;
-			var email = $("#loginFrm").find("input[type=email]").val();
-			if($("#loginFrm").find("input[type=checkbox]:checked")[0]){
-				value = true;
-			}else{
-				value = false;
-			}
-			$.ajax({
-				url:"${pageContext.request.contextPath}/member/saveEmail",
-				method:"get",
-				data:{
-					saveEmail : value,
-					email : email,
-				},
-				success:function(data){
-				},
-				error:console.log
-			});
+	function loginWithKakao() {
+	    Kakao.Auth.authorize({
+	      redirectUri: 'http://localhost:9090/interactFunding/member/auth/kakao'
+	    });
+	}
+	//카카오 로그인 테스트 end
+
+	function color(tag){
+		const length = $(tag).val().length;
+		if(length>0){
+			$(tag).css('background-color','#E8F0FE');
+		}else{
+			$(tag).css('background-color','');
+		}
+	}
+
+	$("#loginFrm").submit(function(){
+		var value;
+		var email = $("#loginFrm").find("input[type=email]").val();
+		if($("#loginFrm").find("input[type=checkbox]:checked")[0]){
+			value = true;
+		}else{
+			value = false;
+		}
+		$.ajax({
+			url:"${pageContext.request.contextPath}/member/saveEmail",
+			method:"get",
+			data:{
+				saveEmail : value,
+				email : email,
+			},
+			success:function(data){
+			},
+			error:console.log
 		});
+	});
 
-		function alertMsg(box){
-			var chk = $(box).prop("checked");
-			if(chk){
-				swal("로그인유지","체크시 2주간 로그인이 유지됩니다","info");
-			}
+	function alertMsg(box){
+		var chk = $(box).prop("checked");
+		if(chk){
+			swal("로그인유지","체크시 2주간 로그인이 유지됩니다","info");
 		}
+	}
 	</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

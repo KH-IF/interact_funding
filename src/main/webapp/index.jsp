@@ -255,7 +255,7 @@ $(document).ready(function(){
 
 	</div>
 	<div class="btn-group btn-group-toggle" data-toggle="buttons" style="font-size: 15px;">
-		<label class="btn btn-secondary active" style="background-color:#17A2BB; border-color: #17A2BB; box-shadow: none;"> <input type="radio"
+		<label class="btn btn-secondary active" style="background-color:#17A2BB; border-color: #17A2BB; box-shadow: none; border-radius: 5px;"> <input type="radio"
 			name="ranking-btn" id="invest" checked onchange="showForI()">
 			좋아요
 		</label> <span class="kiwon_Ranking_badge">진행중</span>

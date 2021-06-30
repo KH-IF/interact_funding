@@ -21,9 +21,11 @@ html, body {
 header {
 	margin: 0 auto;
     width: 1300px;
-    height: 60px;
+    /*height 5px; 추가 하였습니다 .(기원)*/
+    height: 65px;
     position: relative;
     border-bottom: 1px solid lightgray;
+    margin-top: 0.5vw;
 }
 
 /*(기원) 드래그 selection 추가  (드래그 color적용)했습니다. */
@@ -108,6 +110,7 @@ a:active {
 	height:35px;
 	right:280px;
 	top:12px;
+	border:none;
 	border:1px solid blue;
 	font-weight:bold;
 	text-align:center !important;
@@ -116,6 +119,15 @@ a:active {
 #btn_login:hover{
 	color:white;
 }
+/*버튼 예제*/
+/* .btn-outline-primary{
+	background-color: transparent;
+	color: #333;
+}
+.btn-outline-primary:hover{
+	background-color: none;
+	border-color: none;
+} */
 #btn_enroll{
 	position:absolute;
 	width:90px;
