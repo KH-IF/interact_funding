@@ -10,16 +10,15 @@
 
 	<div id="enrollContainer">
 		<h1>카카오 - 회원가입</h1>
-		<form id="enrollFrm" action="${pageContext.request.contextPath}/member/memberEnroll_kakao" method="post">
+		<form id="enrollFrm" style="padding-top:20px;" action="${pageContext.request.contextPath}/member/memberEnroll_kakao" method="post">
 			<input type="hidden" id="check"/>
 			<input type="checkbox" name="agreement" id="agreement" value="T"/>
-			<label for="agreement">전체동의</label>
+			<label for="agreement" style="color: rgba(0,0,0,.54);">전체동의</label>
 			<p id="agreement_msg">이프 이용약관(필수), 개인정보 수집·이용 동의 (필수)</p>
-			<div id="emailCertification">
+			<div id="emailCertification" style="margin-bottom: 15px;">
 				<input class="readonly" type="email" name="email" onchange=color(this) value="${member.email}" readonly/>
 				<br />
 			</div>
-			<br />
 			<input type="text" class="readonly" name="name" onchange=color(this) value="${member.name}" readonly/>
 			<br />
 			<input type="hidden" name="platform" value="KAKAO" />
@@ -29,9 +28,15 @@
 	<style>
 		#enrollContainer{
 			width:400px;
-			height:600px;
-			border:1px solid black;
+			height:550px;
 			margin: 0 auto;
+			margin-top: 3.5vw;
+		}
+		#enrollContainer h1{
+			font-size: 36px;
+			font-weight: 700;
+			padding-bottom: 4px;
+			letter-spacing: -1.0px;
 		}
 		#enrollContainer input[type=email], #enrollContainer input[type=text], #enrollContainer input[type=password]{
 			width:100%;
@@ -61,18 +66,18 @@
 			margin-bottom:0;
 		}
 		#agreement_msg{
-			margin-left:18px;
-			margin-bottom:15px;
 			font-size: 13px;
+		    text-align: left;
+		    margin-top: 3px;
+		    color: rgba(0,0,0,.86);
+		    letter-spacing: -0.8px;
 		}
 		#msg, #msg2{
 			margin-left:18px;
 			font-size: 13px;
 			margin-bottom:5px;
 		}
-		.readonly{
-			background:lightgray;
-		}
+		
 		.outline{
 			border:1px solid lightgray;
 		}

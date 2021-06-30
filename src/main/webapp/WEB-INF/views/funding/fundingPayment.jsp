@@ -19,8 +19,8 @@
 	
 	<div id="funding_purchase_step">
          <ol>
-           <li style="margin-top: -1.5vw;"><em>리워드<br />선택</em></li>
-           <hr style="border-style: dashed; "/>
+           <li style="margin-top: -2.1vw;"><em>리워드<br />선택</em></li>
+           <hr style="border-style: dashed; margin-bottom: 1px;"/>
            <li class="active" style="margin-top: -2.3vw; display: block;" ><em>결제 예약</em></li>
          </ol>
      </div>
@@ -269,7 +269,7 @@
 	/* 포인트현황 */
 	#fundingPayment_div6{
 	height: 180px;
-	background-color: #EEEDE9;
+	background-color: #F9F9F9;
 	
 	}
 	
@@ -295,24 +295,25 @@
     height: 126px;
 	}
 	
-	
+	/*css 작업 기원*/
 	#funding_purchase_step ol {
-	width: 250px;
+	width: 300px;
     margin: 0 auto;
+    margin-top: 2vw;
 	}
 	/*margin 추가 하였습니다 기원*/
 	#funding_purchase_step ol li{
 	float: left;
     display: block;
-    width: 60px;
+    width: 88px;
     margin-left: 2vw;
 	}
 	
 	#funding_purchase_step ol li em{
 	display: table-cell;
     vertical-align: middle;
-    width: 58px;
-    height: 58px;
+    width: 88px;
+    height: 88px;
     font-size: 12px;
     line-height: 16px;
     background: #fff;
@@ -322,11 +323,12 @@
 	
 	
 	#funding_purchase_step ol li.active em{
-	width: 60px;
-    height: 60px;
+	width: 88px;
+    height: 88px;
     color: #fff;
     border: none;
     background: #00c4c4;
+     font-weight: 600;
 	}
 	
 	#payment_submit_div{
@@ -398,7 +400,7 @@
 	#fundingPayment_div_div1_1{
 	height: 36%;
     margin-top: 9px;
-    background: #EEEDE9;
+    background: #F9F9F9;
 	}
 	#fundingPayment_div_div1_2{
 	height: 36%;
