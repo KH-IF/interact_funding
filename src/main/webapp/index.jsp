@@ -123,7 +123,6 @@ for (Funding funding : likelist) {
 
   List<Funding> myList=(List) request.getAttribute("myList");
   if(myList != null){
-
 for (Funding funding : myList) {
 	String cCode = funding.getCategoryCode();
 	switch (cCode) {
@@ -181,7 +180,8 @@ $.ajax({
 	success:function(json) {
 		 $('#kiwonfunding').empty();
 		$(json).each(function(index,item){
-		  var html = '';		 
+		  var html = '';
+		  console.log(json)	;	 
 		  html = $('<div class="card-columns" id="kiwonfunding" style="padding-top: 12px; position: relative;" >'+'<div class="card" style="border: none; width:240px;">'+'<a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo='+item.fundingNo+'" style="color: #000000;">' 
 			      +'<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/'+item.attachment.renamedFilename+'" style="width: 240px; height:134px;">'+'</a>'+' <h5 class="card-title">'+item.title+'</h5>'+'<div id="funding_detail_dday_bar" class="progress">'+
 			      '<div id="funding_detail_dday_bar_div"class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="'+item.nowAmount+'"aria-valuemin="0" aria-valuemax="'+item.goalAmount+'"style="width:'
@@ -248,14 +248,14 @@ $(document).ready(function(){
 <div class="bd-sidebar-body">
 	<h1>실시간 랭킹</h1>
 	<div class="btn-group btn-group-toggle" data-toggle="buttons" style="font-size: 15px;">
-		<label class="btn btn-secondary active"> <input type="radio"
+		<label class="btn btn-secondary active" style="background-color:#17A2BB; border-color: #17A2BB; box-shadow: none;"> <input type="radio"
 			name="ranking-btn" id="funding" checked onchange="showForI()">
 			조회순
 		</label>
 
 	</div>
 	<div class="btn-group btn-group-toggle" data-toggle="buttons" style="font-size: 15px;">
-		<label class="btn btn-secondary active"> <input type="radio"
+		<label class="btn btn-secondary active" style="background-color:#17A2BB; border-color: #17A2BB; box-shadow: none; border-radius: 5px;"> <input type="radio"
 			name="ranking-btn" id="invest" checked onchange="showForI()">
 			좋아요
 		</label> <span class="kiwon_Ranking_badge">진행중</span>
@@ -278,7 +278,7 @@ $(document).ready(function(){
 							style="color: #000000; display: flex;"> <span
 							class="Ranking_class-span"> ${funding.title} </span> <img
 							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-							style="width: 75px; height: 63px; display: inline-block;" />
+							style="width: 75px; height: 63px; display: inline-block; object-fit:cover;" />
 						</a>
 					</p>
 					<p class="kiwonRanking_percent">
@@ -299,7 +299,7 @@ $(document).ready(function(){
 					<p class="Ranking_class-p1">
 						<a
 							href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
-							style="color: #000000; display: flex;"> <span
+							style="color: #000000; display: flex; object-fit:cover;"> <span
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
 							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
@@ -328,7 +328,7 @@ $(document).ready(function(){
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
 							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-							style="width: 75px; height: 63px" />
+							style="width: 75px; height: 63px; object-fit:cover; " />
 						</a>
 					</p>
 					<p class="kiwonRanking_percent">
@@ -352,7 +352,7 @@ $(document).ready(function(){
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
 							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-							style="width: 75px; height: 63px" />
+							style="width: 75px; height: 63px; object-fit:cover;" />
 						</a>
 					</p>
 					<p class="kiwonRanking_percent">
@@ -376,7 +376,7 @@ $(document).ready(function(){
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
 							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-							style="width: 75px; height: 63px" />
+							style="width: 75px; height: 63px; object-fit:cover;" />
 						</a>
 					</p>
 					<p class="kiwonRanking_percent">
@@ -403,7 +403,7 @@ $(document).ready(function(){
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
 							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-							style="width: 75px; height: 63px" />
+							style="width: 75px; height: 63px; object-fit:cover;" />
 						</a>
 					</p>
 					<p class="kiwonRanking_percent">
@@ -427,7 +427,7 @@ $(document).ready(function(){
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
 							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-							style="width: 75px; height: 63px" />
+							style="width: 75px; height: 63px; object-fit:cover;" />
 						</a>
 					</p>
 					<p class="kiwonRanking_percent">
@@ -451,7 +451,7 @@ $(document).ready(function(){
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
 							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-							style="width: 75px; height: 63px" />
+							style="width: 75px; height: 63px; object-fit:cover;" />
 						</a>
 					</p>
 					<p class="kiwonRanking_percent">
@@ -475,7 +475,7 @@ $(document).ready(function(){
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
 							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-							style="width: 75px; height: 63px" />
+							style="width: 75px; height: 63px; object-fit:cover;" />
 						</a>
 					</p>
 					<p class="kiwonRanking_percent">
@@ -499,7 +499,7 @@ $(document).ready(function(){
 							class="Ranking_class-span"> ${funding.title} </span> <!-- 75x63 픽셀 지정 --->
 							<img
 							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-							style="width: 75px; height: 63px" />
+							style="width: 75px; height: 63px; object-fit:cover;" />
 						</a>
 					</p>
 					<p class="kiwonRanking_percent">
@@ -738,7 +738,7 @@ $(document).ready(function(){
 							href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 							style="color: #000000;"> <img class="card-img-top"
 							src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-							width="284px;" height="157px;">
+							width="284px;" height="157px; ">
 						</a>
 						<p class="card-text-p">${funding.title}</p>
 						<div id="funding_detail_dday_bar" class="progress">
@@ -864,7 +864,7 @@ $(document).ready(function(){
 <div class="Earlybird_Container">
 	<!--  -->
 	<h1 class="Earlybird_Container-h1">오픈예정</h1>
-	<p class="Earlybird_Container-p">먼저 참여하시는분들께 드리는 얼리버드 혜택</p>
+	<p class="Earlybird_Container-p">먼저 참여하시는분들께 드리는 오픈예정 혜택</p>
 </div>
 <!--  구현예정중  -->
 <div class="Ealrybird_Paging">
@@ -891,7 +891,7 @@ $(document).ready(function(){
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
 						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-						style="width: 385px; height: 229px;">
+						style="width: 385px; height: 229px;   object-fit: cover;">
 
 					</a>
 					<div class="EarlybirdCard_Type">
@@ -930,7 +930,7 @@ $(document).ready(function(){
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
 						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-						style="width: 385px; height: 229px;">
+						style="width: 385px; height: 229px;   object-fit: cover;">
 					</a>
 					<div class="EarlybirdCard_Type">
 						<p class="EarlybirdCard_Type-p">펀딩</p>
@@ -967,7 +967,7 @@ $(document).ready(function(){
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
 						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-						style="width: 385px; height: 229px;">
+						style="width: 385px; height: 229px;  object-fit: cover;">
 					</a>
 					<div class="EarlybirdCard_Type">
 						<p class="EarlybirdCard_Type-p">펀딩</p>
@@ -1004,7 +1004,7 @@ $(document).ready(function(){
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
 						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-						style="width: 385px; height: 229px;">
+						style="width: 385px; height: 229px;  object-fit: cover;">
 					</a>
 					<div class="EarlybirdCard_Type">
 						<p class="EarlybirdCard_Type-p">펀딩</p>
@@ -1041,7 +1041,7 @@ $(document).ready(function(){
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
 						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-						style="width: 385px; height: 229px;">
+						style="width: 385px; height: 229px;  object-fit: cover;">
 					</a>
 					<div class="EarlybirdCard_Type">
 						<p class="EarlybirdCard_Type-p">펀딩</p>
@@ -1078,7 +1078,7 @@ $(document).ready(function(){
 						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
 						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
-						style="width: 385px; height: 229px;">
+						style="width: 385px; height: 229px;   object-fit: cover;">
 					</a>
 					<div class="EarlybirdCard_Type">
 						<p class="EarlybirdCard_Type-p">펀딩</p>
@@ -1116,7 +1116,7 @@ $(document).ready(function(){
 	<!-- 로그인 안되었을때-->
 	<c:if test="${empty loginMember}">
 	<button type="button" class="btn btn-info"
-		style="position: absolute; z-index:1; left: 46%; top: 60%; padding: 0.9vw; padding-inline: 2vw;"
+		style="position: absolute; z-index:1; left: 45%; top: 60%; padding: 0.9vw; padding-inline: 2vw;"
 		onclick="location.href='${pageContext.request.contextPath}/member/login'">
 		바로가기
 		<ion-icon name="arrow-forward-outline"></ion-icon>
@@ -1125,7 +1125,7 @@ $(document).ready(function(){
 	<!--로그인 되었을때 -->
 	<c:if test="${not empty loginMember}">
 	<button type="button" class="btn btn-info"
-		style="position: absolute; z-index:1; left: 46%; top: 60%; padding: 0.9vw; padding-inline: 2vw;"
+		style="position: absolute; z-index:1; left: 45%; top: 60%; padding: 0.9vw; padding-inline: 2vw;"
 		onclick="openProject();">
 		바로가기
 		<ion-icon name="arrow-forward-outline"></ion-icon>

@@ -174,7 +174,8 @@ $(document).ready(function() {
 	                                <a class="earlyProjectCardItemTitleLinkArea" href="#">
                                         <span class="earlyProjectCardItemTitleLink">${funding.title}</span>
                                         <span class="earlyProjectCardDay-yh">
-                                        <fmt:formatDate value="${funding.startDate}" pattern="MM/dd(E) HH시mm분 오픈예정"/>
+                                        <!-- 기원 MM/dd(E)오픈예정 수정  -->
+                                        <fmt:formatDate value="${funding.startDate}" pattern="MM/dd(E) 오픈예정"/>
                                         </span>
                                     </a>
 	                            </div>
