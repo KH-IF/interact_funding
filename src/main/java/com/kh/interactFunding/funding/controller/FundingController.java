@@ -1031,6 +1031,9 @@ public class FundingController {
 		FundingExt funding = fundingService.selectOneFunding(fundingNo);
 		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);
+		
+		//조회수+1
+		int viewUp = fundingService.fundingViewCountUp(fundingNo);
 
 		int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
 		log.debug("funding = {}", funding);
@@ -1087,6 +1090,9 @@ public class FundingController {
 		FundingExt funding = fundingService.selectOneFunding(fundingNo);
 		String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
 		List<Reward> reward = fundingService.selectRewardList(fundingNo);
+		
+		//조회수+1
+		int viewUp = fundingService.fundingViewCountUp(fundingNo);
 		
 		int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
 		log.debug("funding = {}", funding);
@@ -1221,7 +1227,7 @@ public class FundingController {
 
 	}
 	@PostMapping("fundingFinalPayment")
-	public void fundingFinalPayment(@SessionAttribute Map<Integer, Integer> choiceRewardMap,
+	public String fundingFinalPayment(@SessionAttribute Map<Integer, Integer> choiceRewardMap,
 									int fundingNo, @SessionAttribute Member loginMember ,
 									String name,String phone, String address1, String address2, String etc
 			) {
@@ -1268,6 +1274,7 @@ public class FundingController {
 				int result = fundingService.insertFundingParticipation(fp);
 			}
 		}
+		return "redirect:/funding/myParticiFunding";
 	}
 	
 	

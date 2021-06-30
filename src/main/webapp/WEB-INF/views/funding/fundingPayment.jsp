@@ -82,7 +82,7 @@
 						 <div id="fundingPayment_div_div1_2">
 							<h1 id="fundingPayment_div6_h1"> 포인트 현황</h1>
 							 <div id="fundingPayment_div6">
-								<div><span class="div6span1">현재 포인트 :</span> <span id="paymentNowPoint"><%-- <fmt:formatNumber value="${loginMember.point}" pattern="#,###" /> --%></span></div>
+								<div><span class="div6span1">현재 포인트 :</span> <span id="paymentNowPoint"><fmt:formatNumber value="${loginMember.point}" pattern="#,###" /></span></div>
 								<div><span class="div6span1">차감예정 :</span> <span><fmt:formatNumber value="${rewardTotalPrice + rewardTotalPriceSupport + 2500}" pattern="#,###" /></span></div>
 								<div><span class="div6span1">예상 잔여포인트 :</span> <span id="paymentRemainPoint"><%-- <fmt:formatNumber value="${loginMember.point-(rewardTotalPrice + rewardTotalPriceSupport + 2500)}" pattern="#,###" /> --%></span>원</div>
 								
@@ -109,7 +109,7 @@
 				        <button id="addressButton" type="button" class="btn btn-secondary" data-dismiss="modal" onclick="find_address()">우편번호 검색</button>
 				        <br />
 				        <div> <p id="fundingPayment_newaddress"></p></div>
-				        <input id="address1" type="hidden" name="address1" id="hiddenAddress1">
+				        <input id="address1" type="hidden" name="address1">
 				        <input id="address2" type="text" name="address2" id="address2" placeholder="상세주소"/>
 			         	<br />
 					 	배송시 요청사항(선택)
@@ -496,7 +496,7 @@
 	
 
 	$("#go_back").click(function() {
-		location.href="${pageContext.request.contextPath}/funding/fundingReward?fundingNo=${funding.fundingNo}";
+		location.href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}";
 		});
 
 	//모두동의하기 구현
@@ -516,7 +516,7 @@
 		var checkboxes = document.querySelectorAll(".checkbox_ho");
 		var checkedCheckBox = document.querySelectorAll(".checkbox_ho:checked");
 		checkall.checked = (checkboxes.length == checkedCheckBox.length);
-		};
+	};
 
 
 	//창 가운데 띄우기위함
@@ -526,7 +526,7 @@
 	var popupX = (document.body.offsetWidth / 2) - (200 / 2);
 	var popupY= (window.screen.height / 2) - (600 / 2);
 	window.open('fundingFindAddress', '', 'status=no, height=600, width=500, left='+ popupX + ', top='+ popupY);
-		}
+	}
 
 
 	/*카카오 우편번호검색  */
@@ -566,35 +566,31 @@
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('fundingPayment_newaddress').innerHTML = data.zonecode + addr + extraAddr;
+                document.getElementById('address1').value = data.zonecode + addr + extraAddr;
+
                 
                 // 커서를 상세주소 필드로 이동한다.
-		        var findAddress = document.getElementById('fundingPayment_newaddress').innerText;
-		     	document.getElementById('hiddenAddress1').value= findAddress;
         		document.getElementById("address2").focus();
             }
         }).open();
     };
 
 
-    //폼태그 유효성
-    const cmntForm = document.forms['fundingPaymentForm'];
-  	cmntForm.addEventListener('submit', function(event){
-  	
-	    //잔액이 부족할때 유효성 제출시
+    $("#fundingPaymentForm").submit(function(){
+
+    	//잔액이 부족할때 유효성 제출시
 	    var reamainMoney = $("#paymentRemainPoint").text();
-	    
  		if(reamainMoney < 0){
  			$("#checkRemainMoneyDiv").css("display", "block");
 			swal("잔액 부족", "충전하러가기 문구를 클릭 후 충전을 완료해주세요 \n 금액은 자동으로 업데이트됩니다.", "error");
-			}
- 		else if(reamainMoney >= 0){
- 			$("#checkRemainMoneyDiv").css("display", "none");
+			return false;
 			}
 
 		//이름 유효성 제출시
-		if($("#fundingPayment_div_div2_name").val() == ''){
+		if($("#fundingPayment_div_div2_name").val() == false){
 			swal("예약 실패", "이름을 입력해주세요", "error");
 			$("#fundingPayment_div_div2_name").focus();
+			return false;
 			}
 
 		//휴대폰 유효성 제출시
@@ -616,7 +612,7 @@
 			$("#address2").focus();
 			return false;
 			}
- 	 });
+       });
     	
 	//이름 유효성검사
     $("#fundingPayment_div_div2_name").change(function(){

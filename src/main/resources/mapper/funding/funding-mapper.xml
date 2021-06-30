@@ -722,4 +722,28 @@
 		where funding_no = #{fundingNo}
 		order by no asc
 	</select>
+	
+	<update id="fundingViewCountUp" >
+		update funding 
+		set readcount = readcount+1
+		where funding_no = #{fundingNo}
+	</update>
+	
+	
+	<select id="selectEarlyMemberList" resultType="EarlyStartMessage">
+		select e.no,
+	        e.funding_no,
+	        e.member_no,
+	        f.start_date
+		from alram_early_funding e join funding f
+	    	on e.funding_no = f.funding_no
+	    where to_char(f.start_date, 'yyyymmdd' ) = to_char( sysdate, 'yyyymmdd')
+	</select>
+	
+	<insert id="sendAlramMessage">
+		insert into message
+		values(seq_message_no.nextval, #{memberNo}, 21 , '관리자', #{title}, '펀딩알람 메세지 드립니다', default, #{memberNo})
+	</insert>
+	
+	
 </mapper>

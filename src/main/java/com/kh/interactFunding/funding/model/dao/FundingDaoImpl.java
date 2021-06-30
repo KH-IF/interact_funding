@@ -1,6 +1,7 @@
 package com.kh.interactFunding.funding.model.dao;
 
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import com.kh.interactFunding.funding.model.vo.FundingParticipation;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Point;
+import com.kh.interactFunding.schedule.vo.EarlyStartMessage;
 import com.kh.interactFunding.websocket.vo.MessageVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -348,7 +350,22 @@ public class FundingDaoImpl implements FundingDao{
 	public List<MessageVo> selectChatList(int fundingNo) {
 		return session.selectList("funding.selectChatList",fundingNo);
 	}
+	@Override
+	public int fundingViewCountUp(int fundingNo) {
+		return session.update("funding.fundingViewCountUp",fundingNo);
+	}
+	@Override
+	public List<EarlyStartMessage> selectEarlyMemberList( ) {
+		return session.selectList("funding.selectEarlyMemberList");
+	}
+	@Override
+	public int sendAlramMessage(EarlyStartMessage earlyMember) {
+		return session.insert("funding.sendAlramMessage", earlyMember);
+	}
 
+	
+	
+	
 	
 	
 	
