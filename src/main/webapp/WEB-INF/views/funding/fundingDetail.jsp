@@ -163,6 +163,9 @@
                 </c:forEach>
 				<span id="ranking_span">인기게시글</span>
                 <div id="funing_main_right_div_4">
+                	 <c:forEach var="likeFunding" items="${likeList}">
+                	 	<div class="likeDiv">${likeFunding.title} </div>
+                	 </c:forEach>
                 
                 </div>
             </div>
