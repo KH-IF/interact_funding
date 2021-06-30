@@ -40,6 +40,9 @@ $(document).ready(function() {
 	
 </script>
 <style>
+.carousel-indicators{
+	bottom:40px;
+}
 .slide-title{
    	display: block;
    	position: absolute;
@@ -68,6 +71,9 @@ $(document).ready(function() {
 }
 .carousel-item{
 	opacity: 0;
+}
+.carousel-inner{
+	height:364px;
 }
 .rewordProjectCardMakerName{
 	margin-top: 10px;
@@ -114,7 +120,7 @@ $(document).ready(function() {
 	           </c:forEach>
            </ul>
 
-           <div class="carousel-inner">
+           <div class="carousel-inner" style="height:364px;">
            <c:forEach items="${bannerList}" var="banner" varStatus="status">
            		<c:if test="${status.first}">
 			   		<div class="carousel-item active">
@@ -123,7 +129,7 @@ $(document).ready(function() {
 		   			<div class="carousel-item">
 		   		</c:if>
                    <a href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${banner.fundingNo}">
-                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width:100%; object-fit:cover; height: 400px;">
+                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width:100%; object-fit:cover; height: 364px;">
                     <div class="slide-title">
                      <span>${banner.title}</span>
                      <p></p>
