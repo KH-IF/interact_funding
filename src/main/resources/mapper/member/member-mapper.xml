@@ -16,6 +16,11 @@
 		values(seq_member_no.nextval, #{email}, #{password}, #{name}, #{platform}, default)
 	</insert>	
 	
+	<insert id="insertMemberKakao">
+		insert into member(member_no, email, password, name, platform, reg_date) 
+		values(seq_member_no.nextval, #{email}, #{password}, #{name}, #{platform}, default)
+	</insert>
+	
 	<select id="selectOneMember" resultType="member">
 		select * 
 		from member
@@ -103,6 +108,38 @@
 		delete from pwd_certification
 		where member_no = #{memberNo}
 	</delete>
+	
+	<select id="selectOneMemberKakao" resultMap="memberMap">
+		select * 
+		from member
+		where email = #{email} and platform= 'KAKAO'
+	</select>
+	<resultMap type="member" id="memberMap">
+		<id column="member_no" property="memberNo"/>
+		<result column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="name" property="name"/>
+		<result column="platform" property="platform"/>
+		<result column="access_token" property="accessToken"/>
+		<result column="point" property="point"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="phone" property="phone"/>
+		<collection property="authorities" 
+					javaType="arraylist"
+					column="member_no"
+					ofType="simpleGrantedAuthority"
+					select="selectAuthorities"/>
+	</resultMap>
+	<select id="selectAuthorities" resultMap="authoritiesMap">
+		select * 
+		from authority
+		where member_no = #{memberNo}
+	</select>
+	<resultMap type="simpleGrantedAuthority" id="authoritiesMap">
+		<constructor>
+			<arg column="authority" javaType="string"/>
+		</constructor>
+	</resultMap>
 	<!-- 김경태 -->
 	<!-- 김주연 -->
 	<update id="savePhone">

@@ -548,39 +548,6 @@ create sequence seq_funding_chat_no;
 
 --김윤수 테스트영역
 --IF20210708
-select * from member;
-
-select * from authority;
-
-select * from persistent_logins;
-
-delete from authority;
-
-insert into authority
-values( 61, 'ROLE_USER');
-commit;
-
-select * from funding_mylist where member_no = 2;
-desc funding_mylist;
-delete from funding_mylist;
-commit;
-
-select count(distinct(funding_no))
-from funding_participation
-where member_no = 2 and status='Y';
-
-select * from point;
-
-insert into point values(seq_point_no.nextval, sysdate, 100000, 2, '포인트충전');
-commit;
-
-select * from funding;
-
-select * from pwd_certification;
-
-select * from member where member_no = 2;
---$2a$10$6tj1WbG40pW3s5jzz/5ggeNLT8dE.DG/j5ie8FB060i356UrBZBLO
---$2a$10$bmykZHtT1QB2uinZgkIlXO.x7yciyA8CPlFJoWeXAfUqv5QTkIga6
 
 
 --김경태 테스트영역
