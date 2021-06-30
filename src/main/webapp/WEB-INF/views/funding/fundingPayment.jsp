@@ -269,7 +269,7 @@
 	/* 포인트현황 */
 	#fundingPayment_div6{
 	height: 180px;
-	background-color: #EEEDE9;
+	background-color: #F9F9F9;
 	
 	}
 	
@@ -398,7 +398,7 @@
 	#fundingPayment_div_div1_1{
 	height: 36%;
     margin-top: 9px;
-    background: #EEEDE9;
+    background: #F9F9F9;
 	}
 	#fundingPayment_div_div1_2{
 	height: 36%;

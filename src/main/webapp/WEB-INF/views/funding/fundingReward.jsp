@@ -444,9 +444,29 @@ $(() => {
 	#nextButtonReward{
     height: 49px;
     width: 141px;
+    margin-top: 10px;
 	
 	}
-
+	/*기원 버튼 수정하였습니다.*/
+	.decreaseButton{
+	 border: 0;
+	 outline:0;
+	 font-size: 15px;
+	 color: #65696B;
+	 background-color:#00c4c433;
+	}
+	/*outline-color 추가 하였습니다 기원 */
+	button:focus{
+	 outline: 5px auto -webkit-focus-ring-color;
+    outline-color: #00c4c433;
+	}
+	.increaseButton{
+	 border: 0;
+	 outline:0;
+	 font-size: 15px;
+	 color: #65696B;
+	 background-color:#00c4c433;
+	}
 
 
 	

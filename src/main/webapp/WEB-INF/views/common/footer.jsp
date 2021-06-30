@@ -32,7 +32,7 @@
 	  	<div class="If-footer-question">
 	  		<h4 class="If-footer-question-p">이프 대표고객센터</h4>
 	  		<hr style="height: 1px; background-color: #999;"/>
-	  		<p style="font-weight: 700;">이메일: <span style="color: #999;">InteractFunding_kh@gmail.com</span></p>
+	  		<p style="font-weight: 700;">이메일: <span style="color: #999;">interact.funding@gmail.com</span></p>
 	  		<p class="If-footer-question-p1">상담시간: <span style="color: #999;" >평일 오전9시~오후 6시(주말,공휴일제외)</span></p>
 	  		<button type="button" onclick="location.href='${pageContext.request.contextPath}/member/login'"><span style="font-weight: 700;"><ion-icon name="help-circle-outline" ></ion-icon>이프문의하기</span></button>
 	  	</div>
