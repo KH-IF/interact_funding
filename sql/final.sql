@@ -222,6 +222,7 @@ create table funding(
 );
 
 
+
 --펀딩 테이블 seq
 create sequence seq_funding_no;
 
@@ -547,39 +548,6 @@ create sequence seq_funding_chat_no;
 
 --김윤수 테스트영역
 --IF20210708
-select * from member;
-
-select * from authority;
-
-select * from persistent_logins;
-
-delete from authority;
-
-insert into authority
-values( 61, 'ROLE_USER');
-commit;
-
-select * from funding_mylist where member_no = 2;
-desc funding_mylist;
-delete from funding_mylist;
-commit;
-
-select count(distinct(funding_no))
-from funding_participation
-where member_no = 2 and status='Y';
-
-select * from point;
-
-insert into point values(seq_point_no.nextval, sysdate, 100000, 2, '포인트충전');
-commit;
-
-select * from funding;
-
-select * from pwd_certification;
-
-select * from member where member_no = 2;
---$2a$10$6tj1WbG40pW3s5jzz/5ggeNLT8dE.DG/j5ie8FB060i356UrBZBLO
---$2a$10$bmykZHtT1QB2uinZgkIlXO.x7yciyA8CPlFJoWeXAfUqv5QTkIga6
 
 
 --김경태 테스트영역
@@ -618,7 +586,7 @@ where member_no = 21;
 
 --10만원으로 늘리기
 update member
-set point =100000
+set point =100000000
 where member_no = 21;
 
 --0만원으로 줄이기
@@ -628,6 +596,9 @@ where member_no = 21;
 
 commit;
 
+
+
+
 select * from funding_mylist;
 
 select * from like_record;
@@ -635,8 +606,54 @@ select * from like_record;
 
 select * from alram_early_funding;
 
+--스타트데이트
+select e.no,
+        e.funding_no,
+        e.member_no,
+        f.start_date
+from alram_early_funding e join funding f
+    on e.funding_no = f.funding_no
+    where f.start_date = '2021-06-10';
+    
+select *
+from alram_early_funding e join funding f
+    on e.funding_no = f.funding_no;
+
+select start_date
+from funding;
+
+select * from funding;
 
 select * from funding f join funding_reward r using(funding_no) where f.status = 'Y';
 
 select * from funding_chat;
+select * from funding where funding_no = 99;
+
+select * from funding where funding_no = 303
+;
+
+select * from funding_participation where member_no = 21; 
+
+
+f.start_date = '2021-06-30';
+
+	select e.no,
+        e.funding_no,
+        e.member_no,
+        f.start_date
+	from alram_early_funding e join funding f
+    	on e.funding_no = f.funding_no
+    where to_char(  f.start_date, 'yyyymmdd' ) = to_char( sysdate, 'yyyymmdd');
+
+insert into alram_early_funding values(40, 303, 21, 'Y');
+insert into alram_early_funding values(41, 99, 21, 'Y');
+insert into alram_early_funding values(43, 303, 2, 'Y');
+
+select * from message;
+
+insert into funding values(seq_funding_no.nextval, '날짜테스트용', 'C1', 0, 60000, null, 21, 0, 0, '날짜내용',null, '2021-06-30', '2021-07-30', default, 010, 'Y');
+delete funding
+where funding_no = 302;
+
+commit;
 -----------------------

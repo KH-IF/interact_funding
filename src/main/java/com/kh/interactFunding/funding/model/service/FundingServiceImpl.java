@@ -1,5 +1,6 @@
 package com.kh.interactFunding.funding.model.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import com.kh.interactFunding.funding.model.vo.FundingParticipation;
 import com.kh.interactFunding.funding.model.vo.FundingParticipationCollection;
 import com.kh.interactFunding.funding.model.vo.Reward;
 import com.kh.interactFunding.member.model.vo.Point;
+import com.kh.interactFunding.schedule.vo.EarlyStartMessage;
 import com.kh.interactFunding.websocket.vo.MessageVo;
 
 import lombok.extern.slf4j.Slf4j;
@@ -483,6 +485,20 @@ public class FundingServiceImpl implements FundingService{
 	public List<MessageVo> selectChatList(int fundingNo) {
 		return fundingDao.selectChatList(fundingNo);
 	}
+	@Override
+	public int fundingViewCountUp(int fundingNo) {
+		return fundingDao.fundingViewCountUp(fundingNo);
+	}
+	@Override
+	public List<EarlyStartMessage> selectEarlyMemberList() {
+		return fundingDao.selectEarlyMemberList();
+	}
+	@Override
+	public int sendAlramMessage(EarlyStartMessage earlyMember) {
+		return fundingDao.sendAlramMessage(earlyMember);
+	}
+	
+	
 	
 	
 	

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="/WEB-INF/views/common/header.jsp">
-	<jsp:param value="이프" name="title" 	/>
+	<jsp:param value="이프 회원가입" name="title" 	/>
 </jsp:include>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/login.css" />
 
@@ -12,12 +12,12 @@
 		<h1>회원가입</h1>
 		<form id="enrollFrm" action="${pageContext.request.contextPath}/member/memberEnroll_if" method="post">
 			<input type="hidden" id="check"/>
-			<input type="checkbox" name="agreement" id="agreement" value="T"/>
-			<label for="agreement">전체동의</label>
+			<input type="checkbox" name="agreement" id="agreement" value="T" style="width: 25px; height: 25px;"/>
+			<label for="agreement" id="enrollFrm-label">전체동의</label>
 			<p id="agreement_msg">이프 이용약관(필수), 개인정보 수집·이용 동의 (필수)</p>
 			<div id="emailCertification">
 				<input type="email" name="email" onchange=color(this) placeholder="이메일을 입력해주세요"/>
-				<input type="button" class="btn btn-info" value="인증하기" onclick="certification_send(this);"/>
+				<input type="button" class="btn btn-info" value="인증하기" style="font-weight: 600;" onclick="certification_send(this);"/>
 				<br />
 			</div>
 			<p id="msg">위의 이메일 주소로 인증코드가 발송됩니다.</p>
@@ -28,21 +28,61 @@
 				<br />
 			</div>
 			<br />
+			<div style="position: relative;" >
 			<input type="text" class="readonly" name="name" onchange=color(this) placeholder="이름을 입력해주세요" readonly/>
+			<ion-icon name="person-outline" class="person-outline-text"></ion-icon>
+			</div>
 			<br />
+			<div style="position: relative;">
 			<input type="password" class="readonly" name="password" onchange=color(this) placeholder="비밀번호를 입력해주세요" readonly/>
+			<ion-icon name="lock-closed-outline" class="lock-closed-outline-password"></ion-icon>
+			</div>
+			<div style="position: relative;">
 			<input type="password" class="readonly" onchange=color(this) placeholder="비밀번호를 다시 한번 입력해주세요" readonly/>
+			<ion-icon name="lock-closed-outline" class="lock-closed-outline-password"></ion-icon>
+			</div>
 			<p id="msg2">영문, 숫자, 특수문자 (!@#$%^&*+=-)를 조합한 8자 이상</p>
 			<br />
-			<input type="submit" class="btn btn-info" value="가입하기" />
+			<input type="submit" class="btn btn-info" style="font-weight: 600;" value="가입하기" />
 		</form>
 	</div>
 	<style>
+	/*기원 css 작업 수정*/
 		#enrollContainer{
 			width:400px;
-			height:600px;
-			border:1px solid black;
+			height:800px;
 			margin: 0 auto;
+			padding-top: 50px;
+		}
+		#enrollContainer h1{
+		font-size: 32px;
+		font-weight: 700;
+		letter-spacing: -1.7px;
+		padding-bottom: 20px;
+		}
+		/*기원 css 추가 하였습니다.*/
+		#enrollFrm-label{
+	    position: absolute;
+	    padding-left: 5px;
+	    font-size: 15px;
+	    font-weight: 900;
+	    color: rgba(0,0,0,.84);
+		}
+		/*기원 css 추가했습니다.*/
+		.person-outline-text{
+		    position: absolute;
+		    margin-left: -1.7vw;
+		    font-size: 32px;
+		    margin-top: 0.3vw;
+		    color: rgba(0,0,0,.15);
+		}
+		.lock-closed-outline-password{
+		 position: absolute;
+		    margin-left: -1.7vw;
+		    font-size: 32px;
+		    margin-top: 0.3vw;
+		    color: rgba(0,0,0,.15);
+		
 		}
 		#enrollContainer input[type=email], #enrollContainer input[type=text], #enrollContainer input[type=password]{
 			width:100%;
@@ -72,17 +112,30 @@
 			margin-bottom:0;
 		}
 		#agreement_msg{
-			margin-left:18px;
-			margin-bottom:15px;
-			font-size: 13px;
+			margin-left: 29px;
+			font-size: 12px;
+			letter-spacing: -0.7px;
+			font-weight: 600;
+			color: rgba(0,0,0,.84);
 		}
-		#msg, #msg2{
-			margin-left:18px;
-			font-size: 13px;
-			margin-bottom:5px;
+		/*기원 css 수정*/
+		#msg{
+			    font-size: 13px;
+			    font-weight: 600;
+			    line-height: 33px;
+			    color: rgba(0,0,0,.84);
 		}
+		/*기원 css 수정*/
+		#msg2{
+			    font-size: 13px;
+			    margin-bottom: 5px;
+			    font-weight: 600;
+			    letter-spacing: 0.3px;
+		}
+		/*와디즈 컬러 동일 css 변경*/
 		.readonly{
-			background:lightgray;
+			border-color: rgba(0,0,0,.15);
+   		    background-color: rgba(0,0,0,.06);
 		}
 		.outline{
 			border:1px solid lightgray;

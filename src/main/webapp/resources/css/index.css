@@ -99,23 +99,6 @@
 	margin-left: -13vw;
 }
 
-.kiwonfunding-percnt2 {
-	color: #00a2a2;
-	font-weight: 700;
-	margin-top: 14px
-}
-
-.kiwonfunding-percnt2:after {
-	content: "Ŭ����";
-	line-height: 18px;
-	font-size: 13px;
-	font-weight: 400;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	width: 100%;
-	color: #90949c;
-}
-
 .funding_class_Title {
 	line-height: 20px;
 	font-size: 15px;
@@ -179,6 +162,10 @@
 	color: #1D2129;
 	font-size: 32px;
 }
+.btn btn-secondary active:hover{
+	background-color: #17A2BB;
+	border-color: #17A2BB;
+}
 
 .bd-sidebar-body .nav {
 	display: block;
@@ -217,6 +204,7 @@
     text-overflow: ellipsis;
     height: 45px;
     font-weight: 500;
+    margin-top: 5px;
 }
 
 .kiwon_Ranking h1 {

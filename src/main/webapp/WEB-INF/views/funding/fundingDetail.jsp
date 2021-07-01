@@ -163,7 +163,11 @@
                 </c:forEach>
 				<span id="ranking_span">인기게시글</span>
                 <div id="funing_main_right_div_4">
-                
+                	<c:forEach var="funding" varStatus="vs" items="${likelist}" >
+      						<span class="funing_main_right_div_4-span">${vs.count}</span>
+                         <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"style="color: #000000;">
+							<div class="likeDiv">${funding.title} </div></a>
+                     </c:forEach>
                 </div>
             </div>
         </div>

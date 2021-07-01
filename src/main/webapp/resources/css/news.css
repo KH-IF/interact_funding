@@ -845,3 +845,26 @@ yh-c-table{
 	background-color: pink;
 	
 	}
+	#funing_main_right_div_4{
+	position: relative;
+	}
+	.funing_main_right_div_4-span{
+	font-size: 12px;
+    width: 15px;
+    background-color: #00b2b2;
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    margin-left: -7px;
+	}
+	.likeDiv{
+	font-size: 13px;
+    padding-left: 14px;
+    display: -webkit-box;
+    width: 210px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-bottom: 23px;
+    color: rgba(0,0,0,.75);
+	}
+	
