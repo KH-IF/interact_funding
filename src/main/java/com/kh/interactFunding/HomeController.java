@@ -43,7 +43,11 @@ public class HomeController {
 				int[] fundingNoArr = gson.fromJson(jsonObject, int[].class);
 				if(fundingNoArr != null) {
 					for(int x : fundingNoArr) {
-						myList.add(fundingService.selectOneFundingKYS(x));
+						
+						Funding fundingTemp = fundingService.selectOneFundingKYS(x);
+						if(fundingTemp != null) {
+							myList.add(fundingService.selectOneFundingKYS(x));
+						}
 					}
 				}
 				Collections.reverse(myList);
