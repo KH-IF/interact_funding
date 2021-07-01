@@ -43,6 +43,8 @@ public interface MemberService {
 	Member selectOneMemberKakao(Member m);
 	
 	int insertMemberKakao(Member member);
+	
+	int selectOneBlackList(Member member);
 
 	// 김경태
 
