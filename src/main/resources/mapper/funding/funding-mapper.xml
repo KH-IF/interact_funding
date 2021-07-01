@@ -677,7 +677,7 @@
 	<select id="likeStatusCheck" resultType="_int">
 		select count(*)
 		from like_record
-		where member_no = #{memberNo} and status = 'Y'
+		where member_no = #{memberNo} and status = 'Y' and funding_no = #{fundingNo}
 	</select>
 	
 	<select id="alramStatusCheck" resultType="_int">
@@ -740,9 +740,12 @@
 	    where to_char(f.start_date, 'yyyymmdd' ) = to_char( sysdate, 'yyyymmdd')
 	</select>
 	
+	
+	<!-- insert into message
+	values(seq_message_no.nextval, #{toMemberNo}, #{fromMemberNo}, #{fromMemberName}, #{title}, #{content}, default, #{toMemberName}) -->
 	<insert id="sendAlramMessage">
 		insert into message
-		values(seq_message_no.nextval, #{memberNo}, 21 , '관리자', #{title}, '펀딩알람 메세지 드립니다', default, #{memberNo})
+		values(seq_message_no.nextval, #{memberNo}, 121 , '이프운영진', 펀딩 시작 알람메시지, #{title} || '해당 펀딩시작 알람 메세지 드립니다', default, #{memberNo})
 	</insert>
 	
 	

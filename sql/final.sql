@@ -485,9 +485,22 @@ create sequence seq_funding_chat_no;
 
 --관리자 테이블
 
+--블랙리스트 테이블
+create table blackList(
+    no number,
+    email varchar2(100)
+);
+create sequence seq_blackList_no;
 
-
-
+--블랙리스트 테이블에 추가(insert)시 자동으로 member테이블에서는 제외 할수있도록
+create or replace trigger trig_blackList
+    after
+    insert on blackList
+    for each row
+begin
+    delete member where email = :new.email;
+end;
+/
 
 
 
@@ -574,13 +587,21 @@ rollback;
 --배기원 테스트영역
 
 --이승우 테스트영역
+select * from funding order by funding_no desc;
 select * from funding_mylist;
-delete from funding_mylist where member_no = ; --오류시 임시 사용하기 그리고 확인 후 커밋
+delete from funding_mylist where member_no = 22; --오류시 임시 사용하기 그리고 확인 후 커밋
 commit;
+--블랙리스트
+select * from blackList;
+select * from member;
+
 --아이디 
 select*from member;
 select*from member where member_no = 61;
 select*from member where member_no = 22;
+insert into member values(seq_member_no.nextval,'example1@example.com', '1234', '사용자', 'IF', '1', 0, sysdate, '01000000000');
+commit;
+
 --천호현 테스트영역
 select *
 from member
@@ -626,6 +647,8 @@ from funding;
 
 select * from funding;
 
+delete funding where funding_no = 303;
+
 select * from funding f join funding_reward r using(funding_no) where f.status = 'Y';
 
 select * from funding_chat;
@@ -653,9 +676,21 @@ insert into alram_early_funding values(43, 303, 2, 'Y');
 
 select * from message;
 
+select * from member;
+
 insert into funding values(seq_funding_no.nextval, '날짜테스트용', 'C1', 0, 60000, null, 21, 0, 0, '날짜내용',null, '2021-06-30', '2021-07-30', default, 010, 'Y');
 delete funding
 where funding_no = 302;
+
+delete funding_mylist;
+
+select * from funding_mylist;
+
+select count(*)
+		from like_record
+		where member_no = 21 and funding_no = 287
+ and status = 'Y';
+
 
 commit;
 -----------------------

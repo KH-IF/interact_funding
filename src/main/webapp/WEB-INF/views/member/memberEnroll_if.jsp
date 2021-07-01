@@ -30,7 +30,7 @@
 			<br />
 			<div style="position: relative;" >
 			<input type="text" class="readonly" name="name" onchange=color(this) placeholder="이름을 입력해주세요" readonly/>
-			<ion-icon name="person-outline" class="person-outline-text"></ion-icon>
+			<ion-icon name="person-outline" size="large" class="person-outline-text"></ion-icon>
 			</div>
 			<br />
 			<div style="position: relative;">
@@ -71,16 +71,16 @@
 		/*기원 css 추가했습니다.*/
 		.person-outline-text{
 		    position: absolute;
-		    margin-left: -1.7vw;
+	 		right:3px;
+	 		top:6px;
 		    font-size: 32px;
-		    margin-top: 0.3vw;
 		    color: rgba(0,0,0,.15);
 		}
 		.lock-closed-outline-password{
-		 position: absolute;
-		    margin-left: -1.7vw;
+			 position: absolute;
+			right:3px;
+	 		top:6px;
 		    font-size: 32px;
-		    margin-top: 0.3vw;
 		    color: rgba(0,0,0,.15);
 		
 		}

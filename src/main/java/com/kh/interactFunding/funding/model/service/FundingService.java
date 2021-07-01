@@ -101,7 +101,7 @@ public interface FundingService {
 	int updateLike(Map<String, Object> result);
 	int updateAlram(Map<String, Object> result);
 	int likeCount(Map<String, Object> map);
-	int likeStatusCheck(int membeNo);
+	int likeStatusCheck(Map<String, Integer> map);
 	int alramStatusCheck(int memberNo);
 	List<Reward> selectRewardList(int fundingNo);
 	int insertFundingParticipation(FundingParticipation fp);
