@@ -75,7 +75,7 @@ public class MemberController {
 	final String password = "if1234!!!";
 	
 	private final String KAKAO_API_KEY = "df9569096cc5618b81581186dfe78bb2";
-	private String KAKAO_REDIRECT_URL = "http://localhost:9090/interactFunding/member/auth/kakao";
+	private String KAKAO_REDIRECT_URL = "http://interact-funding.kro.kr/member/auth/kakao";
 	//김윤수
 	@GetMapping("/login")
 	public void login(@SessionAttribute(required = false) String next ,
@@ -141,7 +141,7 @@ public class MemberController {
 			int result = memberService.insertCertificationCode(param);
 		}
 		//인증코드 이용한 코드를 담은 email발송
-		String url = "http://localhost:9099/interactFunding";
+		String url = "http://interact-funding.kro.kr";
 		Properties props = new Properties();
 		
 		props.put("mail.smtp.host", "smtp.gmail.com");
@@ -316,6 +316,15 @@ public class MemberController {
 		//이메일로 인증코드 사용자에게 전송
 		// 1. 사용자 이메일아이디 받아오기.
 		//String memberEmailId = request.getParameter("memberEamilId");
+		//블랙리스트 등록여부 검사
+		Member blackMember = new Member();
+		blackMember.setEmail(email);
+		int black = memberService.selectOneBlackList(blackMember);
+		if(black>0) {
+			response.getWriter().print("B");
+			return;
+		}
+		
 		
 		//이메일 중복검사
 		Map<String, Object> map = new HashMap<String, Object>();

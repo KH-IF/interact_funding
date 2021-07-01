@@ -29,6 +29,6 @@ public class MyCustomLoginSuccessHandler implements AuthenticationSuccessHandler
 		
 		//이메일 기억하기 처리-ajax로 처리해버렸음
 		session.setAttribute("msg", "로그인 완료");
-		response.sendRedirect(next);
+		response.sendRedirect( request.getContextPath()+"/");
 	}
 }

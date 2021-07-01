@@ -101,7 +101,7 @@ p.titleTextCutter{
         </a>
         
         <div>
-            <button type="button" class="border-0 aTag bg-light font-weight-bold" onclick ="location.href='${pageContext.request.contextPath}'">나가기</button>
+            <button type="button" class="border-0 aTag bg-light font-weight-bold" onclick ="location.href='${pageContext.request.contextPath}/'">나가기</button>
         </div>
     </nav>
 
