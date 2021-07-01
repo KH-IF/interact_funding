@@ -204,7 +204,7 @@
 					</p>
 				</div>
 				<div>
-					<input class="inquire-btn" type="button" value="문의하기" onclick="maker_chat_function()" />
+					<input data-toggle="modal" data-target="#modalSendMsg" data-tomemberno="${funding.writerNo}" class="inquire-btn" type="button" value="문의하기" onclick="msgSetting(this)" />
 				</div>
 			</div>
 
