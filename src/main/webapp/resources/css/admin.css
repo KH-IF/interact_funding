@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* 공통 */
 #memberList-container{
     margin: 0 auto;
@@ -7,6 +8,48 @@
     text-align: center;
 }
 
+/* 블랙리스트 영역 */
+.blackh2{
+	padding-bottom:30px;
+	border-bottom: 1px solid rgb(225, 225, 225);
+}
+#blackListTableArea{
+    width:500px;
+    margin: 0 auto;
+    border: 0;
+    font-size: 14px;
+}
+#blackListArea{
+    width:100%;
+    margin-top:50px;
+    margin-bottom:50px;
+}
+#blackListArea th{
+	background-color: #00b2b2;
+}
+#blackListArea th:first-of-type{
+    width:60px;
+}
+#blackListArea th:last-of-type{
+    width:60px;
+}
+#blackListArea td{
+	border-top: 2px solid rgb(225, 225, 225);
+    border-bottom: 2px solid rgb(225, 225, 225);
+    padding: 5px;
+}
+input[value="해제"]{
+    background-color: rgb(225,225,225);
+    border: 0;
+    border-radius: 15px;
+}
+input[value="해제"]:hover{
+    background-color: red;
+    color:white;
+    transition: all ease 0.3s;
+}
+
+/* 회원조회 영역*/
 /* 검색 */
 div#search-container{
     padding-top: 20px;
@@ -52,14 +95,11 @@ div#search-container{
     text-align: left;
 }
 
-#mebmerTableArea{
+#memberTableArea{
     width: 900px;
     margin: 0 auto;
     border: 0;
     font-size: 14px;
-}
-#memberListArea{
-    width:100%;
 }
 
 table, th, td{
@@ -67,6 +107,7 @@ table, th, td{
 }
 
 #memberListArea{
+	width:100%;
     margin-top:50px;
     margin-bottom:50px;
 }
@@ -117,9 +158,9 @@ input[value="강제추방"]:hover{
 #pageBar{
 	text-align: center;
 	height:50px;
-	margin-top:30px;
+	margin-top:70px;
+	margin-bottom:40px;
 }
-
 #pageBar span{
 	margin-right:4px;
     border-radius: 15%;
@@ -147,8 +188,8 @@ input[value="강제추방"]:hover{
 #pageBar a:active{
     color: gray;
 }
-.searchKeyword{
-	width: 300px;
+#nonePage{
+	height:100px;
 }
 
 /* 현재페이지바 */

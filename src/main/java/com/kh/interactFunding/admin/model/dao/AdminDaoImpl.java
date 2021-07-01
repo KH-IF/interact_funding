@@ -55,11 +55,36 @@ public class AdminDaoImpl implements AdminDao {
 		return session.selectOne("admin.selectCheckAdminRole", memberNo);
 	}
 
+	/**
+	 * @deprecated 회원추방 기능은 블랙리스트 등록 기능으로 대체되어 더이상 사용되지 않음
+	 */
 	@Override
 	public int memberDel(int memberNo) {
 		return session.delete("admin.deleteMember", memberNo);
 	}
-	
+
+	@Override
+	public List<Member> selectBlackList(Map<String, Object> map) {
+		int offset = (int) map.get("offset");
+		int limit = (int) map.get("limit");
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return session.selectList("admin.selectBlackList", map, rowBounds);
+	}
+
+	@Override
+	public int selectBlackListTotalContents() {
+		return session.selectOne("admin.selectBlackListTotalContents");
+	}
+
+	@Override
+	public int insertBlackList(Member member) {
+		return session.insert("admin.insertBlackList",member);
+	}
+
+	@Override
+	public int deleteBlackList(String email) {
+		return session.delete("admin.deleteBlackList", email);
+	}
 	
 	
 	//천호현

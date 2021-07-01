@@ -54,7 +54,28 @@ public class AdminServiceImpl implements AdminService {
 	public int memberDel(int memberNo) {
 		return adminDao.memberDel(memberNo);
 	}
+
+	@Override
+	public List<Member> selectBlackList(Map<String, Object> map) {
+		return adminDao.selectBlackList(map);
+	}
+
+	@Override
+	public int selectBlackListTotalContents() {
+		return adminDao.selectBlackListTotalContents();
+	}
+
+	@Override
+	public int insertBlackList(Member member) {
+		return adminDao.insertBlackList(member);
+	}
+
+	@Override
+	public int deleteBlackList(String email) {
+		return adminDao.deleteBlackList(email);
+	}
 		
+	
 	
 	//천호현
 	
