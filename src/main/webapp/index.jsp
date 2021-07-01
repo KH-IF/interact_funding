@@ -224,10 +224,16 @@ $(document).ready(function(){
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/images/kiwon_images/Perfume.jpg"alt="First slide">
+      <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/images/kiwon_images/5000banner.png"alt="First slide">
+        <div class="slide-title">
+                     <span style="text-shadow: 1px 1px 1px black;">이프 이벤트코드 GHFX36TQDM <br />입력하고 5000 포인트받자</span>
+       </div>
     </div>
     <div class="carousel-item">
-     <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/images/kiwon_images/jewelry.jpg"alt="First slide">
+     <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/images/kiwon_images/second.png"alt="First slide">
+      <div class="slide-title">
+                     <span style="text-shadow: 1px 1px 1px black;">상상이 현실이 되다.우리의 일상을 편리하고 <br />즐겁게 만들어 줄 테크 펀딩을 살펴보세요</span>
+       </div>
     </div>
     <div class="carousel-item">
       <img class="d-block w-100"src="${pageContext.request.contextPath}/resources/images/kiwon_images/watch.jpg" alt="Third slide">

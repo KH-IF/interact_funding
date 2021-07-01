@@ -43,7 +43,7 @@ $(document).ready(function() {
 .slide-title{
    	display: block;
    	position: absolute;
-   	bottom: 20px;
+   	bottom: 60px;
    	left: 200px;
    	z-index:1;
    	text-decoration: none;
@@ -123,7 +123,7 @@ $(document).ready(function() {
 		   			<div class="carousel-item">
 		   		</c:if>
                    <a href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${banner.fundingNo}">
-                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width:100%; object-fit:cover; height: 400px;">
+                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width:100%; object-fit:cover; height: 464px;">
                     <div class="slide-title">
                      <span>${banner.title}</span>
                      <p></p>
