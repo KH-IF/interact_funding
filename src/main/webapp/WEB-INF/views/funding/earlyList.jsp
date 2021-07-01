@@ -41,18 +41,24 @@ $(document).ready(function() {
 </script>
 <style>
 .slide-title{
-   	display: block;
    	position: absolute;
-   	bottom: 20px;
-   	left: 200px;
-   	z-index:1;
-   	text-decoration: none;
-   	overflow: hidden;
+    z-index: 1;
+    bottom: 15px;
+    left: 160px;
+    text-decoration: none;
+    color: #ffffff;
+    overflow: hidden;
 }
 .slide-title span{
-   	color: #ffffff;
-   	font-size: 40px;
-   	font-weight: 700;
+   	color: white;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: .7px;
+    -webkit-line-clamp: 3;
+    width: 570px;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    text-shadow: 1px 1px 1px black;
 }
 .slide-title p{
    	display: block;
@@ -68,6 +74,9 @@ $(document).ready(function() {
 }
 .carousel-item{
 	opacity: 0;
+}
+.carousel-inner{
+	height:464px;
 }
 .rewordProjectCardMakerName{
 	margin-top: 10px;
@@ -123,7 +132,7 @@ $(document).ready(function() {
 		   			<div class="carousel-item">
 		   		</c:if>
                    <a href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${banner.fundingNo}">
-                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width:100%; object-fit:cover; height: 400px;">
+                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width:100%; object-fit:cover; height: 464px;">
                     <div class="slide-title">
                      <span>${banner.title}</span>
                      <p></p>

@@ -103,6 +103,7 @@
 			<%-- <c:forEach items="${newsList}" var="news"> --%>
 			<div class="yh-nv-view">
 				<input type="button" value="< 목록으로 이동" id="nv-view-btn" />
+			<div style="text-align: right;">
 				<c:if test="${loginMember.memberNo == funding.writerNo}">
 					<input type="button" value="수정" id="newsUpdateBtn" /> 
 				<form id="newsDeleteFrm" method="POST" action="${pageContext.request.contextPath}/funding/newsDelete.do">
@@ -110,7 +111,8 @@
 					<input type="hidden" name="no" value="${funboard.no}" />
 				</form>
 				</c:if>
-				<br /><br />
+			</div>
+			<br />
 				<h4><strong>${funboard.title}</strong></h4>
 				<p>
 					<fmt:formatDate value="${funboard.regDate}"

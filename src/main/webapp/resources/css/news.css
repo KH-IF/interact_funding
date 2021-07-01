@@ -110,6 +110,25 @@ li {
 	height: 40px;
 }
 
+#newsWriteBtn{
+	border: 1px solid#00b2b2; 
+	color:#00b2b2; 
+	background-color: white;
+	cursor: pointer;
+}
+#newsWriteBtn:hover{
+	border: 1px solid #138496; 
+	color:white; 
+	background-color: #138496;
+	cursor: pointer;
+}
+.noNews{
+	text-align: center;
+	border-bottom: 0 !important;
+	color: darkgray;
+	padding-top: 100px;
+}
+
 /* 새소식 펀딩 */
 /* .yh-funding {
 	width: 200px;
@@ -389,6 +408,42 @@ yh-c-table {
 
 .nv-comment-red small {
 	color: red;
+}
+
+#newsUpdateBtn{
+	border: 1px solid#00b2b2; 
+	color:#00b2b2; 
+	background-color: white;
+	cursor: pointer;
+	display: inline-block;
+}
+
+#newsUpdateBtn:hover{
+	border: 1px solid #138496; 
+	color:white; 
+	background-color: #138496;
+	cursor: pointer;
+	display: inline-block;
+}
+
+#newsDeleteBtn{
+	border: 1px solid#00b2b2; 
+	color:#00b2b2; 
+	background-color: white;
+	cursor: pointer;
+	display: inline-block;
+}
+
+#newsDeleteBtn:hover{
+	border: 1px solid #138496; 
+	color:white; 
+	background-color: #138496;
+	cursor: pointer;
+	display: inline-block;
+}
+
+#newsDeleteFrm{
+	display: inline-block;
 }
 
 /* 팝업 */

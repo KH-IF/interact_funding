@@ -24,6 +24,10 @@
 			<form:form action="${pageContext.request.contextPath}/member/logout" method="post">
 				<input type="submit" class="btn btn-outline-dark btn-lg" value="로그아웃" id="logoutbtn"/>
 			</form:form>
+			<!-- 관리자용 회원조회 -->
+			<c:if test="${fn:contains(loginMember.authorities, 'ROLE_ADMIN')}">
+				<input type="button" class="btn btn-outline-dark btn-lg" value="관리" id="adminbtn" style="font-weight:bold; margin-left:86px; margin-top:20px;" onclick='location.href="${pageContext.request.contextPath}/admin/memberList"'/>
+			</c:if>
 		</div>
 		<div id="detailsRight">
 			<h5><strong>나의 프로젝트</strong></h5>
