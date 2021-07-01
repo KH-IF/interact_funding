@@ -1150,13 +1150,18 @@ public class FundingController {
 	
 	@GetMapping("/fundingReward")
 	public void fundingReward(@RequestParam int	fundingNo, @RequestParam(value="choice", required = false,defaultValue="0") int choice, Model model) {
-		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
-		List<Reward> reward = fundingService.selectRewardList(fundingNo);
-		
-		//2. 위임 
-		model.addAttribute("funding", funding);
-		model.addAttribute("reward", reward);
-		model.addAttribute("choice", choice);
+		try {
+			Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+			List<Reward> reward = fundingService.selectRewardList(fundingNo);
+			
+			//2. 위임 
+			model.addAttribute("funding", funding);
+			model.addAttribute("reward", reward);
+			model.addAttribute("choice", choice);
+		} catch (Exception e) {
+			log.error("펀딩 리워드페이지 오류",e);
+			throw e;
+		}
 	}
 	
 	
@@ -1164,12 +1169,17 @@ public class FundingController {
 	@MessageMapping("/chat/{funding}")
 	@SendTo("/chat/{funding}")
 	public MessageVo chat(MessageVo msg, @DestinationVariable String funding) {
-		log.debug("메시지 내용 : {}", msg);
-		//이름 채워주기
-		msg.setFromMemberName(memberService.selectOneMemberUseNo(msg.getFromMemberNo()).getName());
-		msg.setRegDate(new Date());
-		//DB저장
-		int result = fundingService.insertChat(msg);
+		try {
+			log.debug("메시지 내용 : {}", msg);
+			//이름 채워주기
+			msg.setFromMemberName(memberService.selectOneMemberUseNo(msg.getFromMemberNo()).getName());
+			msg.setRegDate(new Date());
+			//DB저장
+			int result = fundingService.insertChat(msg);
+		} catch (Exception e) {
+			log.error("채팅 오류",e);
+			throw e;
+		}
 		return msg;
 	}
 	
@@ -1182,51 +1192,44 @@ public class FundingController {
 											 int rewardTotalPriceSupport,
 											 Model model) {
 		
-		Map<Integer, Integer> choiceRewardMap = new HashMap<>();
-		
-//		List<Map<Reward, Integer>> selectList = new ArrayList<>();
-//		
-//		for(int i=0; i<rewardNo.length; i++) {
-//			choiceRewardMap.put(rewardNo[i], amount[i]);
-//			
-//			Reward selectReward = fundingService.selectOneReward(rewardNo[i]);
-//			
-//			Map<Reward, Integer> map = new HashMap<>();
-//			
-//			map.put(selectReward, amount[i]);
-//			selectList.add(map);
-//		}
-		List<Map<String, Object>> selectList = new ArrayList<>();
-		
-		for(int i=0; i<rewardNo.length; i++) {
-			choiceRewardMap.put(rewardNo[i], amount[i]);
+		try {
+			Map<Integer, Integer> choiceRewardMap = new HashMap<>();
 			
-			Reward selectReward = fundingService.selectOneReward(rewardNo[i]);
+			List<Map<String, Object>> selectList = new ArrayList<>();
 			
-			Map<String, Object> map = new HashMap<>();
+			for(int i=0; i<rewardNo.length; i++) {
+				choiceRewardMap.put(rewardNo[i], amount[i]);
+				
+				Reward selectReward = fundingService.selectOneReward(rewardNo[i]);
+				
+				Map<String, Object> map = new HashMap<>();
+				
+				map.put("amount" , amount[i]);
+				map.put("reward", selectReward);
+				selectList.add(map);
+			}
 			
-			map.put("amount" , amount[i]);
-			map.put("reward", selectReward);
-			selectList.add(map);
+			if(support != 0) {
+				choiceRewardMap.put(1, support);
+			}
+			
+			Funding funding = fundingService.selectOneFundingKYS(fundingNo);
+			List<Reward> reward = fundingService.selectRewardList(fundingNo);
+			
+			
+			//3.세션에저장
+			model.addAttribute("choiceRewardMap",choiceRewardMap);
+			
+			//3-1. 위임 
+			model.addAttribute("funding", funding);
+			model.addAttribute("reward", reward);
+			model.addAttribute("rewardTotalPrice", rewardTotalPrice);
+			model.addAttribute("rewardTotalPriceSupport", rewardTotalPriceSupport);
+			model.addAttribute("selectList", selectList);
+		} catch (Exception e) {
+			log.error("펀딩 PAYMENT 페이지 오류",e);
+			throw e;
 		}
-		
-		if(support != 0) {
-			choiceRewardMap.put(1, support);
-		}
-		
-		Funding funding = fundingService.selectOneFundingKYS(fundingNo);
-		List<Reward> reward = fundingService.selectRewardList(fundingNo);
-		
-		
-		//3.세션에저장
-		model.addAttribute("choiceRewardMap",choiceRewardMap);
-		
-		//3-1. 위임 
-		model.addAttribute("funding", funding);
-		model.addAttribute("reward", reward);
-		model.addAttribute("rewardTotalPrice", rewardTotalPrice);
-		model.addAttribute("rewardTotalPriceSupport", rewardTotalPriceSupport);
-		model.addAttribute("selectList", selectList);
 		
 		
 		
@@ -1238,47 +1241,52 @@ public class FundingController {
 									String name,String phone, String address1, String address2, String etc
 			) {
 		
-		String address = address1 + address2;
-		String content = "번호 "+loginMember.getMemberNo()+"번 "+ loginMember.getName() + "이 " + fundingNo + "번 펀딩에 추가후원 하였습니다";
-		
-		
-		Iterator<Integer> it = choiceRewardMap.keySet().iterator();
-		while(it.hasNext()) {
-			//1일경우 추가후원임
-			//1-999 3-5 4-1
-			int key = it.next();//1 3 4
-			Reward reward;
-			int loop;
-			//결제할 리워드 가져오기
-			if(key==1) {
-				reward = new Reward(0, fundingNo, (int)choiceRewardMap.get(key), "추가후원", content, 0, 0, new java.sql.Date(new Date().getTime()));
-				int result = fundingService.insertReward(reward);
-				int rewardNo = reward.getRewardNo();
-				
-				
-				reward = fundingService.selectOneReward(rewardNo);
-				loop=1;
-				
-			}else {
-				reward = fundingService.selectOneReward(key);
-				loop=choiceRewardMap.get(key);
+		try {
+			String address = address1 + address2;
+			String content = "번호 "+loginMember.getMemberNo()+"번 "+ loginMember.getName() + "이 " + fundingNo + "번 펀딩에 추가후원 하였습니다";
+			
+			
+			Iterator<Integer> it = choiceRewardMap.keySet().iterator();
+			while(it.hasNext()) {
+				//1일경우 추가후원임
+				//1-999 3-5 4-1
+				int key = it.next();//1 3 4
+				Reward reward;
+				int loop;
+				//결제할 리워드 가져오기
+				if(key==1) {
+					reward = new Reward(0, fundingNo, (int)choiceRewardMap.get(key), "추가후원", content, 0, 0, new java.sql.Date(new Date().getTime()));
+					int result = fundingService.insertReward(reward);
+					int rewardNo = reward.getRewardNo();
+					
+					
+					reward = fundingService.selectOneReward(rewardNo);
+					loop=1;
+					
+				}else {
+					reward = fundingService.selectOneReward(key);
+					loop=choiceRewardMap.get(key);
+				}
+				//reward를 funding_participation에 추가
+				//fundingNo, memberNo, rewardNo, point, address, name, phone etc
+				FundingParticipation fp= new FundingParticipation(0,
+																  fundingNo,
+																  loginMember.getMemberNo(),
+																  null,
+																  true,
+																  reward.getRewardNo(),
+																  reward.getPrice(),
+																  address,
+																  name,
+																  phone,
+																  etc);
+				for(int i=0; i<loop; i++) {
+					int result = fundingService.insertFundingParticipation(fp);
+				}
 			}
-			//reward를 funding_participation에 추가
-			//fundingNo, memberNo, rewardNo, point, address, name, phone etc
-			FundingParticipation fp= new FundingParticipation(0,
-															  fundingNo,
-															  loginMember.getMemberNo(),
-															  null,
-															  true,
-															  reward.getRewardNo(),
-															  reward.getPrice(),
-															  address,
-															  name,
-															  phone,
-															  etc);
-			for(int i=0; i<loop; i++) {
-				int result = fundingService.insertFundingParticipation(fp);
-			}
+		} catch (Exception e) {
+			log.error("펀딩 결제페이지 오류",e);
+			throw e;
 		}
 		return "redirect:/funding/myParticiFunding";
 	}
@@ -1292,56 +1300,71 @@ public class FundingController {
 	@PostMapping("/loginMemberClickLike")
 	public Map<String, Object> loginMemberClickLike(@RequestParam int memberNo, @RequestParam int fundingNo) {
 		
-		//0. 값 처리
-		Map<String, Object> map = new HashMap<>();
-		map.put("memberNo", memberNo);
-		map.put("fundingNo", fundingNo);
-		
-		//ajax like숫자 실시간조회 + 리턴할 결과값 (likeCount + fillHeart.png 등등)
-		Map<String, Object> returnResult = new HashMap<>();
-		
-		
-		//1. 요청한 사용자가 좋아요를 누른 적이 있는지 확인
-		Map<String, Object> result  = fundingService.likeCheck(map);
-		
-		//2.1 좋아요 누른적이 없음 -> like테이블에 status Y로 insert   (fillHeart.png)
-		if(result==null || result.size()==0) {
-			//인설트
-			fundingService.insertLike(map); //funding_no, member_no
-			int likeCount = fundingService.likeCount(map);
-			returnResult.put("likeCount", likeCount);
-			returnResult.put("heart", "on");
-			return returnResult;
-		}
+		try {
+			//0. 값 처리
+			Map<String, Object> map = new HashMap<>();
+			map.put("memberNo", memberNo);
+			map.put("fundingNo", fundingNo);
+			
+			//ajax like숫자 실시간조회 + 리턴할 결과값 (likeCount + fillHeart.png 등등)
+			Map<String, Object> returnResult = new HashMap<>();
+			
+			
+			//1. 요청한 사용자가 좋아요를 누른 적이 있는지 확인
+			Map<String, Object> result  = fundingService.likeCheck(map);
+			
+			//2.1 좋아요 누른적이 없음 -> like테이블에 status Y로 insert   (fillHeart.png)
+			if(result==null || result.size()==0) {
+				//인설트
+				fundingService.insertLike(map); //funding_no, member_no
+				int likeCount = fundingService.likeCount(map);
+				returnResult.put("likeCount", likeCount);
+				returnResult.put("heart", "on");
+				return returnResult;
+			}
 
-		//둘다 뒤집어서 업데이트 해야되서 위로 뺌
-		result.put("status", !(Boolean)result.get("status"));
-		
-		//2.2 좋아요 누른적이 있음, 현재 status = Y -> status = N  (좋아요 취소)     (emptyHeart.png)
-		//2.3 좋아요 누른적이 있음, 현재 status = N -> status = Y (다시 좋아요)   (fillHeart.png)
-		//업데이트
-		fundingService.updateLike(result);
-		
-		//성공
-		if((Boolean) result.get("status")) {
+			//둘다 뒤집어서 업데이트 해야되서 위로 뺌
+			result.put("status", !(Boolean)result.get("status"));
+			
+			//2.2 좋아요 누른적이 있음, 현재 status = Y -> status = N  (좋아요 취소)     (emptyHeart.png)
+			//2.3 좋아요 누른적이 있음, 현재 status = N -> status = Y (다시 좋아요)   (fillHeart.png)
+			//업데이트
+			fundingService.updateLike(result);
+			
+			//성공
+			if((Boolean) result.get("status")) {
+				int likeCount = fundingService.likeCount(map);
+				returnResult.put("likeCount", likeCount);
+				returnResult.put("heart", "on");
+				return returnResult;
+			}
+			//실패
 			int likeCount = fundingService.likeCount(map);
+			returnResult.put("heart", "off");
 			returnResult.put("likeCount", likeCount);
-			returnResult.put("heart", "on");
 			return returnResult;
+		} catch (Exception e) {
+			log.error("좋아요 클릭 오류",e);
+			throw e;
 		}
-		//실패
-		int likeCount = fundingService.likeCount(map);
-		returnResult.put("heart", "off");
-		returnResult.put("likeCount", likeCount);
-		return returnResult;
 	}
 	
 	//좋아요 클릭여부확인
 	@ResponseBody
 	@GetMapping("/likeStatusCheck")
-	public int likeStatusCheck(@RequestParam int memberNo) {
-		int result = fundingService.likeStatusCheck(memberNo);
-		return result;
+	public int likeStatusCheck(@RequestParam int memberNo, int fundingNo) {
+		try {
+			Map<String, Integer> map = new HashMap<>();
+			map.put("memberNo", memberNo);
+			map.put("fundingNo", fundingNo);
+			
+			int result = fundingService.likeStatusCheck(map);
+			return result;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	
@@ -1351,51 +1374,60 @@ public class FundingController {
 	@PostMapping("/loginMemberClickAlram")
 	public Map<String, Object> loginMemberClickAlram(@RequestParam int memberNo, @RequestParam int fundingNo) {
 		
-		//0. 값 처리
-		Map<String, Object> map = new HashMap<>();
-		map.put("memberNo", memberNo);
-		map.put("fundingNo", fundingNo);
-		
-		Map<String, Object> returnResult = new HashMap<>();
-		//1. 요청한 사용자가 좋아요를 누른 적이 있는지 확인
-		Map<String, Object> result  = fundingService.alramCheck(map);
-		log.debug("result = {}",result);
-		//2.1 알람신청 누른적이 없음 -> alram테이블에 status Y로 insert
-		if(result==null || result.size()==0) {
-			//인설트
-			fundingService.insertAlram(map); //funding_no, member_no
-			returnResult.put("alram", "on");
-			log.debug("returnResult1 = {}",returnResult);
+		try {
+			//0. 값 처리
+			Map<String, Object> map = new HashMap<>();
+			map.put("memberNo", memberNo);
+			map.put("fundingNo", fundingNo);
+			
+			Map<String, Object> returnResult = new HashMap<>();
+			//1. 요청한 사용자가 좋아요를 누른 적이 있는지 확인
+			Map<String, Object> result  = fundingService.alramCheck(map);
+			log.debug("result = {}",result);
+			//2.1 알람신청 누른적이 없음 -> alram테이블에 status Y로 insert
+			if(result==null || result.size()==0) {
+				//인설트
+				fundingService.insertAlram(map); //funding_no, member_no
+				returnResult.put("alram", "on");
+				log.debug("returnResult1 = {}",returnResult);
+				return returnResult;
+			}
+			
+			//둘다 뒤집어서 업데이트 해야되서 위로 뺌
+			result.put("status", !(Boolean)result.get("status"));
+			
+			//2.2 알람신청 누른적이 있음, 현재 status = Y -> status = N  (알람 취소) 
+			//2.3 알람신청 누른적이 있음, 현재 status = N -> status = Y (다시 알람신청)
+			fundingService.updateAlram(result);
+			//성공
+			if((Boolean) result.get("status")) {
+				returnResult.put("alram", "on");
+				log.debug("returnResult2 = {}",returnResult);
+				return returnResult;
+			}
+			//실패
+			returnResult.put("alram", "off");
+			log.debug("returnResult3 = {}",returnResult);
 			return returnResult;
+		} catch (Exception e) {
+			log.error("알람신청 오류",e);
+			throw e;
 		}
-		
-		//둘다 뒤집어서 업데이트 해야되서 위로 뺌
-		result.put("status", !(Boolean)result.get("status"));
-		
-		//2.2 알람신청 누른적이 있음, 현재 status = Y -> status = N  (알람 취소) 
-		//2.3 알람신청 누른적이 있음, 현재 status = N -> status = Y (다시 알람신청)
-		fundingService.updateAlram(result);
-		//성공
-		if((Boolean) result.get("status")) {
-			returnResult.put("alram", "on");
-			log.debug("returnResult2 = {}",returnResult);
-			return returnResult;
-		}
-		//실패
-		returnResult.put("alram", "off");
-		log.debug("returnResult3 = {}",returnResult);
-		return returnResult;
 	}
 	
 	//알람신청 클릭여부확인
 	@ResponseBody
 	@GetMapping("/alramStatusCheck")
 	public int alramStatusCheck(@RequestParam int memberNo) {
-		int result = fundingService.alramStatusCheck(memberNo);
-		log.debug("result = {}",result);
-		return result;
+		try {
+			int result = fundingService.alramStatusCheck(memberNo);
+			log.debug("result = {}",result);
+			return result;
+		} catch (Exception e) {
+			log.error("알람신청 클릭여부 오류",e);
+			throw e;
+		}
 	}
-	
 	
 }
 	

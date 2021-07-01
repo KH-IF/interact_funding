@@ -645,6 +645,8 @@ from funding;
 
 select * from funding;
 
+delete funding where funding_no = 303;
+
 select * from funding f join funding_reward r using(funding_no) where f.status = 'Y';
 
 select * from funding_chat;
@@ -672,9 +674,21 @@ insert into alram_early_funding values(43, 303, 2, 'Y');
 
 select * from message;
 
+select * from member;
+
 insert into funding values(seq_funding_no.nextval, '날짜테스트용', 'C1', 0, 60000, null, 21, 0, 0, '날짜내용',null, '2021-06-30', '2021-07-30', default, 010, 'Y');
 delete funding
 where funding_no = 302;
+
+delete funding_mylist;
+
+select * from funding_mylist;
+
+select count(*)
+		from like_record
+		where member_no = 21 and funding_no = 287
+ and status = 'Y';
+
 
 commit;
 -----------------------

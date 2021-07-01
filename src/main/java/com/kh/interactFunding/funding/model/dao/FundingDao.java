@@ -98,7 +98,7 @@ public interface FundingDao {
 	int updateLike(Map<String, Object> map);
 	int updateAlram(Map<String, Object> map);
 	int likeCount(Map<String, Object> map);
-	int likeStatusCheck(int memberNo);
+	int likeStatusCheck(Map<String, Integer> map);
 	int alramStatusCheck(int memberNo);
 	List<Reward> selectRewardList(int fundingNo);
 	int insertFundingParticipation(FundingParticipation fp);
