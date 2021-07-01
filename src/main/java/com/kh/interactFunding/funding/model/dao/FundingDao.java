@@ -74,6 +74,7 @@ public interface FundingDao {
 	List<Funding> indexlikelist();
 	List<Funding> indexfundingRefresh();
 	List<Funding> indexRankingviewlist();
+	List<Funding> indexearlylist();
 	String selectMyListJson(int memberNo);
 	int deleteMyListJson(Map<String, Object> param);
 	int insertMyListJson(Map<String, Object> param);

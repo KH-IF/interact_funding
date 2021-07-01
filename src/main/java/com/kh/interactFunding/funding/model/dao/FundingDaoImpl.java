@@ -248,6 +248,12 @@ public class FundingDaoImpl implements FundingDao{
 	public int insertMyListJson(Map<String, Object> param) {
 		return session.insert("funding.insertMyListJson",param);
 	}
+	
+	@Override
+	public List<Funding> indexearlylist() {
+		// TODO Auto-generated method stub
+		return session.selectList("funding.indexearlylist");
+	}
 	//이승우
 	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {

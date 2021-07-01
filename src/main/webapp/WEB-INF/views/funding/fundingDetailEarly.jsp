@@ -51,7 +51,7 @@
 
             <div id="funing_main_right_div">
                 <div id="funing_main_right_div_1">
-                    <button type="button" id="funding_detail_alram_button" class="btn btn-outline-secondary" onclick="alram_controll()">
+                    <button type="button" id="funding_detail_alram_button" class="btn btn-outline-secondary"  onclick="alram_controll()">
 	                    <!--알람 종  -->
 	                    <span id="icon_alram" ><i class="far fa-bell"></i></span>
                     </button>
@@ -209,12 +209,13 @@
 	width: 201px;
 	border: 1px solid #00b2b2;
 	color: #00b2b2;
+	box-shadow: none;
+	background-color: none;
 	}
+	/*기원 css 변경했습니다.*/
 	#funding_detail_alram_button:hover{
-	width: 201px;
-	border: 1px solid #00b2b2;
-	background-color: #00b2b2;
-	color: white;
+	color: 00b2b2;
+	background-color: #fff;
 	}
 	
 	/* 메이커 로고 + name */
@@ -376,6 +377,8 @@
 					swal("알람받기 신청이 완료되었습니다.", "펀딩이 시작되는 날짜에 쪽지로 알려드릴게요~!", "success");
 				}else{
 					$("#icon_alram").html('<i class="far fa-bell"> </i> <span class="alramClass"> 알림받기</span>');
+					$("#funding_detail_alram_button").css("color", "##00b2b2");
+					$("#funding_detail_alram_button").css("background-color", "#fff");
 					swal("알람받기 신청이 취소되었습니다.", "아쉽지만 다음번에 다시 만나요~!", "success");
 				}
 			},
