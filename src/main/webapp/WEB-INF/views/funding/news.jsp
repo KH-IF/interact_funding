@@ -105,6 +105,11 @@
 
 		<div class="yh-containertable">
 			<table class="yh-table">
+				<c:if test="${empty newsList}">
+				<tr>
+					<td class="noNews">등록된 새소식이 없습니다.</td>
+				</tr>
+				</c:if>
 				<c:forEach items="${newsList}" var="newsList">
 					<tr>
 						<td><br /><a
