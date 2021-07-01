@@ -198,6 +198,11 @@
 						swal("인증코드 발송 실패", "이미 가입된 이메일 입니다", "error");
 						return;
 					}
+
+					if(data=='B'){
+						swal("인증코드 발송 실패", "블랙리스트 회원입니다.", "error");
+						return;
+					}
 					
 					//인증코드 저장
 					Authentication_code=data;

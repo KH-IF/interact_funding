@@ -21,13 +21,13 @@
 	  	<div class="IF-footer-site">
 	  	<h4 style="font-size: 15px; font-weight: 700; color: #444;" >관련사이트</h4>
 	  	<hr style="height: 1px; background-color: #999;"/>
-	  	<p>김윤수:<a href="https://github.com/kimdia200">https://github.com/kimdia200 <ion-icon name="logo-github"></ion-icon></a></p>
-	  	<p>천호현:<a href="https://github.com/hohyuncheon">https://github.com/hohyuncheon <ion-icon name="logo-github"></ion-icon></a></p>
-	  	<p>김주연:<a href="https://github.com/KIMJOOYEON97">https://github.com/KIMJOOYEON97 <ion-icon name="logo-github"></ion-icon></a></p>
-	  	<p>박요한:<a href="https://github.com/dygksqkr12">https://github.com/dygksqkr12 <ion-icon name="logo-github"></ion-icon></a></p>
-	  	<p>김경태:<a href="https://github.com/kyoung-tae">https://github.com/kyoung-tae <ion-icon name="logo-github"></ion-icon></a></p>
-	  	<p>이승우:<a href="https://github.com/onreverse01">https://github.com/onreverse01 <ion-icon name="logo-github"></ion-icon></a></p>
-	  	<p>배기원:<a href="https://github.com/rlwi440">https://github.com/rlwi440 <ion-icon name="logo-github"></ion-icon></a></p>
+	  	<p style="font-size: 12px; color:#7C8288;">김윤수:<a href="https://github.com/kimdia200" style="font-size: 12px; color:#7C8288;">https://github.com/kimdia200 <ion-icon name="logo-github"></ion-icon></a></p>
+	  	<p style="font-size: 12px; color:#7C8288;">천호현:<a href="https://github.com/hohyuncheon" style="font-size: 12px; color:#7C8288;">https://github.com/hohyuncheon <ion-icon name="logo-github"></ion-icon></a></p>
+	  	<p style="font-size: 12px; color:#7C8288;">김주연:<a href="https://github.com/KIMJOOYEON97" style="font-size: 12px; color:#7C8288;">https://github.com/KIMJOOYEON97 <ion-icon name="logo-github"></ion-icon></a></p>
+	  	<p style="font-size: 12px; color:#7C8288;">박요한:<a href="https://github.com/dygksqkr12" style="font-size: 12px; color:#7C8288;">https://github.com/dygksqkr12 <ion-icon name="logo-github"></ion-icon></a></p>
+	  	<p style="font-size: 12px; color:#7C8288;">김경태:<a href="https://github.com/kyoung-tae" style="font-size: 12px; color:#7C8288;">https://github.com/kyoung-tae <ion-icon name="logo-github"></ion-icon></a></p>
+	  	<p style="font-size: 12px; color:#7C8288;">이승우:<a href="https://github.com/onreverse01" style="font-size: 12px; color:#7C8288;">https://github.com/onreverse01 <ion-icon name="logo-github"></ion-icon></a></p>
+	  	<p style="font-size: 12px; color:#7C8288;">배기원:<a href="https://github.com/rlwi440" style="font-size: 12px; color:#7C8288;">https://github.com/rlwi440 <ion-icon name="logo-github"></ion-icon></a></p>
 	  	</div>
 	  	<div class="If-footer-question">
 	  		<h4 class="If-footer-question-p">이프 대표고객센터</h4>

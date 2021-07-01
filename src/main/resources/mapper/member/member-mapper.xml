@@ -140,6 +140,12 @@
 			<arg column="authority" javaType="string"/>
 		</constructor>
 	</resultMap>
+	
+	<select id="selectOneBlackList" resultType="_int">
+		select count(*)
+		from blackList
+		where email = #{email}
+	</select>
 	<!-- 김경태 -->
 	<!-- 김주연 -->
 	<update id="savePhone">

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"  isErrorPage="true"%%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,6 +71,8 @@ a:hover {
 			src="${pageContext.request.contextPath}/resources/image/sample-custom-error-page.gif" />
 		<p>
 			<strong>Error</strong> :(
+			<strong><%= exception.getMessage() %></strong>
+			
 		</p>
 		<a href="${pageContext.request.contextPath}"><strong>Home</strong></a>
 		<div class="bottom"></div>

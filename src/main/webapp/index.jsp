@@ -156,6 +156,40 @@ for (Funding funding : myList) {
 		}
 	}
 }  
+  List<Funding> earlylist  = (List) request.getAttribute("earlylist");
+  for (Funding funding : earlylist) {
+  	String cCode = funding.getCategoryCode();
+  	switch (cCode) {
+  		case "C1" :
+  	funding.setCategoryCode("테크·가전");
+  	break;
+  		case "C2" :
+  	funding.setCategoryCode("푸드");
+  	break;
+  		case "C3" :
+  	funding.setCategoryCode("여행");
+  	break;
+  		case "C4" :
+  	funding.setCategoryCode("스포츠");
+  	break;
+  		case "C5" :
+  	funding.setCategoryCode("게임·취미");
+  	break;
+  		case "C6" :
+  	funding.setCategoryCode("모임");
+  	break;
+  		case "C7" :
+  	funding.setCategoryCode("반려동물");
+  	break;
+  		case "C8" :
+  	funding.setCategoryCode("기부·후원");
+  	break;
+  		default :
+  	funding.setCategoryCode("잘못된 카테고리");
+  	break;
+  	}
+  }
+  
 Cookie cookieview = new Cookie("cookieview", request.getParameter("cookieview"));
 
 cookieview.setMaxAge(60 * 60 * 24 * 7);
@@ -236,7 +270,10 @@ $(document).ready(function(){
        </div>
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100"src="${pageContext.request.contextPath}/resources/images/kiwon_images/watch.jpg" alt="Third slide">
+      <img class="d-block w-100"src="${pageContext.request.contextPath}/resources/images/kiwon_images/EcoFunding.png" alt="Third slide">
+      <div class="slide-title">
+                     <span style="text-shadow: 1px 1px 1px black;">사람과 자연을 생각한 착한 펀딩</span>
+       </div>
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -889,12 +926,12 @@ $(document).ready(function(){
 	id="locationlist">
 	<ul style="list-style: none; display: flex; transition-duration: 0.5s;">
 		<!--  얼리버드 1번 li -->
-		<li style="padding-top: 25px;"><c:forEach items="${list}"
+		<li style="padding-top: 25px;"><c:forEach items="${earlylist}"
 				varStatus="vs" var="funding">
 				<c:set var="attach" value="${funding.attachment}" scope="page" />
 				<c:if test="${vs.count eq 1}">
 					<a
-						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
+						href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
 						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 						style="width: 385px; height: 229px;   object-fit: cover;">
@@ -928,12 +965,12 @@ $(document).ready(function(){
 				</c:if>
 			</c:forEach></li>
 		<!--  중간 padding  -->
-		<li style="padding: 25px;"><c:forEach items="${list}"
+		<li style="padding: 25px;"><c:forEach items="${earlylist}"
 				varStatus="vs" var="funding">
 				<c:set var="attach" value="${funding.attachment}" scope="page" />
 				<c:if test="${vs.count eq 2}">
 					<a
-						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
+						href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
 						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 						style="width: 385px; height: 229px;   object-fit: cover;">
@@ -965,12 +1002,12 @@ $(document).ready(function(){
 					</div>
 				</c:if>
 			</c:forEach></li>
-		<li style="padding: 25px;"><c:forEach items="${list}"
+		<li style="padding: 25px;"><c:forEach items="${earlylist}"
 				varStatus="vs" var="funding">
 				<c:set var="attach" value="${funding.attachment}" scope="page" />
 				<c:if test="${vs.count eq 3}">
 					<a
-						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
+						href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
 						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 						style="width: 385px; height: 229px;  object-fit: cover;">
@@ -1002,12 +1039,12 @@ $(document).ready(function(){
 					</div>
 				</c:if>
 			</c:forEach></li>
-		<li style="padding: 25px;"><c:forEach items="${list}"
+		<li style="padding: 25px;"><c:forEach items="${earlylist}"
 				varStatus="vs" var="funding">
 				<c:set var="attach" value="${funding.attachment}" scope="page" />
 				<c:if test="${vs.count eq 4}">
 					<a
-						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
+						href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
 						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 						style="width: 385px; height: 229px;  object-fit: cover;">
@@ -1039,12 +1076,12 @@ $(document).ready(function(){
 					</div>
 				</c:if>
 			</c:forEach></li>
-		<li style="padding: 25px;"><c:forEach items="${list}"
+		<li style="padding: 25px;"><c:forEach items="${earlylist}"
 				varStatus="vs" var="funding">
 				<c:set var="attach" value="${funding.attachment}" scope="page" />
 				<c:if test="${vs.count eq 5}">
 					<a
-						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
+						href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
 						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 						style="width: 385px; height: 229px;  object-fit: cover;">
@@ -1076,12 +1113,12 @@ $(document).ready(function(){
 					</div>
 				</c:if>
 			</c:forEach></li>
-		<li style="padding: 25px;"><c:forEach items="${list}"
+		<li style="padding: 25px;"><c:forEach items="${earlylist}"
 				varStatus="vs" var="funding">
 				<c:set var="attach" value="${funding.attachment}" scope="page" />
 				<c:if test="${vs.count eq 6}">
 					<a
-						href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${funding.fundingNo}"
+						href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${funding.fundingNo}"
 						style="color: #000000;"> <img class="card-img-top"
 						src="${pageContext.request.contextPath}/resources/upload/${attach.renamedFilename}"
 						style="width: 385px; height: 229px;   object-fit: cover;">

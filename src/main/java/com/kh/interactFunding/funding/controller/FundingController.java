@@ -702,7 +702,8 @@ public class FundingController {
 			String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
 			List<Reward> reward = fundingService.selectRewardList(fundingNo);
 			int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
-			
+			//기원 인기게시글 추가했습니다.
+			List<Funding> likelist = fundingService.indexlikelist();
 //			log.debug("newsList = {}", newsList);
 			
 			//2. 위임 
@@ -711,6 +712,7 @@ public class FundingController {
 			model.addAttribute("reward", reward);
 			model.addAttribute("fundingParticipationCount", fundingParticipationCount);
 			model.addAttribute("newsList", newsList);
+			model.addAttribute("likelist",likelist);
 			
 		} catch(Exception e) {
 			log.error("새소식 불러오기 실패",e);
@@ -743,7 +745,8 @@ public class FundingController {
 			String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
 			List<Reward> reward = fundingService.selectRewardList(fundingNo);
 			int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
-			
+			//기원 인기게시글 추가했습니다.
+			List<Funding> likelist = fundingService.indexlikelist();
 //			log.debug("funboard = {}", funboard);
 			
 			//2. 위임 
@@ -752,6 +755,7 @@ public class FundingController {
 			model.addAttribute("reward", reward);
 			model.addAttribute("fundingParticipationCount", fundingParticipationCount);
 			model.addAttribute("funboard", funboard);
+			model.addAttribute("likelist",likelist);
 			
 		} catch (Exception e) {
 			log.error("새소식 세부보기 불러오기 실패", e);
@@ -793,7 +797,8 @@ public class FundingController {
 			String wirterName = memberService.selectOneMemberUseNo(funding.getWriterNo()).getName();
 			List<Reward> reward = fundingService.selectRewardList(fundingNo);
 			int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
-			
+			//기원 인기게시글 추가 
+			List<Funding> likelist = fundingService.indexlikelist();
 			
 			//2. 위임 
 			model.addAttribute("funding", funding);
@@ -801,6 +806,7 @@ public class FundingController {
 			model.addAttribute("reward", reward);
 			model.addAttribute("fundingParticipationCount", fundingParticipationCount);
 			model.addAttribute("list", list);
+			model.addAttribute("likelist",likelist);
 			
 		} catch(Exception e) {
 			log.error("게시판 불러오기 실패", e);
@@ -848,7 +854,8 @@ public class FundingController {
 			List<Reward> reward = fundingService.selectRewardList(fundingNo);
 			int fundingParticipationCount = fundingService.fundingParticipationCount(fundingNo);//funding_participation
 			int fundingParticipationOneCount = fundingService.fundingParticipationCountOne(fundingNo);//funding_participation
-			
+			//기원 인기게시글 추가 
+			List<Funding> likelist = fundingService.indexlikelist();
 			
 			//2. 위임 
 			model.addAttribute("participation", participation);
@@ -858,7 +865,7 @@ public class FundingController {
 			model.addAttribute("fundingParticipationCount", fundingParticipationCount);
 			model.addAttribute("participationOne", participationOne);
 			model.addAttribute("fundingParticipationOneCount", fundingParticipationOneCount);
-			
+			model.addAttribute("likelist",likelist);
 		} catch(Exception e) {
 			log.error("서포터 불러오기 실패", e);
 			throw e;
@@ -930,7 +937,6 @@ public class FundingController {
 		}
 		return Refreshlist;
 	}
-
 	//이승우
 	//흠흠
 	@GetMapping("/fundingList")
