@@ -291,9 +291,6 @@ public class MemberController {
 	public String memberEnroll_if(Member member, Model model, RedirectAttributes redirectAttr) {
 		//이메일, 비밀번호, 이름 받아옴
 		log.debug("member={}",member);
-		if(member!=null) {
-			return "redirect:/sadsadsadsa";
-		}
 		
 		//비밀번호 암호화
 		member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
@@ -301,7 +298,7 @@ public class MemberController {
 		
 		int result = memberService.insertMemberIf(member);
 		redirectAttr.addFlashAttribute("msg","회원가입완료");
-		return "redirect:/";
+		return "redirect:/member/login";
 	}
 	
 	@GetMapping("enrollAuthenticationCode")
