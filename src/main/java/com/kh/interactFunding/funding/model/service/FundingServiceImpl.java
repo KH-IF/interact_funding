@@ -462,8 +462,8 @@ public class FundingServiceImpl implements FundingService{
 		return fundingDao.likeCount(map);
 	}
 	@Override
-	public int likeStatusCheck(int memberNo) {
-		return fundingDao.likeStatusCheck(memberNo);
+	public int likeStatusCheck(Map<String, Integer> map) {
+		return fundingDao.likeStatusCheck(map);
 	}
 	@Override
 	public int alramStatusCheck(int memberNo) {

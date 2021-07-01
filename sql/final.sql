@@ -85,7 +85,7 @@ create table authority(
     member_no number not null,
     authority varchar2(20) not null,
     constraint pk_authority primary key (member_no, authority),
-    constraint fk_authority_member_no foreign key(member_no) references member(member_no)
+    constraint fk_authority_member_no foreign key(member_no) references member(member_no) on delete cascade
 );
 
 --멤버권한 트리거
@@ -479,12 +479,6 @@ create table funding_chat(
 
 create sequence seq_funding_chat_no;
 
---알람테이블
-
-
-
---관리자 테이블
-
 --블랙리스트 테이블
 create table blackList(
     no number,
@@ -561,120 +555,8 @@ end;
 
 --김윤수 테스트영역
 --IF20210708
-
-
 --김경태 테스트영역
-
+--김주연 테스트영역
 --박요한 테스트영역
-select * from member;
-
-select * from funding_mylist;
-delete from funding_mylist
-where member_no = 42;
-commit;
-
-select * from funding_participation;
-select distinct
-			name
-		from
-			funding_participation
-		where
-			funding_no = 99;
-delete funding_participation where name is NULL;
-rollback;
---배기원 테스트영역
-
 --이승우 테스트영역
-select * from funding order by funding_no desc;
-select * from funding_mylist;
-delete from funding_mylist where member_no = 22; --오류시 임시 사용하기 그리고 확인 후 커밋
-commit;
---블랙리스트
-select * from blackList;
-select * from member;
-
---아이디 
-select*from member;
-select*from member where member_no = 61;
-select*from member where member_no = 22;
-insert into member values(seq_member_no.nextval,'example1@example.com', '1234', '사용자', 'IF', '1', 0, sysdate, '01000000000');
-commit;
-
 --천호현 테스트영역
-select *
-from member
-where member_no = 21;
-
---10만원으로 늘리기
-update member
-set point =100000000
-where member_no = 21;
-
---0만원으로 줄이기
-update member
-set point = 0
-where member_no = 21;
-
-commit;
-
-
-
-
-select * from funding_mylist;
-
-select * from like_record;
-
-
-select * from alram_early_funding;
-
---스타트데이트
-select e.no,
-        e.funding_no,
-        e.member_no,
-        f.start_date
-from alram_early_funding e join funding f
-    on e.funding_no = f.funding_no
-    where f.start_date = '2021-06-10';
-    
-select *
-from alram_early_funding e join funding f
-    on e.funding_no = f.funding_no;
-
-select start_date
-from funding;
-
-select * from funding;
-
-select * from funding f join funding_reward r using(funding_no) where f.status = 'Y';
-
-select * from funding_chat;
-select * from funding where funding_no = 99;
-
-select * from funding where funding_no = 303
-;
-
-select * from funding_participation where member_no = 21; 
-
-
-f.start_date = '2021-06-30';
-
-	select e.no,
-        e.funding_no,
-        e.member_no,
-        f.start_date
-	from alram_early_funding e join funding f
-    	on e.funding_no = f.funding_no
-    where to_char(  f.start_date, 'yyyymmdd' ) = to_char( sysdate, 'yyyymmdd');
-
-insert into alram_early_funding values(40, 303, 21, 'Y');
-insert into alram_early_funding values(41, 99, 21, 'Y');
-insert into alram_early_funding values(43, 303, 2, 'Y');
-
-select * from message;
-
-insert into funding values(seq_funding_no.nextval, '날짜테스트용', 'C1', 0, 60000, null, 21, 0, 0, '날짜내용',null, '2021-06-30', '2021-07-30', default, 010, 'Y');
-delete funding
-where funding_no = 302;
-
-commit;
------------------------

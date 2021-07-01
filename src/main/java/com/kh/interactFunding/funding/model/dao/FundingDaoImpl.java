@@ -327,8 +327,8 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectOne("funding.likeCount", map);
 	}
 	@Override
-	public int likeStatusCheck(int memberNo) {
-		return session.selectOne("funding.likeStatusCheck", memberNo);
+	public int likeStatusCheck(Map<String, Integer> map) {
+		return session.selectOne("funding.likeStatusCheck", map);
 	}
 	@Override
 	public int alramStatusCheck(int memberNo) {
