@@ -45,7 +45,7 @@ $(document).ready(function() {
 .slide-title{
     position: absolute;
     z-index: 1;
-    bottom: 15px;
+    bottom: 60px;
     left: 160px;
     text-decoration: none;
     color: #ffffff;

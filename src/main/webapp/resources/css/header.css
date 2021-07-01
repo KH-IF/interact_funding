@@ -103,44 +103,41 @@ a:active {
 	text-align:center;
 	font-size:16px !important;
 }
-
+/*기원 css 수정하였습니다.*/
 #btn_login{
-	position:absolute;
-	width:80px;
-	height:35px;
-	right:280px;
-	top:12px;
-	border:none;
-	border:1px solid blue;
-	font-weight:bold;
-	text-align:center !important;
-	font-size:16px !important;
+	position: absolute;
+    width: 90px;
+    right: 280px;
+    top: 9px;
+    color: #60656a;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center !important;
+    border: none;
 }
-#btn_login:hover{
-	color:white;
+/*기원 css 수정하였습니다.*/
+#btn_login:hover {
+	    color: #00a2a2;
+    background: none;
+    box-shadow: none;
 }
-/*버튼 예제*/
-/* .btn-outline-primary{
-	background-color: transparent;
-	color: #333;
-}
-.btn-outline-primary:hover{
-	background-color: none;
-	border-color: none;
-} */
+/*기원 css 수정하였습니다.*/
 #btn_enroll{
-	position:absolute;
-	width:90px;
-	height:35px;
-	right:185px;
-	top:12px;
-	border:1px solid blue;
-	font-weight:bold;
-	text-align:center !important;
-	font-size:16px !important;
+	position: absolute;
+    width: 90px;
+    right: 200px;
+    top: 9px;
+    color: #60656a;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center !important;
+    border: none;
 }
+/*기원 css 수정하였습니다.*/
 #btn_enroll:hover{
-	color:white;
+	    color: #00a2a2;
+    background: none;
+    box-shadow: none;
 }
 #project_open{
 	position:absolute;

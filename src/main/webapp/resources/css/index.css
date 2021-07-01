@@ -488,5 +488,23 @@
     font-weight: 500;
     font-size: 20px;
 }
-
 /*이미지 배너 end*/
+.slide-title{
+       position: absolute;
+    z-index: 1;
+    bottom: 15px;
+    left: 160px;
+    text-decoration: none;
+    color: #ffffff;
+    overflow: hidden;
+}
+.slide-title span{
+   	  color: white;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    -webkit-line-clamp: 3;
+    width: 570px;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
