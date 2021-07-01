@@ -21,5 +21,13 @@ public interface AdminDao {
 
 	public int memberDel(int memberNo);
 
+	public List<Member> selectBlackList(Map<String, Object> map);
+
+	public int selectBlackListTotalContents();
+
+	public int insertBlackList(Member member);
+
+	public int deleteBlackList(String email);
+
 
 }
