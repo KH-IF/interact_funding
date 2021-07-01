@@ -113,6 +113,12 @@ public class MemberDaoImpl implements MemberDao {
 		return session.insert("member.insertMemberKakao",member);
 	}
 	
+	@Override
+	public int selectOneBlackList(Member member) {
+		return session.selectOne("member.selectOneBlackList",member);
+	}
+	
+	
 
 	// 김경태
 

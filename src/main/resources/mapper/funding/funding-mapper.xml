@@ -505,7 +505,17 @@
    		insert into funding_mylist
    		values(#{memberNo}, #{json})
    	</insert>
-   
+   <select id="indexearlylist" resultMap="fundingVoMap">
+	select rownum, f.*
+		from (
+		select funding.*
+		from funding
+		where <![CDATA[ start_date > sysdate]]>
+		and status ='Y'
+		order by reg_date desc
+		) f
+		where rownum between 1 and 6   
+   </select>
     
 	<!-- 이승우 -->
 	<!-- searchKeyword searchSelect1 searchSelect2 category -->
