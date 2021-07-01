@@ -19,6 +19,7 @@
 		url:"${pageContext.request.contextPath}/funding/likeStatusCheck",
 		data: {
 			memberNo : '${loginMember.memberNo}',
+			fundingNo : '${funding.fundingNo}',
 		},
 		success(data){
 			console.log(data)
@@ -125,7 +126,7 @@
                     <!--좋아요숫자  -->
                     <span id="funding_detail_like_count">${funding.likeCount}</span></button>
                     <!-- <button type="button" value="1:1 채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary" onclick="maker_chat_function()"><span>1:1 채팅</span></button> -->
-                    <button type="button" value="1:1 채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#chatModal"><span>1:1 채팅</span></button>
+                    <button type="button" value="실시간채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#chatModal"><span>실시간채팅</span></button>
                 </div>
                 
                 <span id="funding_detail_like_count"></span>

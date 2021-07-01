@@ -20,7 +20,6 @@ public class Schedule {
 	@Autowired
 	private FundingService fundingService;
 	
-	//test는 fixedDelay = 5000
 	@Scheduled(cron = "0 0 0 * * *")
 	public void EarlyFundingStartMessage() {
 		
@@ -41,7 +40,7 @@ public class Schedule {
 			earlyMember.setTitle(funding.getTitle());
 			
 			//메세지 보내기
-			//int result = fundingService.sendAlramMessage(earlyMember);
+			int result = fundingService.sendAlramMessage(earlyMember);
 		}
 	}
 }

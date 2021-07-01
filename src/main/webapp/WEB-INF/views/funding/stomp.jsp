@@ -19,22 +19,26 @@
       </div>
       <div class="modal-body" id="chatBody">
       	<c:if test="${not empty chatList}">
+      	
+      	
       	<c:forEach items="${chatList}" var="chat">
       	<div class="chatContainer">
       		<c:if test="${loginMember.memberNo == chat.fromMemberNo}">
       		<div class='chat me alert alert-warning'>
-      			내용 : ${chat.content}
+      			${chat.content}
       			<br/>
-      			작성일 : <fmt:formatDate value="${chat.regDate}" pattern="yy/MM/dd HH:mm"/> 
+      			<fmt:formatDate value="${chat.regDate}" pattern="yy/MM/dd HH:mm"/> 
       		</div>
       		</c:if>
+      		
+      		
       		<c:if test="${loginMember.memberNo != chat.fromMemberNo}">
       		<div class='chat alert alert-secondary'>
-      		작성자 : ${chat.fromMemberName}
+      			${chat.fromMemberName}
       			<br/>
-      			내용 : ${chat.content}
+      			${chat.content}
       			<br/>
-      			작성일 : <fmt:formatDate value="${chat.regDate}" pattern="yy/MM/dd HH:mm"/> 
+      			<fmt:formatDate value="${chat.regDate}" pattern="yy/MM/dd HH:mm"/> 
       		</div>
       		</c:if>
       		<br />
@@ -64,15 +68,28 @@ stompClient.connect({}, frame => {
 });
 
 var displayMessage = ({body}) => {
+	
 	// 1. json -> js object
 	let obj = JSON.parse(body);
 	console.log(obj);
 	
  	// 2. 내용만 구조분해할당
 	// 3. #content prepend(자식요소로 맨앞에 추가하기)
- 	var div = $("<div class='me alert alert-warning'>");
- 	div.html("내용 : "+obj.content+"</br>방금" );
- 	$("#chatBody").append(div);
+	var divWrapper = $("<div class='chatContainer'>");
+	
+	console.log(obj.fromMemberNo);
+	console.log(${loginMember.memberNo});
+	
+	if(obj.fromMemberNo == ${loginMember.memberNo}){
+ 		var div = $("<div class='chat me alert alert-warning'>");
+	}
+	else {
+		var div = $("<div class='chat alert alert-secondary'>");
+	}
+ 	div.html(obj.content+"</br>방금" );
+ 	
+ 	$(divWrapper).append(div);
+ 	$("#chatBody").append(divWrapper);
 	
 
 };
@@ -111,6 +128,9 @@ $("#chatMessage").keyup(e => e.keyCode == 13 && sendMessage());
 </c:if>
 
 <style>
+
+.modal-content{
+}
 .me {
 	text-align: right;
 	float:right;
