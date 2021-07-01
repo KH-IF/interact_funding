@@ -364,6 +364,16 @@ public class FundingServiceImpl implements FundingService{
 	public int insertMyListJson(Map<String, Object> param) {
 		return fundingDao.insertMyListJson(param);
 	}
+	
+	
+	@Override
+	public List<Funding> indexearlyList() {
+		List<Funding>indexearlyList=fundingDao.indexearlylist();
+		for (Funding funding : indexearlyList) {
+			funding.setAttachment(fundingDao.selectOneAttach(funding.getFundingNo()));
+		}
+		return indexearlyList;
+	}
 	//이승우
 	@Override
 	public List<Funding> fundingList(Map<String, Object> map) {

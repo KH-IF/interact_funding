@@ -61,10 +61,13 @@ public class HomeController {
 			List<Funding> likelist = fundingService.indexlikelist();
 			//펀딩 실시간 랭킹 조회순 받아오는 객체 입니다.
 			List<Funding>Rankinglist=fundingService.indexRankingviewlist();
+			//오픈예정 리스트 받아오는 객체입니다.
+			List<Funding> earlylist = fundingService.indexearlyList();
 			//카테고리 이름 설정
 			model.addAttribute("list", list);
 			model.addAttribute("likelist", likelist);
 			model.addAttribute("Rankinglist",Rankinglist);
+			model.addAttribute("earlylist",earlylist);
 		} catch (Exception e) {
 			log.error("메인페이지 조회가 안됩니다", e);
 			throw e;

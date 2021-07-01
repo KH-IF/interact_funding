@@ -75,6 +75,7 @@ public interface FundingService {
 	List<Funding> indexlikelist();
 	List<Funding> indexfundingRefresh();
 	List<Funding> indexRankingviewlist();
+	List<Funding> indexearlyList();
 	String selectMyListJson(int memberNo);
 	int deleteMyListJson(Map<String, Object> param);
 	int insertMyListJson(Map<String, Object> param);
