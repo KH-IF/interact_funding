@@ -85,7 +85,7 @@ create table authority(
     member_no number not null,
     authority varchar2(20) not null,
     constraint pk_authority primary key (member_no, authority),
-    constraint fk_authority_member_no foreign key(member_no) references member(member_no)
+    constraint fk_authority_member_no foreign key(member_no) references member(member_no) on delete cascade
 );
 
 --멤버권한 트리거
@@ -549,6 +549,8 @@ create sequence seq_funding_chat_no;
 --김윤수 테스트영역
 --IF20210708
 
+update member set member_no = 1 where email='admin@naver.com';
+select * from blacklist;
 
 --김경태 테스트영역
 

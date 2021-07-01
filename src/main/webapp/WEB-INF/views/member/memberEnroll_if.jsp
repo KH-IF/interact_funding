@@ -34,11 +34,11 @@
 			</div>
 			<br />
 			<div style="position: relative;">
-			<input type="password" class="readonly" name="password" onchange=color(this) placeholder="비밀번호를 입력해주세요" readonly/>
+			<input id="password1" type="password" class="readonly" name="password" onchange=color(this) placeholder="비밀번호를 입력해주세요" readonly/>
 			<ion-icon name="lock-closed-outline" class="lock-closed-outline-password"></ion-icon>
 			</div>
 			<div style="position: relative;">
-			<input type="password" class="readonly" onchange=color(this) placeholder="비밀번호를 다시 한번 입력해주세요" readonly/>
+			<input id="password2" type="password" class="readonly" onchange=color(this) placeholder="비밀번호를 다시 한번 입력해주세요" readonly/>
 			<ion-icon name="lock-closed-outline" class="lock-closed-outline-password"></ion-icon>
 			</div>
 			<p id="msg2">영문, 숫자, 특수문자 (!@#$%^&*+=-)를 조합한 8자 이상</p>
@@ -294,8 +294,8 @@
 
 			//비밀번호 유효성 검사
 			//!@#$%^&*+=- 특수문자 1개이상 영문1개이상 숫자1개이상 8글자이상
-			var password = $("input[name=password]").val();
-			var password2 = $("input[name=password]").next().val();
+			var password = $("#password1").val();
+			var password2 = $("#password2").val();
 			if((/[!@#$%^&*+=-]/.test(password) && /[0-9]/.test(password) && /[a-zA-Z]/.test(password) && /.{8,}/.test(password))==false){
 				swal("부적절한 비밀번호","영문, 숫자, 특수문자 (!@#$%^&*+=-)를 조합한 8자 이상","error");
 				return false;
