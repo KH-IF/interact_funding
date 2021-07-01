@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.interactFunding.admin.model.service.AdminService;
 import com.kh.interactFunding.common.util.PageBarUtils;
+import com.kh.interactFunding.member.model.service.MemberService;
 import com.kh.interactFunding.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,9 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private MemberService memberService;
 
 	// 김윤수
 
@@ -145,7 +149,14 @@ public class AdminController {
 	// 회원 추방할때
 	@PostMapping("memberDel")
 	public String memberDel(@RequestParam int memberNo, HttpServletRequest request, HttpServletResponse response,@SessionAttribute Member loginMember) {
-		int result = adminService.memberDel(memberNo);
+		
+		//회원 단순 추방 - > 블랙리스트 사용함으로써 더이상 사용하지 않음
+//		int result = adminService.memberDel(memberNo);
+		
+		Member member = memberService.selectOneMemberUseNo(memberNo);
+		int result = adminService.insertBlackList(member);
+		
+		
 		// 본인을 추방할경우.
 		if(memberNo==loginMember.getMemberNo()) {
 			// loginMember == null; --세션
@@ -187,6 +198,14 @@ public class AdminController {
 			log.debug("블랙리스트 조회 오류");
 			throw e;
 		}
+	}
+	
+	@PostMapping("blackListDel")
+	public String blackListDel(@RequestParam String email, HttpServletRequest request, HttpServletResponse response,@SessionAttribute Member loginMember) {
+		
+		int result = adminService.deleteBlackList(email);
+		
+		return "redirect:/admin/blackList";
 	}
 	// 천호현
 

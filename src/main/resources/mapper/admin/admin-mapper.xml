@@ -84,6 +84,11 @@
 		where member_no = #{memberNo}
 	</delete>
 	
+	<insert id="insertBlackList">
+		insert into blackList
+		values(seq_blackList_no.nextval, #{email})
+	</insert>
+	
 	<select id="selectBlackList" resultMap="memberMap">
 		select *
 		from blackList
@@ -94,4 +99,9 @@
 		select count(*)
 		from blackList
 	</select>
+	<delete id="deleteBlackList">
+		delete from blackList
+		where email = #{email}
+	</delete>
+	
 </mapper>

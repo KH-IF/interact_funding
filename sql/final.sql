@@ -490,7 +490,7 @@ create table blackList(
     no number,
     email varchar2(100)
 );
-create sequence seq_blackList;
+create sequence seq_blackList_no;
 
 --블랙리스트 테이블에 추가(insert)시 자동으로 member테이블에서는 제외 할수있도록
 create or replace trigger trig_blackList
@@ -591,12 +591,14 @@ delete from funding_mylist where member_no = 22; --오류시 임시 사용하기
 commit;
 --블랙리스트
 select * from blackList;
+select * from member;
 
 --아이디 
 select*from member;
 select*from member where member_no = 61;
 select*from member where member_no = 22;
-
+insert into member values(seq_member_no.nextval,'example1@example.com', '1234', '사용자', 'IF', '1', 0, sysdate, '01000000000');
+commit;
 
 --천호현 테스트영역
 select *

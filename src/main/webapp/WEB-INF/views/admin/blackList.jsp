@@ -26,17 +26,22 @@
             		</tr>
             	</c:if>
             	<c:if test="${not empty list}">
-            		<c:forEach items="${list}" var="blackList">
+            		<c:forEach items="${list}" var="blackList" varStatus="status">
 		                <tr>
-		                    <td></td>
+		                    <td>${status.count}</td>
 		                    <td>${blackList.email}</td>
-		                    <td><input type="button" value="해제"></td>
+		                    <td><input type="button" class="delBlackMember" value="해제" data-email="${blackList.email}" onclick="delBlackMember(this)"></td>
 		                </tr>
 	                </c:forEach>
 	        	</c:if>
             </tbody>
         </table>
     </div>
+    <form:form id="blackListDelete" method="post" action="${pageContext.request.contextPath}/admin/blackListDel">
+    	<input type="hidden" name="email"/>
+    </form:form>
+    
+    <!-- 페이지바 -->
     <c:if test="${totalContents <= map.limit}">
        	<div id="nonePage"></div>
     </c:if>
@@ -45,5 +50,18 @@
         	${pageBar}
         </div>
     </c:if>
+    
+<script>
+	//추방해제
+	function delBlackMember(btn){
+		var email = $(btn).data("email");
+		if(!confirm(email+"을 블랙리스트에서 해제 하시겠습니까?")){
+			return;
+		}
+		var $form = $("#blackListDelete");
+		$form.find("[type=hidden]").val(email);
+		$form.submit();
+	}
+</script>
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>

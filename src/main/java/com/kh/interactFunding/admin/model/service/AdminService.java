@@ -23,4 +23,8 @@ public interface AdminService {
 
 	public int selectBlackListTotalContents();
 
+	public int insertBlackList(Member member);
+
+	public int deleteBlackList(String email);
+
 }
