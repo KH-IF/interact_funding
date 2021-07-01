@@ -44,6 +44,8 @@ public interface MemberDao {
 	Member selectOneMemberKakao(Member m);
 	
 	int inserMemberKakao(Member member);
+	
+	int selectOneBlackList(Member member);
 	//김윤수
 	
 	//김경태

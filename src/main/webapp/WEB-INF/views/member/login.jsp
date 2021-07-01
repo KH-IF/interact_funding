@@ -135,7 +135,7 @@
 
 	function loginWithKakao() {
 	    Kakao.Auth.authorize({
-	      redirectUri: 'http://localhost:9090/interactFunding/member/auth/kakao'
+	      redirectUri: 'http://interact-funding.kro.kr/member/auth/kakao'
 	    });
 	}
 	//카카오 로그인 테스트 end

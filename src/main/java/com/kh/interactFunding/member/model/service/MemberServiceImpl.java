@@ -110,6 +110,12 @@ public class MemberServiceImpl implements MemberService {
 	public int insertMemberKakao(Member member) {
 		return memberDao.inserMemberKakao(member);
 	}
+	
+	@Override
+	public int selectOneBlackList(Member member) {
+		return memberDao.selectOneBlackList(member);
+	}
+	
 	// 김경태
 
 
