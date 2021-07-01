@@ -43,7 +43,7 @@ $(document).ready(function() {
 </script> 
 <style>
 .slide-title{
-       position: absolute;
+    position: absolute;
     z-index: 1;
     bottom: 15px;
     left: 160px;
@@ -52,7 +52,7 @@ $(document).ready(function() {
     overflow: hidden;
 }
 .slide-title span{
-   	  color: white;
+   	color: white;
     font-size: 32px;
     font-weight: 700;
     letter-spacing: .7px;
@@ -60,7 +60,7 @@ $(document).ready(function() {
     width: 570px;
     -webkit-box-orient: vertical;
     display: -webkit-box;
-}
+    text-shadow: 1px 1px 1px black;
 }
 .slide-title p{
    	display: block;
@@ -78,8 +78,7 @@ $(document).ready(function() {
 	opacity: 0;
 }
 .carousel-inner{
-	width: auto;
-	height: 400px;
+	height:464px;
 }
 </style>
 <!--세션 닫는태그  -->
@@ -116,7 +115,7 @@ $(document).ready(function() {
 		   			<div class="carousel-item">
 		   		</c:if>
                    <a href="${pageContext.request.contextPath}/funding/fundingDetail?fundingNo=${banner.fundingNo}">
-                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width:100%; object-fit:cover; height: 400px;">
+                       <img src="${pageContext.request.contextPath}/resources/upload/${banner.attachment.renamedFilename}" style="width:100%; object-fit:cover; height: 464px;">
                     <div class="slide-title">
                      <span>${banner.title}</span>
                      <p></p>

@@ -24,7 +24,7 @@ $(document).ready(function(){
 });
 </script>
 <div id="memberList-container">
-    <h2><span>회원관리</span></h2>
+    <h2><span style="text-decoration:underline; color:#00a2a2;">회원관리</span> | <a href="${pageContext.request.contextPath}/admin/blackList">블랙리스트</a></h2>
     <!-- 검색 -->
     <div id="search-container">
         <select id="search-type">
@@ -54,7 +54,7 @@ $(document).ready(function(){
     </c:if>
 
     <!-- 리스트 -->
-    <div id="mebmerTableArea">
+    <div id="memberTableArea">
         <table id="memberListArea">
             <thead>
                 <tr>
@@ -98,6 +98,9 @@ $(document).ready(function(){
 		<input type="hidden" name="memberNo" />
     </form:form>
     <!-- 페이지바 -->
+    <c:if test="${totalContents <= map.limit}">
+       	<div id="nonePage"></div>
+    </c:if>
     <c:if test="${totalContents > map.limit}">
     	<div id="pageBar">
         	${pageBar}

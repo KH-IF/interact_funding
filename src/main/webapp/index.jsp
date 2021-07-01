@@ -121,8 +121,8 @@ for (Funding funding : likelist) {
 	}
 }
 
- List<Funding> myList=(List) request.getAttribute("myList");
- 	if(myList != null){
+  List<Funding> myList=(List) request.getAttribute("myList");
+  if(myList != null){
 for (Funding funding : myList) {
 	String cCode = funding.getCategoryCode();
 	switch (cCode) {
@@ -155,7 +155,7 @@ for (Funding funding : myList) {
 	break;
 		}
 	}
-} 
+}  
 Cookie cookieview = new Cookie("cookieview", request.getParameter("cookieview"));
 
 cookieview.setMaxAge(60 * 60 * 24 * 7);
