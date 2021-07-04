@@ -554,6 +554,9 @@ end;
 
 
 --김윤수 테스트영역
+select * from funding_participation where member_no=2;
+delete from funding_participation where member_no=2;
+commit;
 --IF20210708
 --김경태 테스트영역
 --김주연 테스트영역
