@@ -254,10 +254,10 @@ p.modelPTage{
 					<button id="checkSMSPhone" class="btn btn-info btn-lg " role="button" style="width: 200px;" onclick="location.href='${pageContext.request.contextPath}/funding/checkSMS';" >제출하기</button>
 					<br />
 				</div>
-				<form id="fundingDeleteFrm" method="POST" action="${pageContext.request.contextPath}/funding/deleteFunding">
+				<form:form id="fundingDeleteFrm" method="POST" action="${pageContext.request.contextPath}/funding/deleteFunding">
 					<input type="hidden" name="fundingNo">
 					<button type="button" id="deleteFunding" class="btn btn-outline-danger btn-lg " style="width: 200px;" onclick="deletefunding()">펀딩 삭제하기</button>
-				<form>
+				</form:form>
 			</c:if>
 			
 			<!-- 최종 제출이 안되었을 때 전화번호는 인증한 상태  -->
@@ -268,10 +268,10 @@ p.modelPTage{
 					<p class="text-muted mt-3">(사용자 전화번호가 변경되고 제출됩니다.)</p>
 					<br />
 				</div>
-					<form id="fundingDeleteFrm" method="POST" action="${pageContext.request.contextPath}/funding/deleteFunding">
+					<form:form id="fundingDeleteFrm" method="POST" action="${pageContext.request.contextPath}/funding/deleteFunding">
 						<input type="hidden" name="fundingNo">
 						<button type="button" id="deleteFunding" class="btn btn-outline-danger btn-lg " style="width: 200px;" onclick="deletefunding()">펀딩 삭제하기</button>
-					<form>
+					</form:form>
 			</c:if>
 				
 			<!-- 최종 제출이 되었을 때 -->
