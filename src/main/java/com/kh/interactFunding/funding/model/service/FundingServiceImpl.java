@@ -159,20 +159,14 @@ public class FundingServiceImpl implements FundingService{
         
         Attachment attach = funding.getAttachment();
         //attachment 등록 
-        if(attach.getNo() != 0) { 
-        	//attachment를 등록했던적이 있는 경우
-             attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
-             int fundingNo = attach.getFundingNo();
-             //새로 메인 이미지를 등록했을 이전의 이미지의 status를 N으로 바꿈
-             result = updateAttachment(fundingNo);
-             //새로 메인 이미지를 등록함.
-             result = insertAttachment(attach);
-        }else {
-        	attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
-        	//등록한 적 없는 경우
-        	result = insertAttachment(attach);        	
-        }
-        
+	     attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
+	     int fundingNo = attach.getFundingNo();
+	     //새로 메인 이미지를 등록했을 이전의 이미지의 status를 N으로 바꿈
+	     result = updateAttachment(fundingNo);
+	     //새로 메인 이미지를 등록함.
+	     result = insertAttachment(attach);
+
+ 
         return result;
     }
 	//saveBasicInfo에서 사용되는 메서드
