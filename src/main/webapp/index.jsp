@@ -189,12 +189,6 @@ for (Funding funding : myList) {
   	break;
   	}
   }
-  
-Cookie cookieview = new Cookie("cookieview", request.getParameter("cookieview"));
-
-cookieview.setMaxAge(60 * 60 * 24 * 7);
-
-response.addCookie(cookieview);
 %>
 
 <script>
