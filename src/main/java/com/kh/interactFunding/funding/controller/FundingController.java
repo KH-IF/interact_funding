@@ -165,7 +165,7 @@ public class FundingController {
 			//log.debug("statusYList={}",statusYList);
 			//log.debug("statusNList={}",statusNList);
 			//log.debug("loginMember={}",loginMember);
-			log.debug("nowList={}",nowList);
+			//log.debug("nowList={}",nowList);
 		
 			model.addAttribute("statusNList", statusNList);
 			model.addAttribute("statusYList", statusYList);
