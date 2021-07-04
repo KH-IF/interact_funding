@@ -680,7 +680,7 @@ yh-c-table {
 /* 펀딩 메인 내용 */
 #funding_main_content {
 	width: 97%;
-	height: 2000px;
+	height: 100%;/* 이승우 수정 */
 }
 
 /* 펀딩 메인 오른쪽 펀딩하기 div*/

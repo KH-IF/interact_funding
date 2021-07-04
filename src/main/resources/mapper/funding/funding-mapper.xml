@@ -538,7 +538,7 @@
 			and d_day <![CDATA[<]]> sysdate
 			</if>
 		</where>
-		<if test="searchSelect2 == 'recent'">
+		<if test="searchSelect2 == 'recent'or searchSelect2 == ''">
 		order by reg_date desc
 		</if>
 		<if test="searchSelect2 == 'recommand'">
@@ -591,6 +591,7 @@
 			status = 'Y'
 			and start_date <![CDATA[>]]> sysdate
 		</where>
+		order by funding_no desc
 	</select>
 	<select id="selectEarlyListTotalContents" resultType="_int">
 		select count(*)

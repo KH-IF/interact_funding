@@ -17,8 +17,20 @@
 	margin:0;
 }
 .earlyProjectCardItemTitleLink{
-	display: block;
-	font-size:20px;
+	/* display: block;
+	font-size:20px; */
+	/* 수정 */
+	display: -webkit-box;
+    font-size: 20px;
+    color: black;
+    width: 300px;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: 600;
+    margin: 0;
 }
 .earlyProjectCardDay{
 	display: block;

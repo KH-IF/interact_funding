@@ -19,7 +19,7 @@ $(document).ready(function() {
        var bottom_of_window = $(window).scrollTop() + $(window).height();
        /* 3 */
        if( bottom_of_window > bottom_of_object/1.5){
-           $(this).animate({'opacity':'1'},500);
+           $(this).animate({'opacity':'1'},300);
        }
        $(window).scroll( function(){
            /* 2 */
@@ -28,7 +28,7 @@ $(document).ready(function() {
                var bottom_of_object = $(this).offset().top;
        		   var bottom_of_window = $(window).scrollTop() + $(window).height();
                if( bottom_of_window > bottom_of_object){
-                   $(this).animate({'opacity':'1'},500);
+                   $(this).animate({'opacity':'1'},300);
                }
            });
        });
