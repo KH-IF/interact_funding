@@ -54,7 +54,7 @@
   </div>
 </div>
 <script>
-var ws = new WebSocket("ws://localhost:9090/interactFunding/stomp");
+var ws = new WebSocket("ws://localhost:80/stomp");
 var stompClient = Stomp.over(ws);
 
 //최초 연결

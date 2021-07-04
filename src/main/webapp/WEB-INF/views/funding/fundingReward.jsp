@@ -26,10 +26,8 @@ $(() => {
 		
 	<div id="funding_purchase_step">
           <ol>
-          <!-- 기원 작업 공통  css입니다 -->
-            <li class="active" style="margin-top: -2.1vw;"><em>리워드<br />선택</em></li>
-         	<hr  style="border-style: dashed; margin-bottom: 1px;"/>
-            <li  style="margin-top: -2.3vw; display: block;"><em>결제 예약</em></li>
+            <li class="active"><em>리워드<br />선택</em></li>
+            <li><em>결제 예약</em></li>
           </ol>
      </div>
 		
@@ -211,20 +209,22 @@ $(() => {
 	padding: 30px 0 42px;
     text-align: center;
     height: 126px;
+    margin-bottom: 17px;
 	}
 	
 	
 	#funding_purchase_step ol {
 	width: 300px;
     margin: 0 auto;
-    margin-top: 2vw;
+    margin-top: 2px;
+    display: flex;
 	}
 	/*margin 추가 하였습니다 기원*/
 	#funding_purchase_step ol li{
 	float: left;
     display: block;
     width: 88px;
-    margin-left: 2vw;
+    margin-right: 33px;
 	}
 	
 	#funding_purchase_step ol li em{

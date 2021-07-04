@@ -560,3 +560,32 @@ end;
 --박요한 테스트영역
 --이승우 테스트영역
 --천호현 테스트영역
+select * from funding where writer_no = 21 ;
+
+select * from point ;
+
+insert point values()
+
+create table point(
+    no number,
+    reg_date date default sysdate,
+    point varchar2(100),
+    member_no number,
+    memo varchar2(200),
+    constraint pk_point_no primary key(no),
+    constraint fk_point_member_no foreign key(member_no) references member(member_no) on delete set null
+);
+
+insert into point
+		values( seq_point_no.nextval, default, 10000000, 162, '포인트 충전');
+        
+        
+select * from point ;
+162
+42
+delete funding where funding_no = 445;
+
+delete from funding_mylist where member_no = 21;
+commit;
+,  26 and 25 and  24 and  23 and 22 and 322 and 354 and 99;
+-------------
