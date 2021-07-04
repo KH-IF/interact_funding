@@ -157,7 +157,7 @@ public class FundingServiceImpl implements FundingService{
         result = fundingDao.saveBasicInfo(funding);
         //log.debug("funding = {}",funding);
         
-        Attachment attach = funding.getAttachment();
+        Attachment attach = new Attachment();
         //attachment 등록 
 	     attach.setFundingNo(funding.getFundingNo()); //이번에 발급받은 funindg pk|  attach no fk세팅
 	     int fundingNo = attach.getFundingNo();
