@@ -597,7 +597,7 @@ public class FundingController {
 	}
 	
 	//펀딩 삭제하기
-	@PostMapping("/deleteFunding.do")
+	@PostMapping("/deleteFunding")
 	public String deleteFunding(
 			@RequestParam(value="fundingNo") int fundingNo,
 			RedirectAttributes redirectAttr){
