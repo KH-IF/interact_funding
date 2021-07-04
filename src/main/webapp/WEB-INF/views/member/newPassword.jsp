@@ -26,8 +26,8 @@
 		#loginContainer{
 			width:400px;
 			height:400px;
-			border:1px solid black;
 			margin: 0 auto;
+			margin-top:150px;
 		}
 		#loginContainer input[type=password]{
 			width:100%;
