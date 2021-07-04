@@ -18,7 +18,7 @@ $(document).ready(function() {
             var bottom_of_window = $(window).scrollTop() + $(window).height();
             /* 3 */
             if( bottom_of_window > bottom_of_object){
-                $(this).animate({'opacity':'1'},500);
+                $(this).animate({'opacity':'1'},300);
             }
    });
     $(window).scroll( function(){
@@ -28,7 +28,7 @@ $(document).ready(function() {
             var bottom_of_window = $(window).scrollTop() + $(window).height();
             /* 3 */
             if( bottom_of_window > bottom_of_object){
-                $(this).animate({'opacity':'1'},500);
+                $(this).animate({'opacity':'1'},300);
             }
         }); 
     });
@@ -174,7 +174,7 @@ $(document).ready(function() {
 	                    <div class="fundingProjectCardListInfo">
 	                        <div class="fundingProjectCardItemTitle">
 	                            <div class="fundingProjectCardItemTitleBox">
-	                                <a class="earlyProjectCardItemTitleLinkArea" href="#">
+	                                <a class="earlyProjectCardItemTitleLinkArea" href="${pageContext.request.contextPath}/funding/fundingDetailEarly?fundingNo=${funding.fundingNo}">
                                         <span class="earlyProjectCardItemTitleLink">${funding.title}</span>
                                         <span class="earlyProjectCardDay-yh">
                                         <!-- 기원 MM/dd(E)오픈예정 수정  -->
