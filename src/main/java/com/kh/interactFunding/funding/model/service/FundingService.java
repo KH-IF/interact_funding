@@ -1,6 +1,5 @@
 package com.kh.interactFunding.funding.model.service;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -102,8 +101,8 @@ public interface FundingService {
 	int updateLike(Map<String, Object> result);
 	int updateAlram(Map<String, Object> result);
 	int likeCount(Map<String, Object> map);
-	int likeStatusCheck(Map<String, Integer> map);
-	int alramStatusCheck(int memberNo);
+	int likeStatusCheck(Map<String, Object> map);
+	int alramStatusCheck(Map<String, Object> param);
 	List<Reward> selectRewardList(int fundingNo);
 	int insertFundingParticipation(FundingParticipation fp);
 	int insertChat(MessageVo msg);

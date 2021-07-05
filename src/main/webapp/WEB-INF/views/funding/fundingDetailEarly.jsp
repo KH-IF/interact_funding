@@ -18,17 +18,20 @@
 	$.ajax({
 		url:"${pageContext.request.contextPath}/funding/alramStatusCheck",
 		data: {
-			memberNo : ${loginMember.memberNo},
+			memberNo : '${loginMember.memberNo}',
+			fundingNo : '${funding.fundingNo}',
 		},
 		success(data){
 			console.log(data)
-			/* 좋아요를 누른상황 */
+			/* 알람을 누른상황 */
 			if(data == 1){
-				$("#icon_alram").html('<i class="fas fa-bell"> 알림신청 완료</i>');
-			
+				$("#icon_alram").html('<i class="fas fa-bell" style="color: white;"> 알림신청 완료</i>');
+				$("#funding_detail_alram_button").css("background-color", "#00b2b2");
 			}else{
-			/* 좋아요 안누른상황 */
-				$("#icon_alram").html('<i class="far fa-bell"> <span class="alramClass"> 알림받기 </span></i> ');
+			/* 알람 안누른상황 */
+				$("#icon_alram").html('<i class="far fa-bell"> </i> <span class="alramClass"> 알림받기</span>');
+				$("#funding_detail_alram_button").css("color", "##00b2b2");
+				$("#funding_detail_alram_button").css("background-color", "#fff");
 			}
 		},
 		error: console.log
@@ -53,7 +56,7 @@
                 <div id="funing_main_right_div_1">
                     <button type="button" id="funding_detail_alram_button" class="btn btn-outline-secondary"  onclick="alram_controll()">
 	                    <!--알람 종  -->
-	                    <span id="icon_alram" ><i class="far fa-bell"></i></span>
+	                    <span id="icon_alram" ><i class="far fa-bell">로딩중</i></span>
                     </button>
                 </div>
                 <div>

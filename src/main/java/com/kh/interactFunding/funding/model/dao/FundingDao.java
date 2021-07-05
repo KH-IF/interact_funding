@@ -1,6 +1,5 @@
 package com.kh.interactFunding.funding.model.dao;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -99,8 +98,8 @@ public interface FundingDao {
 	int updateLike(Map<String, Object> map);
 	int updateAlram(Map<String, Object> map);
 	int likeCount(Map<String, Object> map);
-	int likeStatusCheck(Map<String, Integer> map);
-	int alramStatusCheck(int memberNo);
+	int likeStatusCheck(Map<String, Object> map);
+	int alramStatusCheck(Map<String, Object> param);
 	List<Reward> selectRewardList(int fundingNo);
 	int insertFundingParticipation(FundingParticipation fp);
 	int insertChat(MessageVo msg);

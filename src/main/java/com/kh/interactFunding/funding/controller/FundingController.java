@@ -1358,16 +1358,15 @@ public class FundingController {
 	//좋아요 클릭여부확인
 	@ResponseBody
 	@GetMapping("/likeStatusCheck")
-	public int likeStatusCheck(@RequestParam int memberNo, int fundingNo) {
+	public int likeStatusCheck(@RequestParam(required = false) String memberNo, @RequestParam(required = false) String fundingNo) {
 		try {
-			Map<String, Integer> map = new HashMap<>();
+			Map<String, Object> map = new HashMap<>();
 			map.put("memberNo", memberNo);
 			map.put("fundingNo", fundingNo);
 			
 			int result = fundingService.likeStatusCheck(map);
 			return result;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return 0;
@@ -1424,9 +1423,15 @@ public class FundingController {
 	//알람신청 클릭여부확인
 	@ResponseBody
 	@GetMapping("/alramStatusCheck")
-	public int alramStatusCheck(@RequestParam int memberNo) {
+	public int alramStatusCheck(@RequestParam(required = false) String memberNo, @RequestParam(required = false) String fundingNo) {
 		try {
-			int result = fundingService.alramStatusCheck(memberNo);
+			if(memberNo==null || fundingNo==null) {
+				return 0;
+			}
+			Map<String, Object> param = new HashMap<>();
+			param.put("memberNo", memberNo);
+			param.put("fundingNo", fundingNo);
+			int result = fundingService.alramStatusCheck(param);
 			log.debug("result = {}",result);
 			return result;
 		} catch (Exception e) {
