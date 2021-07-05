@@ -62,3 +62,11 @@ footer {
 a:hover {
 	color:  #00a2a2;
 }
+/*미디어 쿼리 변경하였습니다.*/
+@media (max-width: 1100px) {
+	.IF-footer {
+    display: flex;
+    padding-left: 11vw;
+}
+
+}

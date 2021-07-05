@@ -98,6 +98,12 @@ $(document).ready(function() {
     font-weight: 700;
     color: #00b2b2;
 }
+@media (max-width: 1100px) {
+.carousel {
+    position: relative;
+    width: 1300px;
+	}
+}
 </style>
 </section>
 	<div id="demo" class="carousel slide" data-ride="carousel">
