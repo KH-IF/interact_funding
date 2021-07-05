@@ -154,7 +154,7 @@
     /* 펀딩 메인 내용 */
     #funding_main_content{
     width: 97%;
-    height: 2000px;
+    height: 100%;
     margin-top: 50px;
     }
 
