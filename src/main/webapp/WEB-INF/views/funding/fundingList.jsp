@@ -80,6 +80,14 @@ $(document).ready(function() {
 .carousel-inner{
 	height:464px;
 }
+/*미디어 쿼리 추가*/
+@media (max-width: 1100px) {
+.carousel {
+    position: relative;
+    width: 1300px;
+	}
+}
+
 </style>
 <!--세션 닫는태그  -->
 </section>
