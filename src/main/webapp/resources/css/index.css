@@ -508,3 +508,10 @@
     -webkit-box-orient: vertical;
     display: -webkit-box;
 }
+
+@media (max-width: 1100px) {
+.carousel {
+    position: relative;
+    width: 1300px;
+	}
+}

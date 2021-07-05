@@ -877,3 +877,15 @@ yh-c-table {
     height: 36px;
 	
 }
+
+@media (max-width: 1100px) {
+#funding_top_title_wrapper_wrapper {
+        height: 205px;
+    overflow: hidden;
+    width: 1300px;
+	}
+	#funding_tap_wrapper {
+    padding-top: 10px;
+    padding-left: 19vw;
+	}
+}

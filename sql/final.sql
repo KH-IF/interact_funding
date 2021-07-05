@@ -88,6 +88,13 @@ create table authority(
     constraint fk_authority_member_no foreign key(member_no) references member(member_no) on delete cascade
 );
 
+--최근 본 프로젝트
+create table funding_mylist(
+    member_no number,
+    my_list clob,
+    constraint fk_mylist_member_no foreign key(member_no) references member(member_no) on delete cascade
+);
+
 --멤버권한 트리거
 create or replace trigger trig_insert_member
     after
@@ -481,9 +488,10 @@ create sequence seq_funding_chat_no;
 
 --블랙리스트 테이블
 create table blackList(
-    no number,
+    no number primary key,
     email varchar2(100)
 );
+
 create sequence seq_blackList_no;
 
 --블랙리스트 테이블에 추가(insert)시 자동으로 member테이블에서는 제외 할수있도록
