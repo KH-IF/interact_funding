@@ -694,7 +694,7 @@
 	<select id="alramStatusCheck" resultType="_int">
 		select count(*)
 		from alram_early_funding
-		where member_no = #{memberNo} and status = 'Y'
+		where member_no = #{memberNo} and status = 'Y' and funding_no = #{fundingNo}
 	</select>
 	
 	<select id="selectRewardList" resultType="reward">

@@ -1,7 +1,6 @@
 package com.kh.interactFunding.funding.model.dao;
 
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -333,12 +332,12 @@ public class FundingDaoImpl implements FundingDao{
 		return session.selectOne("funding.likeCount", map);
 	}
 	@Override
-	public int likeStatusCheck(Map<String, Integer> map) {
+	public int likeStatusCheck(Map<String, Object> map) {
 		return session.selectOne("funding.likeStatusCheck", map);
 	}
 	@Override
-	public int alramStatusCheck(int memberNo) {
-		return session.selectOne("funding.alramStatusCheck", memberNo);
+	public int alramStatusCheck(Map<String, Object> param) {
+		return session.selectOne("funding.alramStatusCheck", param);
 	}
 	@Override
 	public List<Reward> selectRewardList(int fundingNo) {

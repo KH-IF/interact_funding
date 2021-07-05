@@ -1,6 +1,5 @@
 package com.kh.interactFunding.funding.model.service;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -466,12 +465,12 @@ public class FundingServiceImpl implements FundingService{
 		return fundingDao.likeCount(map);
 	}
 	@Override
-	public int likeStatusCheck(Map<String, Integer> map) {
+	public int likeStatusCheck(Map<String, Object> map) {
 		return fundingDao.likeStatusCheck(map);
 	}
 	@Override
-	public int alramStatusCheck(int memberNo) {
-		return fundingDao.alramStatusCheck(memberNo);
+	public int alramStatusCheck(Map<String, Object> param) {
+		return fundingDao.alramStatusCheck(param);
 	}
 	@Override
 	public List<Reward> selectRewardList(int fundingNo) {
