@@ -43,7 +43,6 @@
  				<li><a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/image/iflogo3.png"alt="logo3" style="height: 30px; margin-top: -6px; "/></a></li>
 				<li><a class="${ URL eq  '/WEB-INF/views/funding/fundingList.jsp' ? 'current' : ''}" href="${pageContext.request.contextPath}/funding/fundingList">펀딩하기</a></li>
 				<li><a class="${ URL eq  '/WEB-INF/views/funding/earlyList.jsp' ? 'current' : ''}" href="${pageContext.request.contextPath}/funding/earlyList">오픈예정</a></li>
-				<li><a href="#">공지사항</a></li>
 			</ol>
 		</nav>
 		

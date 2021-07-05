@@ -38,6 +38,7 @@
 	};
 	//창 가운데 띄우기위함
 	function maker_chat_function(){
+		
 	var popupWidth = 200;
 	var popupHeight = 300;
 	var popupX = (document.body.offsetWidth / 2) - (200 / 2);
@@ -125,8 +126,7 @@
                     <span id="icon_heart" style="color:red;"><i class="far fa-heart"></i></span>
                     <!--좋아요숫자  -->
                     <span id="funding_detail_like_count">${funding.likeCount}</span></button>
-                    <!-- <button type="button" value="1:1 채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary" onclick="maker_chat_function()"><span>1:1 채팅</span></button> -->
-                    <button type="button" value="실시간채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#chatModal"><span>실시간채팅</span></button>
+                    <button type="button" value="실시간채팅" id="funding_detail_chat_button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#chatModal" onclick="modalCheckFunction()"><span>실시간채팅</span></button>
                 </div>
                 
                 <span id="funding_detail_like_count"></span>
@@ -174,8 +174,23 @@
         </div>
     
 	<script>
+	
+	function modalCheckFunction(){
+		
+		if(${empty loginMember}){
+    		location.href="${pageContext.request.contextPath}/member/login";
+    		return;
+    	};
+	}
+	
     //좋아요 누를시
 	function like_controll(){
+    	
+		if(${empty loginMember}){
+    		location.href="${pageContext.request.contextPath}/member/login";
+    		return;
+    	};
+    	
 		$("#funding_detail_like_button").attr("onclick","");
 		$.ajax({
 			url: "${pageContext.request.contextPath}/funding/loginMemberClickLike",
