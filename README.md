@@ -42,12 +42,13 @@
 
 ## 7. 사용 언어 및 도구
 
-O/S : Windows 10
-Server : Tomcat 9.0
-Framework/library : Spring, MyBatis, Bootstrap, JQuery,Cos(파일관리),summernote(에디터), java_mail(이메일)
-DBMS : Oracle 11g
-개발 언어 : JAVA, JSP, JavaScript, SQL, HTML5, CSS3
-개발 툴 : STS4, SQL Developer, Visual Studio Code
+   O/S : Windows 10
+   Server : Tomcat 9.0
+   Framework/library : Spring, MyBatis, Bootstrap, CoolSMS , Mail-1.4.7, ojdbc6, summerNote, ImPort, taglibs, spring-webmvc
+   카카오 지도/로컬, Scheduler (자동 알림), 카카오 OAUTH2.0
+   DBMS : Oracle 11g
+   개발 언어 : JAVA, JSP, JavaScript, SQL, HTML5, CSS3
+   개발 툴 : STS4, SQL Developer, Visual Studio Code
 
 ## 8.프로젝트 참여소감
 
