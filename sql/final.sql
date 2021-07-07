@@ -208,7 +208,7 @@ create table funding(
     funding_no number,
     title varchar2(500),
     category_code varchar2(10),
-    now_amount number,--현재금액
+    now_amount number default 0,--현재금액
     goal_amount number,--목표금액
     rate_plan_code varchar2(10),--요금제,
     writer_no number,
@@ -405,8 +405,13 @@ begin
     update funding_reward
     set limit_amount = limit_amount-1
     where reward_no = :new.reward_no;
+    
+    update funding
+    set now_amount = now_amount+:new.point
+    where funding_no = :new.funding_no;
 end;
 /
+
 -- 1, -5000, 10번회원, reward no= 1번
 -- point 트리거도 연달아 작동함 회원 -5000
 
