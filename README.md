@@ -56,6 +56,6 @@
 ## 9.별첨
 
 # Contributors
-[(https://user-images.githubusercontent.com/62824389/124742705-f3c73680-df57-11eb-9553-3bc17b32c6cf.jpg  width="117")]
+![김윤수 팀장](https://user-images.githubusercontent.com/62824389/124742705-f3c73680-df57-11eb-9553-3bc17b32c6cf.jpg width=120) 
 
 
